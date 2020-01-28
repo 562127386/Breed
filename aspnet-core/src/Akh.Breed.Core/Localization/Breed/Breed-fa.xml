@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<localizationDictionary culture="en">
+<localizationDictionary culture="fa">
   <texts>
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
@@ -964,8 +964,6 @@
     <text name="YourPaymentHasBeenCompleted">Your payment has been completed.</text>
     <text name="ExternalPaymentId">External Payment Id</text>
     <text name="CostOfProration">Price difference during the period</text>
-    <text name="Contractor">Contractor is</text>
-    
   </texts>
 </localizationDictionary>
 

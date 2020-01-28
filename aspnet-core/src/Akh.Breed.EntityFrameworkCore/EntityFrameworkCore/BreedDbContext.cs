@@ -11,6 +11,7 @@ using Akh.Breed.MultiTenancy;
 using Akh.Breed.MultiTenancy.Accounting;
 using Akh.Breed.MultiTenancy.Payments;
 using Akh.Breed.Storage;
+using Akh.Breed.Contractors;
 
 namespace Akh.Breed.EntityFrameworkCore
 {
@@ -33,6 +34,8 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<PersistedGrantEntity> PersistedGrants { get; set; }
 
         public virtual DbSet<SubscriptionPaymentExtensionData> SubscriptionPaymentExtensionDatas { get; set; }
+
+        public virtual DbSet<Contractor> Contractors { get; set; }
 
         public BreedDbContext(DbContextOptions<BreedDbContext> options)
             : base(options)
