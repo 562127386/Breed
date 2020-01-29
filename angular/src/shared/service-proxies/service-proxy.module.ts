@@ -42,6 +42,7 @@ import { ZeroRefreshTokenService } from '@account/auth/zero-refresh-token.servic
         ApiServiceProxies.PayPalPaymentServiceProxy,
         ApiServiceProxies.StripePaymentServiceProxy,
         ApiServiceProxies.DashboardCustomizationServiceProxy,
+        ApiServiceProxies.ContractorServiceProxy,
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }
     ]

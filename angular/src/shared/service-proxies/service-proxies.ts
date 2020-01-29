@@ -1687,6 +1687,69 @@ export class CommonLookupServiceProxy {
 }
 
 @Injectable()
+export class ContractorServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getContractors(): Observable<ListResultDtoOfContractorListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Contractor/GetContractors";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetContractors(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetContractors(<any>response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfContractorListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfContractorListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetContractors(response: HttpResponseBase): Observable<ListResultDtoOfContractorListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ListResultDtoOfContractorListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ListResultDtoOfContractorListDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class DashboardCustomizationServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -12787,6 +12850,174 @@ export class GetDefaultEditionNameOutput implements IGetDefaultEditionNameOutput
 
 export interface IGetDefaultEditionNameOutput {
     name: string | undefined;
+}
+
+export enum ContractorFirmType {
+    None = 1,
+    AgricultureFirm = 2,
+    CentralFirm = 3,
+    CooperativeFirm = 4,
+    PrivateFirm = 5,
+    ConsultingFirm = 6,
+    OtherFirm = 7,
+    PublicFirm = 8,
+    UnionFirm = 9,
+}
+
+export class ContractorListDto implements IContractorListDto {
+    institution!: string | undefined;
+    subInstitution!: string | undefined;
+    address!: string | undefined;
+    nationalCode!: string | undefined;
+    birthDate!: moment.Moment;
+    name!: string | undefined;
+    family!: string | undefined;
+    phone!: string | undefined;
+    email!: string | undefined;
+    firmType!: ContractorFirmType;
+    firmName!: string | undefined;
+    firmRegNumber!: string | undefined;
+    firmEstablishmentYear!: string | undefined;
+    fullTimeStaffDiploma!: number;
+    fullTimeStaffAssociateDegree!: number;
+    fullTimeStaffBachelorAndUpper!: number;
+    partialTimeStaffDiploma!: number;
+    partialTimeStaffAssociateDegree!: number;
+    partialTimeStaffBachelorAndUpper!: number;
+    id!: number;
+
+    constructor(data?: IContractorListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.institution = data["institution"];
+            this.subInstitution = data["subInstitution"];
+            this.address = data["address"];
+            this.nationalCode = data["nationalCode"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.name = data["name"];
+            this.family = data["family"];
+            this.phone = data["phone"];
+            this.email = data["email"];
+            this.firmType = data["firmType"];
+            this.firmName = data["firmName"];
+            this.firmRegNumber = data["firmRegNumber"];
+            this.firmEstablishmentYear = data["firmEstablishmentYear"];
+            this.fullTimeStaffDiploma = data["fullTimeStaffDiploma"];
+            this.fullTimeStaffAssociateDegree = data["fullTimeStaffAssociateDegree"];
+            this.fullTimeStaffBachelorAndUpper = data["fullTimeStaffBachelorAndUpper"];
+            this.partialTimeStaffDiploma = data["partialTimeStaffDiploma"];
+            this.partialTimeStaffAssociateDegree = data["partialTimeStaffAssociateDegree"];
+            this.partialTimeStaffBachelorAndUpper = data["partialTimeStaffBachelorAndUpper"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ContractorListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ContractorListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["institution"] = this.institution;
+        data["subInstitution"] = this.subInstitution;
+        data["address"] = this.address;
+        data["nationalCode"] = this.nationalCode;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["phone"] = this.phone;
+        data["email"] = this.email;
+        data["firmType"] = this.firmType;
+        data["firmName"] = this.firmName;
+        data["firmRegNumber"] = this.firmRegNumber;
+        data["firmEstablishmentYear"] = this.firmEstablishmentYear;
+        data["fullTimeStaffDiploma"] = this.fullTimeStaffDiploma;
+        data["fullTimeStaffAssociateDegree"] = this.fullTimeStaffAssociateDegree;
+        data["fullTimeStaffBachelorAndUpper"] = this.fullTimeStaffBachelorAndUpper;
+        data["partialTimeStaffDiploma"] = this.partialTimeStaffDiploma;
+        data["partialTimeStaffAssociateDegree"] = this.partialTimeStaffAssociateDegree;
+        data["partialTimeStaffBachelorAndUpper"] = this.partialTimeStaffBachelorAndUpper;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IContractorListDto {
+    institution: string | undefined;
+    subInstitution: string | undefined;
+    address: string | undefined;
+    nationalCode: string | undefined;
+    birthDate: moment.Moment;
+    name: string | undefined;
+    family: string | undefined;
+    phone: string | undefined;
+    email: string | undefined;
+    firmType: ContractorFirmType;
+    firmName: string | undefined;
+    firmRegNumber: string | undefined;
+    firmEstablishmentYear: string | undefined;
+    fullTimeStaffDiploma: number;
+    fullTimeStaffAssociateDegree: number;
+    fullTimeStaffBachelorAndUpper: number;
+    partialTimeStaffDiploma: number;
+    partialTimeStaffAssociateDegree: number;
+    partialTimeStaffBachelorAndUpper: number;
+    id: number;
+}
+
+export class ListResultDtoOfContractorListDto implements IListResultDtoOfContractorListDto {
+    items!: ContractorListDto[] | undefined;
+
+    constructor(data?: IListResultDtoOfContractorListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(ContractorListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfContractorListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ListResultDtoOfContractorListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfContractorListDto {
+    items: ContractorListDto[] | undefined;
 }
 
 export class Widget implements IWidget {

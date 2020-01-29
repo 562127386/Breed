@@ -20,6 +20,8 @@ using Akh.Breed.Authorization.Users.Importing.Dto;
 using Akh.Breed.Authorization.Users.Profile.Dto;
 using Akh.Breed.Chat;
 using Akh.Breed.Chat.Dto;
+using Akh.Breed.Contractors;
+using Akh.Breed.Contractors.Dto;
 using Akh.Breed.Editions;
 using Akh.Breed.Editions.Dto;
 using Akh.Breed.Friendships;
@@ -133,6 +135,9 @@ namespace Akh.Breed
             configuration.CreateMap<OrganizationUnit, OrganizationUnitDto>();
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
+            
+            //Contrator
+            configuration.CreateMap<Contractor, ContractorListDto>();
         }
     }
 }

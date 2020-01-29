@@ -12,7 +12,15 @@
         <div class="kt-container kt-grid__item kt-grid__item--fluid">
             <div class="kt-portlet kt-portlet--mobile">
                 <div class="kt-portlet__body  kt-portlet__body--fit">
-                    <p>PHONE BOOK CONTENT COMES HERE!</p>
+                    <h3>{{"Contractors" | localize}}</h3>
+                    <div *ngFor="let contractor of contractors">
+                        <div class="row kt-row--no-padding align-items-center">
+                            <div class="col">
+                                <h4>{{contractor.name + ' ' + contractor.family}}</h4>
+                                <span>{{person.email}}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
