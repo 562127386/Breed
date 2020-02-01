@@ -79,7 +79,7 @@ function initializeLocalForage() {
         driver: localForage.LOCALSTORAGE,
         name: 'Breed',
         version: 1.0,
-        storeName: 'abpzerotemplate_local_storage',
+        storeName: 'Breed_local_storage',
         description: 'Cached data for Breed'
     });
 }

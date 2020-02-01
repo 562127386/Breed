@@ -33,28 +33,28 @@
         </div>
         
         <div class="kt-login__actions">
-            <a routerLink="/account/forgot-password" id="forget-password" class="kt-link kt-login__link-forgot">{{"ForgotPassword" | localize}}</a>
+            <!-- <a routerLink="/account/forgot-password" id="forget-password" class="kt-link kt-login__link-forgot">{{"ForgotPassword" | localize}}</a> -->
             <button type="submit" class="btn btn-primary btn-elevate kt-login__btn-primary" [disabled]="!loginForm.form.valid">{{"LogIn" | localize}}</button>
         </div>
     </form>
 
-    <div class="kt-login__divider">
+    <!-- <div class="kt-login__divider">
         <div class="kt-divider">
             <span></span>
             <span>{{"LoginWith" | localize}}</span>
             <span></span>
         </div>
-    </div>
+    </div> -->
 
-    <div class="kt-login__options" *ngIf="(multiTenancySideIsTeanant || !isMultiTenancyEnabled) && loginService.externalLoginProviders.length > 0">
+    <!-- <div class="kt-login__options" *ngIf="(multiTenancySideIsTeanant || !isMultiTenancyEnabled) && loginService.externalLoginProviders.length > 0">
         <a *ngFor="let provider of loginService.externalLoginProviders" class="btn btn-outline-secondary kt-btn btn-sm" (click)="externalLogin(provider)" title="{{provider.name}}">
             <i class="fab fa-{{provider.icon}}"></i>
             {{provider.name}}
         </a>
-    </div>
+    </div> -->
 
 </div>
-<div class="kt-login__account">
+<!-- <div class="kt-login__account">
     <span *ngIf="isSelfRegistrationAllowed">
         <a routerLink="/account/register">{{"CreateAnAccount" | localize}}</a>
         <span> | </span>
@@ -64,4 +64,4 @@
         <span> | </span>
     </span>
     <a routerLink="/account/email-activation" id="email-activation-btn">{{"EmailActivation" | localize}}</a>
-</div>
+</div> -->
