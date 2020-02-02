@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Akh.Breed.Authorization.Roles;
 using Akh.Breed.Authorization.Users;
+using Akh.Breed.BaseInfo;
 using Akh.Breed.Chat;
 using Akh.Breed.Editions;
 using Akh.Breed.Friendships;
@@ -37,6 +38,23 @@ namespace Akh.Breed.EntityFrameworkCore
 
         public virtual DbSet<Contractor> Contractors { get; set; }
 
+        public virtual DbSet<AcademicDegree> AcademicDegrees { get; set; }
+        
+        public virtual DbSet<FirmType> FirmTypes { get; set; }
+        
+        public virtual DbSet<PlaqueState> PlaqueStates { get; set; }
+        
+        public virtual DbSet<ProviderInfo> ProviderInfos { get; set; }
+        
+        public virtual DbSet<SexInfo> SexInfos { get; set; }
+        
+        public virtual DbSet<SpeciesInfo> SpeciesInfos { get; set; }
+        
+        public virtual DbSet<StateInfo> StateInfos { get; set; }
+        
+        public virtual DbSet<CityInfo> CityInfos { get; set; }
+        
+        public virtual DbSet<VillageInfo> VillageInfos { get; set; }
         public BreedDbContext(DbContextOptions<BreedDbContext> options)
             : base(options)
         {

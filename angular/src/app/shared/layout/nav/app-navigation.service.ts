@@ -34,7 +34,19 @@ export class AppNavigationService {
                 new AppMenuItem('Settings', 'Pages.Administration.Tenant.Settings', 'flaticon-settings', '/app/admin/tenantSettings')
             ]),
             new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
-            new AppMenuItem("Contractor", null, "flaticon-book", "/app/main/contractor")
+            new AppMenuItem('Contractor', null, 'flaticon-diagram', '/app/main/contractor'),
+            new AppMenuItem('PlaqueStore', null, 'flaticon2-box', '',[
+                new AppMenuItem('PlaqueStore', null, 'flaticon2-box', ''),
+            ]),
+            new AppMenuItem('BaseInfo', null, 'flaticon-folder-1', '',[
+                new AppMenuItem('SpeciesInfo', null, 'flaticon-interface-6', ''),
+                new AppMenuItem('StateInfo', null, 'flaticon-placeholder-1', ''),
+                new AppMenuItem('CityInfo', null, 'flaticon-placeholder', ''),
+                new AppMenuItem('VillageInfo', null, 'flaticon-placeholder-2', ''),
+                new AppMenuItem('ProviderInfo', null, 'flaticon-truck', ''),
+                new AppMenuItem('AcademicDegree', null, 'flaticon-lock', ''),
+                new AppMenuItem('SexInfo', null, 'flaticon-technology-1', '')
+            ])
         ]);
     }
 

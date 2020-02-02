@@ -44,6 +44,10 @@
     <ProjectReference Include="..\Akh.Breed.Core.Shared\Akh.Breed.Core.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Plaques" />
+  </ItemGroup>
+
 </Project>
 
 
