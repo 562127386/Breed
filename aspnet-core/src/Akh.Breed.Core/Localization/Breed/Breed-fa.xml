@@ -969,6 +969,18 @@
 
     <text name="Contractors">پیمانکاران</text>
     <text name="Contractor">پیمانکار</text>
+    <text name="PlaqueStore">انبار پلاک</text>
+    <text name="BaseInfo">اطلاعات پایه</text>
+    <text name="SpeciesInfo">گونه دام</text>
+    <text name="StateInfo">وضعیت دام</text>
+    <text name="StateInfo">استان</text>
+    <text name="CityInfo">شهر</text>
+    <text name="VillageInfo">دهستان</text>
+    <text name="ProviderInfo">تامین کنندگان</text>
+    <text name="AcademicDegree">تحصیلات</text>
+    <text name="SexInfo">جنسیت دام</text>
+    <text name="FirmType">انواع شرکت</text>
+    
   </texts>
 </localizationDictionary>
 
