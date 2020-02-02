@@ -20,7 +20,7 @@ namespace Akh.Breed.BaseInfo
 
         public virtual ICollection<CityInfo> Cities { get; set; }
         
-        protected StateInfo()
+        public StateInfo()
         {
             CreationTime = Clock.Now;
         }

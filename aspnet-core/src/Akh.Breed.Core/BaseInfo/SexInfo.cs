@@ -18,7 +18,7 @@ namespace Akh.Breed.BaseInfo
 
         public int? TenantId { get; set; }
 
-        protected SexInfo()
+        public SexInfo()
         {
             CreationTime = Clock.Now;
         }

@@ -17,7 +17,7 @@ namespace Akh.Breed.BaseInfo
         
         public int? TenantId { get; set; }
         
-        protected FirmType()
+        public FirmType()
         {
             CreationTime = Clock.Now;
         }
