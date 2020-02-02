@@ -18,6 +18,7 @@ namespace Akh.Breed.Migrations.Seed.Host
             new HostRoleAndUserCreator(_context).Create();
             new DefaultSettingsCreator(_context).Create();
             new DefaultContractorCreator(_context).Create();
+            new DefaultBaseInfoCreator(_context).Create();
 
             _context.SaveChanges();
         }
