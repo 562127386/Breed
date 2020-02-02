@@ -973,7 +973,7 @@
     <text name="BaseInfo">اطلاعات پایه</text>
     <text name="SpeciesInfo">گونه دام</text>
     <text name="StateInfo">وضعیت دام</text>
-    <text name="StateInfo">استان</text>
+    <text name="ProvinceInfo">استان</text>
     <text name="CityInfo">شهر</text>
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
