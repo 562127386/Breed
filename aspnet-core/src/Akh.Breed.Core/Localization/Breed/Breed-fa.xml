@@ -982,6 +982,7 @@
     <text name="FirmType">انواع شرکت</text>
     <text name="CreateNewProviderInfo">ایجاد تامین کننده</text>
     <text name="AreYouSureToDeleteTheProviderInfo">آیا از حذف تامین کننده {0} مطمئن هستید؟</text>
+    <text name="ProviderInfoHeaderInfo">مدیریت تامین کنندگان</text>
   </texts>
 </localizationDictionary>
 
