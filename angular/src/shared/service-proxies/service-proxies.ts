@@ -7314,14 +7314,29 @@ export class ProviderInfoServiceProxy {
 
     /**
      * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
-    getProviderInfo(filter: string | undefined): Observable<ListResultDtoOfProviderInfoListDto> {
+    getProviderInfo(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfProviderInfoListDto> {
         let url_ = this.baseUrl + "/api/services/app/ProviderInfo/GetProviderInfo?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7339,14 +7354,14 @@ export class ProviderInfoServiceProxy {
                 try {
                     return this.processGetProviderInfo(<any>response_);
                 } catch (e) {
-                    return <Observable<ListResultDtoOfProviderInfoListDto>><any>_observableThrow(e);
+                    return <Observable<PagedResultDtoOfProviderInfoListDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ListResultDtoOfProviderInfoListDto>><any>_observableThrow(response_);
+                return <Observable<PagedResultDtoOfProviderInfoListDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetProviderInfo(response: HttpResponseBase): Observable<ListResultDtoOfProviderInfoListDto> {
+    protected processGetProviderInfo(response: HttpResponseBase): Observable<PagedResultDtoOfProviderInfoListDto> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -7357,7 +7372,7 @@ export class ProviderInfoServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ListResultDtoOfProviderInfoListDto.fromJS(resultData200);
+            result200 = PagedResultDtoOfProviderInfoListDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -7365,15 +7380,71 @@ export class ProviderInfoServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ListResultDtoOfProviderInfoListDto>(<any>null);
+        return _observableOf<PagedResultDtoOfProviderInfoListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getProviderInfoForEdit(id: number | undefined): Observable<ProviderInfoCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/ProviderInfo/GetProviderInfoForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProviderInfoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProviderInfoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<ProviderInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProviderInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProviderInfoForEdit(response: HttpResponseBase): Observable<ProviderInfoCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ProviderInfoCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProviderInfoCreateOrUpdateInput>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    createProviderInfo(body: ProviderInfoCreateInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/ProviderInfo/CreateProviderInfo";
+    createOrUpdateProviderInfo(body: ProviderInfoCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ProviderInfo/CreateOrUpdateProviderInfo";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -7388,11 +7459,11 @@ export class ProviderInfoServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateProviderInfo(response_);
+            return this.processCreateOrUpdateProviderInfo(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processCreateProviderInfo(<any>response_);
+                    return this.processCreateOrUpdateProviderInfo(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -7401,7 +7472,7 @@ export class ProviderInfoServiceProxy {
         }));
     }
 
-    protected processCreateProviderInfo(response: HttpResponseBase): Observable<void> {
+    protected processCreateOrUpdateProviderInfo(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -18786,10 +18857,11 @@ export interface IProviderInfoListDto {
     id: number;
 }
 
-export class ListResultDtoOfProviderInfoListDto implements IListResultDtoOfProviderInfoListDto {
+export class PagedResultDtoOfProviderInfoListDto implements IPagedResultDtoOfProviderInfoListDto {
+    totalCount!: number;
     items!: ProviderInfoListDto[] | undefined;
 
-    constructor(data?: IListResultDtoOfProviderInfoListDto) {
+    constructor(data?: IPagedResultDtoOfProviderInfoListDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -18800,6 +18872,7 @@ export class ListResultDtoOfProviderInfoListDto implements IListResultDtoOfProvi
 
     init(data?: any) {
         if (data) {
+            this.totalCount = data["totalCount"];
             if (Array.isArray(data["items"])) {
                 this.items = [] as any;
                 for (let item of data["items"])
@@ -18808,15 +18881,16 @@ export class ListResultDtoOfProviderInfoListDto implements IListResultDtoOfProvi
         }
     }
 
-    static fromJS(data: any): ListResultDtoOfProviderInfoListDto {
+    static fromJS(data: any): PagedResultDtoOfProviderInfoListDto {
         data = typeof data === 'object' ? data : {};
-        let result = new ListResultDtoOfProviderInfoListDto();
+        let result = new PagedResultDtoOfProviderInfoListDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -18826,15 +18900,17 @@ export class ListResultDtoOfProviderInfoListDto implements IListResultDtoOfProvi
     }
 }
 
-export interface IListResultDtoOfProviderInfoListDto {
+export interface IPagedResultDtoOfProviderInfoListDto {
+    totalCount: number;
     items: ProviderInfoListDto[] | undefined;
 }
 
-export class ProviderInfoCreateInput implements IProviderInfoCreateInput {
+export class ProviderInfoCreateOrUpdateInput implements IProviderInfoCreateOrUpdateInput {
+    id!: number | undefined;
     name!: string | undefined;
     code!: string | undefined;
 
-    constructor(data?: IProviderInfoCreateInput) {
+    constructor(data?: IProviderInfoCreateOrUpdateInput) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -18845,27 +18921,30 @@ export class ProviderInfoCreateInput implements IProviderInfoCreateInput {
 
     init(data?: any) {
         if (data) {
+            this.id = data["id"];
             this.name = data["name"];
             this.code = data["code"];
         }
     }
 
-    static fromJS(data: any): ProviderInfoCreateInput {
+    static fromJS(data: any): ProviderInfoCreateOrUpdateInput {
         data = typeof data === 'object' ? data : {};
-        let result = new ProviderInfoCreateInput();
+        let result = new ProviderInfoCreateOrUpdateInput();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["name"] = this.name;
         data["code"] = this.code;
         return data; 
     }
 }
 
-export interface IProviderInfoCreateInput {
+export interface IProviderInfoCreateOrUpdateInput {
+    id: number | undefined;
     name: string | undefined;
     code: string | undefined;
 }

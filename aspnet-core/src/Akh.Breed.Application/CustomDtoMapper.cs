@@ -143,7 +143,8 @@ namespace Akh.Breed
             
             //BaseInfo
             configuration.CreateMap<ProviderInfo, ProviderInfoListDto>();
-            configuration.CreateMap<ProviderInfoCreateInput, ProviderInfo>();
+            configuration.CreateMap<ProviderInfoCreateOrUpdateInput, ProviderInfo>();
+            configuration.CreateMap<ProviderInfo, ProviderInfoCreateOrUpdateInput>();
         }
     }
 }

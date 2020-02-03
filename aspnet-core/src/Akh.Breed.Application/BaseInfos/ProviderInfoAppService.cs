@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
+using Abp.Linq.Extensions;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
+using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
 {
@@ -19,30 +22,74 @@ namespace Akh.Breed.BaseInfos
             _providerInfoRepository = providerInfoRepository;
         }
 
-        public ListResultDto<ProviderInfoListDto> GetProviderInfo(GetProviderInfoInput input)
+        public async Task<PagedResultDto<ProviderInfoListDto>> GetProviderInfo(GetProviderInfoInput input)
         {
-            var providerInfo = _providerInfoRepository
-                .GetAll()
-                .WhereIf(
-                    !input.Filter.IsNullOrEmpty(),
-                    p => p.Name.Contains(input.Filter) ||
-                         p.Code.Contains(input.Filter) 
-                )
-                .OrderBy(p => p.Name)
-                .ToList();
-
-            return new ListResultDto<ProviderInfoListDto>(ObjectMapper.Map<List<ProviderInfoListDto>>(providerInfo));
+            var query = GetFilteredQuery(input);
+            var userCount = await query.CountAsync();
+            var providerInfos = await query
+                .OrderBy(input.Sorting)
+                .PageBy(input)
+                .ToListAsync();
+            var providerInfosListDto = ObjectMapper.Map<List<ProviderInfoListDto>>(providerInfos);
+            return new PagedResultDto<ProviderInfoListDto>(
+                userCount,
+                providerInfosListDto
+            );
         }
         
-        public async Task CreateProviderInfo(ProviderInfoCreateInput input)
+        public async Task<ProviderInfoCreateOrUpdateInput> GetProviderInfoForEdit(NullableIdDto<int> input)
         {
-            var providerInfo = ObjectMapper.Map<ProviderInfo>(input);
-            await _providerInfoRepository.InsertAsync(providerInfo);
+            //Getting all available roles
+            var output = new ProviderInfoCreateOrUpdateInput();
+            
+            if (input.Id.HasValue)
+            {
+                //Editing an existing user
+                var providerInfo = await _providerInfoRepository.GetAsync(input.Id.Value);
+                if (providerInfo != null)
+                    ObjectMapper.Map<ProviderInfo,ProviderInfoCreateOrUpdateInput>(providerInfo,output);
+            }
+
+            return output;
+        }
+        
+        public async Task CreateOrUpdateProviderInfo(ProviderInfoCreateOrUpdateInput input)
+        {
+            if (input.Id.HasValue)
+            {
+                await UpdateProviderInfoAsync(input);
+            }
+            else
+            {
+                await CreateProviderInfoAsync(input);
+            }
         }
         
         public async Task DeleteProviderInfo(EntityDto input)
         {
             await _providerInfoRepository.DeleteAsync(input.Id);
+        }
+
+        private async Task UpdateProviderInfoAsync(ProviderInfoCreateOrUpdateInput input)
+        {
+            var providerInfo = ObjectMapper.Map<ProviderInfo>(input);
+            await _providerInfoRepository.UpdateAsync(providerInfo);
+        }
+        
+        private async Task CreateProviderInfoAsync(ProviderInfoCreateOrUpdateInput input)
+        {
+            var providerInfo = ObjectMapper.Map<ProviderInfo>(input);
+            await _providerInfoRepository.InsertAsync(providerInfo);
+        }
+        
+        private IQueryable<ProviderInfo> GetFilteredQuery(GetProviderInfoInput input)
+        {
+            var query = QueryableExtensions.WhereIf(_providerInfoRepository.GetAll(),
+                !input.Filter.IsNullOrWhiteSpace(), u =>
+                    u.Name.Contains(input.Filter) ||
+                    u.Code.Contains(input.Filter));
+
+            return query;
         }
     }
 }
