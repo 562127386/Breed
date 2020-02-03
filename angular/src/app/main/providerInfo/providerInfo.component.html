@@ -1,0 +1,69 @@
+<div [@routerTransition]>
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+        <div class="kt-subheader kt-grid__item">
+            <div class="kt-container ">
+                <div class="kt-subheader__main">
+                    <h3 class="kt-subheader__title">
+                        <span>{{"ProviderInfo" | localize}}</span>
+                    </h3>
+                    <form autocomplete="off">
+                        <div class="kt-form">
+                            <div class="row align-items-center kt-margin-b-10">
+                                <div class="col-xl-12">
+                                    <div class="form-group align-items-center">
+                                        <div class="input-group">
+                                            <input [(ngModel)]="filter" name="filterText" autoFocus class="form-control" [placeholder]="l('SearchWithThreeDot' | localize)" type="text">
+                                            <span class="input-group-btn">
+                                                <button (click)="getProviderInfo()" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="kt-subheader__toolbar">
+                    <div class="kt-subheader__wrapper">
+                        <button class="btn btn-primary" (click)="createProviderInfoModal.show()"><i class="fa fa-plus"></i>
+                            {{"CreateNewProviderInfo" | localize}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-container kt-grid__item kt-grid__item--fluid">
+            <div class="kt-portlet kt-portlet--mobile">
+                <div class="kt-portlet__body  kt-portlet__body--fit">
+                    <h3>{{"ProviderInfo" | localize}}</h3>
+                    <div *ngFor="let providerInfo of providerInfos">
+                        <div class="row kt-row--no-padding align-items-center">
+                            <div class="col">
+                                <h4>{{providerInfo.name + ' ' + providerInfo.Code}}</h4>
+                            </div>
+                            <div class="col kt-align-right">
+                                <button id="deleteProviderInfo" (click)="deleteProviderInfo(providerInfo)" title="{{'Delete' | localize}}" class="btn  btn-outline-hover-danger btn-icon" href="javascript:;">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <p-table [value]="providerInfos">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>{{"Code" | localize}}</th>
+                                <th>{{"Name" | localize}}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-car>
+                            <tr>
+                                <td>{{providerInfos.Code}}</td>
+                                <td>{{providerInfos.Name}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table> -->
+                </div>
+            </div>
+            <createProviderInfoModal #createProviderInfoModal (modalSave)="getProviderInfo()"></createProviderInfoModal>
+        </div>
+    </div>
+</div>

@@ -18,6 +18,8 @@ using Akh.Breed.Authorization.Users;
 using Akh.Breed.Authorization.Users.Dto;
 using Akh.Breed.Authorization.Users.Importing.Dto;
 using Akh.Breed.Authorization.Users.Profile.Dto;
+using Akh.Breed.BaseInfo;
+using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Chat;
 using Akh.Breed.Chat.Dto;
 using Akh.Breed.Contractors;
@@ -138,6 +140,10 @@ namespace Akh.Breed
             
             //Contrator
             configuration.CreateMap<Contractor, ContractorListDto>();
+            
+            //BaseInfo
+            configuration.CreateMap<ProviderInfo, ProviderInfoListDto>();
+            configuration.CreateMap<ProviderInfoCreateInput, ProviderInfo>();
         }
     }
 }
