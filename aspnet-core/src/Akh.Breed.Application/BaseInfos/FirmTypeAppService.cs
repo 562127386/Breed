@@ -13,78 +13,78 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
 {
-    public class SpeciesInfoAppService :  BreedAppServiceBase, ISpeciesInfoAppService
+    public class FirmTypeAppService :  BreedAppServiceBase, IFirmTypeAppService
     {
-        private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
+        private readonly IRepository<FirmType> _firmTypeRepository;
 
-        public SpeciesInfoAppService(IRepository<SpeciesInfo> speciesInfoRepository)
+        public FirmTypeAppService(IRepository<FirmType> firmTypeRepository)
         {
-            _speciesInfoRepository = speciesInfoRepository;
+            _firmTypeRepository = firmTypeRepository;
         }
 
-        public async Task<PagedResultDto<SpeciesInfoListDto>> GetSpeciesInfo(GetSpeciesInfoInput input)
+        public async Task<PagedResultDto<FirmTypeListDto>> GetFirmType(GetFirmTypeInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var speciesInfos = await query
+            var firmTypes = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var speciesInfosListDto = ObjectMapper.Map<List<SpeciesInfoListDto>>(speciesInfos);
-            return new PagedResultDto<SpeciesInfoListDto>(
+            var firmTypesListDto = ObjectMapper.Map<List<FirmTypeListDto>>(firmTypes);
+            return new PagedResultDto<FirmTypeListDto>(
                 userCount,
-                speciesInfosListDto
+                firmTypesListDto
             );
         }
         
-        public async Task<SpeciesInfoCreateOrUpdateInput> GetSpeciesInfoForEdit(NullableIdDto<int> input)
+        public async Task<FirmTypeCreateOrUpdateInput> GetFirmTypeForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
-            var output = new SpeciesInfoCreateOrUpdateInput();
+            var output = new FirmTypeCreateOrUpdateInput();
             
             if (input.Id.HasValue)
             {
                 //Editing an existing user
-                var speciesInfo = await _speciesInfoRepository.GetAsync(input.Id.Value);
-                if (speciesInfo != null)
-                    ObjectMapper.Map<SpeciesInfo,SpeciesInfoCreateOrUpdateInput>(speciesInfo,output);
+                var firmType = await _firmTypeRepository.GetAsync(input.Id.Value);
+                if (firmType != null)
+                    ObjectMapper.Map<FirmType,FirmTypeCreateOrUpdateInput>(firmType,output);
             }
 
             return output;
         }
         
-        public async Task CreateOrUpdateSpeciesInfo(SpeciesInfoCreateOrUpdateInput input)
+        public async Task CreateOrUpdateFirmType(FirmTypeCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateSpeciesInfoAsync(input);
+                await UpdateFirmTypeAsync(input);
             }
             else
             {
-                await CreateSpeciesInfoAsync(input);
+                await CreateFirmTypeAsync(input);
             }
         }
         
-        public async Task DeleteSpeciesInfo(EntityDto input)
+        public async Task DeleteFirmType(EntityDto input)
         {
-            await _speciesInfoRepository.DeleteAsync(input.Id);
+            await _firmTypeRepository.DeleteAsync(input.Id);
         }
 
-        private async Task UpdateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
+        private async Task UpdateFirmTypeAsync(FirmTypeCreateOrUpdateInput input)
         {
-            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
-            await _speciesInfoRepository.UpdateAsync(speciesInfo);
+            var firmType = ObjectMapper.Map<FirmType>(input);
+            await _firmTypeRepository.UpdateAsync(firmType);
         }
         
-        private async Task CreateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
+        private async Task CreateFirmTypeAsync(FirmTypeCreateOrUpdateInput input)
         {
-            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
-            await _speciesInfoRepository.InsertAsync(speciesInfo);
+            var firmType = ObjectMapper.Map<FirmType>(input);
+            await _firmTypeRepository.InsertAsync(firmType);
         }
         
-        private IQueryable<SpeciesInfo> GetFilteredQuery(GetSpeciesInfoInput input)
+        private IQueryable<FirmType> GetFilteredQuery(GetFirmTypeInput input)
         {
-            var query = QueryableExtensions.WhereIf(_speciesInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_firmTypeRepository.GetAll(),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

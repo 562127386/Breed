@@ -1,32 +1,32 @@
 import { Component, Injector, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { ProviderInfoServiceProxy, ProviderInfoListDto } from '@shared/service-proxies/service-proxies';
+import { SexInfoServiceProxy, SexInfoListDto } from '@shared/service-proxies/service-proxies';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
 import { ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { finalize } from 'rxjs/operators';
-import { CreateOrEditProviderInfoModalComponent } from './create-or-edit-providerInfo-modal.component';
+import { CreateOrEditSexInfoModalComponent } from "./CreateOrEditSexInfoModalComponent";
 
 @Component({
-    templateUrl: './providerInfo.component.html',
+    templateUrl: './sexInfo.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: [appModuleAnimation()],
-    styleUrls: ['./providerInfo.component.less']
+    styleUrls: ['./sexInfo.component.less']
 })
-export class ProviderInfoComponent extends AppComponentBase implements AfterViewInit {
+export class SexInfoComponent extends AppComponentBase implements AfterViewInit {
 
-    @ViewChild('createOrEditProviderInfoModal', { static: true }) createOrEditProviderInfoModal: CreateOrEditProviderInfoModalComponent;
+    @ViewChild('createOrEditSexInfoModal', { static: true }) createOrEditSexInfoModal: CreateOrEditSexInfoModalComponent;
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
-    providerInfos: ProviderInfoListDto[] = [];
+    sexInfos: SexInfoListDto[] = [];
     filterText : string = '';
 
     constructor(
         injector: Injector,
-        private _providerInfoService: ProviderInfoServiceProxy,
+        private _sexInfoService: SexInfoServiceProxy,
         private _activatedRoute: ActivatedRoute
     ) {
         super(injector);
@@ -37,7 +37,7 @@ export class ProviderInfoComponent extends AppComponentBase implements AfterView
         this.primengTableHelper.adjustScroll(this.dataTable);
     }
 
-    getProviderInfo(event?: LazyLoadEvent) {
+    getSexInfo(event?: LazyLoadEvent) {
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
 
@@ -46,7 +46,7 @@ export class ProviderInfoComponent extends AppComponentBase implements AfterView
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._providerInfoService.getProviderInfo(
+        this._sexInfoService.getSexInfo(
             this.filterText,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -62,17 +62,17 @@ export class ProviderInfoComponent extends AppComponentBase implements AfterView
         this.paginator.changePage(this.paginator.getPage());
     }
 
-    createProviderInfo(): void {
-        this.createOrEditProviderInfoModal.show();
+    createSexInfo(): void {
+        this.createOrEditSexInfoModal.show();
     }
 
-    deleteProviderInfo(providerInfo: ProviderInfoListDto): void {
+    deleteSexInfo(sexInfo: SexInfoListDto): void {
         this.message.confirm(
-            this.l('AreYouSureToDeleteTheProviderInfo', providerInfo.name),            
+            this.l('AreYouSureToDeleteTheSexInfo', sexInfo.name),            
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {
-                    this._providerInfoService.deleteProviderInfo(providerInfo.id).subscribe(() => {
+                    this._sexInfoService.deleteSexInfo(sexInfo.id).subscribe(() => {
                         this.reloadPage();
                         this.notify.info(this.l('SuccessfullyDeleted'));
                     });

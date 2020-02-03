@@ -984,6 +984,47 @@
     <text name="AreYouSureToDeleteTheProviderInfo">آیا از حذف تامین کننده {0} مطمئن هستید؟</text>
     <text name="ProviderInfoHeaderInfo">مدیریت تامین کنندگان</text>
     <text name="EditNewProviderInfo">ویرایش تامین کننده</text>
+    
+    <text name="CreateNewSexInfo">ایجاد جنسیت دام</text>
+    <text name="AreYouSureToDeleteTheSexInfo">آیا از حذف جنسیت دام {0} مطمئن هستید؟</text>
+    <text name="SexInfoHeaderInfo">مدیریت جنسیت دام</text>
+    <text name="EditNewSexInfo">ویرایش جنسیت دام</text>
+
+    <text name="CreateNewSpeciesInfo">ایجاد گونه دام</text>
+    <text name="AreYouSureToDeleteTheSpeciesInfo">آیا از حذف گونه دام {0} مطمئن هستید؟</text>
+    <text name="SpeciesInfoHeaderInfo">مدیریت گونه دام</text>
+    <text name="EditNewSpeciesInfo">ویرایش گونه دام</text>
+
+    <text name="CreateNewAcademicDegree">ایجاد مقطع تحصیلی</text>
+    <text name="AreYouSureToDeleteTheAcademicDegree">آیا از حذف مقطع تحصیلی {0} مطمئن هستید؟</text>
+    <text name="AcademicDegreeHeaderInfo">مدیریت مقطع تحصیلی</text>
+    <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
+
+    <text name="CreateNewFirmType">ایجاد نوع شرکت</text>
+    <text name="AreYouSureToDeleteTheFirmType">آیا از حذف نوع شرکت {0} مطمئن هستید؟</text>
+    <text name="FirmTypeHeaderInfo">مدیریت انواع شرکت</text>
+    <text name="EditNewFirmType">ویرایش نوع شکت</text>
+
+    <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
+    <text name="AreYouSureToDeleteThePlaqueState">آیا از حذف وضعیت پلاک {0} مطمئن هستید؟</text>
+    <text name="PlaqueStateHeaderInfo">مدیریت وضعیت پلاک</text>
+    <text name="EditNewPlaqueState">ویرایش وضعیت پلاک</text>
+    
+    <text name="CreateNewStateInfo">ایجاد استان</text>
+    <text name="AreYouSureToDeleteTheStateInfo">آیا از حذف استان {0} مطمئن هستید؟</text>
+    <text name="StateInfoHeaderInfo">مدیریت استان</text>
+    <text name="EditNewStateInfo">ویرایش استان</text>
+
+    <text name="CreateNewCityInfo">ایجاد شهر</text>
+    <text name="AreYouSureToDeleteTheCityInfo">آیا از حذف شهر {0} مطمئن هستید؟</text>
+    <text name="CityInfoHeaderInfo">مدیریت شهر</text>
+    <text name="EditNewCityInfo">ویرایش شهر</text>
+
+    <text name="CreateNewVillageInfo">ایجاد شهر</text>
+    <text name="AreYouSureToDeleteTheVillageInfo">آیا از حذف شهر {0} مطمئن هستید؟</text>
+    <text name="VillageInfoHeaderInfo">مدیریت شهر</text>
+    <text name="EditNewVillageInfo">ویرایش شهر</text>
+
   </texts>
 </localizationDictionary>
 

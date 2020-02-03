@@ -4,7 +4,7 @@ using Akh.Breed.Dto;
 
 namespace Akh.Breed.BaseInfos.Dto
 {
-    public class GetSpeciesInfoInput : PagedAndSortedInputDto, IShouldNormalize
+    public class GetFirmTypeInput : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Filter { get; set; }
         
@@ -19,7 +19,7 @@ namespace Akh.Breed.BaseInfos.Dto
         }
     }
     
-    public class SpeciesInfoListDto : EntityDto
+    public class FirmTypeListDto : EntityDto
     {
         public string Name { get; set; }
 

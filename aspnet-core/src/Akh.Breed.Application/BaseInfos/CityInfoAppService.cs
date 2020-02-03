@@ -13,78 +13,78 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
 {
-    public class SpeciesInfoAppService :  BreedAppServiceBase, ISpeciesInfoAppService
+    public class CityInfoAppService :  BreedAppServiceBase, ICityInfoAppService
     {
-        private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
+        private readonly IRepository<CityInfo> _cityInfoRepository;
 
-        public SpeciesInfoAppService(IRepository<SpeciesInfo> speciesInfoRepository)
+        public CityInfoAppService(IRepository<CityInfo> cityInfoRepository)
         {
-            _speciesInfoRepository = speciesInfoRepository;
+            _cityInfoRepository = cityInfoRepository;
         }
 
-        public async Task<PagedResultDto<SpeciesInfoListDto>> GetSpeciesInfo(GetSpeciesInfoInput input)
+        public async Task<PagedResultDto<CityInfoListDto>> GetCityInfo(GetCityInfoInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var speciesInfos = await query
+            var cityInfos = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var speciesInfosListDto = ObjectMapper.Map<List<SpeciesInfoListDto>>(speciesInfos);
-            return new PagedResultDto<SpeciesInfoListDto>(
+            var cityInfosListDto = ObjectMapper.Map<List<CityInfoListDto>>(cityInfos);
+            return new PagedResultDto<CityInfoListDto>(
                 userCount,
-                speciesInfosListDto
+                cityInfosListDto
             );
         }
         
-        public async Task<SpeciesInfoCreateOrUpdateInput> GetSpeciesInfoForEdit(NullableIdDto<int> input)
+        public async Task<CityInfoCreateOrUpdateInput> GetCityInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
-            var output = new SpeciesInfoCreateOrUpdateInput();
+            var output = new CityInfoCreateOrUpdateInput();
             
             if (input.Id.HasValue)
             {
                 //Editing an existing user
-                var speciesInfo = await _speciesInfoRepository.GetAsync(input.Id.Value);
-                if (speciesInfo != null)
-                    ObjectMapper.Map<SpeciesInfo,SpeciesInfoCreateOrUpdateInput>(speciesInfo,output);
+                var cityInfo = await _cityInfoRepository.GetAsync(input.Id.Value);
+                if (cityInfo != null)
+                    ObjectMapper.Map<CityInfo,CityInfoCreateOrUpdateInput>(cityInfo,output);
             }
 
             return output;
         }
         
-        public async Task CreateOrUpdateSpeciesInfo(SpeciesInfoCreateOrUpdateInput input)
+        public async Task CreateOrUpdateCityInfo(CityInfoCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateSpeciesInfoAsync(input);
+                await UpdateCityInfoAsync(input);
             }
             else
             {
-                await CreateSpeciesInfoAsync(input);
+                await CreateCityInfoAsync(input);
             }
         }
         
-        public async Task DeleteSpeciesInfo(EntityDto input)
+        public async Task DeleteCityInfo(EntityDto input)
         {
-            await _speciesInfoRepository.DeleteAsync(input.Id);
+            await _cityInfoRepository.DeleteAsync(input.Id);
         }
 
-        private async Task UpdateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
+        private async Task UpdateCityInfoAsync(CityInfoCreateOrUpdateInput input)
         {
-            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
-            await _speciesInfoRepository.UpdateAsync(speciesInfo);
+            var cityInfo = ObjectMapper.Map<CityInfo>(input);
+            await _cityInfoRepository.UpdateAsync(cityInfo);
         }
         
-        private async Task CreateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
+        private async Task CreateCityInfoAsync(CityInfoCreateOrUpdateInput input)
         {
-            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
-            await _speciesInfoRepository.InsertAsync(speciesInfo);
+            var cityInfo = ObjectMapper.Map<CityInfo>(input);
+            await _cityInfoRepository.InsertAsync(cityInfo);
         }
         
-        private IQueryable<SpeciesInfo> GetFilteredQuery(GetSpeciesInfoInput input)
+        private IQueryable<CityInfo> GetFilteredQuery(GetCityInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_speciesInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_cityInfoRepository.GetAll(),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

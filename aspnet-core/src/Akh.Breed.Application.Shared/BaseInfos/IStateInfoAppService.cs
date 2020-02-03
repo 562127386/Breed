@@ -5,11 +5,11 @@ using Akh.Breed.BaseInfos.Dto;
 
 namespace Akh.Breed.BaseInfos
 {
-    public interface ISpeciesInfoAppService : IApplicationService
+    public interface IStateInfoAppService : IApplicationService
     {
-        Task<PagedResultDto<SpeciesInfoListDto>> GetSpeciesInfo(GetSpeciesInfoInput input);
-        Task<SpeciesInfoCreateOrUpdateInput> GetSpeciesInfoForEdit(NullableIdDto<int> input);
-        Task CreateOrUpdateSpeciesInfo(SpeciesInfoCreateOrUpdateInput input);
-        Task DeleteSpeciesInfo(EntityDto input);
+        Task<PagedResultDto<StateInfoListDto>> GetStateInfo(GetStateInfoInput input);
+        Task<StateInfoCreateOrUpdateInput> GetStateInfoForEdit(NullableIdDto<int> input);
+        Task CreateOrUpdateStateInfo(StateInfoCreateOrUpdateInput input);
+        Task DeleteStateInfo(EntityDto input);
     }
 }

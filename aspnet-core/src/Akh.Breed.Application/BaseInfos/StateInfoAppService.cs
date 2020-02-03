@@ -13,78 +13,78 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
 {
-    public class SpeciesInfoAppService :  BreedAppServiceBase, ISpeciesInfoAppService
+    public class StateInfoAppService :  BreedAppServiceBase, IStateInfoAppService
     {
-        private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
+        private readonly IRepository<StateInfo> _stateInfoRepository;
 
-        public SpeciesInfoAppService(IRepository<SpeciesInfo> speciesInfoRepository)
+        public StateInfoAppService(IRepository<StateInfo> stateInfoRepository)
         {
-            _speciesInfoRepository = speciesInfoRepository;
+            _stateInfoRepository = stateInfoRepository;
         }
 
-        public async Task<PagedResultDto<SpeciesInfoListDto>> GetSpeciesInfo(GetSpeciesInfoInput input)
+        public async Task<PagedResultDto<StateInfoListDto>> GetStateInfo(GetStateInfoInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var speciesInfos = await query
+            var stateInfos = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var speciesInfosListDto = ObjectMapper.Map<List<SpeciesInfoListDto>>(speciesInfos);
-            return new PagedResultDto<SpeciesInfoListDto>(
+            var stateInfosListDto = ObjectMapper.Map<List<StateInfoListDto>>(stateInfos);
+            return new PagedResultDto<StateInfoListDto>(
                 userCount,
-                speciesInfosListDto
+                stateInfosListDto
             );
         }
         
-        public async Task<SpeciesInfoCreateOrUpdateInput> GetSpeciesInfoForEdit(NullableIdDto<int> input)
+        public async Task<StateInfoCreateOrUpdateInput> GetStateInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
-            var output = new SpeciesInfoCreateOrUpdateInput();
+            var output = new StateInfoCreateOrUpdateInput();
             
             if (input.Id.HasValue)
             {
                 //Editing an existing user
-                var speciesInfo = await _speciesInfoRepository.GetAsync(input.Id.Value);
-                if (speciesInfo != null)
-                    ObjectMapper.Map<SpeciesInfo,SpeciesInfoCreateOrUpdateInput>(speciesInfo,output);
+                var stateInfo = await _stateInfoRepository.GetAsync(input.Id.Value);
+                if (stateInfo != null)
+                    ObjectMapper.Map<StateInfo,StateInfoCreateOrUpdateInput>(stateInfo,output);
             }
 
             return output;
         }
         
-        public async Task CreateOrUpdateSpeciesInfo(SpeciesInfoCreateOrUpdateInput input)
+        public async Task CreateOrUpdateStateInfo(StateInfoCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateSpeciesInfoAsync(input);
+                await UpdateStateInfoAsync(input);
             }
             else
             {
-                await CreateSpeciesInfoAsync(input);
+                await CreateStateInfoAsync(input);
             }
         }
         
-        public async Task DeleteSpeciesInfo(EntityDto input)
+        public async Task DeleteStateInfo(EntityDto input)
         {
-            await _speciesInfoRepository.DeleteAsync(input.Id);
+            await _stateInfoRepository.DeleteAsync(input.Id);
         }
 
-        private async Task UpdateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
+        private async Task UpdateStateInfoAsync(StateInfoCreateOrUpdateInput input)
         {
-            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
-            await _speciesInfoRepository.UpdateAsync(speciesInfo);
+            var stateInfo = ObjectMapper.Map<StateInfo>(input);
+            await _stateInfoRepository.UpdateAsync(stateInfo);
         }
         
-        private async Task CreateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
+        private async Task CreateStateInfoAsync(StateInfoCreateOrUpdateInput input)
         {
-            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
-            await _speciesInfoRepository.InsertAsync(speciesInfo);
+            var stateInfo = ObjectMapper.Map<StateInfo>(input);
+            await _stateInfoRepository.InsertAsync(stateInfo);
         }
         
-        private IQueryable<SpeciesInfo> GetFilteredQuery(GetSpeciesInfoInput input)
+        private IQueryable<StateInfo> GetFilteredQuery(GetStateInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_speciesInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_stateInfoRepository.GetAll(),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

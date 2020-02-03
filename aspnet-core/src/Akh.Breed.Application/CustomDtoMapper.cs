@@ -137,15 +137,49 @@ namespace Akh.Breed
             configuration.CreateMap<OrganizationUnit, OrganizationUnitDto>();
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
-            
+
             //Contrator
             configuration.CreateMap<Contractor, ContractorListDto>();
-            
+
             //BaseInfo
             configuration.CreateMap<ProviderInfo, ProviderInfoListDto>();
             configuration.CreateMap<ProviderInfoCreateOrUpdateInput, ProviderInfo>();
             configuration.CreateMap<ProviderInfo, ProviderInfoCreateOrUpdateInput>();
+
+            configuration.CreateMap<AcademicDegree, AcademicDegreeListDto>();
+            configuration.CreateMap<AcademicDegreeCreateOrUpdateInput, AcademicDegree>();
+            configuration.CreateMap<AcademicDegree, AcademicDegreeCreateOrUpdateInput>();
+
+            configuration.CreateMap<FirmType, FirmTypeListDto>();
+            configuration.CreateMap<FirmTypeCreateOrUpdateInput, FirmType>();
+            configuration.CreateMap<FirmType, FirmTypeCreateOrUpdateInput>();
+
+            configuration.CreateMap<PlaqueState, PlaqueStateListDto>();
+            configuration.CreateMap<PlaqueStateCreateOrUpdateInput, PlaqueState>();
+            configuration.CreateMap<PlaqueState, PlaqueStateCreateOrUpdateInput>();
+
+            configuration.CreateMap<SexInfo, SexInfoListDto>();
+            configuration.CreateMap<SexInfoCreateOrUpdateInput, SexInfo>();
+            configuration.CreateMap<SexInfo, SexInfoCreateOrUpdateInput>();
+
+            configuration.CreateMap<SpeciesInfo, SpeciesInfoListDto>();
+            configuration.CreateMap<SpeciesInfoCreateOrUpdateInput, SpeciesInfo>();
+            configuration.CreateMap<SpeciesInfo, SpeciesInfoCreateOrUpdateInput>();
+
+            configuration.CreateMap<StateInfo, StateInfoListDto>();
+            configuration.CreateMap<StateInfoCreateOrUpdateInput, StateInfo>();
+            configuration.CreateMap<StateInfo, StateInfoCreateOrUpdateInput>();
+
+            configuration.CreateMap<CityInfo, CityInfoListDto>();
+            configuration.CreateMap<CityInfoCreateOrUpdateInput, CityInfo>();
+            configuration.CreateMap<CityInfo, CityInfoCreateOrUpdateInput>();
+            
+            configuration.CreateMap<VillageInfo, VillageInfoListDto>();
+            configuration.CreateMap<VillageInfoCreateOrUpdateInput, VillageInfo>();
+            configuration.CreateMap<VillageInfo, VillageInfoCreateOrUpdateInput>();
+            
         }
+
     }
 }
 

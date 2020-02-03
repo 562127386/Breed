@@ -13,78 +13,78 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
 {
-    public class SexInfoAppService :  BreedAppServiceBase, ISexInfoAppService
+    public class SpeciesInfoAppService :  BreedAppServiceBase, ISpeciesInfoAppService
     {
-        private readonly IRepository<SexInfo> _sexInfoRepository;
+        private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
 
-        public SexInfoAppService(IRepository<SexInfo> sexInfoRepository)
+        public SpeciesInfoAppService(IRepository<SpeciesInfo> speciesInfoRepository)
         {
-            _sexInfoRepository = sexInfoRepository;
+            _speciesInfoRepository = speciesInfoRepository;
         }
 
-        public async Task<PagedResultDto<SexInfoListDto>> GetSexInfo(GetSexInfoInput input)
+        public async Task<PagedResultDto<SpeciesInfoListDto>> GetSpeciesInfo(GetSpeciesInfoInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var sexInfos = await query
+            var speciesInfos = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var sexInfosListDto = ObjectMapper.Map<List<SexInfoListDto>>(sexInfos);
-            return new PagedResultDto<SexInfoListDto>(
+            var speciesInfosListDto = ObjectMapper.Map<List<SpeciesInfoListDto>>(speciesInfos);
+            return new PagedResultDto<SpeciesInfoListDto>(
                 userCount,
-                sexInfosListDto
+                speciesInfosListDto
             );
         }
         
-        public async Task<SexInfoCreateOrUpdateInput> GetSexInfoForEdit(NullableIdDto<int> input)
+        public async Task<SpeciesInfoCreateOrUpdateInput> GetSpeciesInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
-            var output = new SexInfoCreateOrUpdateInput();
+            var output = new SpeciesInfoCreateOrUpdateInput();
             
             if (input.Id.HasValue)
             {
                 //Editing an existing user
-                var sexInfo = await _sexInfoRepository.GetAsync(input.Id.Value);
-                if (sexInfo != null)
-                    ObjectMapper.Map<SexInfo,SexInfoCreateOrUpdateInput>(sexInfo,output);
+                var speciesInfo = await _speciesInfoRepository.GetAsync(input.Id.Value);
+                if (speciesInfo != null)
+                    ObjectMapper.Map<SpeciesInfo,SpeciesInfoCreateOrUpdateInput>(speciesInfo,output);
             }
 
             return output;
         }
         
-        public async Task CreateOrUpdateSexInfo(SexInfoCreateOrUpdateInput input)
+        public async Task CreateOrUpdateSpeciesInfo(SpeciesInfoCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateSexInfoAsync(input);
+                await UpdateSpeciesInfoAsync(input);
             }
             else
             {
-                await CreateSexInfoAsync(input);
+                await CreateSpeciesInfoAsync(input);
             }
         }
         
-        public async Task DeleteSexInfo(EntityDto input)
+        public async Task DeleteSpeciesInfo(EntityDto input)
         {
-            await _sexInfoRepository.DeleteAsync(input.Id);
+            await _speciesInfoRepository.DeleteAsync(input.Id);
         }
 
-        private async Task UpdateSexInfoAsync(SexInfoCreateOrUpdateInput input)
+        private async Task UpdateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
         {
-            var sexInfo = ObjectMapper.Map<SexInfo>(input);
-            await _sexInfoRepository.UpdateAsync(sexInfo);
+            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
+            await _speciesInfoRepository.UpdateAsync(speciesInfo);
         }
         
-        private async Task CreateSexInfoAsync(SexInfoCreateOrUpdateInput input)
+        private async Task CreateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
         {
-            var sexInfo = ObjectMapper.Map<SexInfo>(input);
-            await _sexInfoRepository.InsertAsync(sexInfo);
+            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
+            await _speciesInfoRepository.InsertAsync(speciesInfo);
         }
         
-        private IQueryable<SexInfo> GetFilteredQuery(GetSexInfoInput input)
+        private IQueryable<SpeciesInfo> GetFilteredQuery(GetSpeciesInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_sexInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_speciesInfoRepository.GetAll(),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

@@ -13,78 +13,78 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
 {
-    public class StateInfoAppService :  BreedAppServiceBase, IStateInfoAppService
+    public class VillageInfoAppService :  BreedAppServiceBase, IVillageInfoAppService
     {
-        private readonly IRepository<StateInfo> _stateInfoRepository;
+        private readonly IRepository<VillageInfo> _villageInfoRepository;
 
-        public StateInfoAppService(IRepository<StateInfo> stateInfoRepository)
+        public VillageInfoAppService(IRepository<VillageInfo> villageInfoRepository)
         {
-            _stateInfoRepository = stateInfoRepository;
+            _villageInfoRepository = villageInfoRepository;
         }
 
-        public async Task<PagedResultDto<StateInfoListDto>> GetStateInfo(GetStateInfoInput input)
+        public async Task<PagedResultDto<VillageInfoListDto>> GetVillageInfo(GetVillageInfoInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var stateInfos = await query
+            var villageInfos = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var stateInfosListDto = ObjectMapper.Map<List<StateInfoListDto>>(stateInfos);
-            return new PagedResultDto<StateInfoListDto>(
+            var villageInfosListDto = ObjectMapper.Map<List<VillageInfoListDto>>(villageInfos);
+            return new PagedResultDto<VillageInfoListDto>(
                 userCount,
-                stateInfosListDto
+                villageInfosListDto
             );
         }
         
-        public async Task<StateInfoCreateOrUpdateInput> GetStateInfoForEdit(NullableIdDto<int> input)
+        public async Task<VillageInfoCreateOrUpdateInput> GetVillageInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
-            var output = new StateInfoCreateOrUpdateInput();
+            var output = new VillageInfoCreateOrUpdateInput();
             
             if (input.Id.HasValue)
             {
                 //Editing an existing user
-                var stateInfo = await _stateInfoRepository.GetAsync(input.Id.Value);
-                if (stateInfo != null)
-                    ObjectMapper.Map<StateInfo,StateInfoCreateOrUpdateInput>(stateInfo,output);
+                var villageInfo = await _villageInfoRepository.GetAsync(input.Id.Value);
+                if (villageInfo != null)
+                    ObjectMapper.Map<VillageInfo,VillageInfoCreateOrUpdateInput>(villageInfo,output);
             }
 
             return output;
         }
         
-        public async Task CreateOrUpdateStateInfo(StateInfoCreateOrUpdateInput input)
+        public async Task CreateOrUpdateVillageInfo(VillageInfoCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateStateInfoAsync(input);
+                await UpdateVillageInfoAsync(input);
             }
             else
             {
-                await CreateStateInfoAsync(input);
+                await CreateVillageInfoAsync(input);
             }
         }
         
-        public async Task DeleteStateInfo(EntityDto input)
+        public async Task DeleteVillageInfo(EntityDto input)
         {
-            await _stateInfoRepository.DeleteAsync(input.Id);
+            await _villageInfoRepository.DeleteAsync(input.Id);
         }
 
-        private async Task UpdateStateInfoAsync(StateInfoCreateOrUpdateInput input)
+        private async Task UpdateVillageInfoAsync(VillageInfoCreateOrUpdateInput input)
         {
-            var stateInfo = ObjectMapper.Map<StateInfo>(input);
-            await _stateInfoRepository.UpdateAsync(stateInfo);
+            var villageInfo = ObjectMapper.Map<VillageInfo>(input);
+            await _villageInfoRepository.UpdateAsync(villageInfo);
         }
         
-        private async Task CreateStateInfoAsync(StateInfoCreateOrUpdateInput input)
+        private async Task CreateVillageInfoAsync(VillageInfoCreateOrUpdateInput input)
         {
-            var stateInfo = ObjectMapper.Map<StateInfo>(input);
-            await _stateInfoRepository.InsertAsync(stateInfo);
+            var villageInfo = ObjectMapper.Map<VillageInfo>(input);
+            await _villageInfoRepository.InsertAsync(villageInfo);
         }
         
-        private IQueryable<StateInfo> GetFilteredQuery(GetStateInfoInput input)
+        private IQueryable<VillageInfo> GetFilteredQuery(GetVillageInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_stateInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_villageInfoRepository.GetAll(),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

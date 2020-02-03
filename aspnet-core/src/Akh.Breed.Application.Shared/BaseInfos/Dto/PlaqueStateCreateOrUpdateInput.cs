@@ -1,6 +1,6 @@
 ﻿namespace Akh.Breed.BaseInfos.Dto
 {
-    public class AcademicDegreeCreateOrUpdateInput
+    public class PlaqueStateCreateOrUpdateInput
     {
         public int? Id { get; set; }
         

@@ -13,78 +13,78 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
 {
-    public class ProviderInfoAppService :  BreedAppServiceBase, IProviderInfoAppService
+    public class SexInfoAppService :  BreedAppServiceBase, ISexInfoAppService
     {
-        private readonly IRepository<ProviderInfo> _providerInfoRepository;
+        private readonly IRepository<SexInfo> _sexInfoRepository;
 
-        public ProviderInfoAppService(IRepository<ProviderInfo> providerInfoRepository)
+        public SexInfoAppService(IRepository<SexInfo> sexInfoRepository)
         {
-            _providerInfoRepository = providerInfoRepository;
+            _sexInfoRepository = sexInfoRepository;
         }
 
-        public async Task<PagedResultDto<ProviderInfoListDto>> GetProviderInfo(GetProviderInfoInput input)
+        public async Task<PagedResultDto<SexInfoListDto>> GetSexInfo(GetSexInfoInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var providerInfos = await query
+            var sexInfos = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var providerInfosListDto = ObjectMapper.Map<List<ProviderInfoListDto>>(providerInfos);
-            return new PagedResultDto<ProviderInfoListDto>(
+            var sexInfosListDto = ObjectMapper.Map<List<SexInfoListDto>>(sexInfos);
+            return new PagedResultDto<SexInfoListDto>(
                 userCount,
-                providerInfosListDto
+                sexInfosListDto
             );
         }
         
-        public async Task<ProviderInfoCreateOrUpdateInput> GetProviderInfoForEdit(NullableIdDto<int> input)
+        public async Task<SexInfoCreateOrUpdateInput> GetSexInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
-            var output = new ProviderInfoCreateOrUpdateInput();
+            var output = new SexInfoCreateOrUpdateInput();
             
             if (input.Id.HasValue)
             {
                 //Editing an existing user
-                var providerInfo = await _providerInfoRepository.GetAsync(input.Id.Value);
-                if (providerInfo != null)
-                    ObjectMapper.Map<ProviderInfo,ProviderInfoCreateOrUpdateInput>(providerInfo,output);
+                var sexInfo = await _sexInfoRepository.GetAsync(input.Id.Value);
+                if (sexInfo != null)
+                    ObjectMapper.Map<SexInfo,SexInfoCreateOrUpdateInput>(sexInfo,output);
             }
 
             return output;
         }
         
-        public async Task CreateOrUpdateProviderInfo(ProviderInfoCreateOrUpdateInput input)
+        public async Task CreateOrUpdateSexInfo(SexInfoCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateProviderInfoAsync(input);
+                await UpdateSexInfoAsync(input);
             }
             else
             {
-                await CreateProviderInfoAsync(input);
+                await CreateSexInfoAsync(input);
             }
         }
         
-        public async Task DeleteProviderInfo(EntityDto input)
+        public async Task DeleteSexInfo(EntityDto input)
         {
-            await _providerInfoRepository.DeleteAsync(input.Id);
+            await _sexInfoRepository.DeleteAsync(input.Id);
         }
 
-        private async Task UpdateProviderInfoAsync(ProviderInfoCreateOrUpdateInput input)
+        private async Task UpdateSexInfoAsync(SexInfoCreateOrUpdateInput input)
         {
-            var providerInfo = ObjectMapper.Map<ProviderInfo>(input);
-            await _providerInfoRepository.UpdateAsync(providerInfo);
+            var sexInfo = ObjectMapper.Map<SexInfo>(input);
+            await _sexInfoRepository.UpdateAsync(sexInfo);
         }
         
-        private async Task CreateProviderInfoAsync(ProviderInfoCreateOrUpdateInput input)
+        private async Task CreateSexInfoAsync(SexInfoCreateOrUpdateInput input)
         {
-            var providerInfo = ObjectMapper.Map<ProviderInfo>(input);
-            await _providerInfoRepository.InsertAsync(providerInfo);
+            var sexInfo = ObjectMapper.Map<SexInfo>(input);
+            await _sexInfoRepository.InsertAsync(sexInfo);
         }
         
-        private IQueryable<ProviderInfo> GetFilteredQuery(GetProviderInfoInput input)
+        private IQueryable<SexInfo> GetFilteredQuery(GetSexInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_providerInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_sexInfoRepository.GetAll(),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

@@ -1,6 +1,6 @@
 ﻿namespace Akh.Breed.BaseInfos.Dto
 {
-    public class SpeciesInfoCreateOrUpdateInput
+    public class FirmTypeCreateOrUpdateInput
     {
         public int? Id { get; set; }
         

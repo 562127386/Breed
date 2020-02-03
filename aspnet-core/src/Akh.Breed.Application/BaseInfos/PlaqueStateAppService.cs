@@ -13,78 +13,78 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
 {
-    public class SpeciesInfoAppService :  BreedAppServiceBase, ISpeciesInfoAppService
+    public class PlaqueStateAppService :  BreedAppServiceBase, IPlaqueStateAppService
     {
-        private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
+        private readonly IRepository<PlaqueState> _plaqueStateRepository;
 
-        public SpeciesInfoAppService(IRepository<SpeciesInfo> speciesInfoRepository)
+        public PlaqueStateAppService(IRepository<PlaqueState> plaqueStateRepository)
         {
-            _speciesInfoRepository = speciesInfoRepository;
+            _plaqueStateRepository = plaqueStateRepository;
         }
 
-        public async Task<PagedResultDto<SpeciesInfoListDto>> GetSpeciesInfo(GetSpeciesInfoInput input)
+        public async Task<PagedResultDto<PlaqueStateListDto>> GetPlaqueState(GetPlaqueStateInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var speciesInfos = await query
+            var plaqueStates = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var speciesInfosListDto = ObjectMapper.Map<List<SpeciesInfoListDto>>(speciesInfos);
-            return new PagedResultDto<SpeciesInfoListDto>(
+            var plaqueStatesListDto = ObjectMapper.Map<List<PlaqueStateListDto>>(plaqueStates);
+            return new PagedResultDto<PlaqueStateListDto>(
                 userCount,
-                speciesInfosListDto
+                plaqueStatesListDto
             );
         }
         
-        public async Task<SpeciesInfoCreateOrUpdateInput> GetSpeciesInfoForEdit(NullableIdDto<int> input)
+        public async Task<PlaqueStateCreateOrUpdateInput> GetPlaqueStateForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
-            var output = new SpeciesInfoCreateOrUpdateInput();
+            var output = new PlaqueStateCreateOrUpdateInput();
             
             if (input.Id.HasValue)
             {
                 //Editing an existing user
-                var speciesInfo = await _speciesInfoRepository.GetAsync(input.Id.Value);
-                if (speciesInfo != null)
-                    ObjectMapper.Map<SpeciesInfo,SpeciesInfoCreateOrUpdateInput>(speciesInfo,output);
+                var plaqueState = await _plaqueStateRepository.GetAsync(input.Id.Value);
+                if (plaqueState != null)
+                    ObjectMapper.Map<PlaqueState,PlaqueStateCreateOrUpdateInput>(plaqueState,output);
             }
 
             return output;
         }
         
-        public async Task CreateOrUpdateSpeciesInfo(SpeciesInfoCreateOrUpdateInput input)
+        public async Task CreateOrUpdatePlaqueState(PlaqueStateCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateSpeciesInfoAsync(input);
+                await UpdatePlaqueStateAsync(input);
             }
             else
             {
-                await CreateSpeciesInfoAsync(input);
+                await CreatePlaqueStateAsync(input);
             }
         }
         
-        public async Task DeleteSpeciesInfo(EntityDto input)
+        public async Task DeletePlaqueState(EntityDto input)
         {
-            await _speciesInfoRepository.DeleteAsync(input.Id);
+            await _plaqueStateRepository.DeleteAsync(input.Id);
         }
 
-        private async Task UpdateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
+        private async Task UpdatePlaqueStateAsync(PlaqueStateCreateOrUpdateInput input)
         {
-            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
-            await _speciesInfoRepository.UpdateAsync(speciesInfo);
+            var plaqueState = ObjectMapper.Map<PlaqueState>(input);
+            await _plaqueStateRepository.UpdateAsync(plaqueState);
         }
         
-        private async Task CreateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
+        private async Task CreatePlaqueStateAsync(PlaqueStateCreateOrUpdateInput input)
         {
-            var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
-            await _speciesInfoRepository.InsertAsync(speciesInfo);
+            var plaqueState = ObjectMapper.Map<PlaqueState>(input);
+            await _plaqueStateRepository.InsertAsync(plaqueState);
         }
         
-        private IQueryable<SpeciesInfo> GetFilteredQuery(GetSpeciesInfoInput input)
+        private IQueryable<PlaqueState> GetFilteredQuery(GetPlaqueStateInput input)
         {
-            var query = QueryableExtensions.WhereIf(_speciesInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_plaqueStateRepository.GetAll(),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

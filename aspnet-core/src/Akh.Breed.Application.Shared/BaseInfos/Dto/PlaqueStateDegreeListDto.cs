@@ -4,7 +4,7 @@ using Akh.Breed.Dto;
 
 namespace Akh.Breed.BaseInfos.Dto
 {
-    public class GetAcademicDegreeInput : PagedAndSortedInputDto, IShouldNormalize
+    public class GetPlaqueStateInput : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Filter { get; set; }
         
@@ -19,7 +19,7 @@ namespace Akh.Breed.BaseInfos.Dto
         }
     }
     
-    public class AcademicDegreeListDto : EntityDto
+    public class PlaqueStateListDto : EntityDto
     {
         public string Name { get; set; }
 

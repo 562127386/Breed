@@ -9,6 +9,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContractorComponent } from "./contractor/contractor.component";
 import { ProviderInfoComponent } from "./providerInfo/providerInfo.component";
 import { CreateOrEditProviderInfoModalComponent } from "./providerInfo/create-or-edit-providerInfo-modal.component";
+import { SexInfoComponent } from "./sexInfo/sexInfo.component";
+import { CreateOrEditSexInfoModalComponent } from "./sexInfo/create-or-edit-SexInfo-modal.component";
+import { SpeciesInfoComponent } from "./speciesInfo/speciesInfo.component";
+import { CreateOrEditSpeciesInfoModalComponent } from "./speciesInfo/create-or-edit-speciesInfo-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { EditorModule } from 'primeng/editor';
 import { FileUploadModule as PrimeNgFileUploadModule } from 'primeng/fileupload';
@@ -56,7 +60,11 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         DashboardComponent,
         ContractorComponent,
         ProviderInfoComponent,
-        CreateOrEditProviderInfoModalComponent
+        CreateOrEditProviderInfoModalComponent,
+        SexInfoComponent,
+        CreateOrEditSexInfoModalComponent,
+        SpeciesInfoComponent,
+        CreateOrEditSpeciesInfoModalComponent
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },

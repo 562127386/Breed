@@ -1,6 +1,6 @@
 ﻿namespace Akh.Breed.BaseInfos.Dto
 {
-    public class StateInfoCreateOrUpdateInput
+    public class CityInfoCreateOrUpdateInput
     {
         public int? Id { get; set; }
         

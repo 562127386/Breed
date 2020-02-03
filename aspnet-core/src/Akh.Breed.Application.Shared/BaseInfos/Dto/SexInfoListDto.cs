@@ -4,7 +4,7 @@ using Akh.Breed.Dto;
 
 namespace Akh.Breed.BaseInfos.Dto
 {
-    public class GetProviderInfoInput : PagedAndSortedInputDto, IShouldNormalize
+    public class GetSexInfoInput : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Filter { get; set; }
         
@@ -19,7 +19,7 @@ namespace Akh.Breed.BaseInfos.Dto
         }
     }
     
-    public class ProviderInfoListDto : EntityDto
+    public class SexInfoListDto : EntityDto
     {
         public string Name { get; set; }
 
