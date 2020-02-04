@@ -1,0 +1,31 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #plaqueStateForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="plaqueState.id">{{"EditNewPlaqueState" | localize}}: {{plaqueState.Name}}</span>
+                        <span *ngIf="!plaqueState.id">{{"CreateNewPlaqueState" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>{{"Name" | localize}}</label>
+                        <input #nameInput class="form-control" type="text" name="name" [(ngModel)]="plaqueState.name" required maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"Code" | localize}}</label>
+                        <input class="form-control" type="text" name="code" [(ngModel)]="plaqueState.code" required maxlength="32">
+                    </div>                    
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!plaqueStateForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

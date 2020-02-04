@@ -17,7 +17,7 @@ namespace Akh.Breed.BaseInfo
         
         public int? TenantId { get; set; }
         
-        protected PlaqueState()
+        public PlaqueState()
         {
             CreationTime = Clock.Now;
         }

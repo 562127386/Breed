@@ -12,6 +12,7 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditProviderInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
+    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     providerInfo: ProviderInfoCreateOrUpdateInput = new ProviderInfoCreateOrUpdateInput();
@@ -46,7 +47,7 @@ export class CreateOrEditProviderInfoModalComponent extends AppComponentBase {
     }
 
     onShown(): void {
-        document.getElementById('Name').focus();
+        this.nameInput.nativeElement.focus();
     }
 
     save(): void {

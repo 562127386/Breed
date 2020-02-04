@@ -1,43 +1,43 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { SpeciesInfoServiceProxy, SpeciesInfoCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { AcademicDegreeServiceProxy, AcademicDegreeCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-    selector: 'createOrEditSpeciesInfoModal',
-    templateUrl: './create-or-edit-speciesInfo-modal.component.html'
+    selector: 'createOrEditAcademicDegreeModal',
+    templateUrl: './create-or-edit-academicDegree-modal.component.html'
 })
-export class CreateOrEditSpeciesInfoModalComponent extends AppComponentBase {
+export class CreateOrEditAcademicDegreeModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    speciesInfo: SpeciesInfoCreateOrUpdateInput = new SpeciesInfoCreateOrUpdateInput();
+    academicDegree: AcademicDegreeCreateOrUpdateInput = new AcademicDegreeCreateOrUpdateInput();
 
     active: boolean = false;
     saving: boolean = false;
 
     constructor(
         injector: Injector,
-        private _speciesInfoService: SpeciesInfoServiceProxy
+        private _academicDegreeService: AcademicDegreeServiceProxy
     ) {
         super(injector);
     }
 
-    show(speciesInfoId?: number): void {
-        if (!speciesInfoId) {
+    show(academicDegreeId?: number): void {
+        if (!academicDegreeId) {
             this.active = true;
         }
 
-        this._speciesInfoService.getSpeciesInfoForEdit(speciesInfoId).subscribe(userResult => {
-            this.speciesInfo.name = userResult.name;
-            this.speciesInfo.code = userResult.code;
-            this.speciesInfo.id =  speciesInfoId;
+        this._academicDegreeService.getAcademicDegreeForEdit(academicDegreeId).subscribe(userResult => {
+            this.academicDegree.name = userResult.name;
+            this.academicDegree.code = userResult.code;
+            this.academicDegree.id =  academicDegreeId;
 
-            if (speciesInfoId) {
+            if (academicDegreeId) {
                 this.active = true;
             }
 
@@ -52,12 +52,12 @@ export class CreateOrEditSpeciesInfoModalComponent extends AppComponentBase {
 
     save(): void {
         this.saving = true;
-        this._speciesInfoService.createOrUpdateSpeciesInfo(this.speciesInfo)
+        this._academicDegreeService.createOrUpdateAcademicDegree(this.academicDegree)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
-                this.modalSave.emit(this.speciesInfo);
+                this.modalSave.emit(this.academicDegree);
             });
     }
 

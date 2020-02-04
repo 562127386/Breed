@@ -39,14 +39,15 @@ export class AppNavigationService {
                 new AppMenuItem('PlaqueStore', null, 'flaticon2-box', ''),
             ]),
             new AppMenuItem('BaseInfo', null, 'flaticon-folder-1', '',[
-                new AppMenuItem('ProvinceInfo', null, 'flaticon-placeholder-1', ''),
-                new AppMenuItem('CityInfo', null, 'flaticon-placeholder', ''),
-                new AppMenuItem('VillageInfo', null, 'flaticon-placeholder-2', ''),
+                new AppMenuItem('StateInfo', null, 'flaticon-placeholder-1', '/app/main/stateInfo'),
+                new AppMenuItem('CityInfo', null, 'flaticon-placeholder', '/app/main/cityInfo'),
+                new AppMenuItem('VillageInfo', null, 'flaticon-placeholder-2', '/app/main/villageInfo'),
                 new AppMenuItem('ProviderInfo', null, 'flaticon-truck', '/app/main/providerInfo'),
-                new AppMenuItem('AcademicDegree', null, 'flaticon-lock', ''),
+                new AppMenuItem('AcademicDegree', null, 'flaticon-lock', '/app/main/academicDegree'),
                 new AppMenuItem('SexInfo', null, 'flaticon-technology-1', '/app/main/sexInfo'),
-                new AppMenuItem('SpeciesInfo', null, 'flaticon-interface-6', '/app/main/SpeciesInfo'),
-                new AppMenuItem('FirmType', null, 'flaticon-line-chart', '')
+                new AppMenuItem('SpeciesInfo', null, 'flaticon-interface-6', '/app/main/speciesInfo'),
+                new AppMenuItem('FirmType', null, 'flaticon-line-chart-1', '/app/main/firmType'),
+                new AppMenuItem('PlaqueState', null, 'flaticon-technology-2', '/app/main/plaqueState')
             ])
         ]);
     }

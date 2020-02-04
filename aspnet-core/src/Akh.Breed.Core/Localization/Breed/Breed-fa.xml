@@ -972,8 +972,8 @@
     <text name="PlaqueStore">انبار پلاک</text>
     <text name="BaseInfo">اطلاعات پایه</text>
     <text name="SpeciesInfo">گونه دام</text>
-    <text name="StateInfo">وضعیت دام</text>
-    <text name="ProvinceInfo">استان</text>
+    <text name="PlaqueState">وضعیت پلاک</text>
+    <text name="StateInfo">استان</text>
     <text name="CityInfo">شهر</text>
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
@@ -1020,10 +1020,10 @@
     <text name="CityInfoHeaderInfo">مدیریت شهر</text>
     <text name="EditNewCityInfo">ویرایش شهر</text>
 
-    <text name="CreateNewVillageInfo">ایجاد شهر</text>
-    <text name="AreYouSureToDeleteTheVillageInfo">آیا از حذف شهر {0} مطمئن هستید؟</text>
-    <text name="VillageInfoHeaderInfo">مدیریت شهر</text>
-    <text name="EditNewVillageInfo">ویرایش شهر</text>
+    <text name="CreateNewVillageInfo">ایجاد دهستان</text>
+    <text name="AreYouSureToDeleteTheVillageInfo">آیا از حذف دهستان {0} مطمئن هستید؟</text>
+    <text name="VillageInfoHeaderInfo">مدیریت دهستان</text>
+    <text name="EditNewVillageInfo">ویرایش دهستان</text>
 
   </texts>
 </localizationDictionary>

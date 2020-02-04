@@ -13,6 +13,18 @@ import { SexInfoComponent } from "./sexInfo/sexInfo.component";
 import { CreateOrEditSexInfoModalComponent } from "./sexInfo/create-or-edit-SexInfo-modal.component";
 import { SpeciesInfoComponent } from "./speciesInfo/speciesInfo.component";
 import { CreateOrEditSpeciesInfoModalComponent } from "./speciesInfo/create-or-edit-speciesInfo-modal.component";
+import { AcademicDegreeComponent } from "./academicDegree/academicDegree.component";
+import { CreateOrEditAcademicDegreeModalComponent } from "./academicDegree/create-or-edit-academicDegree-modal.component";
+import { FirmTypeComponent } from "./firmType/firmType.component";
+import { CreateOrEditFirmTypeModalComponent } from "./firmType/create-or-edit-firmType-modal.component";
+import { PlaqueStateComponent } from "./plaqueState/plaqueState.component";
+import { CreateOrEditPlaqueStateModalComponent } from "./plaqueState/create-or-edit-plaqueState-modal.component";
+import { StateInfoComponent } from "./stateInfo/stateInfo.component";
+import { CreateOrEditStateInfoModalComponent } from "./stateInfo/create-or-edit-stateInfo-modal.component";
+import { VillageInfoComponent } from "./villageInfo/villageInfo.component";
+import { CreateOrEditVillageInfoModalComponent} from "./villageInfo/create-or-edit-villageInfo-modal.component";
+import { CityInfoComponent } from "./cityInfo/cityInfo.component";
+import { CreateOrEditCityInfoModalComponent } from "./cityInfo/create-or-edit-cityInfo-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { EditorModule } from 'primeng/editor';
 import { FileUploadModule as PrimeNgFileUploadModule } from 'primeng/fileupload';
@@ -64,7 +76,20 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         SexInfoComponent,
         CreateOrEditSexInfoModalComponent,
         SpeciesInfoComponent,
-        CreateOrEditSpeciesInfoModalComponent
+        CreateOrEditSpeciesInfoModalComponent,
+        AcademicDegreeComponent,
+        CreateOrEditAcademicDegreeModalComponent,
+        FirmTypeComponent,
+        CreateOrEditFirmTypeModalComponent,
+        PlaqueStateComponent,
+        CreateOrEditPlaqueStateModalComponent,
+        StateInfoComponent,
+        CreateOrEditStateInfoModalComponent,
+        VillageInfoComponent,
+        CreateOrEditVillageInfoModalComponent,
+        CityInfoComponent,
+        CreateOrEditCityInfoModalComponent
+    
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },

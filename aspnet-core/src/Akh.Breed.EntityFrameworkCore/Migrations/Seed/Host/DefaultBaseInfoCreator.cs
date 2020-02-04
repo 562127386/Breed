@@ -21,7 +21,7 @@ namespace Akh.Breed.Migrations.Seed.Host
             CreateProviderInfo();
             CreateSexInfo();
             CreateSpeciesInfo();
-            CreateStateInfo();
+            CreatePlaqueState();
             CreateFirmType();
         }
         
@@ -136,19 +136,19 @@ namespace Akh.Breed.Migrations.Seed.Host
             
         }
         
-        private void CreateStateInfo()
+        private void CreatePlaqueState()
         {
-            var defaultStateInfo = _context.StateInfos.IgnoreQueryFilters().FirstOrDefault(e => e.Name == "نصب شده");
-            if (defaultStateInfo == null)
+            var defaultPlaqueState = _context.PlaqueStates.IgnoreQueryFilters().FirstOrDefault(e => e.Name == "نصب شده");
+            if (defaultPlaqueState == null)
             {
-                defaultStateInfo = new StateInfo() {Code = "1" ,Name = "نصب شده"};
-                _context.StateInfos.Add(defaultStateInfo);
-                defaultStateInfo = new StateInfo() {Code = "2" ,Name = "مفقود"};
-                _context.StateInfos.Add(defaultStateInfo);
-                defaultStateInfo = new StateInfo() {Code = "3" ,Name = "ابطال"};
-                _context.StateInfos.Add(defaultStateInfo);
-                defaultStateInfo = new StateInfo() {Code = "4" ,Name = "غیرمجاز"};
-                _context.StateInfos.Add(defaultStateInfo);
+                defaultPlaqueState = new PlaqueState() {Code = "1" ,Name = "نصب شده"};
+                _context.PlaqueStates.Add(defaultPlaqueState);
+                defaultPlaqueState = new PlaqueState() {Code = "2" ,Name = "مفقود"};
+                _context.PlaqueStates.Add(defaultPlaqueState);
+                defaultPlaqueState = new PlaqueState() {Code = "3" ,Name = "ابطال"};
+                _context.PlaqueStates.Add(defaultPlaqueState);
+                defaultPlaqueState = new PlaqueState() {Code = "4" ,Name = "غیرمجاز"};
+                _context.PlaqueStates.Add(defaultPlaqueState);
 
                 _context.SaveChanges();
 

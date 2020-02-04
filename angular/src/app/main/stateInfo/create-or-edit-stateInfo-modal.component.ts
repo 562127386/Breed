@@ -1,43 +1,43 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { SpeciesInfoServiceProxy, SpeciesInfoCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { StateInfoServiceProxy, StateInfoCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-    selector: 'createOrEditSpeciesInfoModal',
-    templateUrl: './create-or-edit-speciesInfo-modal.component.html'
+    selector: 'createOrEditStateInfoModal',
+    templateUrl: './create-or-edit-stateInfo-modal.component.html'
 })
-export class CreateOrEditSpeciesInfoModalComponent extends AppComponentBase {
+export class CreateOrEditStateInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    speciesInfo: SpeciesInfoCreateOrUpdateInput = new SpeciesInfoCreateOrUpdateInput();
+    stateInfo: StateInfoCreateOrUpdateInput = new StateInfoCreateOrUpdateInput();
 
     active: boolean = false;
     saving: boolean = false;
 
     constructor(
         injector: Injector,
-        private _speciesInfoService: SpeciesInfoServiceProxy
+        private _stateInfoService: StateInfoServiceProxy
     ) {
         super(injector);
     }
 
-    show(speciesInfoId?: number): void {
-        if (!speciesInfoId) {
+    show(stateInfoId?: number): void {
+        if (!stateInfoId) {
             this.active = true;
         }
 
-        this._speciesInfoService.getSpeciesInfoForEdit(speciesInfoId).subscribe(userResult => {
-            this.speciesInfo.name = userResult.name;
-            this.speciesInfo.code = userResult.code;
-            this.speciesInfo.id =  speciesInfoId;
+        this._stateInfoService.getStateInfoForEdit(stateInfoId).subscribe(userResult => {
+            this.stateInfo.name = userResult.name;
+            this.stateInfo.code = userResult.code;
+            this.stateInfo.id =  stateInfoId;
 
-            if (speciesInfoId) {
+            if (stateInfoId) {
                 this.active = true;
             }
 
@@ -52,12 +52,12 @@ export class CreateOrEditSpeciesInfoModalComponent extends AppComponentBase {
 
     save(): void {
         this.saving = true;
-        this._speciesInfoService.createOrUpdateSpeciesInfo(this.speciesInfo)
+        this._stateInfoService.createOrUpdateStateInfo(this.stateInfo)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
-                this.modalSave.emit(this.speciesInfo);
+                this.modalSave.emit(this.stateInfo);
             });
     }
 
