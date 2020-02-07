@@ -8,10 +8,10 @@ using Akh.Breed.UiCustomization.Dto;
 
 namespace Akh.Breed.Web.UiCustomization.Metronic
 {
-    public class Theme11UiCustomizer : UiThemeCustomizerBase, IUiCustomizer
+    public class ThemeAkhBreedUiCustomizer : UiThemeCustomizerBase, IUiCustomizer
     {
-        public Theme11UiCustomizer(ISettingManager settingManager)
-            : base(settingManager, AppConsts.Theme11)
+        public ThemeAkhBreedUiCustomizer(ISettingManager settingManager)
+            : base(settingManager, AppConsts.ThemeAkhBreed)
         {
         }
 

@@ -26,8 +26,8 @@
                                 <span class="theme-name">{{getLocalizedThemeName(themeSetting.theme)}}</span>
                             </ng-template>
 
-                            <default-theme-ui-settings *ngIf="themeSetting.theme == 'default'"
-                                [settings]="themeSetting"></default-theme-ui-settings>
+                            <default-theme-ui-settings *ngIf="themeSetting.theme == 'default'" [settings]="themeSetting">
+                            </default-theme-ui-settings>
                             <theme2-theme-ui-settings *ngIf="themeSetting.theme == 'theme2'" [settings]="themeSetting">
                             </theme2-theme-ui-settings>
                             <theme3-theme-ui-settings *ngIf="themeSetting.theme == 'theme3'" [settings]="themeSetting">
@@ -44,12 +44,14 @@
                             </theme8-theme-ui-settings>
                             <theme9-theme-ui-settings *ngIf="themeSetting.theme == 'theme9'" [settings]="themeSetting">
                             </theme9-theme-ui-settings>
-                            <theme10-theme-ui-settings *ngIf="themeSetting.theme == 'theme10'"
-                                [settings]="themeSetting"></theme10-theme-ui-settings>
-                            <theme11-theme-ui-settings *ngIf="themeSetting.theme == 'theme11'"
-                                [settings]="themeSetting"></theme11-theme-ui-settings>
-                            <theme12-theme-ui-settings *ngIf="themeSetting.theme == 'theme12'"
-                                [settings]="themeSetting"></theme12-theme-ui-settings>
+                            <theme10-theme-ui-settings *ngIf="themeSetting.theme == 'theme10'" [settings]="themeSetting">
+                            </theme10-theme-ui-settings>
+                            <theme11-theme-ui-settings *ngIf="themeSetting.theme == 'theme11'" [settings]="themeSetting">
+                            </theme11-theme-ui-settings>
+                            <themeAkhBreed-theme-ui-settings *ngIf="themeSetting.theme == 'themeAkhBreed'" [settings]="themeSetting">
+                            </themeAkhBreed-theme-ui-settings>
+                            <theme12-theme-ui-settings *ngIf="themeSetting.theme == 'theme12'" [settings]="themeSetting">
+                            </theme12-theme-ui-settings>
                         </tab>
                     </tabset>
                 </div>

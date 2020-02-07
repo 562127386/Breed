@@ -74,6 +74,12 @@
                     </a>
                 </li>
                 <li class="nav-item kt-tabs__item">
+                    <a href="javascript:;" (click)="changeTheme('themeAkhBreed')" data-theme="themeAkhBreed" class="nav-link kt-tabs__link text-center theme-selection-link" [ngClass]="currentThemeName == 'themeAkhBreed' ? 'active' : ''" data-toggle="tab" role="tab">
+                        <img [src]="'/assets/common/images/metronic-themes/themeAkhBreed.png'" />
+                        <span class="theme-name">{{getLocalizedThemeName('themeAkhBreed')}}</span>
+                    </a>
+                </li>
+                <li class="nav-item kt-tabs__item">
                     <a href="javascript:;" (click)="changeTheme('theme12')" data-theme="theme12" class="nav-link kt-tabs__link text-center theme-selection-link" [ngClass]="currentThemeName == 'theme12' ? 'active' : ''" data-toggle="tab" role="tab">
                         <img [src]="'/assets/common/images/metronic-themes/theme12.png'" />
                         <span class="theme-name">{{getLocalizedThemeName('theme12')}}</span>

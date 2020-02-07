@@ -71,6 +71,7 @@ import { Theme8ThemeUiSettingsComponent } from './ui-customization/theme8-theme-
 import { Theme9ThemeUiSettingsComponent } from './ui-customization/theme9-theme-ui-settings.component';
 import { Theme10ThemeUiSettingsComponent } from './ui-customization/theme10-theme-ui-settings.component';
 import { Theme11ThemeUiSettingsComponent } from './ui-customization/theme11-theme-ui-settings.component';
+import { ThemeAkhBreedThemeUiSettingsComponent } from './ui-customization/themeAkhBreed-theme-ui-settings.component';
 import { Theme12ThemeUiSettingsComponent } from './ui-customization/theme12-theme-ui-settings.component';
 import { CreateOrEditUserModalComponent } from './users/create-or-edit-user-modal.component';
 import { EditUserPermissionsModalComponent } from './users/edit-user-permissions-modal.component';
@@ -179,8 +180,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         Theme8ThemeUiSettingsComponent,
         Theme9ThemeUiSettingsComponent,
         Theme10ThemeUiSettingsComponent,
-        Theme12ThemeUiSettingsComponent,
         Theme11ThemeUiSettingsComponent,
+        Theme12ThemeUiSettingsComponent,
+        ThemeAkhBreedThemeUiSettingsComponent,
         PermissionTreeModalComponent
     ],
     exports: [

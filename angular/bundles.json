@@ -144,6 +144,19 @@
     },
      
     {
+      "output": "src/assets/metronic/themes/themeAkhBreed/css/style.bundle.min.css",
+      "input": [
+        "src/assets/metronic/themes/themeAkhBreed/css/style.bundle.css"
+      ]
+    },
+    {
+      "output": "src/assets/metronic/themes/themeAkhBreed/css/style.bundle.rtl.min.css",
+      "input": [
+        "src/assets/metronic/themes/themeAkhBreed/css/style.bundle.rtl.css"
+      ]
+    },
+
+    {
       "output": "src/assets/metronic/themes/theme12/css/style.bundle.min.css",
       "input": [
         "src/assets/metronic/themes/theme12/css/style.bundle.css"
@@ -257,6 +270,13 @@
       "output": "src/assets/common/styles/themes/theme11/metronic-customize.min.css",
       "input": [
         "src/assets/common/styles/themes/theme11/metronic-customize.css"
+      ]
+    },
+
+    {
+      "output": "src/assets/common/styles/themes/themeAkhBreed/metronic-customize.min.css",
+      "input": [
+        "src/assets/common/styles/themes/themeAkhBreed/metronic-customize.css"
       ]
     },
 

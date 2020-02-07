@@ -484,6 +484,22 @@ bs-daterangepicker-container {
     color: #5867dd
 }
 
+/* THEME-11 */
+.theme-themeAkhBreed .bs-datepicker-head {
+    background-color: #5867dd;
+}
+
+.theme-themeAkhBreed .bs-datepicker-body table td span.selected,
+.theme-themeAkhBreed .bs-datepicker-body table td.selected span,
+.theme-themeAkhBreed .bs-datepicker-body table td span[class*="select-"]:after,
+.theme-themeAkhBreed .bs-datepicker-body table td[class*="select-"] span:after {
+    background-color: #5867dd;
+}
+
+.theme-themeAkhBreed .bs-datepicker-body table td.week span {
+    color: #5867dd
+}
+
 /* THEME-3 */
 .theme-theme3 .bs-datepicker-head {
     background-color: #5867dd;

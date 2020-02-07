@@ -44,6 +44,7 @@ namespace Akh.Breed
         public const string Theme9 = "theme9";
         public const string Theme10 = "theme10";
         public const string Theme11 = "theme11";
+        public const string ThemeAkhBreed = "themeAkhBreed";
         public const string Theme12 = "theme12";
 
         public static TimeSpan AccessTokenExpiration = TimeSpan.FromDays(1);

@@ -43,6 +43,7 @@ namespace Akh.Breed.Configuration
                 .Union(GetTheme9Settings())
                 .Union(GetTheme10Settings())
                 .Union(GetTheme11Settings())
+                .Union(GetThemeAkhBreedSettings())
                 .Union(GetTheme12Settings())
                 .Union(GetDashboardSettings());
         }
@@ -281,6 +282,19 @@ namespace Akh.Breed.Configuration
         private IEnumerable<SettingDefinition> GetTheme11Settings()
         {
             var themeName = "theme11";
+
+            return new[]
+            {
+                new SettingDefinition(themeName + "." + AppSettings.UiManagement.LayoutType, GetFromAppSettings(themeName + "." + AppSettings.UiManagement.LayoutType, "fluid"), isVisibleToClients: true, scopes: SettingScopes.All),
+                new SettingDefinition(themeName + "." + AppSettings.UiManagement.Header.MobileFixedHeader, GetFromAppSettings(themeName + "." + AppSettings.UiManagement.Header.MobileFixedHeader, "false"),isVisibleToClients: true, scopes: SettingScopes.All),
+                new SettingDefinition(themeName + "." + AppSettings.UiManagement.LeftAside.FixedAside, GetFromAppSettings(themeName + "." +AppSettings.UiManagement.LeftAside.FixedAside, "true"),isVisibleToClients: true, scopes: SettingScopes.All),
+                new SettingDefinition(themeName + "." + AppSettings.UiManagement.SearchActive, GetFromAppSettings(themeName + "." +AppSettings.UiManagement.SearchActive, "false"),isVisibleToClients: true, scopes: SettingScopes.All)
+            };
+        }
+        
+        private IEnumerable<SettingDefinition> GetThemeAkhBreedSettings()
+        {
+            var themeName = "themeAkhBreed";
 
             return new[]
             {

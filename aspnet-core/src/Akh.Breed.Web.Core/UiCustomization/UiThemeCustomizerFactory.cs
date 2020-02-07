@@ -59,6 +59,11 @@ namespace Akh.Breed.Web.UiCustomization
             {
                 return _serviceProvider.GetService<Theme11UiCustomizer>();
             }
+            
+            if (theme.Equals(AppConsts.ThemeAkhBreed, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return _serviceProvider.GetService<ThemeAkhBreedUiCustomizer>();
+            }
 
             if (theme.Equals(AppConsts.Theme12, StringComparison.InvariantCultureIgnoreCase))
             {

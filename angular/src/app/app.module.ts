@@ -33,6 +33,7 @@ import { Theme7LayoutComponent } from './shared/layout/themes/theme7/theme7-layo
 import { Theme8LayoutComponent } from './shared/layout/themes/theme8/theme8-layout.component';
 import { Theme10LayoutComponent } from './shared/layout/themes/theme10/theme10-layout.component';
 import { Theme11LayoutComponent } from './shared/layout/themes/theme11/theme11-layout.component';
+import { ThemeAkhBreedLayoutComponent } from './shared/layout/themes/themeAkhBreed/themeAkhBreed-layout.component';
 import { Theme12LayoutComponent } from './shared/layout/themes/theme12/theme12-layout.component';
 import { AppCommonModule } from './shared/common/app-common.module';
 import { ChatBarComponent } from './shared/layout/chat/chat-bar.component';
@@ -56,6 +57,7 @@ import { Theme8BrandComponent } from './shared/layout/themes/theme8/theme8-brand
 import { Theme9BrandComponent } from './shared/layout/themes/theme9/theme9-brand.component';
 import { Theme10BrandComponent } from './shared/layout/themes/theme10/theme10-brand.component';
 import { Theme11BrandComponent } from './shared/layout/themes/theme11/theme11-brand.component';
+import { ThemeAkhBreedBrandComponent } from './shared/layout/themes/themeAkhBreed/themeAkhBreed-brand.component';
 import { Theme12BrandComponent } from './shared/layout/themes/theme12/theme12-brand.component';
 import { UserNotificationHelper } from './shared/layout/notifications/UserNotificationHelper';
 import { HeaderNotificationsComponent } from './shared/layout/notifications/header-notifications.component';
@@ -94,6 +96,7 @@ import { ScrollTopComponent } from './shared/layout/scroll-top.component';
         Theme9LayoutComponent,
         Theme10LayoutComponent,
         Theme11LayoutComponent,
+        ThemeAkhBreedLayoutComponent,
         Theme12LayoutComponent,
         HeaderNotificationsComponent,
         SideBarMenuComponent,
@@ -126,6 +129,7 @@ import { ScrollTopComponent } from './shared/layout/scroll-top.component';
         Theme9BrandComponent,
         Theme10BrandComponent,
         Theme11BrandComponent,
+        ThemeAkhBreedBrandComponent,
         Theme12BrandComponent,
         SessionTimeoutModalComponent,
         SessionTimeoutComponent,

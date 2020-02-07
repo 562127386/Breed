@@ -11,6 +11,7 @@ import { Theme9ThemeAssetContributor } from '@app/shared/layout/themes/theme9/Th
 import { Theme7ThemeAssetContributor } from '@app/shared/layout/themes/theme7/Theme7ThemeAssetContributor';
 import { Theme10ThemeAssetContributor } from '@app/shared/layout/themes/theme10/Theme10ThemeAssetContributor';
 import { Theme11ThemeAssetContributor } from '@app/shared/layout/themes/theme11/Theme11ThemeAssetContributor';
+import { ThemeAkhBreedThemeAssetContributor } from '@app/shared/layout/themes/themeAkhBreed/themeAkhBreedThemeAssetContributor';
 import { Theme12ThemeAssetContributor } from '@app/shared/layout/themes/theme12/Theme12ThemeAssetContributor';
 import { DefaultThemeAssetContributor } from '@app/shared/layout/themes/default/DefaultThemeAssetContributor';
 import { ThemeHelper } from '@app/shared/layout/themes/ThemeHelper';
@@ -101,6 +102,10 @@ export class DynamicResourcesHelper {
 
         if (theme === 'theme11') {
             return new Theme11ThemeAssetContributor().getAssetUrls();
+        }
+
+        if (theme === 'themeAkhBreed') {
+            return new ThemeAkhBreedThemeAssetContributor().getAssetUrls();
         }
 
         if (theme === 'theme12') {
