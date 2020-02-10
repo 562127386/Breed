@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Localization.Sources;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +17,17 @@ namespace Akh.Breed.BaseInfos
     public class StateInfoAppService :  BreedAppServiceBase, IStateInfoAppService
     {
         private readonly IRepository<StateInfo> _stateInfoRepository;
-
-        public StateInfoAppService(IRepository<StateInfo> stateInfoRepository)
+        private readonly IStateImportAppService _stateImportAppService;
+        
+        public StateInfoAppService(IRepository<StateInfo> stateInfoRepository, IStateImportAppService stateImportAppService)
         {
             _stateInfoRepository = stateInfoRepository;
+            _stateImportAppService = stateImportAppService;
         }
 
         public async Task<PagedResultDto<StateInfoListDto>> GetStateInfo(GetStateInfoInput input)
         {
+            _stateImportAppService.InitialData();
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
             var stateInfos = await query

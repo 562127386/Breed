@@ -15,11 +15,35 @@
             </button>
         </div>
     </div>
+    <div id="kt_header_mobile_sub" class="kt-header-mobile">
+        <div class="kt-header-mobile__logo">
+            <a routerLink="/" target="_blank">
+                <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="defaultLogo" alt="logo" height="28" />
+                <img *ngIf="appSession.tenant && appSession.tenant.logoId" [src]="remoteServiceBaseUrl + '/TenantCustomization/GetTenantLogo?skin=' + currentTheme.baseSettings.menu.asideSkin + '&tenantId=' + appSession.tenant.id + '&id=' + appSession.tenant.logoId" alt="logo" height="38" />
+            </a>
+        </div>
+        <div class="kt-header-mobile__toolbar">
+            <button class="kt-header-mobile__toolbar-toggler kt-header-mobile__toolbar-toggler--left" id="kt_aside_mobile_toggler">
+                <span></span>
+            </button>
+            <button ktToggle [options]="userMenuToggleOptions" class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler">
+                <i class="flaticon-more-1"></i>
+            </button>
+        </div>
+    </div>
     <div class="kt-grid kt-grid--hor kt-grid--root">
         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
             <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
                 <!-- BEGIN: Header -->
                 <div class="kt-header kt-grid__item  kt-header--fixed" id="kt_header">
+                    <div [class]="containerClass">
+                        <!-- BEGIN: Brand -->
+                        <themeAkhBreed-brand></themeAkhBreed-brand>
+                        <!-- END: Brand -->
+                        <topbar></topbar>
+                    </div>
+                </div>
+                <div class="kt-header kt-grid__item  kt-header--fixed" id="kt_header_sub">
                     <div [class]="containerClass">
                         <!-- BEGIN: Brand -->
                         <themeAkhBreed-brand></themeAkhBreed-brand>

@@ -16,8 +16,12 @@ namespace Akh.Breed.BaseInfo
         public DateTime CreationTime { get; set; }
 
         public int? TenantId { get; set; }
+        
+        public virtual CityInfo CityInfo { get; set; }
 
-        protected VillageInfo()
+        public virtual int CityInfoId { get; set; }
+
+        public VillageInfo()
         {
             CreationTime = Clock.Now;
         }

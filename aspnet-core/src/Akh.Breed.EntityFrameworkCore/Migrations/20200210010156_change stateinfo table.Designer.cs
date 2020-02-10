@@ -4,14 +4,16 @@ using Akh.Breed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    partial class BreedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200210010156_change stateinfo table")]
+    partial class changestateinfotable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1566,7 +1568,7 @@ namespace Akh.Breed.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityInfoId")
+                    b.Property<int?>("CityInfoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
@@ -2216,11 +2218,9 @@ namespace Akh.Breed.Migrations
 
             modelBuilder.Entity("Akh.Breed.BaseInfo.VillageInfo", b =>
                 {
-                    b.HasOne("Akh.Breed.BaseInfo.CityInfo", "CityInfo")
+                    b.HasOne("Akh.Breed.BaseInfo.CityInfo", null)
                         .WithMany("Villages")
-                        .HasForeignKey("CityInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityInfoId");
                 });
 
             modelBuilder.Entity("Akh.Breed.MultiTenancy.Payments.SubscriptionPayment", b =>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
@@ -30,8 +31,30 @@ namespace Akh.Breed.BaseInfos
 
         public void InitialData()
         {
-            var fileBytes = System.IO.File.ReadAllBytes("StateCity.xlsx");
-            List<StateImportDto> stateCities = ProcessExcelFile(fileBytes, ProcessExcelRow);
+            var defaultStateInfo = _stateInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
+            var defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
+            if (defaultStateInfo == null)
+            {
+                var path = Directory.GetCurrentDirectory() + "\\StateCity.xlsx";
+                var fileBytes = System.IO.File.ReadAllBytes(path);
+                List<StateImportDto> stateCities = ProcessExcelFile(fileBytes, ProcessExcelRow);
+                foreach (var stateCity in stateCities)
+                {
+                    if (stateCity.StateName != defaultStateInfo?.Name)
+                    {
+                        defaultStateInfo = _stateInfoRepository.FirstOrDefault(e => e.Name == stateCity.StateName) ??
+                                           _stateInfoRepository.Insert(new StateInfo() { Code = stateCity.StateCode, Name = stateCity.StateName});
+                    }
+                    if (stateCity.CityName != defaultCityInfo?.Name)
+                    {
+                        defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == stateCity.CityName) ??
+                                          _cityInfoRepository.Insert(new CityInfo() {Code = stateCity.CityCode, Name = stateCity.CityName});
+                    }
+
+                    _villageInfoRepository.Insert(new VillageInfo(){ Code = stateCity.VillageCode, Name = stateCity.VillageName});
+                }
+
+            }
         }
 
         private StateImportDto ProcessExcelRow(ExcelWorksheet worksheet, int row)
