@@ -53,7 +53,9 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<StateInfo> StateInfos { get; set; }
         
         public virtual DbSet<CityInfo> CityInfos { get; set; }
-        
+
+        public virtual DbSet<RegionInfo> RegionInfos { get; set; }
+
         public virtual DbSet<VillageInfo> VillageInfos { get; set; }
         public BreedDbContext(DbContextOptions<BreedDbContext> options)
             : base(options)

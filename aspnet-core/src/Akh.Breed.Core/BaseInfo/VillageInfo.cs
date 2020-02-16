@@ -17,9 +17,10 @@ namespace Akh.Breed.BaseInfo
 
         public int? TenantId { get; set; }
         
-        public virtual CityInfo CityInfo { get; set; }
+        [ForeignKey("RegionInfoId")]
+        public virtual RegionInfo RegionInfo { get; set; }
 
-        public virtual int CityInfoId { get; set; }
+        public virtual int RegionInfoId { get; set; }
 
         public VillageInfo()
         {

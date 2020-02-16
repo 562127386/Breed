@@ -14,10 +14,14 @@ namespace Akh.Breed.BaseInfos.Dto
 
         public string CityCode { get; set; }
         
+        public string RegionName { get; set; }
+
+        public string RegionCode { get; set; }
+
         public string VillageName { get; set; }
 
         public string VillageCode { get; set; }
-        
+
         public string Exception { get; set; }
 
         public bool CanBeImported()

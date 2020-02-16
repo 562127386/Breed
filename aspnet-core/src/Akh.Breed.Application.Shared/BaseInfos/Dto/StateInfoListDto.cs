@@ -12,7 +12,7 @@ namespace Akh.Breed.BaseInfos.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "Name,Code";
+                Sorting = "Code,Name";
             }
 
             Filter = Filter?.Trim();

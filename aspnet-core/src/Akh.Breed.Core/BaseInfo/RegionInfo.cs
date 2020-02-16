@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
@@ -6,8 +8,8 @@ using Abp.Timing;
 
 namespace Akh.Breed.BaseInfo
 {
-    [Table("AkhVillageInfo")]
-    public class VillageInfo : Entity, IHasCreationTime, IMayHaveTenant
+    [Table("AkhRegionInfo")]
+    public class RegionInfo : Entity, IHasCreationTime, IMayHaveTenant
     {
         public string Code { get; set; }
 
@@ -17,11 +19,14 @@ namespace Akh.Breed.BaseInfo
 
         public int? TenantId { get; set; }
         
+        [ForeignKey("CityInfoId")]
         public virtual CityInfo CityInfo { get; set; }
 
         public virtual int CityInfoId { get; set; }
 
-        public VillageInfo()
+        public virtual ICollection<VillageInfo> Villages { get; set; }
+
+        public RegionInfo()
         {
             CreationTime = Clock.Now;
         }

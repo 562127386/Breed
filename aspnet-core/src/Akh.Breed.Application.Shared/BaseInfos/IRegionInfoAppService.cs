@@ -5,11 +5,11 @@ using Akh.Breed.BaseInfos.Dto;
 
 namespace Akh.Breed.BaseInfos
 {
-    public interface IVillageInfoAppService : IApplicationService
+    public interface IRegionInfoAppService : IApplicationService
     {
-        Task<PagedResultDto<VillageInfoListDto>> GetVillageInfo(GetVillageInfoInput input);
-        Task<VillageInfoCreateOrUpdateInput> GetVillageInfoForEdit(NullableIdDto<int> input);
-        Task CreateOrUpdateVillageInfo(VillageInfoCreateOrUpdateInput input);
-        Task DeleteVillageInfo(EntityDto input);
+        Task<PagedResultDto<RegionInfoListDto>> GetRegionInfo(GetRegionInfoInput input);
+        Task<RegionInfoCreateOrUpdateInput> GetRegionInfoForEdit(NullableIdDto<int> input);
+        Task CreateOrUpdateRegionInfo(RegionInfoCreateOrUpdateInput input);
+        Task DeleteRegionInfo(EntityDto input);
     }
 }

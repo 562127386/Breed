@@ -174,6 +174,10 @@ namespace Akh.Breed
             configuration.CreateMap<CityInfoCreateOrUpdateInput, CityInfo>();
             configuration.CreateMap<CityInfo, CityInfoCreateOrUpdateInput>();
             
+            configuration.CreateMap<RegionInfo, RegionInfoListDto>();
+            configuration.CreateMap<RegionInfoCreateOrUpdateInput, RegionInfo>();
+            configuration.CreateMap<RegionInfo, RegionInfoCreateOrUpdateInput>();
+            
             configuration.CreateMap<VillageInfo, VillageInfoListDto>();
             configuration.CreateMap<VillageInfoCreateOrUpdateInput, VillageInfo>();
             configuration.CreateMap<VillageInfo, VillageInfoCreateOrUpdateInput>();

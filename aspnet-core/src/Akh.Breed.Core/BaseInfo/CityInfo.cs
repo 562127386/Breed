@@ -20,6 +20,7 @@ namespace Akh.Breed.BaseInfo
 
         public virtual ICollection<VillageInfo> Villages { get; set; }
         
+        [ForeignKey("StateInfoId")]
         public virtual StateInfo StateInfo { get; set; }
         
         public virtual int StateInfoId { get; set; }

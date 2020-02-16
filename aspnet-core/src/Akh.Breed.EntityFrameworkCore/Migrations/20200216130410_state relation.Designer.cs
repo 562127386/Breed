@@ -4,14 +4,16 @@ using Akh.Breed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    partial class BreedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200216130410_state relation")]
+    partial class staterelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1487,35 +1489,6 @@ namespace Akh.Breed.Migrations
                     b.ToTable("AkhProviderInfo");
                 });
 
-            modelBuilder.Entity("Akh.Breed.BaseInfo.RegionInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CityInfoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityInfoId");
-
-                    b.ToTable("AkhRegionInfo");
-                });
-
             modelBuilder.Entity("Akh.Breed.BaseInfo.SexInfo", b =>
                 {
                     b.Property<int>("Id")
@@ -1595,7 +1568,7 @@ namespace Akh.Breed.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CityInfoId")
+                    b.Property<int>("CityInfoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
@@ -1607,17 +1580,12 @@ namespace Akh.Breed.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RegionInfoId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CityInfoId");
-
-                    b.HasIndex("RegionInfoId");
 
                     b.ToTable("AkhVillageInfo");
                 });
@@ -2248,24 +2216,11 @@ namespace Akh.Breed.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Akh.Breed.BaseInfo.RegionInfo", b =>
-                {
-                    b.HasOne("Akh.Breed.BaseInfo.CityInfo", "CityInfo")
-                        .WithMany()
-                        .HasForeignKey("CityInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Akh.Breed.BaseInfo.VillageInfo", b =>
                 {
-                    b.HasOne("Akh.Breed.BaseInfo.CityInfo", null)
+                    b.HasOne("Akh.Breed.BaseInfo.CityInfo", "CityInfo")
                         .WithMany("Villages")
-                        .HasForeignKey("CityInfoId");
-
-                    b.HasOne("Akh.Breed.BaseInfo.RegionInfo", "RegionInfo")
-                        .WithMany("Villages")
-                        .HasForeignKey("RegionInfoId")
+                        .HasForeignKey("CityInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

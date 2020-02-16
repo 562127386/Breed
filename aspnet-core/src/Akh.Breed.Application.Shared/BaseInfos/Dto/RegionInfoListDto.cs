@@ -4,7 +4,7 @@ using Akh.Breed.Dto;
 
 namespace Akh.Breed.BaseInfos.Dto
 {
-    public class GetVillageInfoInput : PagedAndSortedInputDto, IShouldNormalize
+    public class GetRegionInfoInput : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Filter { get; set; }
         
@@ -12,17 +12,19 @@ namespace Akh.Breed.BaseInfos.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "Name,Code";
+                Sorting = "Code,Name";
             }
 
             Filter = Filter?.Trim();
         }
     }
     
-    public class VillageInfoListDto : EntityDto
+    public class RegionInfoListDto : EntityDto
     {
         public string Name { get; set; }
 
         public string Code { get; set; }
+
+        public int CityInfoId { get; set; }
     }
 }
