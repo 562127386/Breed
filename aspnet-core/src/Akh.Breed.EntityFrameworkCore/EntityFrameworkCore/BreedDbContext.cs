@@ -13,6 +13,7 @@ using Akh.Breed.MultiTenancy.Accounting;
 using Akh.Breed.MultiTenancy.Payments;
 using Akh.Breed.Storage;
 using Akh.Breed.Contractors;
+using Akh.Breed.Officers;
 
 namespace Akh.Breed.EntityFrameworkCore
 {
@@ -38,6 +39,8 @@ namespace Akh.Breed.EntityFrameworkCore
 
         public virtual DbSet<Contractor> Contractors { get; set; }
 
+        public virtual DbSet<Officer> Officers { get; set; }
+
         public virtual DbSet<AcademicDegree> AcademicDegrees { get; set; }
         
         public virtual DbSet<FirmType> FirmTypes { get; set; }
@@ -57,6 +60,7 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<RegionInfo> RegionInfos { get; set; }
 
         public virtual DbSet<VillageInfo> VillageInfos { get; set; }
+        
         public BreedDbContext(DbContextOptions<BreedDbContext> options)
             : base(options)
         {

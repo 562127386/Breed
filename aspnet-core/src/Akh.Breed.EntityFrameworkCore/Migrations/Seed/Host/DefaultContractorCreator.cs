@@ -16,7 +16,7 @@ namespace Akh.Breed.Migrations.Seed.Host
 
         public void Create()
         {
-            CreateContractor();
+            //CreateContractor();
         }
 
         private void CreateContractor()
@@ -24,7 +24,7 @@ namespace Akh.Breed.Migrations.Seed.Host
             var defaultContractor = _context.Contractors.IgnoreQueryFilters().FirstOrDefault(e => e.Name == "پیمانکار 1");
             if (defaultContractor == null)
             {
-                defaultContractor = new Contractor(ContractorFirmType.AgricultureFirm) { Name = "پیمانکار 1"};
+                defaultContractor = new Contractor() { Name = "پیمانکار 1"};
                 _context.Contractors.Add(defaultContractor);
                 _context.SaveChanges();
 

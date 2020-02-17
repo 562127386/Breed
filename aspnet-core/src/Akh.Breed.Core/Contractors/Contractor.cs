@@ -7,17 +7,22 @@ using Abp.Authorization.Users;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
+using Akh.Breed.BaseInfo;
 
 namespace Akh.Breed.Contractors
 {
     [Table("AkhContractors")]
-    public class Contractor : Entity<long>, IHasCreationTime, IMayHaveTenant
+    public class Contractor : Entity, IHasCreationTime, IMayHaveTenant
     {
         public string Institution { get; set; }
         
         public string SubInstitution { get; set; }
 
         public string Address { get; set; }
+
+        public string PostalCode { get; set; }
+
+        public string Code { get; set; }
 
         public string NationalCode { get; set; }
 
@@ -30,9 +35,7 @@ namespace Akh.Breed.Contractors
         public string Phone { get; set; }
 
         public string Email { get; set; }
-
-        public ContractorFirmType FirmType { get; set; }
-
+        
         public string FirmName { get; set; }
 
         public string FirmRegNumber { get; set; }
@@ -50,25 +53,19 @@ namespace Akh.Breed.Contractors
         public int PartialTimeStaffAssociateDegree { get; set; }
         
         public int PartialTimeStaffBachelorAndUpper { get; set; }
+
+        [ForeignKey("FirmTypeId")]
+        public virtual FirmType FirmType { get; set; }
+
+        public virtual int FirmTypeId { get; set; }
         
         public DateTime CreationTime { get; set; }
         
         public int? TenantId { get; set; }
         
-        public Contractor(ContractorFirmType firmType)
+        public Contractor()
         {
-            if (!Enum.IsDefined(typeof(ContractorFirmType), firmType))
-            {
-                throw new Exception("Invalid FirmType value: " + firmType);
-            }
-
-            FirmType = firmType;
             CreationTime = Clock.Now;
-        }
-        
-        protected Contractor()
-        {
-            
         }
     }
 }

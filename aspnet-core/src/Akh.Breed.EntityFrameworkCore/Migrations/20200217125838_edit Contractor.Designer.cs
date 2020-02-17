@@ -4,14 +4,16 @@ using Akh.Breed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    partial class BreedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200217125838_edit Contractor")]
+    partial class editContractor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2028,72 +2030,6 @@ namespace Akh.Breed.Migrations
                     b.ToTable("AbpTenants");
                 });
 
-            modelBuilder.Entity("Akh.Breed.Officers.Officer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AcademicDegreeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ContractorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Family")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MobileNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NationalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StateInfoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AcademicDegreeId");
-
-                    b.HasIndex("ContractorId");
-
-                    b.HasIndex("StateInfoId");
-
-                    b.ToTable("AkhOfficers");
-                });
-
             modelBuilder.Entity("Akh.Breed.Storage.BinaryObject", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2379,27 +2315,6 @@ namespace Akh.Breed.Migrations
                     b.HasOne("Akh.Breed.Authorization.Users.User", "LastModifierUser")
                         .WithMany()
                         .HasForeignKey("LastModifierUserId");
-                });
-
-            modelBuilder.Entity("Akh.Breed.Officers.Officer", b =>
-                {
-                    b.HasOne("Akh.Breed.BaseInfo.AcademicDegree", "AcademicDegree")
-                        .WithMany()
-                        .HasForeignKey("AcademicDegreeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Akh.Breed.Contractors.Contractor", "Contractor")
-                        .WithMany()
-                        .HasForeignKey("ContractorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Akh.Breed.BaseInfo.StateInfo", "StateInfo")
-                        .WithMany()
-                        .HasForeignKey("StateInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>

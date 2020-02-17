@@ -3,15 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Akh.Breed.Contractors.Dto
 {
-    public class ContractorCreateDto
+    public class ContractorCreateOrUpdateInput
     {
-        public long? Id { get; set; }
+        public int? Id { get; set; }
         
         public string Institution { get; set; }
         
         public string SubInstitution { get; set; }
 
         public string Address { get; set; }
+
+        public string PostalCode { get; set; }
+
+        public string Code { get; set; }
 
         public string NationalCode { get; set; }
 
@@ -24,8 +28,6 @@ namespace Akh.Breed.Contractors.Dto
         public string Phone { get; set; }
 
         public string Email { get; set; }
-
-        public ContractorFirmType? FirmType { get; set; }
 
         public string FirmName { get; set; }
 
@@ -44,5 +46,7 @@ namespace Akh.Breed.Contractors.Dto
         public int? PartialTimeStaffAssociateDegree { get; set; }
         
         public int? PartialTimeStaffBachelorAndUpper { get; set; }
+
+        public int FirmTypeId { get; set; }
     }
 }
