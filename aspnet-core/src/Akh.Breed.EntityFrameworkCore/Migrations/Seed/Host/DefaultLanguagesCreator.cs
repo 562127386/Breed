@@ -17,6 +17,8 @@ namespace Akh.Breed.Migrations.Seed.Host
             var tenantId = BreedConsts.MultiTenancyEnabled ? null : (int?)1;
             return new List<ApplicationLanguage>
             {
+                
+                new ApplicationLanguage(tenantId, "fa", "Persian", "famfamfam-flags ir"),
                 new ApplicationLanguage(tenantId, "en", "English", "famfamfam-flags us"),
                 new ApplicationLanguage(tenantId, "en-GB", "English (UK)", "famfamfam-flags gb"),
                 new ApplicationLanguage(tenantId, "ar", "العربية", "famfamfam-flags sa"),

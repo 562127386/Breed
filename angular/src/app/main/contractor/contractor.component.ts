@@ -1,33 +1,84 @@
-import { Component, Injector, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, Injector, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { ContractorServiceProxy, ContractorListDto, ListResultDtoOfContractorListDto } from '@shared/service-proxies/service-proxies';
+import { ContractorServiceProxy, ContractorListDto } from '@shared/service-proxies/service-proxies';
+import { Paginator } from 'primeng/components/paginator/paginator';
+import { Table } from 'primeng/components/table/table';
+import { ActivatedRoute } from '@angular/router';
+import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
+import { finalize } from 'rxjs/operators';
+import { CreateOrEditContractorModalComponent } from './create-or-edit-contractor-modal.component';
 
 @Component({
     templateUrl: './contractor.component.html',
-    styleUrls: ['./contractor.component.less'],
+    encapsulation: ViewEncapsulation.None,
     animations: [appModuleAnimation()],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./contractor.component.less']
 })
+export class ContractorComponent extends AppComponentBase implements AfterViewInit {
 
-export class ContractorComponent extends AppComponentBase implements OnInit {
-   
+    @ViewChild('createOrEditContractorModal', { static: true }) createOrEditContractorModal: CreateOrEditContractorModalComponent;
+    @ViewChild('dataTable', { static: true }) dataTable: Table;
+    @ViewChild('paginator', { static: true }) paginator: Paginator;
+
     contractors: ContractorListDto[] = [];
-    filter: string = '';
+    filterText : string = '';
 
     constructor(
         injector: Injector,
-        private _contractorService: ContractorServiceProxy) {
+        private _contractorService: ContractorServiceProxy,
+        private _activatedRoute: ActivatedRoute
+    ) {
         super(injector);
+        this.filterText = this._activatedRoute.snapshot.queryParams['filterText'] || '';
+    }
+    
+    ngAfterViewInit(): void {
+        this.primengTableHelper.adjustScroll(this.dataTable);
     }
 
-    ngOnInit(): void {
-        this.getContractors();
-    }
+    getContractor(event?: LazyLoadEvent) {
+        if (this.primengTableHelper.shouldResetPaging(event)) {
+            this.paginator.changePage(0);
 
-    getContractors(): void {
-        this._contractorService.getContractors().subscribe((result) => {
-            this.contractors = result.items;
+            return;
+        }
+
+        this.primengTableHelper.showLoadingIndicator();
+
+        this._contractorService.getContractor(
+            this.filterText,
+            this.primengTableHelper.getSorting(this.dataTable),
+            this.primengTableHelper.getMaxResultCount(this.paginator, event),
+            this.primengTableHelper.getSkipCount(this.paginator, event)
+        ).pipe(finalize(() => this.primengTableHelper.hideLoadingIndicator())).subscribe(result => {
+            this.primengTableHelper.totalRecordsCount = result.totalCount;
+            this.primengTableHelper.records = result.items;
+            this.primengTableHelper.hideLoadingIndicator();
         });
     }
+
+    reloadPage(): void {
+        this.paginator.changePage(this.paginator.getPage());
+    }
+
+    createContractor(): void {
+        this.createOrEditContractorModal.show();
+    }
+
+    deleteContractor(contractor: ContractorListDto): void {
+        this.message.confirm(
+            this.l('AreYouSureToDeleteTheContractor', contractor.name),            
+            this.l('AreYouSure'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this._contractorService.deleteContractor(contractor.id).subscribe(() => {
+                        this.reloadPage();
+                        this.notify.info(this.l('SuccessfullyDeleted'));
+                    });
+                }
+            }
+        );
+    } 
+  
 }
