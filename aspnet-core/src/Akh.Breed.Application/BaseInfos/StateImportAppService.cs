@@ -23,8 +23,10 @@ namespace Akh.Breed.BaseInfos
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly ILocalizationSource _localizationSource;
 
-        public StateImportAppService(IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository
-            ,IRepository<VillageInfo> villageInfoRepository, ILocalizationManager localizationManager, IUnitOfWorkManager unitOfWorkManager)
+        public StateImportAppService(IRepository<StateInfo> stateInfoRepository,
+            IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository
+            , IRepository<VillageInfo> villageInfoRepository, ILocalizationManager localizationManager,
+            IUnitOfWorkManager unitOfWorkManager)
         {
             _stateInfoRepository = stateInfoRepository;
             _cityInfoRepository = cityInfoRepository;
@@ -38,9 +40,10 @@ namespace Akh.Breed.BaseInfos
         public void InitialData()
         {
             var defaultStateInfo = _stateInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
+            var defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == "اراک");
+            var defaultRegionInfo = _regionInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
             if (defaultStateInfo == null)
             {
-                int stateId = 0, cityId = 0, regionId = 0;
                 var path = Directory.GetCurrentDirectory() + "\\StateCity.xlsx";
                 var fileBytes = System.IO.File.ReadAllBytes(path);
                 List<StateImportDto> stateCities = ProcessExcelFile(fileBytes, ProcessExcelRow);
@@ -48,115 +51,36 @@ namespace Akh.Breed.BaseInfos
                 {
                     if (stateCity.StateName != defaultStateInfo?.Name)
                     {
-                        stateId++;
                         defaultStateInfo = _stateInfoRepository.FirstOrDefault(e => e.Name == stateCity.StateName) ??
                                            _stateInfoRepository.Insert(new StateInfo()
                                                {Code = stateCity.StateCode, Name = stateCity.StateName});
                     }
-                }
 
-                _unitOfWorkManager.Current.SaveChanges();
 
-                defaultStateInfo = _stateInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
-                var defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == "اراک");
-                if (defaultCityInfo == null)
-                {
-                    foreach (var stateCity in stateCities)
+                    if (stateCity.CityName != defaultCityInfo?.Name)
                     {
-                        if (stateCity.StateName != defaultStateInfo?.Name)
-                        {
-                            stateId++;
-                            defaultStateInfo =
-                                _stateInfoRepository.FirstOrDefault(e => e.Name == stateCity.StateName);
-                        }
-
-                        if (stateCity.CityName != defaultCityInfo?.Name)
-                        {
-                            cityId++;
-                            defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == stateCity.CityName) ??
-                                              _cityInfoRepository.Insert(new CityInfo()
-                                              {
-                                                  StateInfoId = stateId, Code = stateCity.CityCode,
-                                                  Name = stateCity.CityName
-                                              });
-                        }
+                        defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == stateCity.CityName) ??
+                                          _cityInfoRepository.Insert(new CityInfo() {StateInfo = defaultStateInfo, Code = stateCity.CityCode, Name = stateCity.CityName});
                     }
-                }
 
-                _unitOfWorkManager.Current.SaveChanges();
 
-                defaultStateInfo = _stateInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
-                defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == "اراک");
-                var defaultRegionInfo = _regionInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
-                if (defaultRegionInfo == null)
-                {
-                    foreach (var stateCity in stateCities)
+                    if (stateCity.RegionName != defaultRegionInfo?.Name)
                     {
-                        if (stateCity.StateName != defaultStateInfo?.Name)
-                        {
-                            stateId++;
-                            defaultStateInfo =
-                                _stateInfoRepository.FirstOrDefault(e => e.Name == stateCity.StateName);
-                        }
-
-                        if (stateCity.CityName != defaultCityInfo?.Name)
-                        {
-                            cityId++;
-                            defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == stateCity.CityName);
-                        }
-
-                        if (stateCity.RegionName != defaultRegionInfo?.Name)
-                        {
-                            regionId++;
-                            defaultRegionInfo =
-                                _regionInfoRepository.FirstOrDefault(e => e.Name == stateCity.CityName) ??
-                                _regionInfoRepository.Insert(new RegionInfo()
-                                    {CityInfoId = cityId, Code = stateCity.RegionCode, Name = stateCity.RegionName});
-                        }
+                        defaultRegionInfo =
+                            _regionInfoRepository.FirstOrDefault(e => e.Name == stateCity.CityName) ??
+                            _regionInfoRepository.Insert(new RegionInfo()
+                                {CityInfo = defaultCityInfo, Code = stateCity.RegionCode, Name = stateCity.RegionName});
                     }
+
+
+                    _villageInfoRepository.Insert(new VillageInfo()
+                        {RegionInfo = defaultRegionInfo, Code = stateCity.VillageCode, Name = stateCity.VillageName});
                 }
-
-                _unitOfWorkManager.Current.SaveChanges();
-
-                defaultStateInfo = _stateInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
-                defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == "اراک");
-                defaultRegionInfo = _regionInfoRepository.FirstOrDefault(e => e.Name == "مرکزي");
-                var defaultVillageInfo = _villageInfoRepository.FirstOrDefault(e => e.Name == "امان آباد");
-                if (defaultVillageInfo == null)
-                {
-                    foreach (var stateCity in stateCities)
-                    {
-                        if (stateCity.StateName != defaultStateInfo?.Name)
-                        {
-                            stateId++;
-                            defaultStateInfo =
-                                _stateInfoRepository.FirstOrDefault(e => e.Name == stateCity.StateName);
-                        }
-
-                        if (stateCity.CityName != defaultCityInfo?.Name)
-                        {
-                            cityId++;
-                            defaultCityInfo = _cityInfoRepository.FirstOrDefault(e => e.Name == stateCity.CityName);
-                        }
-
-                        if (stateCity.RegionName != defaultRegionInfo?.Name)
-                        {
-                            regionId++;
-                            defaultRegionInfo =
-                                _regionInfoRepository.FirstOrDefault(e => e.Name == stateCity.CityName);
-                        }
-
-                        _villageInfoRepository.Insert(new VillageInfo()
-                            {RegionInfoId = regionId, Code = stateCity.VillageCode, Name = stateCity.VillageName});
-                    }
-                }
-
-                _unitOfWorkManager.Current.SaveChanges();
-
             }
 
 
         }
+
 
         private StateImportDto ProcessExcelRow(ExcelWorksheet worksheet, int row)
         {
