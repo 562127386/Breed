@@ -495,7 +495,7 @@
     <text name="MaximumUserCount_Error_Message">Reached maximum allowed user count!</text>
     <text name="MaximumUserCount_Error_Detail">This tenant is allowed to have a maximum of {0} users.</text>
     <text name="UnlockedTenandAdmin">Unlocked admin user for {0}</text>
-    <text name="Email">Email</text>
+    <text name="Email">آدرس الکترونیک</text>
     <text name="EmailSecurityCodeSubject">Security Code</text>
     <text name="EmailSecurityCodeBody">Your security code is: {0}</text>
     <text name="Sms">Sms</text>
@@ -684,7 +684,7 @@
     <text name="Link">Link</text>
     <text name="Billing">Billing</text>
     <text name="LegalName">Legal Name</text>
-    <text name="Address">Address</text>
+    <text name="Address">آدرس</text>
     <text name="Tax/VatNo">Tax/VatNo</text>
     <text name="Invoice">Invoice</text>
     <text name="TotalAmount">Total Amount</text>
@@ -1026,6 +1026,26 @@
     <text name="VillageInfoHeaderInfo">مدیریت دهستان</text>
     <text name="EditNewVillageInfo">ویرایش دهستان</text>
 
+    <text name="CreateNewContractor">ایجاد پیمانکار</text>
+    <text name="AreYouSureToDeleteTheContractor">آیا از حذف پیمانکار {0} مطمئن هستید؟</text>
+    <text name="ContractorHeaderInfo">مدیریت پیمانکاران</text>
+    <text name="EditNewContractor">ویرایش پیمانکار</text>
+    <text name="Institution">نهاد</text>
+    <text name="SubInstitution">اتحادیه</text>
+    <text name="PostalCode">کد پستی</text>
+    <text name="NationalCode">کد ملی</text>
+    <text name="BirthDate">تاریخ تولد</text>
+    <text name="Family">نام خانوادگی</text>
+    <text name="Phone">شماره تلفن</text>
+    <text name="FirmName">نام شرکت</text>
+    <text name="FirmRegNumber">شماره ثبت شرکت</text>
+    <text name="FirmEstablishmentYear">سال تاسیس شرکت</text>
+    <text name="FullTimeStaffDiploma">تعداد دیپلم تمام وقت</text>
+    <text name="FullTimeStaffAssociateDegree">تعداد فوق دیپلم تمام وقت</text>
+    <text name="FullTimeStaffBachelorAndUpper">تعداد لیسانس و بالاتر تمام وقت</text>
+    <text name="PartialTimeStaffDiploma">تعداد دیپلم پاره وقت</text>
+    <text name="PartialTimeStaffAssociateDegree">تعداد فوق دیپلم پاره وقت</text>
+    <text name="PartialTimeStaffBachelorAndUpper">تعداد لیسانس و بالاتر پاره وقت</text>
   </texts>
 </localizationDictionary>
 

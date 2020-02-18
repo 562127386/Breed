@@ -5860,6 +5860,249 @@ export class NotificationServiceProxy {
 }
 
 @Injectable()
+export class OfficerServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getOfficer(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfOfficerListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Officer/GetOfficer?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOfficer(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOfficer(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfOfficerListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfOfficerListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOfficer(response: HttpResponseBase): Observable<PagedResultDtoOfOfficerListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfOfficerListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfOfficerListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getOfficerForEdit(id: number | undefined): Observable<GetOfficerForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Officer/GetOfficerForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOfficerForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOfficerForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetOfficerForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetOfficerForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOfficerForEdit(response: HttpResponseBase): Observable<GetOfficerForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetOfficerForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetOfficerForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateOfficer(body: OfficerCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Officer/CreateOrUpdateOfficer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateOfficer(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateOfficer(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateOfficer(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteOfficer(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Officer/DeleteOfficer?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteOfficer(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteOfficer(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteOfficer(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class OrganizationUnitServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -20310,6 +20553,438 @@ export class UpdateNotificationSettingsInput implements IUpdateNotificationSetti
 export interface IUpdateNotificationSettingsInput {
     receiveNotifications: boolean;
     notifications: NotificationSubscriptionDto[] | undefined;
+}
+
+export class OfficerListDto implements IOfficerListDto {
+    code!: string | undefined;
+    nationalCode!: string | undefined;
+    birthDate!: moment.Moment;
+    name!: string | undefined;
+    family!: string | undefined;
+    fatherName!: string | undefined;
+    idNo!: string | undefined;
+    workNumber!: string | undefined;
+    mobileNumber!: string | undefined;
+    address!: string | undefined;
+    postalCode!: string | undefined;
+    academicDegreeName!: string | undefined;
+    academicDegreeId!: number;
+    stateInfoName!: string | undefined;
+    stateInfoId!: number;
+    contractorName!: string | undefined;
+    contractorId!: number;
+    id!: number;
+
+    constructor(data?: IOfficerListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.name = data["name"];
+            this.family = data["family"];
+            this.fatherName = data["fatherName"];
+            this.idNo = data["idNo"];
+            this.workNumber = data["workNumber"];
+            this.mobileNumber = data["mobileNumber"];
+            this.address = data["address"];
+            this.postalCode = data["postalCode"];
+            this.academicDegreeName = data["academicDegreeName"];
+            this.academicDegreeId = data["academicDegreeId"];
+            this.stateInfoName = data["stateInfoName"];
+            this.stateInfoId = data["stateInfoId"];
+            this.contractorName = data["contractorName"];
+            this.contractorId = data["contractorId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): OfficerListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OfficerListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["fatherName"] = this.fatherName;
+        data["idNo"] = this.idNo;
+        data["workNumber"] = this.workNumber;
+        data["mobileNumber"] = this.mobileNumber;
+        data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
+        data["academicDegreeName"] = this.academicDegreeName;
+        data["academicDegreeId"] = this.academicDegreeId;
+        data["stateInfoName"] = this.stateInfoName;
+        data["stateInfoId"] = this.stateInfoId;
+        data["contractorName"] = this.contractorName;
+        data["contractorId"] = this.contractorId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IOfficerListDto {
+    code: string | undefined;
+    nationalCode: string | undefined;
+    birthDate: moment.Moment;
+    name: string | undefined;
+    family: string | undefined;
+    fatherName: string | undefined;
+    idNo: string | undefined;
+    workNumber: string | undefined;
+    mobileNumber: string | undefined;
+    address: string | undefined;
+    postalCode: string | undefined;
+    academicDegreeName: string | undefined;
+    academicDegreeId: number;
+    stateInfoName: string | undefined;
+    stateInfoId: number;
+    contractorName: string | undefined;
+    contractorId: number;
+    id: number;
+}
+
+export class PagedResultDtoOfOfficerListDto implements IPagedResultDtoOfOfficerListDto {
+    totalCount!: number;
+    items!: OfficerListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfOfficerListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(OfficerListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfOfficerListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfOfficerListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfOfficerListDto {
+    totalCount: number;
+    items: OfficerListDto[] | undefined;
+}
+
+export class OfficerEditDto implements IOfficerEditDto {
+    id!: number | undefined;
+    code!: string | undefined;
+    nationalCode!: string | undefined;
+    birthDate!: moment.Moment;
+    name!: string | undefined;
+    family!: string | undefined;
+    fatherName!: string | undefined;
+    idNo!: string | undefined;
+    workNumber!: string | undefined;
+    mobileNumber!: string | undefined;
+    address!: string | undefined;
+    postalCode!: string | undefined;
+    academicDegreeName!: string | undefined;
+    academicDegreeId!: number;
+    stateInfoName!: string | undefined;
+    stateInfoId!: number;
+    contractorName!: string | undefined;
+    contractorId!: number;
+
+    constructor(data?: IOfficerEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.name = data["name"];
+            this.family = data["family"];
+            this.fatherName = data["fatherName"];
+            this.idNo = data["idNo"];
+            this.workNumber = data["workNumber"];
+            this.mobileNumber = data["mobileNumber"];
+            this.address = data["address"];
+            this.postalCode = data["postalCode"];
+            this.academicDegreeName = data["academicDegreeName"];
+            this.academicDegreeId = data["academicDegreeId"];
+            this.stateInfoName = data["stateInfoName"];
+            this.stateInfoId = data["stateInfoId"];
+            this.contractorName = data["contractorName"];
+            this.contractorId = data["contractorId"];
+        }
+    }
+
+    static fromJS(data: any): OfficerEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OfficerEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["fatherName"] = this.fatherName;
+        data["idNo"] = this.idNo;
+        data["workNumber"] = this.workNumber;
+        data["mobileNumber"] = this.mobileNumber;
+        data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
+        data["academicDegreeName"] = this.academicDegreeName;
+        data["academicDegreeId"] = this.academicDegreeId;
+        data["stateInfoName"] = this.stateInfoName;
+        data["stateInfoId"] = this.stateInfoId;
+        data["contractorName"] = this.contractorName;
+        data["contractorId"] = this.contractorId;
+        return data; 
+    }
+}
+
+export interface IOfficerEditDto {
+    id: number | undefined;
+    code: string | undefined;
+    nationalCode: string | undefined;
+    birthDate: moment.Moment;
+    name: string | undefined;
+    family: string | undefined;
+    fatherName: string | undefined;
+    idNo: string | undefined;
+    workNumber: string | undefined;
+    mobileNumber: string | undefined;
+    address: string | undefined;
+    postalCode: string | undefined;
+    academicDegreeName: string | undefined;
+    academicDegreeId: number;
+    stateInfoName: string | undefined;
+    stateInfoId: number;
+    contractorName: string | undefined;
+    contractorId: number;
+}
+
+export class GetOfficerForEditOutput implements IGetOfficerForEditOutput {
+    officer!: OfficerEditDto;
+    academicDegrees!: ComboboxItemDto[] | undefined;
+    stateInfos!: ComboboxItemDto[] | undefined;
+    contractors!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IGetOfficerForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.officer = data["officer"] ? OfficerEditDto.fromJS(data["officer"]) : <any>undefined;
+            if (Array.isArray(data["academicDegrees"])) {
+                this.academicDegrees = [] as any;
+                for (let item of data["academicDegrees"])
+                    this.academicDegrees!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["contractors"])) {
+                this.contractors = [] as any;
+                for (let item of data["contractors"])
+                    this.contractors!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetOfficerForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetOfficerForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["officer"] = this.officer ? this.officer.toJSON() : <any>undefined;
+        if (Array.isArray(this.academicDegrees)) {
+            data["academicDegrees"] = [];
+            for (let item of this.academicDegrees)
+                data["academicDegrees"].push(item.toJSON());
+        }
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.contractors)) {
+            data["contractors"] = [];
+            for (let item of this.contractors)
+                data["contractors"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetOfficerForEditOutput {
+    officer: OfficerEditDto;
+    academicDegrees: ComboboxItemDto[] | undefined;
+    stateInfos: ComboboxItemDto[] | undefined;
+    contractors: ComboboxItemDto[] | undefined;
+}
+
+export class OfficerCreateOrUpdateInput implements IOfficerCreateOrUpdateInput {
+    id!: number | undefined;
+    code!: string | undefined;
+    nationalCode!: string | undefined;
+    birthDate!: moment.Moment;
+    name!: string | undefined;
+    family!: string | undefined;
+    fatherName!: string | undefined;
+    idNo!: string | undefined;
+    workNumber!: string | undefined;
+    mobileNumber!: string | undefined;
+    address!: string | undefined;
+    postalCode!: string | undefined;
+    academicDegreeName!: string | undefined;
+    academicDegreeId!: number;
+    stateInfoName!: string | undefined;
+    stateInfoId!: number;
+    contractorName!: string | undefined;
+    contractorId!: number;
+
+    constructor(data?: IOfficerCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.name = data["name"];
+            this.family = data["family"];
+            this.fatherName = data["fatherName"];
+            this.idNo = data["idNo"];
+            this.workNumber = data["workNumber"];
+            this.mobileNumber = data["mobileNumber"];
+            this.address = data["address"];
+            this.postalCode = data["postalCode"];
+            this.academicDegreeName = data["academicDegreeName"];
+            this.academicDegreeId = data["academicDegreeId"];
+            this.stateInfoName = data["stateInfoName"];
+            this.stateInfoId = data["stateInfoId"];
+            this.contractorName = data["contractorName"];
+            this.contractorId = data["contractorId"];
+        }
+    }
+
+    static fromJS(data: any): OfficerCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new OfficerCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["fatherName"] = this.fatherName;
+        data["idNo"] = this.idNo;
+        data["workNumber"] = this.workNumber;
+        data["mobileNumber"] = this.mobileNumber;
+        data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
+        data["academicDegreeName"] = this.academicDegreeName;
+        data["academicDegreeId"] = this.academicDegreeId;
+        data["stateInfoName"] = this.stateInfoName;
+        data["stateInfoId"] = this.stateInfoId;
+        data["contractorName"] = this.contractorName;
+        data["contractorId"] = this.contractorId;
+        return data; 
+    }
+}
+
+export interface IOfficerCreateOrUpdateInput {
+    id: number | undefined;
+    code: string | undefined;
+    nationalCode: string | undefined;
+    birthDate: moment.Moment;
+    name: string | undefined;
+    family: string | undefined;
+    fatherName: string | undefined;
+    idNo: string | undefined;
+    workNumber: string | undefined;
+    mobileNumber: string | undefined;
+    address: string | undefined;
+    postalCode: string | undefined;
+    academicDegreeName: string | undefined;
+    academicDegreeId: number;
+    stateInfoName: string | undefined;
+    stateInfoId: number;
+    contractorName: string | undefined;
+    contractorId: number;
 }
 
 export class OrganizationUnitDto implements IOrganizationUnitDto {

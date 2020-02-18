@@ -68,7 +68,7 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
-                this.modalSave.emit(this.contractor);
+                this.modalSave.emit(input);
             });
     }
 

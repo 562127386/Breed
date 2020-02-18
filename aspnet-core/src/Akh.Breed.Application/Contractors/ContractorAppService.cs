@@ -57,7 +57,7 @@ namespace Akh.Breed.Contractors
             //FirmTypes
             output.FirmTypes = _firmTypeRepository
                 .GetAll()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name ))
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name ){ IsSelected = output.Contractor.FirmTypeId == c.Id })
                 .ToList();
 
             return output;
