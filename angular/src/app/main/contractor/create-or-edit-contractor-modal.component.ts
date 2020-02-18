@@ -1,9 +1,10 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ContractorServiceProxy, ContractorCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { ContractorEditDto, ContractorServiceProxy, ContractorCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
+import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'createOrEditContractorModal',
@@ -12,10 +13,13 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditContractorModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
+    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;    
+    @ViewChild('firmTypeCombobox', { static: true }) firmTypeCombobox: ElementRef;
+
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    contractor: ContractorCreateOrUpdateInput = new ContractorCreateOrUpdateInput();
+    contractor: ContractorEditDto = new ContractorEditDto();
+    firmTypesSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
@@ -33,10 +37,14 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
         }
 
         this._contractorService.getContractorForEdit(contractorId).subscribe(userResult => {
-            this.contractor.name = userResult.name;
-            this.contractor.code = userResult.code;
-            this.contractor.id =  contractorId;
+            this.contractor = userResult.contractor;
 
+            this.firmTypesSelectItems = _.map(userResult.firmTypes, function(firmType) {
+                return {
+                    label: firmType.displayText, value: firmType.value
+                };
+            });
+            
             if (contractorId) {
                 this.active = true;
             }
@@ -51,8 +59,11 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
     }
 
     save(): void {
+        let input = new ContractorCreateOrUpdateInput();
+        input = this.contractor;
+        
         this.saving = true;
-        this._contractorService.createOrUpdateContractor(this.contractor)
+        this._contractorService.createOrUpdateContractor(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

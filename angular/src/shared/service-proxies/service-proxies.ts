@@ -2258,7 +2258,7 @@ export class ContractorServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getContractorForEdit(id: number | undefined): Observable<ContractorCreateOrUpdateInput> {
+    getContractorForEdit(id: number | undefined): Observable<GetContractorForEditOutput> {
         let url_ = this.baseUrl + "/api/services/app/Contractor/GetContractorForEdit?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -2281,14 +2281,14 @@ export class ContractorServiceProxy {
                 try {
                     return this.processGetContractorForEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<ContractorCreateOrUpdateInput>><any>_observableThrow(e);
+                    return <Observable<GetContractorForEditOutput>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ContractorCreateOrUpdateInput>><any>_observableThrow(response_);
+                return <Observable<GetContractorForEditOutput>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetContractorForEdit(response: HttpResponseBase): Observable<ContractorCreateOrUpdateInput> {
+    protected processGetContractorForEdit(response: HttpResponseBase): Observable<GetContractorForEditOutput> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -2299,7 +2299,7 @@ export class ContractorServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ContractorCreateOrUpdateInput.fromJS(resultData200);
+            result200 = GetContractorForEditOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -2307,7 +2307,7 @@ export class ContractorServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ContractorCreateOrUpdateInput>(<any>null);
+        return _observableOf<GetContractorForEditOutput>(<any>null);
     }
 
     /**
@@ -16029,6 +16029,218 @@ export interface IPagedResultDtoOfContractorListDto {
     items: ContractorListDto[] | undefined;
 }
 
+export class ContractorEditDto implements IContractorEditDto {
+    id!: number | undefined;
+    institution!: string | undefined;
+    subInstitution!: string | undefined;
+    address!: string | undefined;
+    postalCode!: string | undefined;
+    code!: string | undefined;
+    nationalCode!: string | undefined;
+    birthDate!: moment.Moment | undefined;
+    name!: string | undefined;
+    family!: string | undefined;
+    phone!: string | undefined;
+    email!: string | undefined;
+    firmName!: string | undefined;
+    firmRegNumber!: string | undefined;
+    firmEstablishmentYear!: string | undefined;
+    fullTimeStaffDiploma!: number | undefined;
+    fullTimeStaffAssociateDegree!: number | undefined;
+    fullTimeStaffBachelorAndUpper!: number | undefined;
+    partialTimeStaffDiploma!: number | undefined;
+    partialTimeStaffAssociateDegree!: number | undefined;
+    partialTimeStaffBachelorAndUpper!: number | undefined;
+    firmTypeId!: number | undefined;
+
+    constructor(data?: IContractorEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.institution = data["institution"];
+            this.subInstitution = data["subInstitution"];
+            this.address = data["address"];
+            this.postalCode = data["postalCode"];
+            this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.name = data["name"];
+            this.family = data["family"];
+            this.phone = data["phone"];
+            this.email = data["email"];
+            this.firmName = data["firmName"];
+            this.firmRegNumber = data["firmRegNumber"];
+            this.firmEstablishmentYear = data["firmEstablishmentYear"];
+            this.fullTimeStaffDiploma = data["fullTimeStaffDiploma"];
+            this.fullTimeStaffAssociateDegree = data["fullTimeStaffAssociateDegree"];
+            this.fullTimeStaffBachelorAndUpper = data["fullTimeStaffBachelorAndUpper"];
+            this.partialTimeStaffDiploma = data["partialTimeStaffDiploma"];
+            this.partialTimeStaffAssociateDegree = data["partialTimeStaffAssociateDegree"];
+            this.partialTimeStaffBachelorAndUpper = data["partialTimeStaffBachelorAndUpper"];
+            this.firmTypeId = data["firmTypeId"];
+        }
+    }
+
+    static fromJS(data: any): ContractorEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ContractorEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["institution"] = this.institution;
+        data["subInstitution"] = this.subInstitution;
+        data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
+        data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["phone"] = this.phone;
+        data["email"] = this.email;
+        data["firmName"] = this.firmName;
+        data["firmRegNumber"] = this.firmRegNumber;
+        data["firmEstablishmentYear"] = this.firmEstablishmentYear;
+        data["fullTimeStaffDiploma"] = this.fullTimeStaffDiploma;
+        data["fullTimeStaffAssociateDegree"] = this.fullTimeStaffAssociateDegree;
+        data["fullTimeStaffBachelorAndUpper"] = this.fullTimeStaffBachelorAndUpper;
+        data["partialTimeStaffDiploma"] = this.partialTimeStaffDiploma;
+        data["partialTimeStaffAssociateDegree"] = this.partialTimeStaffAssociateDegree;
+        data["partialTimeStaffBachelorAndUpper"] = this.partialTimeStaffBachelorAndUpper;
+        data["firmTypeId"] = this.firmTypeId;
+        return data; 
+    }
+}
+
+export interface IContractorEditDto {
+    id: number | undefined;
+    institution: string | undefined;
+    subInstitution: string | undefined;
+    address: string | undefined;
+    postalCode: string | undefined;
+    code: string | undefined;
+    nationalCode: string | undefined;
+    birthDate: moment.Moment | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    phone: string | undefined;
+    email: string | undefined;
+    firmName: string | undefined;
+    firmRegNumber: string | undefined;
+    firmEstablishmentYear: string | undefined;
+    fullTimeStaffDiploma: number | undefined;
+    fullTimeStaffAssociateDegree: number | undefined;
+    fullTimeStaffBachelorAndUpper: number | undefined;
+    partialTimeStaffDiploma: number | undefined;
+    partialTimeStaffAssociateDegree: number | undefined;
+    partialTimeStaffBachelorAndUpper: number | undefined;
+    firmTypeId: number | undefined;
+}
+
+export class ComboboxItemDto implements IComboboxItemDto {
+    value!: string | undefined;
+    displayText!: string | undefined;
+    isSelected!: boolean;
+
+    constructor(data?: IComboboxItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.value = data["value"];
+            this.displayText = data["displayText"];
+            this.isSelected = data["isSelected"];
+        }
+    }
+
+    static fromJS(data: any): ComboboxItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ComboboxItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["value"] = this.value;
+        data["displayText"] = this.displayText;
+        data["isSelected"] = this.isSelected;
+        return data; 
+    }
+}
+
+export interface IComboboxItemDto {
+    value: string | undefined;
+    displayText: string | undefined;
+    isSelected: boolean;
+}
+
+export class GetContractorForEditOutput implements IGetContractorForEditOutput {
+    contractor!: ContractorEditDto;
+    firmTypes!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IGetContractorForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.contractor = data["contractor"] ? ContractorEditDto.fromJS(data["contractor"]) : <any>undefined;
+            if (Array.isArray(data["firmTypes"])) {
+                this.firmTypes = [] as any;
+                for (let item of data["firmTypes"])
+                    this.firmTypes!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetContractorForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetContractorForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["contractor"] = this.contractor ? this.contractor.toJSON() : <any>undefined;
+        if (Array.isArray(this.firmTypes)) {
+            data["firmTypes"] = [];
+            for (let item of this.firmTypes)
+                data["firmTypes"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetContractorForEditOutput {
+    contractor: ContractorEditDto;
+    firmTypes: ComboboxItemDto[] | undefined;
+}
+
 export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateInput {
     id!: number | undefined;
     institution!: string | undefined;
@@ -16051,7 +16263,7 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
     partialTimeStaffDiploma!: number | undefined;
     partialTimeStaffAssociateDegree!: number | undefined;
     partialTimeStaffBachelorAndUpper!: number | undefined;
-    firmTypeId!: number;
+    firmTypeId!: number | undefined;
 
     constructor(data?: IContractorCreateOrUpdateInput) {
         if (data) {
@@ -16146,7 +16358,7 @@ export interface IContractorCreateOrUpdateInput {
     partialTimeStaffDiploma: number | undefined;
     partialTimeStaffAssociateDegree: number | undefined;
     partialTimeStaffBachelorAndUpper: number | undefined;
-    firmTypeId: number;
+    firmTypeId: number | undefined;
 }
 
 export class Widget implements IWidget {
@@ -19366,50 +19578,6 @@ export interface IApplicationLanguageEditDto {
     name: string | undefined;
     icon: string | undefined;
     isEnabled: boolean;
-}
-
-export class ComboboxItemDto implements IComboboxItemDto {
-    value!: string | undefined;
-    displayText!: string | undefined;
-    isSelected!: boolean;
-
-    constructor(data?: IComboboxItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.value = data["value"];
-            this.displayText = data["displayText"];
-            this.isSelected = data["isSelected"];
-        }
-    }
-
-    static fromJS(data: any): ComboboxItemDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new ComboboxItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["value"] = this.value;
-        data["displayText"] = this.displayText;
-        data["isSelected"] = this.isSelected;
-        return data; 
-    }
-}
-
-export interface IComboboxItemDto {
-    value: string | undefined;
-    displayText: string | undefined;
-    isSelected: boolean;
 }
 
 export class GetLanguageForEditOutput implements IGetLanguageForEditOutput {

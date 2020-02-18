@@ -17,10 +17,12 @@ namespace Akh.Breed.Contractors
     public class ContractorAppService : BreedAppServiceBase, IContractorAppService
     {
         private readonly IRepository<Contractor> _contractorRepository;
+        private readonly IRepository<FirmType> _firmTypeRepository;
 
-        public ContractorAppService(IRepository<Contractor> contractorRepository)
+        public ContractorAppService(IRepository<Contractor> contractorRepository, IRepository<FirmType> firmTypeRepository)
         {
             _contractorRepository = contractorRepository;
+            _firmTypeRepository = firmTypeRepository;
         }
         public async Task<PagedResultDto<ContractorListDto>> GetContractor(GetContractorInput input)
         {
@@ -37,18 +39,26 @@ namespace Akh.Breed.Contractors
             );
         }
         
-        public async Task<ContractorCreateOrUpdateInput> GetContractorForEdit(NullableIdDto<int> input)
+        public async Task<GetContractorForEditOutput> GetContractorForEdit(NullableIdDto<int> input)
         {
-            //Getting all available roles
-            var output = new ContractorCreateOrUpdateInput();
-            
+            Contractor contractor = null;
             if (input.Id.HasValue)
             {
-                //Editing an existing user
-                var contractor = await _contractorRepository.GetAsync(input.Id.Value);
-                if (contractor != null)
-                    ObjectMapper.Map<Contractor,ContractorCreateOrUpdateInput>(contractor,output);
+                contractor = await _contractorRepository.GetAsync(input.Id.Value);
             }
+            
+            var output = new GetContractorForEditOutput();
+            
+            //contractor
+            output.Contractor = contractor != null
+                ? ObjectMapper.Map<ContractorEditDto>(contractor)
+                : new ContractorEditDto();
+            
+            //FirmTypes
+            output.FirmTypes = _firmTypeRepository
+                .GetAll()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name ))
+                .ToList();
 
             return output;
         }

@@ -140,6 +140,9 @@ namespace Akh.Breed
 
             //Contrator
             configuration.CreateMap<Contractor, ContractorListDto>();
+            configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>();
+            configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>();
+            configuration.CreateMap<Contractor, ContractorEditDto>();
 
             //BaseInfo
             configuration.CreateMap<ProviderInfo, ProviderInfoListDto>();

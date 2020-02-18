@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Akh.Breed.Contractors.Dto
 {
-    public class ContractorCreateOrUpdateInput
+    public class ContractorEditDto
     {
         public int? Id { get; set; }
         

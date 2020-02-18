@@ -8,7 +8,7 @@ namespace Akh.Breed.Contractors
     public interface IContractorAppService : IApplicationService
     {
         Task<PagedResultDto<ContractorListDto>> GetContractor(GetContractorInput input);
-        Task<ContractorCreateOrUpdateInput> GetContractorForEdit(NullableIdDto<int> input);
+        Task<GetContractorForEditOutput> GetContractorForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateContractor(ContractorCreateOrUpdateInput input);
         Task DeleteContractor(EntityDto input);
     }
