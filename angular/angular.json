@@ -45,6 +45,7 @@
 
               "src/assets/fonts/fonts-poppins.css",
               "src/assets/fonts/fonts-roboto.css",
+              "src/assets/fonts/fonts-iransans.css",
 
               "src/assets/ngx-bootstrap/bs-datepicker.css",
 
