@@ -36,6 +36,8 @@ using Akh.Breed.MultiTenancy.HostDashboard.Dto;
 using Akh.Breed.MultiTenancy.Payments;
 using Akh.Breed.MultiTenancy.Payments.Dto;
 using Akh.Breed.Notifications.Dto;
+using Akh.Breed.Officers;
+using Akh.Breed.Officers.Dto;
 using Akh.Breed.Organizations.Dto;
 using Akh.Breed.Sessions.Dto;
 
@@ -138,11 +140,17 @@ namespace Akh.Breed
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
 
-            //Contrator
+            //Contractor
             configuration.CreateMap<Contractor, ContractorListDto>();
             configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>();
             configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>();
             configuration.CreateMap<Contractor, ContractorEditDto>();
+            
+            //Officer
+            configuration.CreateMap<Officer, OfficerListDto>();
+            configuration.CreateMap<OfficerCreateOrUpdateInput, Officer>();
+            configuration.CreateMap<Officer, OfficerCreateOrUpdateInput>();
+            configuration.CreateMap<Officer, OfficerEditDto>();
 
             //BaseInfo
             configuration.CreateMap<ProviderInfo, ProviderInfoListDto>();

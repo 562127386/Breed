@@ -8,6 +8,8 @@ import { ModalModule, TabsModule, TooltipModule, BsDropdownModule, PopoverModule
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContractorComponent } from "./contractor/contractor.component";
 import { CreateOrEditContractorModalComponent } from "./contractor/create-or-edit-contractor-modal.component";
+import { OfficerComponent } from "./officer/officer.component";
+import { CreateOrEditOfficerModalComponent } from "./officer/create-or-edit-officer-modal.component";
 import { ProviderInfoComponent } from "./providerInfo/providerInfo.component";
 import { CreateOrEditProviderInfoModalComponent } from "./providerInfo/create-or-edit-providerInfo-modal.component";
 import { SexInfoComponent } from "./sexInfo/sexInfo.component";
@@ -73,6 +75,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         DashboardComponent,
         ContractorComponent,
         CreateOrEditContractorModalComponent,
+        OfficerComponent,
+        CreateOrEditOfficerModalComponent,
         ProviderInfoComponent,
         CreateOrEditProviderInfoModalComponent,
         SexInfoComponent,

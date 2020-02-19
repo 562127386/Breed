@@ -43,6 +43,7 @@ import { ZeroRefreshTokenService } from '@account/auth/zero-refresh-token.servic
         ApiServiceProxies.StripePaymentServiceProxy,
         ApiServiceProxies.DashboardCustomizationServiceProxy,
         ApiServiceProxies.ContractorServiceProxy,
+        ApiServiceProxies.OfficerServiceProxy,
         ApiServiceProxies.ProviderInfoServiceProxy,
         ApiServiceProxies.SpeciesInfoServiceProxy,
         ApiServiceProxies.SexInfoServiceProxy,

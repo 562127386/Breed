@@ -59,21 +59,21 @@ namespace Akh.Breed.Officers
                 ? ObjectMapper.Map<OfficerEditDto>(officer)
                 : new OfficerEditDto();
             
-            //FirmTypes
+            //AcademicDegrees
             output.AcademicDegrees = _academicDegreeRepository
-                .GetAll()
+                .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name ){ IsSelected = output.Officer.AcademicDegreeId == c.Id })
                 .ToList();
             
-            //FirmTypes
+            //StateInfos
             output.StateInfos = _stateInfoRepository
-                .GetAll()
+                .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name ){ IsSelected = output.Officer.StateInfoId == c.Id })
                 .ToList();
             
-            //FirmTypes
+            //Contractors
             output.Contractors = _contractorRepository
-                .GetAll()
+                .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name + "/" + c.FirmName ){ IsSelected = output.Officer.ContractorId == c.Id })
                 .ToList();
 

@@ -1046,6 +1046,19 @@
     <text name="PartialTimeStaffDiploma">تعداد دیپلم پاره وقت</text>
     <text name="PartialTimeStaffAssociateDegree">تعداد فوق دیپلم پاره وقت</text>
     <text name="PartialTimeStaffBachelorAndUpper">تعداد لیسانس و بالاتر پاره وقت</text>
+
+    <text name="CreateNewOfficer">ایجاد مامور</text>
+    <text name="AreYouSureToDeleteTheOfficer">آیا از حذف مامور {0} مطمئن هستید؟</text>
+    <text name="OfficerHeaderInfo">مدیریت مامورین</text>
+    <text name="EditNewOfficer">ویرایش مامور</text>
+    <text name="FatherName">نام پدر</text>
+    <text name="IdNo">شماره شناسنامه</text>
+    <text name="WorkNumber">تلفن محل کار</text>
+    <text name="MobileNumber">تلفن همراه</text>
+    <text name="AcademicDegreeName">مدرک تحصیلی</text>
+    <text name="StateInfoName">استان</text>
+    <text name="ContractorName">پیمانکار</text>
+    
   </texts>
 </localizationDictionary>
 

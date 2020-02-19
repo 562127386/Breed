@@ -20711,7 +20711,7 @@ export class OfficerEditDto implements IOfficerEditDto {
     id!: number | undefined;
     code!: string | undefined;
     nationalCode!: string | undefined;
-    birthDate!: moment.Moment;
+    birthDate!: moment.Moment | undefined;
     name!: string | undefined;
     family!: string | undefined;
     fatherName!: string | undefined;
@@ -20794,7 +20794,7 @@ export interface IOfficerEditDto {
     id: number | undefined;
     code: string | undefined;
     nationalCode: string | undefined;
-    birthDate: moment.Moment;
+    birthDate: moment.Moment | undefined;
     name: string | undefined;
     family: string | undefined;
     fatherName: string | undefined;

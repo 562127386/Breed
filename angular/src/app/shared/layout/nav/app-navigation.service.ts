@@ -35,6 +35,7 @@ export class AppNavigationService {
             ]),
             new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
             new AppMenuItem('Contractor', null, 'flaticon-diagram', '/app/main/contractor'),
+            new AppMenuItem('Officer', null, 'flaticon-diagram', '/app/main/officer'),
             new AppMenuItem('PlaqueStore', null, 'flaticon2-box', '',[
                 new AppMenuItem('PlaqueStore', null, 'flaticon2-box', ''),
             ]),

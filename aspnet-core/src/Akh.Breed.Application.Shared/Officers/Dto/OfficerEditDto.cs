@@ -10,7 +10,7 @@ namespace Akh.Breed.Officers.Dto
 
         public string NationalCode { get; set; }
         
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public string Name { get; set; }
 

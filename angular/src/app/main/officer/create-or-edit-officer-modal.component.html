@@ -1,0 +1,84 @@
+
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #officerForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="officer.id">{{"EditNewOfficer" | localize}}: {{officer.Name}}</span>
+                        <span *ngIf="!officer.id">{{"CreateNewOfficer" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>{{"Code" | localize}}</label>
+                        <input class="form-control" type="text" name="code" [(ngModel)]="officer.code"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"NationalCode" | localize}}</label>
+                        <input class="form-control" type="text" name="nationalCode" [(ngModel)]="officer.nationalCode"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"BirthDate" | localize}}</label>
+                        <input class="form-control" type="text" name="birthDate" [(ngModel)]="officer.birthDate"  maxlength="32">
+                    </div>                    
+                    <div class="form-group">
+                        <label>{{"Name" | localize}}</label>
+                        <input #nameInput class="form-control" type="text" name="name" [(ngModel)]="officer.name"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"Family" | localize}}</label>
+                        <input class="form-control" type="text" name="family" [(ngModel)]="officer.family"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"FatherName" | localize}}</label>
+                        <input class="form-control" type="text" name="fatherName" [(ngModel)]="officer.fatherName"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"IdNo" | localize}}</label>
+                        <input class="form-control" type="text" name="idNo" [(ngModel)]="officer.idNo"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"WorkNumber" | localize}}</label>
+                        <input class="form-control" type="text" name="workNumber" [(ngModel)]="officer.workNumber"  maxlength="32">
+                    </div>                    
+                    <div class="form-group">
+                        <label>{{"MobileNumber" | localize}}</label>
+                        <input class="form-control" type="text" name="mobileNumber" [(ngModel)]="officer.mobileNumber"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"Address" | localize}}</label>
+                        <input class="form-control" type="text" name="address" [(ngModel)]="officer.address"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <label>{{"PostalCode" | localize}}</label>
+                        <input class="form-control" type="text" name="postalCode" [(ngModel)]="officer.postalCode"  maxlength="32">
+                    </div>
+                    <div class="form-group">
+                        <p-dropdown #academicDegreeCombobox [options]="academicDegreesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                            name="academicDegreeId" [(ngModel)]="officer.academicDegreeId" [style]="{'width':'100%'}"></p-dropdown>
+                        <validation-messages [formCtrl]="academicDegreeCombobox"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                            name="stateInfoId" [(ngModel)]="officer.stateInfoId" [style]="{'width':'100%'}"></p-dropdown>
+                        <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <p-dropdown #contractorCombobox [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                            name="contractorId" [(ngModel)]="officer.contractorId" [style]="{'width':'100%'}"></p-dropdown>
+                        <validation-messages [formCtrl]="contractorCombobox"></validation-messages>
+                    </div>
+                                 
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!officerForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
