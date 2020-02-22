@@ -1,25 +1,34 @@
 <div [@routerTransition]>
     <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
         <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">
-                        <span>{{"StateInfo" | localize}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <span class="kt-subheader__desc">
-                        {{"StateInfoHeaderInfo" | localize}}
-                    </span>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
-                        <button (click)="createStateInfo()" class="btn btn-primary"><i class="fa fa-plus"></i> {{"CreateNewStateInfo" | localize}}</button>
-                    </div>
-                </div>
-            </div>
         </div>
+
         <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
             <div class="kt-portlet kt-portlet--mobile">
+
+                <div class="kt-portlet__head kt-portlet--skin-solid kt-portlet-- kt-bg-brand">
+                    <div class="kt-portlet__head-label">
+                          
+                        <span class="kt-portlet__head-icon">
+                            <i class="flaticon2-graph"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-title">
+                            <span>{{"StateInfo" | localize}}</span>
+                        </h3>
+                        <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                        <span class="kt-subheader__desc">
+                            {{"StateInfoHeaderInfo" | localize}}
+                        </span>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="kt-portlet__head-actions">
+                            <div (click)="createStateInfo()" class="btn btn-clean btn-sm btn-icon btn-icon-md">
+                                <i class="flaticon2-add-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="kt-portlet__body">
                     <form class="kt-form" autocomplete="new-password">
                         <div>
@@ -51,54 +60,35 @@
                                 [responsive]="primengTableHelper.isResponsive"
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
-                                    <tr>
-                                        <th style="width: 130px">
-                                            <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
-                                            {{'Actions' | localize}}</th>
-                                        <th style="width: 150px" pSortableColumn="name">
+                                    <tr>                                        
+                                        <th style="width: 100px" pSortableColumn="name">
                                             {{'Name' | localize}}
                                             <p-sortIcon field="name"></p-sortIcon>
                                         </th>
-                                        <th style="width: 150px" pSortableColumn="code">
-                                            {{'Code' | localize}}
-                                            <p-sortIcon field="surname"></p-sortIcon>
-                                        </th>    
-                                        <th style="width: 200px" pSortableColumn="creationTime">
+                                        <th style="width: 70px">
+                                                <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
+                                                {{'Actions' | localize}}</th>  
+                                        <th style="width: 100px" pSortableColumn="creationTime">
                                             {{'CreationTime' | localize}}
                                             <p-sortIcon field="creationTime"></p-sortIcon>
                                         </th>                                    
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
-                                    <tr>
-                                        <td style="width: 130px">
-                                            <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
-                                            <div class="btn-group dropdown" dropdown container="body">
-                                                <button dropdownToggle class="dropdown-toggle btn btn-sm btn-primary">
-                                                    <i class="fa fa-cog"></i><span class="caret"></span>
-                                                    {{"Actions" | localize}}
-                                                </button>
-                                                <ul class="dropdown-menu" *dropdownMenu>
-                                                    <li>
-                                                        <a href="javascript:;"
-                                                            (click)="createOrEditStateInfoModal.show(record.id)">{{'Edit' | localize}}</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:;"
-                                                            (click)="deleteStateInfo(record)">{{'Delete' | localize}}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td style="width: 150px">
+                                    <tr>                                        
+                                        <td style="width: 100px">
                                             <span class="ui-column-title"> {{'Name' | localize}}</span>
                                             {{record.name}}
                                         </td>
-                                        <td style="width: 150px">
-                                            <span class="ui-column-title"> {{'Code' | localize}}</span>
-                                            {{record.code}}
-                                        </td>                                       
-                                        <td style="width: 200px">
+                                        <td style="width: 130px">
+                                            <div class="kt-section__content kt-section__content--solid">
+                                                <button type="button" (click)="createOrEditStateInfoModal.show(record.id)" class="btn btn-outline-brand btn-elevate btn-circle btn-icon"><i class="flaticon-eye"></i></button>
+                                                <button type="button" (click)="createOrEditStateInfoModal.show(record.id)" class="btn btn-warning btn-elevate btn-circle btn-icon"><i class="flaticon-cogwheel-1"></i></button>
+                                                <button type="button" (click)="deleteStateInfo(record)" class="btn btn-danger btn-elevate btn-circle btn-icon"><i class="flaticon-delete"></i></button>
+                                            </div>                                            
+                                            <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->                                    
+                                        </td>                                     
+                                        <td style="width: 100px">
                                             <span class="ui-column-title"> {{'CreationTime' | localize}}</span>
                                              {{record.creationTime | momentFormat:'L'}} 
                                         </td>
@@ -123,6 +113,18 @@
                         <!--<Primeng-TurboTable-End>-->
                     </div>
                 </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 m--valign-middle">
+                            
+                        </div>
+                        <div class="col-lg-6 kt-align-right">
+                            <button (click)="createStateInfo()" class="btn btn-primary"><i class="fa fa-plus"></i> {{"createStateInfo" | localize}}</button>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
 

@@ -1,33 +1,75 @@
-<div [ngClass]="{'kt-grid kt-grid--ver kt-grid--root': !useFullWidthLayout(), 'kt-content': useFullWidthLayout() }" [style.text-align]="useFullWidthLayout() ? 'center' : 'left'">
-    <div [ngClass]="{'kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v1': !useFullWidthLayout(), 'row':useFullWidthLayout()}" id="kt_login">
-        <div [ngClass]="{'kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile': !useFullWidthLayout(), 'col-md-12': useFullWidthLayout()}">
-            <div class="kt-grid__item kt-grid__item--order-tablet-and-mobile-2 kt-grid kt-grid--hor kt-login__aside" *ngIf="!useFullWidthLayout()" style="background-image: url('/assets/metronic/common/images/bg/bg-4.jpg');">
-                <div class="kt-grid__item">
-                    <a (click)="goToHome()" href="">
-                        <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="appRootUrl() + 'assets/common/images/logo3.png'" alt="logo" height="76" />
-                        <img *ngIf="appSession.tenant && appSession.tenant.logoId" [src]="remoteServiceBaseUrl + '/TenantCustomization/GetTenantLogo?skin=light&tenantId=' + appSession.tenant.id + '&id=' + appSession.tenant.logoId" alt="logo" height="38" />
-                    </a>
-                </div>
-                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-                    <div class="kt-grid__item kt-grid__item--middle">
-                        <h3 class="kt-login__title">اتحادیه سراسری صنعت دامپروران</h3>
-                        <h4 class="kt-login__subtitle">مرکز اصلاح نژاد دام کشور</h4>
-                    </div>
+<div>
+    
+        <div class="kt-header-back"></div>
+        <div id="kt_header_mobile" class="kt-header-mobile">
+            <div class="kt-header-mobile__logo">
+                <a routerLink="/" target="_blank">
+                    <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="" alt="logo" height="28" />
+                    <img *ngIf="appSession.tenant && appSession.tenant.logoId" [src]="remoteServiceBaseUrl + '/TenantCustomization/GetTenantLogo?skin=' + currentTheme.baseSettings.menu.asideSkin + '&tenantId=' + appSession.tenant.id + '&id=' + appSession.tenant.logoId" alt="logo" height="38" />
+                </a>
+            </div>
+        </div>
+        <div id="kt_header_mobile_sub" class="kt-header-mobile-sub">
+                <div class="kt-header-mobile__toolbar">
+                        <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#kt_widget4_tab11_content" role="tab">
+                                            صفحه نخست
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#kt_widget4_tab12_content" role="tab">
+                                            راهنما
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
+                                            درباره ما
+                                    </a>  
+                                </li>
+                        </ul>   
                 </div>
             </div>
-
-            <div class="kt-grid__item kt-grid__item--fluid  kt-grid__item--order-tablet-and-mobile-1  kt-login__wrapper d-block">
-                <!-- <div class="kt-login__head d-block mt-3 mr-auto ml-auto text-right">
-                    <language-switch></language-switch>
-                </div> -->
-
-                <div class="kt-login__body d-block mt-3 mr-auto ml-auto">
-                    <!-- <div *ngIf="showTenantChange()" class="kt-login__signup-label tenant-change-box text-center">
-                        <tenant-change></tenant-change>
-                    </div> -->
-                    <router-outlet></router-outlet>
+        <div class="kt-grid kt-grid--hor kt-grid--root">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+                    <!-- BEGIN: Header -->
+                    <div class="kt-header kt-grid__item  kt-header--fixed" id="kt_header">
+                        <div [class]="containerClass">
+                        </div>
+                    </div>
+                    <div class="kt-header-sub kt-grid__item  kt-header--fixed" id="kt_header_sub">
+                            <div [class]="containerClass">
+                                <div class="kt-header__topbar-item d-none d-lg-block subscription-warning">
+                                        <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#kt_widget4_tab11_content" role="tab">
+                                                            صفحه نخست
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#kt_widget4_tab12_content" role="tab">
+                                                            راهنما
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
+                                                            درباره ما
+                                                    </a>  
+                                                </li>
+                                        </ul>                                    
+                                </div>   
+                            </div>
+                        </div>
+                    <div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
+                        <div [class]="containerClass + ' kt-grid kt-grid--ver'">
+                            <div class="kt-holder kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">                                       
+                                <router-outlet></router-outlet>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    

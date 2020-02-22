@@ -16847,7 +16847,7 @@ strong {
   color: #ffffff !important; }
 
 .kt-bg-brand {
-  background-color: #5d78ff !important; }
+  background-color: #1399cc !important; }
 
 .kt-bg-fill-brand {
   background-color: #5d78ff !important;
@@ -16932,6 +16932,9 @@ strong {
 
 .kt-bg-success {
   background-color: #1dc9b7 !important; }
+
+.kt-bg-subhead {
+  background-color: #ddd294 !important; }
 
 .kt-bg-fill-success {
   background-color: #1dc9b7 !important;

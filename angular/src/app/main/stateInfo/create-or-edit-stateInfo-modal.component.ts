@@ -31,7 +31,6 @@ export class CreateOrEditStateInfoModalComponent extends AppComponentBase {
         if (!stateInfoId) {
             this.active = true;
         }
-
         this._stateInfoService.getStateInfoForEdit(stateInfoId).subscribe(userResult => {
             this.stateInfo.name = userResult.name;
             this.stateInfo.code = userResult.code;
