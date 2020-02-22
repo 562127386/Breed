@@ -1047,6 +1047,7 @@
     <text name="PartialTimeStaffAssociateDegree">تعداد فوق دیپلم پاره وقت</text>
     <text name="PartialTimeStaffBachelorAndUpper">تعداد لیسانس و بالاتر پاره وقت</text>
 
+    <text name="Officer">مامورین</text>
     <text name="CreateNewOfficer">ایجاد مامور</text>
     <text name="AreYouSureToDeleteTheOfficer">آیا از حذف مامور {0} مطمئن هستید؟</text>
     <text name="OfficerHeaderInfo">مدیریت مامورین</text>

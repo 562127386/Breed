@@ -28,7 +28,7 @@
 }
 
 .primeng-datatable-container .ui-table th {
-    font-family: "Poppins", "Roboto";
+    font-family: "IRANSans-web", "Roboto";
     border: none !important;
     padding: 10px 0px 10px 10px !important;
     text-align: left;
@@ -36,7 +36,7 @@
 }
 
 .primeng-datatable-container .ui-table td {
-    font-family: "Poppins", "Roboto";
+    font-family: "IRANSans-web", "Roboto";
     border: none !important;
     padding: 8px 10px !important;
 }
@@ -60,7 +60,7 @@
 
 .primeng-datatable-container .ui-table table thead tr th {
     font-size: 14px;
-    font-family: Poppins;
+    font-family: IRANSans-web;
     font-weight: 300;
     line-height: 21px;
     vertical-align: middle;
