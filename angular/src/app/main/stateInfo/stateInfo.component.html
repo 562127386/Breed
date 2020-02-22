@@ -14,33 +14,30 @@
                         </span>
                         <h3 class="kt-portlet__head-title">
                             <span>{{"StateInfo" | localize}}</span>
-                        </h3>
-                        <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                        <span class="kt-subheader__desc">
-                            {{"StateInfoHeaderInfo" | localize}}
-                        </span>
+                        </h3>                        
                     </div>
                     <div class="kt-portlet__head-toolbar">
                         <div class="kt-portlet__head-actions">
-                            <div (click)="createStateInfo()" class="btn btn-clean btn-sm btn-icon btn-icon-md">
+                            <div (click)="createStateInfo()" class="btn btn-clean btn-sm btn-icon btn-icon-md"
+                                data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                 <i class="flaticon2-add-1"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="kt-portlet__body">
+                <div class="kt-portlet__body kt-padding-0">
                     <form class="kt-form" autocomplete="new-password">
                         <div>
-                            <div class="row align-items-center mb-4">
+                            <div class="row align-items-center">
                                 <div class="col-xl-12">
-                                    <div class="form-group m-form__group align-items-center">
+                                    <div class="form-group m-form__group align-items-center mb-0">
                                         <div class="input-group">
                                             <input [(ngModel)]="filterText" name="filterText" autoFocus
                                                 class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
                                                 type="text">
                                             <span class="input-group-btn">
-                                                <button (click)="getStateInfo()" class="btn btn-primary" type="submit"><i
+                                                <button (click)="getStateInfo()" class="btn btn-brand" type="submit"><i
                                                         class="flaticon-search-1"
                                                         [attr.aria-label]="l('Search')"></i></button>
                                             </span>
@@ -51,7 +48,7 @@
                         </div>
                     </form>
 
-                    <div class="row align-items-center">
+                    <div class="row align-items-center kt-margin-0">
                         <!--<Primeng-TurboTable-Start>-->
                         <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                             <p-table #dataTable (onLazyLoad)="getStateInfo($event)" [value]="primengTableHelper.records"
@@ -61,37 +58,38 @@
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
                                     <tr>                                        
+                                        <th style="width: 100px" pSortableColumn="code">
+                                            {{'Code' | localize}}
+                                            <p-sortIcon field="code"></p-sortIcon>
+                                        </th>
                                         <th style="width: 100px" pSortableColumn="name">
                                             {{'Name' | localize}}
                                             <p-sortIcon field="name"></p-sortIcon>
                                         </th>
-                                        <th style="width: 70px">
+                                        <th style="width: 100px">
                                                 <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
-                                                {{'Actions' | localize}}</th>  
-                                        <th style="width: 100px" pSortableColumn="creationTime">
-                                            {{'CreationTime' | localize}}
-                                            <p-sortIcon field="creationTime"></p-sortIcon>
-                                        </th>                                    
+                                                {{'Actions' | localize}}
+                                        </th>                                                                             
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
                                     <tr>                                        
                                         <td style="width: 100px">
+                                            <span class="ui-column-title"> {{'Code' | localize}}</span>
+                                            {{record.code}}
+                                        </td>
+                                        <td style="width: 100px">
                                             <span class="ui-column-title"> {{'Name' | localize}}</span>
                                             {{record.name}}
                                         </td>
-                                        <td style="width: 130px">
+                                        <td style="width: 100px">
                                             <div class="kt-section__content kt-section__content--solid">
-                                                <button type="button" (click)="createOrEditStateInfoModal.show(record.id)" class="btn btn-outline-brand btn-elevate btn-circle btn-icon"><i class="flaticon-eye"></i></button>
-                                                <button type="button" (click)="createOrEditStateInfoModal.show(record.id)" class="btn btn-warning btn-elevate btn-circle btn-icon"><i class="flaticon-cogwheel-1"></i></button>
-                                                <button type="button" (click)="deleteStateInfo(record)" class="btn btn-danger btn-elevate btn-circle btn-icon"><i class="flaticon-delete"></i></button>
+                                                <button type="button" (click)="createOrEditStateInfoModal.show(record.id)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                <button type="button" (click)="createOrEditStateInfoModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>
+                                                <button type="button" (click)="deleteStateInfo(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button>
                                             </div>                                            
                                             <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->                                    
                                         </td>                                     
-                                        <td style="width: 100px">
-                                            <span class="ui-column-title"> {{'CreationTime' | localize}}</span>
-                                             {{record.creationTime | momentFormat:'L'}} 
-                                        </td>
                                     </tr>
                                 </ng-template>
                             </p-table>
@@ -120,7 +118,7 @@
                             
                         </div>
                         <div class="col-lg-6 kt-align-right">
-                            <button (click)="createStateInfo()" class="btn btn-primary"><i class="fa fa-plus"></i> {{"createStateInfo" | localize}}</button>
+                            <button (click)="createStateInfo()" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewStateInfo" | localize}}</button>
                         </div>
                     </div>
                 </div>
