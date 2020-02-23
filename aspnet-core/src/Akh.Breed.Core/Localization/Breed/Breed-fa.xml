@@ -984,52 +984,63 @@
     <text name="CreateNewProviderInfo">ایجاد تامین کننده</text>
     <text name="AreYouSureToDeleteTheProviderInfo">آیا از حذف تامین کننده {0} مطمئن هستید؟</text>
     <text name="ProviderInfoHeaderInfo">مدیریت تامین کنندگان</text>
+    <text name="ViewNewProviderInfo">نمایش تامین کننده</text>
     <text name="EditNewProviderInfo">ویرایش تامین کننده</text>
     
     <text name="CreateNewSexInfo">ایجاد جنسیت دام</text>
     <text name="AreYouSureToDeleteTheSexInfo">آیا از حذف جنسیت دام {0} مطمئن هستید؟</text>
     <text name="SexInfoHeaderInfo">مدیریت جنسیت دام</text>
+    <text name="ViewNewSexInfo">نمایش جنسیت دام</text>
     <text name="EditNewSexInfo">ویرایش جنسیت دام</text>
 
     <text name="CreateNewSpeciesInfo">ایجاد گونه دام</text>
     <text name="AreYouSureToDeleteTheSpeciesInfo">آیا از حذف گونه دام {0} مطمئن هستید؟</text>
     <text name="SpeciesInfoHeaderInfo">مدیریت گونه دام</text>
+    <text name="ViewNewSpeciesInfo">نمایش گونه دام</text>
     <text name="EditNewSpeciesInfo">ویرایش گونه دام</text>
 
     <text name="CreateNewAcademicDegree">ایجاد مقطع تحصیلی</text>
     <text name="AreYouSureToDeleteTheAcademicDegree">آیا از حذف مقطع تحصیلی {0} مطمئن هستید؟</text>
     <text name="AcademicDegreeHeaderInfo">مدیریت مقطع تحصیلی</text>
+    <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
 
     <text name="CreateNewFirmType">ایجاد نوع شرکت</text>
     <text name="AreYouSureToDeleteTheFirmType">آیا از حذف نوع شرکت {0} مطمئن هستید؟</text>
     <text name="FirmTypeHeaderInfo">مدیریت انواع شرکت</text>
-    <text name="EditNewFirmType">ویرایش نوع شکت</text>
+    <text name="ViewNewFirmType">نمایش نوع شرکت</text>
+    <text name="EditNewFirmType">ویرایش نوع شرکت</text>
 
     <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
     <text name="AreYouSureToDeleteThePlaqueState">آیا از حذف وضعیت پلاک {0} مطمئن هستید؟</text>
     <text name="PlaqueStateHeaderInfo">مدیریت وضعیت پلاک</text>
+    <text name="ViewNewPlaqueState">نمایش وضعیت پلاک</text>
     <text name="EditNewPlaqueState">ویرایش وضعیت پلاک</text>
     
     <text name="CreateNewStateInfo">ایجاد استان</text>
     <text name="AreYouSureToDeleteTheStateInfo">آیا از حذف استان {0} مطمئن هستید؟</text>
     <text name="StateInfoHeaderInfo">مدیریت استان</text>
+    <text name="ViewNewStateInfo">نمایش استان</text>
     <text name="EditNewStateInfo">ویرایش استان</text>
 
     <text name="CreateNewCityInfo">ایجاد شهر</text>
     <text name="AreYouSureToDeleteTheCityInfo">آیا از حذف شهر {0} مطمئن هستید؟</text>
     <text name="CityInfoHeaderInfo">مدیریت شهر</text>
+    <text name="ViewNewCityInfo">نمایش شهر</text>
     <text name="EditNewCityInfo">ویرایش شهر</text>
 
     <text name="CreateNewVillageInfo">ایجاد دهستان</text>
     <text name="AreYouSureToDeleteTheVillageInfo">آیا از حذف دهستان {0} مطمئن هستید؟</text>
     <text name="VillageInfoHeaderInfo">مدیریت دهستان</text>
+    <text name="ViewNewVillageInfo">نمایش دهستان</text>
     <text name="EditNewVillageInfo">ویرایش دهستان</text>
 
     <text name="CreateNewContractor">ایجاد پیمانکار</text>
     <text name="AreYouSureToDeleteTheContractor">آیا از حذف پیمانکار {0} مطمئن هستید؟</text>
     <text name="ContractorHeaderInfo">مدیریت پیمانکاران</text>
+    <text name="ViewNewContractor">نمایش پیمانکار</text>
     <text name="EditNewContractor">ویرایش پیمانکار</text>
+    
     <text name="Institution">نهاد</text>
     <text name="SubInstitution">اتحادیه</text>
     <text name="PostalCode">کد پستی</text>
@@ -1051,6 +1062,7 @@
     <text name="CreateNewOfficer">ایجاد مامور</text>
     <text name="AreYouSureToDeleteTheOfficer">آیا از حذف مامور {0} مطمئن هستید؟</text>
     <text name="OfficerHeaderInfo">مدیریت مامورین</text>
+    <text name="ViewNewOfficer">نمایش مامور</text>
     <text name="EditNewOfficer">ویرایش مامور</text>
     <text name="FatherName">نام پدر</text>
     <text name="IdNo">شماره شناسنامه</text>
@@ -1059,7 +1071,13 @@
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
     <text name="StateInfoName">استان</text>
     <text name="ContractorName">پیمانکار</text>
-    
+      
+    <text name="AddItem">ثبت رکورد جدید</text>
+    <text name="ViewItem">نمایش رکورد</text>
+    <text name="DeleteItem">حذف رکورد</text>
+    <text name="EditItem">ویرایش رکورد</text>
+
+
   </texts>
 </localizationDictionary>
 

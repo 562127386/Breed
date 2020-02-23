@@ -19,6 +19,7 @@ export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
 
     active: boolean = false;
     saving: boolean = false;
+    editdisabled: boolean = false;
 
     constructor(
         injector: Injector,
@@ -27,11 +28,14 @@ export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
         super(injector);
     }
 
-    show(villageInfoId?: number): void {
+    show(villageInfoId?: number,editdisabled?: boolean): void {        
         if (!villageInfoId) {
             this.active = true;
         }
-
+        this.editdisabled = true;
+        if (!editdisabled) {
+            this.editdisabled = false;
+        }
         this._villageInfoService.getVillageInfoForEdit(villageInfoId).subscribe(userResult => {
             this.villageInfo.name = userResult.name;
             this.villageInfo.code = userResult.code;
@@ -63,6 +67,15 @@ export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
 
     close(): void {
         this.active = false;
+        this.editdisabled = true;
         this.modal.hide();
     }
+
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+  }
 }

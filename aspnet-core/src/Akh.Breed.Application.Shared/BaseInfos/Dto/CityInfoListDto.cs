@@ -26,5 +26,9 @@ namespace Akh.Breed.BaseInfos.Dto
         public string Code { get; set; }
 
         public int StateInfoId { get; set; }
+        
+        public string StateInfoName { get; set; }
+        
+        public string StateInfoCode { get; set; }
     }
 }

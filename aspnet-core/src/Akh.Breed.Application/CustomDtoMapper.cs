@@ -181,7 +181,9 @@ namespace Akh.Breed
             configuration.CreateMap<StateInfoCreateOrUpdateInput, StateInfo>();
             configuration.CreateMap<StateInfo, StateInfoCreateOrUpdateInput>();
 
-            configuration.CreateMap<CityInfo, CityInfoListDto>();
+            configuration.CreateMap<CityInfo, CityInfoListDto>()
+                .ForMember(cityD => cityD.StateInfoName, options => options.MapFrom(l => l.StateInfo.Name))
+                .ForMember(cityD => cityD.StateInfoCode, options => options.MapFrom(l => l.StateInfo.Code));
             configuration.CreateMap<CityInfoCreateOrUpdateInput, CityInfo>();
             configuration.CreateMap<CityInfo, CityInfoCreateOrUpdateInput>();
             

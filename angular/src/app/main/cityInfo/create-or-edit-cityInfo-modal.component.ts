@@ -19,6 +19,7 @@ export class CreateOrEditCityInfoModalComponent extends AppComponentBase {
 
     active: boolean = false;
     saving: boolean = false;
+    editdisabled: boolean = false;
 
     constructor(
         injector: Injector,
@@ -27,11 +28,14 @@ export class CreateOrEditCityInfoModalComponent extends AppComponentBase {
         super(injector);
     }
 
-    show(cityInfoId?: number): void {
+    show(cityInfoId?: number,editdisabled?: boolean): void {        
         if (!cityInfoId) {
             this.active = true;
         }
-
+        this.editdisabled = true;
+        if (!editdisabled) {
+            this.editdisabled = false;
+        }
         this._cityInfoService.getCityInfoForEdit(cityInfoId).subscribe(userResult => {
             this.cityInfo.name = userResult.name;
             this.cityInfo.code = userResult.code;
@@ -63,6 +67,15 @@ export class CreateOrEditCityInfoModalComponent extends AppComponentBase {
 
     close(): void {
         this.active = false;
+        this.editdisabled = true;
         this.modal.hide();
     }
+
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+  }
 }

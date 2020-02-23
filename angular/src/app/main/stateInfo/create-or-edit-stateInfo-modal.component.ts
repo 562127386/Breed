@@ -19,6 +19,7 @@ export class CreateOrEditStateInfoModalComponent extends AppComponentBase {
 
     active: boolean = false;
     saving: boolean = false;
+    editdisabled: boolean = false;
 
     constructor(
         injector: Injector,
@@ -27,9 +28,13 @@ export class CreateOrEditStateInfoModalComponent extends AppComponentBase {
         super(injector);
     }
 
-    show(stateInfoId?: number): void {
+    show(stateInfoId?: number,editdisabled?: boolean): void {        
         if (!stateInfoId) {
             this.active = true;
+        }
+        this.editdisabled = true;
+        if (!editdisabled) {
+            this.editdisabled = false;
         }
         this._stateInfoService.getStateInfoForEdit(stateInfoId).subscribe(userResult => {
             this.stateInfo.name = userResult.name;
@@ -62,6 +67,15 @@ export class CreateOrEditStateInfoModalComponent extends AppComponentBase {
 
     close(): void {
         this.active = false;
+        this.editdisabled = true;
         this.modal.hide();
     }
+
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+  }
 }
