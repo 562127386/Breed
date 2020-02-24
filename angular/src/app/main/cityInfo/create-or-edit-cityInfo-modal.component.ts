@@ -4,6 +4,7 @@ import { CityInfoServiceProxy, CityInfoCreateOrUpdateInput } from '@shared/servi
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
+import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'createOrEditCityInfoModal',
@@ -12,10 +13,13 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditCityInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
+    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;    
+    @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
+    
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    cityInfo: CityInfoCreateOrUpdateInput = new CityInfoCreateOrUpdateInput();
+    cityInfo: CityInfoCreateOrUpdateInput = new CityInfoCreateOrUpdateInput();    
+    stateInfosSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
@@ -37,9 +41,13 @@ export class CreateOrEditCityInfoModalComponent extends AppComponentBase {
             this.editdisabled = false;
         }
         this._cityInfoService.getCityInfoForEdit(cityInfoId).subscribe(userResult => {
-            this.cityInfo.name = userResult.name;
-            this.cityInfo.code = userResult.code;
-            this.cityInfo.id =  cityInfoId;
+            this.cityInfo = userResult.cityInfo;
+            
+            this.stateInfosSelectItems = _.map(userResult.stateInfos, function(stateInfo) {
+                return {
+                    label: stateInfo.displayText, value: stateInfo.value
+                };
+            });
 
             if (cityInfoId) {
                 this.active = true;
@@ -55,8 +63,11 @@ export class CreateOrEditCityInfoModalComponent extends AppComponentBase {
     }
 
     save(): void {
+        let input = new CityInfoCreateOrUpdateInput();
+        input = this.cityInfo;
+
         this.saving = true;
-        this._cityInfoService.createOrUpdateCityInfo(this.cityInfo)
+        this._cityInfoService.createOrUpdateCityInfo(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

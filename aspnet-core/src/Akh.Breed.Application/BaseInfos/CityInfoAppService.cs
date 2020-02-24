@@ -9,6 +9,7 @@ using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
+using Akh.Breed.Contractors.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.BaseInfos
@@ -16,10 +17,12 @@ namespace Akh.Breed.BaseInfos
     public class CityInfoAppService :  BreedAppServiceBase, ICityInfoAppService
     {
         private readonly IRepository<CityInfo> _cityInfoRepository;
+        private readonly IRepository<StateInfo> _stateInfoRepository;
 
-        public CityInfoAppService(IRepository<CityInfo> cityInfoRepository)
+        public CityInfoAppService(IRepository<CityInfo> cityInfoRepository, IRepository<StateInfo> stateInfoRepository)
         {
             _cityInfoRepository = cityInfoRepository;
+            _stateInfoRepository = stateInfoRepository;
         }
 
         public async Task<PagedResultDto<CityInfoListDto>> GetCityInfo(GetCityInfoInput input)
@@ -37,19 +40,29 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
-        public async Task<CityInfoCreateOrUpdateInput> GetCityInfoForEdit(NullableIdDto<int> input)
+        public async Task<CityInfoGetForEditOutput> GetCityInfoForEdit(NullableIdDto<int> input)
         {
-            //Getting all available roles
-            var output = new CityInfoCreateOrUpdateInput();
-            
+            CityInfo cityInfo = null;
             if (input.Id.HasValue)
             {
-                //Editing an existing user
-                var cityInfo = await _cityInfoRepository.GetAsync(input.Id.Value);
-                if (cityInfo != null)
-                    ObjectMapper.Map<CityInfo,CityInfoCreateOrUpdateInput>(cityInfo,output);
+                cityInfo = await _cityInfoRepository.GetAsync(input.Id.Value);
             }
 
+            //Getting all available roles
+            var output = new CityInfoGetForEditOutput();
+            
+            //cityInfo
+            output.CityInfo = cityInfo != null
+                ? ObjectMapper.Map<CityInfoCreateOrUpdateInput>(cityInfo)
+                : new CityInfoCreateOrUpdateInput();
+            
+            //StateInfos
+            output.StateInfos = _stateInfoRepository
+                .GetAllList()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name)
+                    {IsSelected = output.CityInfo.StateInfoId.Equals(c.Id)})
+                .ToList();
+                
             return output;
         }
         
@@ -84,8 +97,10 @@ namespace Akh.Breed.BaseInfos
         
         private IQueryable<CityInfo> GetFilteredQuery(GetCityInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_cityInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_cityInfoRepository.GetAllIncluding(p => p.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
+                    u.StateInfo.Name.Contains(input.Filter) ||
+                    u.StateInfo.Code.Contains(input.Filter) ||
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));
 

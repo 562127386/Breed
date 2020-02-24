@@ -8,7 +8,7 @@ namespace Akh.Breed.BaseInfos
     public interface ICityInfoAppService : IApplicationService
     {
         Task<PagedResultDto<CityInfoListDto>> GetCityInfo(GetCityInfoInput input);
-        Task<CityInfoCreateOrUpdateInput> GetCityInfoForEdit(NullableIdDto<int> input);
+        Task<CityInfoGetForEditOutput> GetCityInfoForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateCityInfo(CityInfoCreateOrUpdateInput input);
         Task DeleteCityInfo(EntityDto input);
     }

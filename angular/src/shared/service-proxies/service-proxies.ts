@@ -1840,7 +1840,7 @@ export class CityInfoServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getCityInfoForEdit(id: number | undefined): Observable<CityInfoCreateOrUpdateInput> {
+    getCityInfoForEdit(id: number | undefined): Observable<CityInfoGetForEditOutput> {
         let url_ = this.baseUrl + "/api/services/app/CityInfo/GetCityInfoForEdit?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -1863,14 +1863,14 @@ export class CityInfoServiceProxy {
                 try {
                     return this.processGetCityInfoForEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CityInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                    return <Observable<CityInfoGetForEditOutput>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CityInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+                return <Observable<CityInfoGetForEditOutput>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetCityInfoForEdit(response: HttpResponseBase): Observable<CityInfoCreateOrUpdateInput> {
+    protected processGetCityInfoForEdit(response: HttpResponseBase): Observable<CityInfoGetForEditOutput> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -1881,7 +1881,7 @@ export class CityInfoServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CityInfoCreateOrUpdateInput.fromJS(resultData200);
+            result200 = CityInfoGetForEditOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1889,7 +1889,7 @@ export class CityInfoServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CityInfoCreateOrUpdateInput>(<any>null);
+        return _observableOf<CityInfoGetForEditOutput>(<any>null);
     }
 
     /**
@@ -15740,6 +15740,8 @@ export class CityInfoListDto implements ICityInfoListDto {
     name!: string | undefined;
     code!: string | undefined;
     stateInfoId!: number;
+    stateInfoName!: string | undefined;
+    stateInfoCode!: string | undefined;
     id!: number;
 
     constructor(data?: ICityInfoListDto) {
@@ -15756,6 +15758,8 @@ export class CityInfoListDto implements ICityInfoListDto {
             this.name = data["name"];
             this.code = data["code"];
             this.stateInfoId = data["stateInfoId"];
+            this.stateInfoName = data["stateInfoName"];
+            this.stateInfoCode = data["stateInfoCode"];
             this.id = data["id"];
         }
     }
@@ -15772,6 +15776,8 @@ export class CityInfoListDto implements ICityInfoListDto {
         data["name"] = this.name;
         data["code"] = this.code;
         data["stateInfoId"] = this.stateInfoId;
+        data["stateInfoName"] = this.stateInfoName;
+        data["stateInfoCode"] = this.stateInfoCode;
         data["id"] = this.id;
         return data; 
     }
@@ -15781,6 +15787,8 @@ export interface ICityInfoListDto {
     name: string | undefined;
     code: string | undefined;
     stateInfoId: number;
+    stateInfoName: string | undefined;
+    stateInfoCode: string | undefined;
     id: number;
 }
 
@@ -15878,6 +15886,98 @@ export interface ICityInfoCreateOrUpdateInput {
     name: string | undefined;
     code: string | undefined;
     stateInfoId: number;
+}
+
+export class ComboboxItemDto implements IComboboxItemDto {
+    value!: string | undefined;
+    displayText!: string | undefined;
+    isSelected!: boolean;
+
+    constructor(data?: IComboboxItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.value = data["value"];
+            this.displayText = data["displayText"];
+            this.isSelected = data["isSelected"];
+        }
+    }
+
+    static fromJS(data: any): ComboboxItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ComboboxItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["value"] = this.value;
+        data["displayText"] = this.displayText;
+        data["isSelected"] = this.isSelected;
+        return data; 
+    }
+}
+
+export interface IComboboxItemDto {
+    value: string | undefined;
+    displayText: string | undefined;
+    isSelected: boolean;
+}
+
+export class CityInfoGetForEditOutput implements ICityInfoGetForEditOutput {
+    cityInfo!: CityInfoCreateOrUpdateInput;
+    stateInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: ICityInfoGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.cityInfo = data["cityInfo"] ? CityInfoCreateOrUpdateInput.fromJS(data["cityInfo"]) : <any>undefined;
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): CityInfoGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CityInfoGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["cityInfo"] = this.cityInfo ? this.cityInfo.toJSON() : <any>undefined;
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface ICityInfoGetForEditOutput {
+    cityInfo: CityInfoCreateOrUpdateInput;
+    stateInfos: ComboboxItemDto[] | undefined;
 }
 
 export class SubscribableEditionComboboxItemDto implements ISubscribableEditionComboboxItemDto {
@@ -16390,50 +16490,6 @@ export interface IContractorEditDto {
     partialTimeStaffAssociateDegree: number | undefined;
     partialTimeStaffBachelorAndUpper: number | undefined;
     firmTypeId: number | undefined;
-}
-
-export class ComboboxItemDto implements IComboboxItemDto {
-    value!: string | undefined;
-    displayText!: string | undefined;
-    isSelected!: boolean;
-
-    constructor(data?: IComboboxItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.value = data["value"];
-            this.displayText = data["displayText"];
-            this.isSelected = data["isSelected"];
-        }
-    }
-
-    static fromJS(data: any): ComboboxItemDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new ComboboxItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["value"] = this.value;
-        data["displayText"] = this.displayText;
-        data["isSelected"] = this.isSelected;
-        return data; 
-    }
-}
-
-export interface IComboboxItemDto {
-    value: string | undefined;
-    displayText: string | undefined;
-    isSelected: boolean;
 }
 
 export class GetContractorForEditOutput implements IGetContractorForEditOutput {
