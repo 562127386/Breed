@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Akh.Breed.BaseInfos.Dto;
@@ -11,5 +12,6 @@ namespace Akh.Breed.BaseInfos
         Task<CityInfoGetForEditOutput> GetCityInfoForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateCityInfo(CityInfoCreateOrUpdateInput input);
         Task DeleteCityInfo(EntityDto input);
+        List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input);
     }
 }

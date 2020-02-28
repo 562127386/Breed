@@ -976,6 +976,7 @@
     <text name="PlaqueState">وضعیت پلاک</text>
     <text name="StateInfo">استان</text>
     <text name="CityInfo">شهر</text>
+    <text name="RegionInfo">بخش</text>
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
@@ -1029,12 +1030,18 @@
     <text name="ViewNewCityInfo">نمایش شهر</text>
     <text name="EditNewCityInfo">ویرایش شهر</text>
 
+    <text name="CreateNewRegionInfo">ایجاد بخش</text>
+    <text name="AreYouSureToDeleteTheRegionInfo">آیا از حذف بخش {0} مطمئن هستید؟</text>
+    <text name="RegionInfoHeaderInfo">مدیریت بخش</text>
+    <text name="ViewNewRegionInfo">نمایش بخش</text>
+    <text name="EditNewRegionInfo">ویرایش بخش</text>
+
     <text name="CreateNewVillageInfo">ایجاد دهستان</text>
     <text name="AreYouSureToDeleteTheVillageInfo">آیا از حذف دهستان {0} مطمئن هستید؟</text>
     <text name="VillageInfoHeaderInfo">مدیریت دهستان</text>
     <text name="ViewNewVillageInfo">نمایش دهستان</text>
     <text name="EditNewVillageInfo">ویرایش دهستان</text>
-
+    
     <text name="CreateNewContractor">ایجاد پیمانکار</text>
     <text name="AreYouSureToDeleteTheContractor">آیا از حذف پیمانکار {0} مطمئن هستید؟</text>
     <text name="ContractorHeaderInfo">مدیریت پیمانکاران</text>
@@ -1070,6 +1077,8 @@
     <text name="MobileNumber">تلفن همراه</text>
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
     <text name="StateInfoName">استان</text>
+    <text name="CityInfoName">شهر</text>
+    <text name="RegionInfoName">بخش</text>
     <text name="ContractorName">پیمانکار</text>
       
     <text name="AddItem">ثبت رکورد جدید</text>

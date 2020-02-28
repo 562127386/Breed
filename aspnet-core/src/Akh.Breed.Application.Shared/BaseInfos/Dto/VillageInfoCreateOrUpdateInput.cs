@@ -8,6 +8,9 @@
 
         public string Code { get; set; }
 
-        public int RegionInfoId { get; set; }
+        public int? RegionInfoId { get; set; }
+        
+        public int? CityInfoId { get; set; }
+        public int? StateInfoId { get; set; }
     }
 }

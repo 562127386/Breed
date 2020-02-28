@@ -7,6 +7,7 @@ import { ProviderInfoComponent } from './providerInfo/providerInfo.component';
 import { SexInfoComponent } from './sexInfo/sexInfo.component';
 import { SpeciesInfoComponent } from './speciesInfo/speciesInfo.component';
 import { CityInfoComponent } from './cityInfo/cityInfo.component';
+import { RegionInfoComponent } from './regionInfo/regionInfo.component';
 import { FirmTypeComponent } from './firmType/firmType.component';
 import { PlaqueStateComponent } from './plaqueState/plaqueState.component';
 import { StateInfoComponent } from './stateInfo/stateInfo.component';
@@ -27,6 +28,7 @@ import { AcademicDegreeComponent } from './academicDegree/academicDegree.compone
                     { path: 'sexInfo', component: SexInfoComponent },
                     { path: 'speciesInfo', component: SpeciesInfoComponent },
                     { path: 'cityInfo', component: CityInfoComponent },
+                    { path: 'regionInfo', component: RegionInfoComponent },
                     { path: 'firmType', component: FirmTypeComponent },
                     { path: 'plaqueState', component: PlaqueStateComponent },
                     { path: 'stateInfo', component: StateInfoComponent },

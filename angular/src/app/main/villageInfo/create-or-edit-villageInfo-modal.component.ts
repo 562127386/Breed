@@ -1,9 +1,12 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { VillageInfoServiceProxy, VillageInfoCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { CityInfoServiceProxy } from '@shared/service-proxies/service-proxies';
+import { RegionInfoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
+import { SelectItem } from 'primeng/api';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'createOrEditVillageInfoModal',
@@ -12,10 +15,17 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
+    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;    
+    @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
+    @ViewChild('cityInfoCombobox', { static: true }) cityInfoCombobox: ElementRef;
+    @ViewChild('regionInfoCombobox', { static: true }) regionInfoCombobox: ElementRef;
+    
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    villageInfo: VillageInfoCreateOrUpdateInput = new VillageInfoCreateOrUpdateInput();
+    villageInfo: VillageInfoCreateOrUpdateInput = new VillageInfoCreateOrUpdateInput();    
+    stateInfosSelectItems: SelectItem[] = [];
+    cityInfosSelectItems: SelectItem[] = [];
+    regionInfosSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
@@ -23,12 +33,14 @@ export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _villageInfoService: VillageInfoServiceProxy
+        private _villageInfoService: VillageInfoServiceProxy,
+        private _cityInfoService : CityInfoServiceProxy,
+        private _regionInfoService : RegionInfoServiceProxy
     ) {
         super(injector);
     }
 
-    show(villageInfoId?: number,editdisabled?: boolean): void {        
+    show(villageInfoId?: number,editdisabled?: boolean): void {  
         if (!villageInfoId) {
             this.active = true;
         }
@@ -37,15 +49,60 @@ export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
             this.editdisabled = false;
         }
         this._villageInfoService.getVillageInfoForEdit(villageInfoId).subscribe(userResult => {
-            this.villageInfo.name = userResult.name;
-            this.villageInfo.code = userResult.code;
-            this.villageInfo.id =  villageInfoId;
+            this.villageInfo = userResult.villageInfo;
+            
+            this.stateInfosSelectItems = _.map(userResult.stateInfos, function(stateInfo) {
+                return {
+                    label: stateInfo.displayText, value: Number(stateInfo.value)
+                };
+            });
+
+            this.cityInfosSelectItems = _.map(userResult.cityInfos, function(cityInfo) {
+                return {
+                    label: cityInfo.displayText, value: Number(cityInfo.value)
+                };
+            });
+
+            this.regionInfosSelectItems = _.map(userResult.regionInfos, function(regionInfo) {
+                return {
+                    label: regionInfo.displayText, value: Number(regionInfo.value)
+                };
+            });
 
             if (villageInfoId) {
                 this.active = true;
             }
 
             this.modal.show();
+
+        });
+        
+    }
+
+    getCities(stateInfoId: string): void {  
+
+        this._cityInfoService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
+            
+            this.cityInfosSelectItems = _.map(userResult, function(cityInfo) {
+                return {
+                    label: cityInfo.displayText, value: Number(cityInfo.value)
+                };
+            });
+
+        });
+        
+    }
+
+    getRegions(cityInfoId: string): void {  
+
+        this._regionInfoService.getForCombo(Number(cityInfoId)).subscribe(userResult => {
+            
+            this.regionInfosSelectItems = _.map(userResult, function(regionInfo) {
+                return {
+                    label: regionInfo.displayText, value: Number(regionInfo.value)
+                };
+            });
+
         });
         
     }
@@ -55,8 +112,11 @@ export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
     }
 
     save(): void {
+        let input = new VillageInfoCreateOrUpdateInput();
+        input = this.villageInfo;
+
         this.saving = true;
-        this._villageInfoService.createOrUpdateVillageInfo(this.villageInfo)
+        this._villageInfoService.createOrUpdateVillageInfo(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

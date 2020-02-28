@@ -1995,6 +1995,66 @@ export class CityInfoServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getForCombo(id: number | undefined): Observable<ComboboxItemDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/CityInfo/GetForCombo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetForCombo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetForCombo(<any>response_);
+                } catch (e) {
+                    return <Observable<ComboboxItemDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ComboboxItemDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetForCombo(response: HttpResponseBase): Observable<ComboboxItemDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ComboboxItemDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ComboboxItemDto[]>(<any>null);
+    }
 }
 
 @Injectable()
@@ -9025,7 +9085,7 @@ export class RegionInfoServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getRegionInfoForEdit(id: number | undefined): Observable<RegionInfoCreateOrUpdateInput> {
+    getRegionInfoForEdit(id: number | undefined): Observable<RegionInfoGetForEditOutput> {
         let url_ = this.baseUrl + "/api/services/app/RegionInfo/GetRegionInfoForEdit?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -9048,14 +9108,14 @@ export class RegionInfoServiceProxy {
                 try {
                     return this.processGetRegionInfoForEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<RegionInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                    return <Observable<RegionInfoGetForEditOutput>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<RegionInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+                return <Observable<RegionInfoGetForEditOutput>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetRegionInfoForEdit(response: HttpResponseBase): Observable<RegionInfoCreateOrUpdateInput> {
+    protected processGetRegionInfoForEdit(response: HttpResponseBase): Observable<RegionInfoGetForEditOutput> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -9066,7 +9126,7 @@ export class RegionInfoServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = RegionInfoCreateOrUpdateInput.fromJS(resultData200);
+            result200 = RegionInfoGetForEditOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -9074,7 +9134,7 @@ export class RegionInfoServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<RegionInfoCreateOrUpdateInput>(<any>null);
+        return _observableOf<RegionInfoGetForEditOutput>(<any>null);
     }
 
     /**
@@ -9179,6 +9239,66 @@ export class RegionInfoServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getForCombo(id: number | undefined): Observable<ComboboxItemDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/RegionInfo/GetForCombo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetForCombo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetForCombo(<any>response_);
+                } catch (e) {
+                    return <Observable<ComboboxItemDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ComboboxItemDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetForCombo(response: HttpResponseBase): Observable<ComboboxItemDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ComboboxItemDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ComboboxItemDto[]>(<any>null);
     }
 }
 
@@ -13938,7 +14058,7 @@ export class VillageInfoServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getVillageInfoForEdit(id: number | undefined): Observable<VillageInfoCreateOrUpdateInput> {
+    getVillageInfoForEdit(id: number | undefined): Observable<VillageInfoGetForEditOutput> {
         let url_ = this.baseUrl + "/api/services/app/VillageInfo/GetVillageInfoForEdit?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -13961,14 +14081,14 @@ export class VillageInfoServiceProxy {
                 try {
                     return this.processGetVillageInfoForEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<VillageInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                    return <Observable<VillageInfoGetForEditOutput>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<VillageInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+                return <Observable<VillageInfoGetForEditOutput>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetVillageInfoForEdit(response: HttpResponseBase): Observable<VillageInfoCreateOrUpdateInput> {
+    protected processGetVillageInfoForEdit(response: HttpResponseBase): Observable<VillageInfoGetForEditOutput> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -13979,7 +14099,7 @@ export class VillageInfoServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = VillageInfoCreateOrUpdateInput.fromJS(resultData200);
+            result200 = VillageInfoGetForEditOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -13987,7 +14107,7 @@ export class VillageInfoServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<VillageInfoCreateOrUpdateInput>(<any>null);
+        return _observableOf<VillageInfoGetForEditOutput>(<any>null);
     }
 
     /**
@@ -15741,7 +15861,6 @@ export class CityInfoListDto implements ICityInfoListDto {
     code!: string | undefined;
     stateInfoId!: number;
     stateInfoName!: string | undefined;
-    stateInfoCode!: string | undefined;
     id!: number;
 
     constructor(data?: ICityInfoListDto) {
@@ -15759,7 +15878,6 @@ export class CityInfoListDto implements ICityInfoListDto {
             this.code = data["code"];
             this.stateInfoId = data["stateInfoId"];
             this.stateInfoName = data["stateInfoName"];
-            this.stateInfoCode = data["stateInfoCode"];
             this.id = data["id"];
         }
     }
@@ -15777,7 +15895,6 @@ export class CityInfoListDto implements ICityInfoListDto {
         data["code"] = this.code;
         data["stateInfoId"] = this.stateInfoId;
         data["stateInfoName"] = this.stateInfoName;
-        data["stateInfoCode"] = this.stateInfoCode;
         data["id"] = this.id;
         return data; 
     }
@@ -15788,7 +15905,6 @@ export interface ICityInfoListDto {
     code: string | undefined;
     stateInfoId: number;
     stateInfoName: string | undefined;
-    stateInfoCode: string | undefined;
     id: number;
 }
 
@@ -23010,6 +23126,8 @@ export class RegionInfoListDto implements IRegionInfoListDto {
     name!: string | undefined;
     code!: string | undefined;
     cityInfoId!: number;
+    stateInfoName!: string | undefined;
+    cityInfoName!: string | undefined;
     id!: number;
 
     constructor(data?: IRegionInfoListDto) {
@@ -23026,6 +23144,8 @@ export class RegionInfoListDto implements IRegionInfoListDto {
             this.name = data["name"];
             this.code = data["code"];
             this.cityInfoId = data["cityInfoId"];
+            this.stateInfoName = data["stateInfoName"];
+            this.cityInfoName = data["cityInfoName"];
             this.id = data["id"];
         }
     }
@@ -23042,6 +23162,8 @@ export class RegionInfoListDto implements IRegionInfoListDto {
         data["name"] = this.name;
         data["code"] = this.code;
         data["cityInfoId"] = this.cityInfoId;
+        data["stateInfoName"] = this.stateInfoName;
+        data["cityInfoName"] = this.cityInfoName;
         data["id"] = this.id;
         return data; 
     }
@@ -23051,6 +23173,8 @@ export interface IRegionInfoListDto {
     name: string | undefined;
     code: string | undefined;
     cityInfoId: number;
+    stateInfoName: string | undefined;
+    cityInfoName: string | undefined;
     id: number;
 }
 
@@ -23106,7 +23230,8 @@ export class RegionInfoCreateOrUpdateInput implements IRegionInfoCreateOrUpdateI
     id!: number | undefined;
     name!: string | undefined;
     code!: string | undefined;
-    cityInfoId!: number;
+    stateInfoId!: number | undefined;
+    cityInfoId!: number | undefined;
 
     constructor(data?: IRegionInfoCreateOrUpdateInput) {
         if (data) {
@@ -23122,6 +23247,7 @@ export class RegionInfoCreateOrUpdateInput implements IRegionInfoCreateOrUpdateI
             this.id = data["id"];
             this.name = data["name"];
             this.code = data["code"];
+            this.stateInfoId = data["stateInfoId"];
             this.cityInfoId = data["cityInfoId"];
         }
     }
@@ -23138,6 +23264,7 @@ export class RegionInfoCreateOrUpdateInput implements IRegionInfoCreateOrUpdateI
         data["id"] = this.id;
         data["name"] = this.name;
         data["code"] = this.code;
+        data["stateInfoId"] = this.stateInfoId;
         data["cityInfoId"] = this.cityInfoId;
         return data; 
     }
@@ -23147,7 +23274,68 @@ export interface IRegionInfoCreateOrUpdateInput {
     id: number | undefined;
     name: string | undefined;
     code: string | undefined;
-    cityInfoId: number;
+    stateInfoId: number | undefined;
+    cityInfoId: number | undefined;
+}
+
+export class RegionInfoGetForEditOutput implements IRegionInfoGetForEditOutput {
+    regionInfo!: RegionInfoCreateOrUpdateInput;
+    stateInfos!: ComboboxItemDto[] | undefined;
+    cityInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IRegionInfoGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.regionInfo = data["regionInfo"] ? RegionInfoCreateOrUpdateInput.fromJS(data["regionInfo"]) : <any>undefined;
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["cityInfos"])) {
+                this.cityInfos = [] as any;
+                for (let item of data["cityInfos"])
+                    this.cityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): RegionInfoGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegionInfoGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["regionInfo"] = this.regionInfo ? this.regionInfo.toJSON() : <any>undefined;
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.cityInfos)) {
+            data["cityInfos"] = [];
+            for (let item of this.cityInfos)
+                data["cityInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IRegionInfoGetForEditOutput {
+    regionInfo: RegionInfoCreateOrUpdateInput;
+    stateInfos: ComboboxItemDto[] | undefined;
+    cityInfos: ComboboxItemDto[] | undefined;
 }
 
 export class RoleListDto implements IRoleListDto {
@@ -27897,6 +28085,9 @@ export class VillageInfoListDto implements IVillageInfoListDto {
     name!: string | undefined;
     code!: string | undefined;
     regionInfoId!: number;
+    stateInfoName!: string | undefined;
+    cityInfoName!: string | undefined;
+    regionInfoName!: string | undefined;
     id!: number;
 
     constructor(data?: IVillageInfoListDto) {
@@ -27913,6 +28104,9 @@ export class VillageInfoListDto implements IVillageInfoListDto {
             this.name = data["name"];
             this.code = data["code"];
             this.regionInfoId = data["regionInfoId"];
+            this.stateInfoName = data["stateInfoName"];
+            this.cityInfoName = data["cityInfoName"];
+            this.regionInfoName = data["regionInfoName"];
             this.id = data["id"];
         }
     }
@@ -27929,6 +28123,9 @@ export class VillageInfoListDto implements IVillageInfoListDto {
         data["name"] = this.name;
         data["code"] = this.code;
         data["regionInfoId"] = this.regionInfoId;
+        data["stateInfoName"] = this.stateInfoName;
+        data["cityInfoName"] = this.cityInfoName;
+        data["regionInfoName"] = this.regionInfoName;
         data["id"] = this.id;
         return data; 
     }
@@ -27938,6 +28135,9 @@ export interface IVillageInfoListDto {
     name: string | undefined;
     code: string | undefined;
     regionInfoId: number;
+    stateInfoName: string | undefined;
+    cityInfoName: string | undefined;
+    regionInfoName: string | undefined;
     id: number;
 }
 
@@ -27993,7 +28193,9 @@ export class VillageInfoCreateOrUpdateInput implements IVillageInfoCreateOrUpdat
     id!: number | undefined;
     name!: string | undefined;
     code!: string | undefined;
-    regionInfoId!: number;
+    regionInfoId!: number | undefined;
+    cityInfoId!: number | undefined;
+    stateInfoId!: number | undefined;
 
     constructor(data?: IVillageInfoCreateOrUpdateInput) {
         if (data) {
@@ -28010,6 +28212,8 @@ export class VillageInfoCreateOrUpdateInput implements IVillageInfoCreateOrUpdat
             this.name = data["name"];
             this.code = data["code"];
             this.regionInfoId = data["regionInfoId"];
+            this.cityInfoId = data["cityInfoId"];
+            this.stateInfoId = data["stateInfoId"];
         }
     }
 
@@ -28026,6 +28230,8 @@ export class VillageInfoCreateOrUpdateInput implements IVillageInfoCreateOrUpdat
         data["name"] = this.name;
         data["code"] = this.code;
         data["regionInfoId"] = this.regionInfoId;
+        data["cityInfoId"] = this.cityInfoId;
+        data["stateInfoId"] = this.stateInfoId;
         return data; 
     }
 }
@@ -28034,7 +28240,81 @@ export interface IVillageInfoCreateOrUpdateInput {
     id: number | undefined;
     name: string | undefined;
     code: string | undefined;
-    regionInfoId: number;
+    regionInfoId: number | undefined;
+    cityInfoId: number | undefined;
+    stateInfoId: number | undefined;
+}
+
+export class VillageInfoGetForEditOutput implements IVillageInfoGetForEditOutput {
+    villageInfo!: VillageInfoCreateOrUpdateInput;
+    stateInfos!: ComboboxItemDto[] | undefined;
+    cityInfos!: ComboboxItemDto[] | undefined;
+    regionInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IVillageInfoGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.villageInfo = data["villageInfo"] ? VillageInfoCreateOrUpdateInput.fromJS(data["villageInfo"]) : <any>undefined;
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["cityInfos"])) {
+                this.cityInfos = [] as any;
+                for (let item of data["cityInfos"])
+                    this.cityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["regionInfos"])) {
+                this.regionInfos = [] as any;
+                for (let item of data["regionInfos"])
+                    this.regionInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): VillageInfoGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new VillageInfoGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["villageInfo"] = this.villageInfo ? this.villageInfo.toJSON() : <any>undefined;
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.cityInfos)) {
+            data["cityInfos"] = [];
+            for (let item of this.cityInfos)
+                data["cityInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.regionInfos)) {
+            data["regionInfos"] = [];
+            for (let item of this.regionInfos)
+                data["regionInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IVillageInfoGetForEditOutput {
+    villageInfo: VillageInfoCreateOrUpdateInput;
+    stateInfos: ComboboxItemDto[] | undefined;
+    cityInfos: ComboboxItemDto[] | undefined;
+    regionInfos: ComboboxItemDto[] | undefined;
 }
 
 export class GetLatestWebLogsOutput implements IGetLatestWebLogsOutput {

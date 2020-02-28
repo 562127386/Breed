@@ -13,12 +13,12 @@
                                 <i class="flaticon2-graph"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                <span>{{"VillageInfo" | localize}}</span>
+                                <span>{{"RegionInfo" | localize}}</span>
                             </h3>                        
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <div (click)="createVillageInfo()" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                                <div (click)="createRegionInfo()" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
                                     data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                     <i class="flaticon2-add-1"></i>
                                 </div>
@@ -37,7 +37,7 @@
                                                     class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
                                                     type="text">
                                                 <span class="input-group-btn">
-                                                    <button (click)="getVillageInfo()" class="btn btn-brand" type="submit"><i
+                                                    <button (click)="getRegionInfo()" class="btn btn-brand" type="submit"><i
                                                             class="flaticon-search-1"
                                                             [attr.aria-label]="l('Search')"></i></button>
                                                 </span>
@@ -51,7 +51,7 @@
                         <div class="row align-items-center kt-margin-0">
                             <!--<Primeng-TurboTable-Start>-->
                             <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                                <p-table #dataTable (onLazyLoad)="getVillageInfo($event)" [value]="primengTableHelper.records"
+                                <p-table #dataTable (onLazyLoad)="getRegionInfo($event)" [value]="primengTableHelper.records"
                                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false"
                                     [lazy]="true" [scrollable]="true" ScrollWidth="100%"
                                     [responsive]="primengTableHelper.isResponsive"
@@ -63,9 +63,6 @@
                                             </th>
                                             <th style="width: 100px" >
                                                 {{'CityInfoName' | localize}}
-                                            </th>
-                                            <th style="width: 100px" >
-                                                {{'RegionInfoName' | localize}}
                                             </th>
                                             <th style="width: 100px" pSortableColumn="code">
                                                 {{'Code' | localize}}
@@ -92,10 +89,6 @@
                                                 {{record.cityInfoName}}
                                             </td>
                                             <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'CRegionInfoName' | localize}}</span>
-                                                {{record.regionInfoName}}
-                                            </td>
-                                            <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'Code' | localize}}</span>
                                                 {{record.code}}
                                             </td>
@@ -105,9 +98,9 @@
                                             </td>
                                             <td style="width: 100px">
                                                 <div class="kt-section__content kt-section__content--solid">
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditVillageInfoModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditVillageInfoModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteVillageInfo(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditRegionInfoModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditRegionInfoModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteRegionInfo(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button>
                                                 </div>                                            
                                                 <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->                                    
                                             </td>                                     
@@ -119,7 +112,7 @@
                                 </div>
                                 <div class="primeng-paging-container">
                                     <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                                        (onPageChange)="getVillageInfo($event)"
+                                        (onPageChange)="getRegionInfo($event)"
                                         [totalRecords]="primengTableHelper.totalRecordsCount"
                                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
     
@@ -139,7 +132,7 @@
                                 
                             </div>
                             <div class="col-lg-6 kt-align-right">
-                                <button (click)="createVillageInfo()" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewVillageInfo" | localize}}</button>
+                                <button (click)="createRegionInfo()" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewRegionInfo" | localize}}</button>
                             </div>
                         </div>
                     </div>
@@ -147,6 +140,6 @@
                 </div>
             </div>
     
-            <createOrEditVillageInfoModal #createOrEditVillageInfoModal (modalSave)="getVillageInfo()"></createOrEditVillageInfoModal>
+            <createOrEditRegionInfoModal #createOrEditRegionInfoModal (modalSave)="getRegionInfo()"></createOrEditRegionInfoModal>
         </div>
     </div>

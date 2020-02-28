@@ -100,11 +100,22 @@ namespace Akh.Breed.BaseInfos
             var query = QueryableExtensions.WhereIf(_cityInfoRepository.GetAllIncluding(p => p.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.StateInfo.Name.Contains(input.Filter) ||
-                    u.StateInfo.Code.Contains(input.Filter) ||
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));
 
             return query;
+        }
+
+        public List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input)
+        {
+            var query = _cityInfoRepository.GetAll();
+            if (input.Id.HasValue)
+            {
+                query = query.Where(x => x.StateInfoId == input.Id);
+            }
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
         }
     }
 }

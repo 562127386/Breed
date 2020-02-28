@@ -28,6 +28,8 @@ import { VillageInfoComponent } from "./villageInfo/villageInfo.component";
 import { CreateOrEditVillageInfoModalComponent} from "./villageInfo/create-or-edit-villageInfo-modal.component";
 import { CityInfoComponent } from "./cityInfo/cityInfo.component";
 import { CreateOrEditCityInfoModalComponent } from "./cityInfo/create-or-edit-cityInfo-modal.component";
+import { RegionInfoComponent } from "./regionInfo/regionInfo.component";
+import { CreateOrEditRegionInfoModalComponent } from "./regionInfo/create-or-edit-regionInfo-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { EditorModule } from 'primeng/editor';
 import { FileUploadModule as PrimeNgFileUploadModule } from 'primeng/fileupload';
@@ -40,6 +42,7 @@ import { TreeDragDropService } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu'
 import { MainRoutingModule } from './main-routing.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DropdownModule } from 'primeng/dropdown'
 
 import { BsDatepickerModule, BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { NgxBootstrapDatePickerConfigService } from 'assets/ngx-bootstrap/ngx-bootstrap-datepicker-config.service';
@@ -70,6 +73,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         AutoCompleteModule,
         EditorModule,
         InputMaskModule,
+        DropdownModule
     ],
     declarations: [
         DashboardComponent,
@@ -94,7 +98,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         VillageInfoComponent,
         CreateOrEditVillageInfoModalComponent,
         CityInfoComponent,
-        CreateOrEditCityInfoModalComponent
+        CreateOrEditCityInfoModalComponent,
+        RegionInfoComponent,
+        CreateOrEditRegionInfoModalComponent
     
     ],
     providers: [

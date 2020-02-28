@@ -52,6 +52,7 @@ import { ZeroRefreshTokenService } from '@account/auth/zero-refresh-token.servic
         ApiServiceProxies.PlaqueStateServiceProxy,
         ApiServiceProxies.StateInfoServiceProxy,
         ApiServiceProxies.CityInfoServiceProxy,
+        ApiServiceProxies.RegionInfoServiceProxy,
         ApiServiceProxies.VillageInfoServiceProxy,
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }

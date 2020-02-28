@@ -16,10 +16,15 @@ namespace Akh.Breed.BaseInfos
     public class RegionInfoAppService :  BreedAppServiceBase, IRegionInfoAppService
     {
         private readonly IRepository<RegionInfo> _regionInfoRepository;
+        private readonly IRepository<StateInfo> _stateInfoRepository;
+        private readonly IRepository<CityInfo> _cityInfoRepository;
 
-        public RegionInfoAppService(IRepository<RegionInfo> regionInfoRepository)
+
+        public RegionInfoAppService(IRepository<RegionInfo> regionInfoRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository)
         {
             _regionInfoRepository = regionInfoRepository;
+            _stateInfoRepository = stateInfoRepository;
+            _cityInfoRepository = cityInfoRepository;
         }
 
         public async Task<PagedResultDto<RegionInfoListDto>> GetRegionInfo(GetRegionInfoInput input)
@@ -37,17 +42,38 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
-        public async Task<RegionInfoCreateOrUpdateInput> GetRegionInfoForEdit(NullableIdDto<int> input)
+        public async Task<RegionInfoGetForEditOutput> GetRegionInfoForEdit(NullableIdDto<int> input)
         {
-            //Getting all available roles
-            var output = new RegionInfoCreateOrUpdateInput();
-            
+            RegionInfo regionInfo = null;
             if (input.Id.HasValue)
             {
-                //Editing an existing user
-                var regionInfo = await _regionInfoRepository.GetAsync(input.Id.Value);
-                if (regionInfo != null)
-                    ObjectMapper.Map<RegionInfo,RegionInfoCreateOrUpdateInput>(regionInfo,output);
+                regionInfo = await _regionInfoRepository
+                    .GetAll()
+                    .Include(x => x.CityInfo)
+                    .Where(x => x.Id == input.Id.Value)
+                    .FirstOrDefaultAsync();
+            }
+
+            //Getting all available roles
+            var output = new RegionInfoGetForEditOutput();
+            
+            //regionInfo
+            output.RegionInfo = regionInfo != null
+                ? ObjectMapper.Map<RegionInfoCreateOrUpdateInput>(regionInfo)
+                : new RegionInfoCreateOrUpdateInput();
+            
+            //StateInfos
+            output.StateInfos = _stateInfoRepository
+                .GetAllList()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
+
+            if (output.RegionInfo.StateInfoId.HasValue)
+            {
+                output.CityInfos = _cityInfoRepository.GetAll()
+                    .Where(x => x.StateInfoId == output.RegionInfo.StateInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
             }
 
             return output;
@@ -84,12 +110,29 @@ namespace Akh.Breed.BaseInfos
         
         private IQueryable<RegionInfo> GetFilteredQuery(GetRegionInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_regionInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(
+                _regionInfoRepository.GetAll()
+                    .Include(p => p.CityInfo)
+                    .ThenInclude(p => p.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
+                    u.CityInfo.StateInfo.Name.Contains(input.Filter) ||
+                    u.CityInfo.Name.Contains(input.Filter) ||
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));
 
             return query;
+        }
+        
+        public List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input)
+        {
+            var query = _regionInfoRepository.GetAll();
+            if (input.Id.HasValue)
+            {
+                query = query.Where(x => x.CityInfoId == input.Id);
+            }
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
         }
     }
 }

@@ -26,5 +26,11 @@ namespace Akh.Breed.BaseInfos.Dto
         public string Code { get; set; }
 
         public int RegionInfoId { get; set; }
+        
+        public string StateInfoName { get; set; }
+        
+        public string CityInfoName { get; set; }
+        
+        public string RegionInfoName { get; set; }
     }
 }

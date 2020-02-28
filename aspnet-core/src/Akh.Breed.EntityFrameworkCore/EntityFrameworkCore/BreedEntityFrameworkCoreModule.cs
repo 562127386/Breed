@@ -1,13 +1,17 @@
-﻿using Abp;
+﻿using System;
+using Abp;
 using Abp.Dependency;
+using Abp.Domain.Repositories;
 using Abp.EntityFrameworkCore.Configuration;
 using Abp.IdentityServer4;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.EntityFrameworkCore;
+using Akh.Breed.BaseInfo;
 using Akh.Breed.Configuration;
 using Akh.Breed.EntityHistory;
 using Akh.Breed.Migrations.Seed;
+using Castle.MicroKernel.Registration;
 
 namespace Akh.Breed.EntityFrameworkCore
 {

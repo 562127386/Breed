@@ -182,19 +182,25 @@ namespace Akh.Breed
             configuration.CreateMap<StateInfo, StateInfoCreateOrUpdateInput>();
 
             configuration.CreateMap<CityInfo, CityInfoListDto>()
-                .ForMember(cityD => cityD.StateInfoName, options => options.MapFrom(l => l.StateInfo.Name))
-                .ForMember(cityD => cityD.StateInfoCode, options => options.MapFrom(l => l.StateInfo.Code));
+                .ForMember(cityD => cityD.StateInfoName, options => options.MapFrom(l => l.StateInfo.Name));
             configuration.CreateMap<CityInfoCreateOrUpdateInput, CityInfo>();
             configuration.CreateMap<CityInfo, CityInfoCreateOrUpdateInput>();
             
-            configuration.CreateMap<RegionInfo, RegionInfoListDto>();
+            configuration.CreateMap<RegionInfo, RegionInfoListDto>()
+                .ForMember(regionD => regionD.StateInfoName, options => options.MapFrom(l => l.CityInfo.StateInfo.Name))
+                .ForMember(regionD => regionD.CityInfoName, options => options.MapFrom(l => l.CityInfo.Name));
             configuration.CreateMap<RegionInfoCreateOrUpdateInput, RegionInfo>();
-            configuration.CreateMap<RegionInfo, RegionInfoCreateOrUpdateInput>();
+            configuration.CreateMap<RegionInfo, RegionInfoCreateOrUpdateInput>()
+                .ForMember(regionD => regionD.StateInfoId, options => options.MapFrom(l => l.CityInfo.StateInfoId));
             
-            configuration.CreateMap<VillageInfo, VillageInfoListDto>();
+            configuration.CreateMap<VillageInfo, VillageInfoListDto>()
+                .ForMember(regionD => regionD.StateInfoName, options => options.MapFrom(l => l.RegionInfo.CityInfo.StateInfo.Name))
+                .ForMember(regionD => regionD.CityInfoName, options => options.MapFrom(l => l.RegionInfo.CityInfo.Name))
+                .ForMember(regionD => regionD.RegionInfoName, options => options.MapFrom(l => l.RegionInfo.Name));
             configuration.CreateMap<VillageInfoCreateOrUpdateInput, VillageInfo>();
-            configuration.CreateMap<VillageInfo, VillageInfoCreateOrUpdateInput>();
-            
+            configuration.CreateMap<VillageInfo, VillageInfoCreateOrUpdateInput>()
+                .ForMember(regionD => regionD.StateInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfo.StateInfoId))
+                .ForMember(regionD => regionD.CityInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfoId));
         }
 
     }

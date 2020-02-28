@@ -16,10 +16,16 @@ namespace Akh.Breed.BaseInfos
     public class VillageInfoAppService :  BreedAppServiceBase, IVillageInfoAppService
     {
         private readonly IRepository<VillageInfo> _villageInfoRepository;
+        private readonly IRepository<RegionInfo> _regionInfoRepository;
+        private readonly IRepository<StateInfo> _stateInfoRepository;
+        private readonly IRepository<CityInfo> _cityInfoRepository;
 
-        public VillageInfoAppService(IRepository<VillageInfo> villageInfoRepository)
+        public VillageInfoAppService(IRepository<VillageInfo> villageInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository)
         {
             _villageInfoRepository = villageInfoRepository;
+            _regionInfoRepository = regionInfoRepository;
+            _stateInfoRepository = stateInfoRepository;
+            _cityInfoRepository = cityInfoRepository;
         }
 
         public async Task<PagedResultDto<VillageInfoListDto>> GetVillageInfo(GetVillageInfoInput input)
@@ -37,17 +43,46 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
-        public async Task<VillageInfoCreateOrUpdateInput> GetVillageInfoForEdit(NullableIdDto<int> input)
+        public async Task<VillageInfoGetForEditOutput> GetVillageInfoForEdit(NullableIdDto<int> input)
         {
-            //Getting all available roles
-            var output = new VillageInfoCreateOrUpdateInput();
-            
+            VillageInfo villageInfo = null;
             if (input.Id.HasValue)
             {
-                //Editing an existing user
-                var villageInfo = await _villageInfoRepository.GetAsync(input.Id.Value);
-                if (villageInfo != null)
-                    ObjectMapper.Map<VillageInfo,VillageInfoCreateOrUpdateInput>(villageInfo,output);
+                villageInfo = await _villageInfoRepository
+                    .GetAll()
+                    .Include(x => x.RegionInfo)
+                    .ThenInclude(x => x.CityInfo)
+                    .Where(x => x.Id == input.Id.Value)
+                    .FirstOrDefaultAsync();
+            }
+            //Getting all available roles
+            var output = new VillageInfoGetForEditOutput();
+            
+            //villageInfo
+            output.VillageInfo = villageInfo != null
+                ? ObjectMapper.Map<VillageInfoCreateOrUpdateInput>(villageInfo)
+                : new VillageInfoCreateOrUpdateInput();
+            
+            //StateInfos
+            output.StateInfos = _stateInfoRepository
+                .GetAllList()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
+
+            if (output.VillageInfo.StateInfoId.HasValue)
+            {
+                output.CityInfos = _cityInfoRepository.GetAll()
+                    .Where(x => x.StateInfoId == output.VillageInfo.StateInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
+            }
+            
+            if (output.VillageInfo.CityInfoId.HasValue)
+            {
+                output.RegionInfos = _regionInfoRepository.GetAll()
+                    .Where(x => x.CityInfoId == output.VillageInfo.CityInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
             }
 
             return output;
@@ -84,8 +119,15 @@ namespace Akh.Breed.BaseInfos
         
         private IQueryable<VillageInfo> GetFilteredQuery(GetVillageInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_villageInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(
+                _villageInfoRepository.GetAll()
+                .Include(p => p.RegionInfo)
+                .ThenInclude(p => p.CityInfo)
+                .ThenInclude(p => p.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
+                    u.RegionInfo.CityInfo.StateInfo.Name.Contains(input.Filter) ||
+                    u.RegionInfo.CityInfo.Name.Contains(input.Filter) ||
+                    u.RegionInfo.Name.Contains(input.Filter) ||
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));
 
