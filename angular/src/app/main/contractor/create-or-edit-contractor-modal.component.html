@@ -4,7 +4,8 @@
             <form *ngIf="active" #contractorForm="ngForm" novalidate (ngSubmit)="save()">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <span *ngIf="contractor.id">{{"EditNewContractor" | localize}}: {{contractor.Name}}</span>
+                        <span *ngIf="contractor.id && editdisabled">{{"ViewNewContractor" | localize}}: {{contractor.name}}</span>
+                        <span *ngIf="contractor.id && !editdisabled">{{"EditNewContractor" | localize}}: {{contractor.name}}</span>
                         <span *ngIf="!contractor.id">{{"CreateNewContractor" | localize}}</span>
                     </h4>
                     <button type="button" class="close" (click)="close()" aria-label="Close">
@@ -12,95 +13,178 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label>{{"Institution" | localize}}</label>
-                        <input class="form-control" type="text" name="institution" [(ngModel)]="contractor.institution"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"SubInstitution" | localize}}</label>
-                        <input class="form-control" type="text" name="subInstitution" [(ngModel)]="contractor.subInstitution"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"Address" | localize}}</label>
-                        <input class="form-control" type="text" name="address" [(ngModel)]="contractor.address"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"PostalCode" | localize}}</label>
-                        <input class="form-control" type="text" name="postalCode" [(ngModel)]="contractor.postalCode"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"Code" | localize}}</label>
-                        <input class="form-control" type="text" name="code" [(ngModel)]="contractor.code"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"NationalCode" | localize}}</label>
-                        <input class="form-control" type="text" name="nationalCode" [(ngModel)]="contractor.nationalCode"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"BirthDate" | localize}}</label>
-                        <input class="form-control" type="text" name="birthDate" [(ngModel)]="contractor.birthDate"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"Name" | localize}}</label>
-                        <input #nameInput class="form-control" type="text" name="name" [(ngModel)]="contractor.name"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"Family" | localize}}</label>
-                        <input class="form-control" type="text" name="family" [(ngModel)]="contractor.family"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"Phone" | localize}}</label>
-                        <input class="form-control" type="text" name="phone" [(ngModel)]="contractor.phone"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"Email" | localize}}</label>
-                        <input class="form-control" type="text" name="email" [(ngModel)]="contractor.email"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"FirmName" | localize}}</label>
-                        <input class="form-control" type="text" name="firmName" [(ngModel)]="contractor.firmName"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <p-dropdown #firmTypeCombobox [options]="firmTypesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
-                            name="firmTypeId" [(ngModel)]="contractor.firmTypeId" [style]="{'width':'100%'}"></p-dropdown>
-                        <validation-messages [formCtrl]="firmTypeCombobox"></validation-messages>
-                    </div>
-                    <div class="form-group">
-                        <label>{{"FirmRegNumber" | localize}}</label>
-                        <input class="form-control" type="text" name="firmRegNumber" [(ngModel)]="contractor.firmRegNumber"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"FirmEstablishmentYear" | localize}}</label>
-                        <input class="form-control" type="text" name="firmEstablishmentYear" [(ngModel)]="contractor.firmEstablishmentYear"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"FullTimeStaffDiploma" | localize}}</label>
-                        <input class="form-control" type="text" name="fullTimeStaffDiploma" [(ngModel)]="contractor.fullTimeStaffDiploma"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"FullTimeStaffAssociateDegree" | localize}}</label>
-                        <input class="form-control" type="text" name="fullTimeStaffAssociateDegree" [(ngModel)]="contractor.fullTimeStaffAssociateDegree"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"FullTimeStaffBachelorAndUpper" | localize}}</label>
-                        <input class="form-control" type="text" name="fullTimeStaffBachelorAndUpper" [(ngModel)]="contractor.fullTimeStaffBachelorAndUpper"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"PartialTimeStaffDiploma" | localize}}</label>
-                        <input class="form-control" type="text" name="partialTimeStaffDiploma" [(ngModel)]="contractor.partialTimeStaffDiploma"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"PartialTimeStaffAssociateDegree" | localize}}</label>
-                        <input class="form-control" type="text" name="partialTimeStaffAssociateDegree" [(ngModel)]="contractor.partialTimeStaffAssociateDegree"  maxlength="32">
-                    </div>
-                    <div class="form-group">
-                        <label>{{"PartialTimeStaffBachelorAndUpper" | localize}}</label>
-                        <input class="form-control" type="text" name="partialTimeStaffBachelorAndUpper" [(ngModel)]="contractor.partialTimeStaffBachelorAndUpper"  maxlength="32">
-                    </div>                  
+                    <div class="row">                        
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"Institution" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="institution" [(ngModel)]="contractor.institution" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"SubInstitution" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="subInstitution" [(ngModel)]="contractor.subInstitution" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"Address" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="address" [(ngModel)]="contractor.address" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"PostalCode" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="postalCode" [(ngModel)]="contractor.postalCode" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"Code" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" (keypress)="numberOnly($event)" im-insert="true" name="code" [(ngModel)]="contractor.code" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"NationalCode" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="nationalCode" [(ngModel)]="contractor.nationalCode" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"BirthDate" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="birthDate" [(ngModel)]="contractor.birthDate" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"Name" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input #nameInput class="form-control" type="text" im-insert="true" name="name" [(ngModel)]="contractor.name" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"Family" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="family" [(ngModel)]="contractor.family" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"Phone" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="phone" [(ngModel)]="contractor.phone" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"Email" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="email" [(ngModel)]="contractor.email" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"FirmName" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="firmName" [(ngModel)]="contractor.firmName" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <p-dropdown #firmTypeCombobox [options]="firmTypesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                name="firmTypeId" [(ngModel)]="contractor.firmTypeId" [style]="{'width':'100%'}" [placeholder]="l('Select')"></p-dropdown>
+                            <validation-messages [formCtrl]="firmTypeCombobox"></validation-messages>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"FirmRegNumber" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="firmRegNumber" [(ngModel)]="contractor.firmRegNumber" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"FirmEstablishmentYear" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="firmEstablishmentYear" [(ngModel)]="contractor.firmEstablishmentYear" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"FullTimeStaffDiploma" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="fullTimeStaffDiploma" [(ngModel)]="contractor.fullTimeStaffDiploma" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"FullTimeStaffAssociateDegree" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="fullTimeStaffAssociateDegree" [(ngModel)]="contractor.fullTimeStaffAssociateDegree" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"FullTimeStaffBachelorAndUpper" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="fullTimeStaffBachelorAndUpper" [(ngModel)]="contractor.fullTimeStaffBachelorAndUpper" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"PartialTimeStaffDiploma" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="partialTimeStaffDiploma" [(ngModel)]="contractor.partialTimeStaffDiploma" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"PartialTimeStaffAssociateDegree" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="partialTimeStaffAssociateDegree" [(ngModel)]="contractor.partialTimeStaffAssociateDegree" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-5 col-sm-12">{{"PartialTimeStaffBachelorAndUpper" | localize}}</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input class="form-control" type="text" im-insert="true" name="partialTimeStaffBachelorAndUpper" [(ngModel)]="contractor.partialTimeStaffBachelorAndUpper" required maxlength="32">                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>                                                
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="!contractorForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                    <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!contractorForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
                 </div>
             </form>
         </div>

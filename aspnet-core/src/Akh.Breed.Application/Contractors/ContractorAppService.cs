@@ -94,7 +94,9 @@ namespace Akh.Breed.Contractors
         
         private IQueryable<Contractor> GetFilteredQuery(GetContractorInput input)
         {
-            var query = QueryableExtensions.WhereIf(_contractorRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(
+                _contractorRepository.GetAll()
+                    .Include(x => x.FirmType),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

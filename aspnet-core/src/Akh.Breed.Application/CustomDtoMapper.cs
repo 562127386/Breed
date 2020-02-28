@@ -141,7 +141,9 @@ namespace Akh.Breed
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
 
             //Contractor
-            configuration.CreateMap<Contractor, ContractorListDto>();
+            configuration.CreateMap<Contractor, ContractorListDto>()
+                .ForMember(regionD => regionD.FirmTypeName,
+                    options => options.MapFrom(l => l.FirmType.Name));
             configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>();
             configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>();
             configuration.CreateMap<Contractor, ContractorEditDto>();

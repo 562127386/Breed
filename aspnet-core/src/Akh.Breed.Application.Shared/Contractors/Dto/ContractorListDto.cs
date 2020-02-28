@@ -62,5 +62,7 @@ namespace Akh.Breed.Contractors.Dto
         public int PartialTimeStaffBachelorAndUpper { get; set; }
 
         public int FirmTypeId { get; set; }
+        
+        public string FirmTypeName { get; set; }
     }
 }

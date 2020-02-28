@@ -16342,6 +16342,7 @@ export class ContractorListDto implements IContractorListDto {
     partialTimeStaffAssociateDegree!: number;
     partialTimeStaffBachelorAndUpper!: number;
     firmTypeId!: number;
+    firmTypeName!: string | undefined;
     id!: number;
 
     constructor(data?: IContractorListDto) {
@@ -16376,6 +16377,7 @@ export class ContractorListDto implements IContractorListDto {
             this.partialTimeStaffAssociateDegree = data["partialTimeStaffAssociateDegree"];
             this.partialTimeStaffBachelorAndUpper = data["partialTimeStaffBachelorAndUpper"];
             this.firmTypeId = data["firmTypeId"];
+            this.firmTypeName = data["firmTypeName"];
             this.id = data["id"];
         }
     }
@@ -16410,6 +16412,7 @@ export class ContractorListDto implements IContractorListDto {
         data["partialTimeStaffAssociateDegree"] = this.partialTimeStaffAssociateDegree;
         data["partialTimeStaffBachelorAndUpper"] = this.partialTimeStaffBachelorAndUpper;
         data["firmTypeId"] = this.firmTypeId;
+        data["firmTypeName"] = this.firmTypeName;
         data["id"] = this.id;
         return data; 
     }
@@ -16437,6 +16440,7 @@ export interface IContractorListDto {
     partialTimeStaffAssociateDegree: number;
     partialTimeStaffBachelorAndUpper: number;
     firmTypeId: number;
+    firmTypeName: string | undefined;
     id: number;
 }
 
