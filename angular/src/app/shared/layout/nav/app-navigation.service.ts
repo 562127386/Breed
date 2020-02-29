@@ -34,11 +34,7 @@ export class AppNavigationService {
                 new AppMenuItem('Settings', 'Pages.Administration.Tenant.Settings', 'flaticon-settings', '/app/admin/tenantSettings')
             ]),
             new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
-            new AppMenuItem('Contractor', null, 'flaticon-diagram', '/app/main/contractor'),
-            new AppMenuItem('Officer', null, 'flaticon-diagram', '/app/main/officer'),
-            new AppMenuItem('PlaqueStore', null, 'flaticon2-box', '',[
-                new AppMenuItem('PlaqueStore', null, 'flaticon2-box', ''),
-            ]),
+
             new AppMenuItem('BaseInfo', null, 'flaticon-folder-1', '',[
                 new AppMenuItem('StateInfo', null, 'flaticon-placeholder-1', '/app/main/stateInfo'),
                 new AppMenuItem('CityInfo', null, 'flaticon-placeholder', '/app/main/cityInfo'),
@@ -50,7 +46,20 @@ export class AppNavigationService {
                 new AppMenuItem('SpeciesInfo', null, 'flaticon-interface-6', '/app/main/speciesInfo'),
                 new AppMenuItem('FirmType', null, 'flaticon-line-chart-1', '/app/main/firmType'),
                 new AppMenuItem('PlaqueState', null, 'flaticon-technology-2', '/app/main/plaqueState')
-            ])
+            ]),
+            new AppMenuItem('BaseIntro', null, 'flaticon-folder-1', '',[
+                new AppMenuItem('Contractor', null, 'flaticon-diagram', '/app/main/contractor'),
+                new AppMenuItem('Officer', null, 'flaticon-diagram', '/app/main/officer'),                
+                new AppMenuItem('Herd', null, 'flaticon2-box', '')
+            ]),
+            new AppMenuItem('IdentityInfo', null, 'flaticon-folder-1', '',[                
+                new AppMenuItem('PlaqueAllocation', null, 'flaticon2-box', ''),
+                new AppMenuItem('Identification', null, 'flaticon2-box', '')
+            ]),            
+            new AppMenuItem('Activities', null, 'flaticon2-box', ''),
+            new AppMenuItem('Reports', null, 'flaticon2-box', '')
+
+
         ]);
     }
 

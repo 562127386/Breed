@@ -971,7 +971,14 @@
     <text name="Contractors">پیمانکاران</text>
     <text name="Contractor">پیمانکار</text>
     <text name="PlaqueStore">انبار پلاک</text>
-    <text name="BaseInfo">اطلاعات پایه</text>
+    <text name="BaseInfo">تعاریف پایه</text>
+    <text name="BaseIntro">معرفی</text>
+    <text name="Herd">گله</text>
+    <text name="IdentityInfo">کد هویت</text>
+    <text name="PlaqueAllocation">تخصیص پلاک به مامور</text>
+    <text name="Identification">هویت گذاری</text>
+    <text name="Activities">عملیات</text>
+    <text name="Reports">گزارش گیری</text>
     <text name="SpeciesInfo">گونه دام</text>
     <text name="PlaqueState">وضعیت پلاک</text>
     <text name="StateInfo">استان</text>
