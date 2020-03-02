@@ -52,6 +52,13 @@ export class AppPreBootstrap {
                 value: abp.multiTenancy.getTenantIdCookie() + ''
             }];
 
+        abp.utils.setCookieValue(
+                'Abp.Localization.CultureName',
+                'fa',
+                new Date(new Date().getTime() + 5 * 365 * 86400000), //5 year
+                abp.appPath
+            );    
+        
         XmlHttpRequestHelper.ajax(type, url, customHeaders, null, (result) => {
             const subdomainTenancyNameFinder = new SubdomainTenancyNameFinder();
             const tenancyName = subdomainTenancyNameFinder.getCurrentTenancyNameOrNull(result.appBaseUrl);
@@ -171,11 +178,27 @@ export class AppPreBootstrap {
             moment.tz.setDefault(abp.timing.timeZoneInfo.iana.timeZoneId);
             (window as any).moment.tz.setDefault(abp.timing.timeZoneInfo.iana.timeZoneId);
         } else {
+            var num_dic = {
+                '۰': '0',
+                '۱': '1',
+                '۲': '2',
+                '۳': '3',
+                '۴': '4',
+                '۵': '5',
+                '۶': '6',
+                '۷': '7',
+                '۸': '8',
+                '۹': '9',
+            }
             moment.fn.toJSON = function() {
-                return this.format();
+                return this.format().replace(/[۰-۹]/g, function (w) {
+                    return num_dic[w]
+                });
             };
             moment.fn.toISOString = function() {
-                return this.format();
+                return this.format().replace(/[۰-۹]/g, function (w) {
+                    return num_dic[w]
+                });
             };
         }
     }

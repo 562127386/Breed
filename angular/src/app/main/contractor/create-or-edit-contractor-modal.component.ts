@@ -5,6 +5,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Component({
     selector: 'createOrEditContractorModal',
@@ -13,7 +14,7 @@ import * as _ from 'lodash';
 export class CreateOrEditContractorModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: true }) nameInput: ElementRef;    
+    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;    
     @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
     
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
@@ -65,7 +66,8 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
     save(): void {
         let input = new ContractorCreateOrUpdateInput();
         input = this.contractor;
-
+        
+        input.birthDate = moment('2020-03-17');
         this.saving = true;
         this._contractorService.createOrUpdateContractor(input)
             .pipe(finalize(() => this.saving = false))
