@@ -69,6 +69,9 @@
                                     <input class="form-control" type="text" im-insert="true" name="birthDate" [(ngModel)]="contractor.birthDate" required maxlength="32">                                    
                                 </div>
                             </div>
+                            <primeng-datepicker [(ngModel)]="contractor.birthDate" [isJalali]="true">
+
+                            </primeng-datepicker>
                         </div>
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <div class="row">

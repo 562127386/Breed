@@ -6,6 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import * as momentj from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditContractorModal',
@@ -25,12 +26,14 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
     active: boolean = false;
     saving: boolean = false;
     editdisabled: boolean = false;
+    date;
 
     constructor(
         injector: Injector,
         private _contractorService: ContractorServiceProxy
     ) {
         super(injector);
+        this.date = momentj('2020-03-17', 'YYYY/MM/DD');
     }
 
     show(contractorId?: number,editdisabled?: boolean): void {  
@@ -67,6 +70,7 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
         let input = new ContractorCreateOrUpdateInput();
         input = this.contractor;
         
+        this.date = momentj('2020-03-17', 'YYYY/MM/DD');
         input.birthDate = moment('2020-03-17');
         this.saving = true;
         this._contractorService.createOrUpdateContractor(input)

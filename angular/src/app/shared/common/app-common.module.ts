@@ -39,6 +39,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxBootstrapDatePickerConfigService } from 'assets/ngx-bootstrap/ngx-bootstrap-datepicker-config.service';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { CountoModule } from 'angular2-counto';
+import { PrimengDatepickerModule } from './prime-ng-date-picker/primeng-datepicker.module';
+import { ButtonModule } from 'primeng/button';
+import { SharedModule } from './prime-ng-date-picker/shared';
+import { PrimengDatepickerComponent } from './prime-ng-date-picker/primeng-datepicker.component';
 
 @NgModule({
     imports: [
@@ -57,7 +61,8 @@ import { CountoModule } from 'angular2-counto';
         NgxChartsModule,
         BsDatepickerModule.forRoot(),
         PerfectScrollbarModule,
-        CountoModule
+        CountoModule,
+        ButtonModule, SharedModule
     ],
     declarations: [
         TimeZoneComboComponent,
@@ -81,6 +86,7 @@ import { CountoModule } from 'angular2-counto';
         WidgetTopStatsComponent,
         FilterDateRangePickerComponent,
         AddWidgetModalComponent,
+        PrimengDatepickerComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -90,7 +96,7 @@ import { CountoModule } from 'angular2-counto';
         DateRangePickerInitialValueSetterDirective,
         DatePickerInitialValueSetterDirective,
         CustomizableDashboardComponent,
-        NgxChartsModule
+        NgxChartsModule,PrimengDatepickerComponent, SharedModule
     ],
     providers: [
         DateTimeService,
