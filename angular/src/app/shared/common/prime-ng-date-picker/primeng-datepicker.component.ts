@@ -1,9 +1,9 @@
 import { PrimengDatepickerService } from './primeng-datepicker.service';
 import { Component, OnInit } from '@angular/core';
 //
-import * as moment from 'jalali-moment';
+import * as momentj from 'jalali-moment';
 
-import 'moment/locale/fa';
+// import 'moment/locale/fa';
 import {
   NgModule, ElementRef, OnDestroy, Input, Output, SimpleChange, EventEmitter, forwardRef, Renderer2,
   ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList
@@ -227,7 +227,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   dateMeta: any;
   value: any;
   selectedDate: Boolean = true;
-  dates: moment.Moment[];
+  dates: momentj.Moment[];
 
   months: any[];
 
@@ -245,7 +245,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   currentMinute: number;
 
   currentSecond: number;
-  invalidDates: Array<moment.Moment>
+  invalidDates: Array<momentj.Moment>
   pm: boolean;
 
   mask: HTMLDivElement;
@@ -257,7 +257,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   overlayVisible: boolean;
 
   datepickerClick: boolean;
-  date: moment.Moment;
+  date: momentj.Moment;
 
   onModelChange: Function = () => { };
 
@@ -278,13 +278,13 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   isKeydown: boolean;
 
   filled: boolean;
-  rangeDates: moment.Moment[];
+  rangeDates: momentj.Moment[];
 
   inputFieldValue: string = null;
 
-  _minDate: moment.Moment;
+  _minDate: momentj.Moment;
 
-  _maxDate: moment.Moment;
+  _maxDate: momentj.Moment;
 
   _showTime: boolean;
 
@@ -292,7 +292,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
 
   dateTemplate: TemplateRef<any>;
 
-  _disabledDates: Array<moment.Moment>;
+  _disabledDates: Array<momentj.Moment>;
 
   _disabledDays: Array<number>;
 
@@ -306,11 +306,11 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   documentResizeListener: any;
 
 
-  @Input() get minDate(): moment.Moment {
+  @Input() get minDate(): momentj.Moment {
     return this._minDate;
   }
 
-  set minDate(date: moment.Moment) {
+  set minDate(date: momentj.Moment) {
     this._minDate = date;
 
     if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
@@ -318,11 +318,11 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
     }
   }
 
-  @Input() get maxDate(): moment.Moment {
+  @Input() get maxDate(): momentj.Moment {
     return this._maxDate;
   }
 
-  set maxDate(date: moment.Moment) {
+  set maxDate(date: momentj.Moment) {
     this._maxDate = date;
 
     if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
@@ -330,11 +330,11 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
     }
   }
 
-  @Input() get disabledDates(): moment.Moment[] {
+  @Input() get disabledDates(): momentj.Moment[] {
     return this._disabledDates;
   }
 
-  set disabledDates(disabledDates: moment.Moment[]) {
+  set disabledDates(disabledDates: momentj.Moment[]) {
     this._disabledDates = disabledDates;
     if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
 
@@ -362,7 +362,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
     this._showTime = showTime;
 
     if (this.currentHour === undefined) {
-      this.initTime(this.value || moment());
+      this.initTime(this.value || momentj());
     }
     this.updateInputfield();
   }
@@ -425,7 +425,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
     }
 
     //   const date =this.defaultDate || moment();
-    const date = moment(this.InitialValue) || moment();
+    const date = momentj(this.InitialValue) || momentj();
     if (this.calendarType) {
       this.currentMonth = date.jMonth();
       this.currentYear = date.jYear();
@@ -526,7 +526,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
     let sundayIndex = this.getSundayIndex();
     let dayNo = 1;
 
-    let today = moment();
+    let today = momentj();
 
     for (let i = 0; i < 6; i++) {
       let week = [];
@@ -581,7 +581,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
     };
   }
 
-  initTime(date: moment.Moment) {
+  initTime(date: momentj.Moment) {
 
     this.pm = date.hour() > 11;
 
@@ -793,7 +793,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   selectDate(dateMeta) {
 
     // let date = moment([dateMeta.year, dateMeta.month, dateMeta.day]);
-    let date = moment(dateMeta.year + '-' + (dateMeta.month+1) + '-' + dateMeta.day, 'jYYYY-jM-jD').locale('fa');
+    let date = momentj(dateMeta.year + '-' + (dateMeta.month+1) + '-' + dateMeta.day, 'jYYYY-jM-jD').locale('fa');
     if (this.showTime) {
       if (this.hourFormat === '12' && this.pm && this.currentHour != 12)
         date.hour(this.currentHour + 12);
@@ -869,7 +869,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   }
 
   getFirstDayOfMonthIndex(month: number, year: number) {
-    let day = moment();
+    let day = momentj();
     if (this.calendarType) {
       day.jDate(1);
       day.jMonth(month);
@@ -889,14 +889,14 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   getDaysCountInMonth(month: number, year: number) {
 
     if (this.calendarType) {
-      var newDate = moment().jYear(year).jMonth(month).jDate(32);
+      var newDate = momentj().jYear(year).jMonth(month).jDate(32);
 
       var temp = this.daylightSavingAdjust(newDate).jDate();
 
       return 32 - temp;
     }
     else {
-      var newDate = moment().year(year).month(month).date(32);
+      var newDate = momentj().year(year).month(month).date(32);
 
       var temp = this.daylightSavingAdjust(newDate).date();
 
@@ -995,7 +995,7 @@ export class PrimengDatepickerComponent implements OnInit, OnDestroy, ControlVal
   isDateBetween(start, end, dateMeta) {
     let between: boolean = false;
     if (start && end) {
-      let date: moment.Moment = moment([dateMeta.year, dateMeta.month, dateMeta.day]);
+      let date: momentj.Moment = momentj([dateMeta.year, dateMeta.month, dateMeta.day]);
       return start.unix() <= date.unix() && end.unix() >= date.unix();
     }
 
@@ -1134,7 +1134,7 @@ else{
 
   isDayDisabled(day, month, year): boolean {
     if (this.disabledDays) {
-      let weekday = moment([year, month, day]);
+      let weekday = momentj([year, month, day]);
       if(this.calendarType){
           let weekdayNumber = weekday.jDay();
           return this.disabledDays.indexOf(weekdayNumber) !== -1;
@@ -1427,7 +1427,7 @@ else{
     if (this.isMultipleSelection()) {
       value = this.value[this.value.length - 1];
     }
-    value = value ? moment(value.unix()) : moment();
+    value = value ? momentj(value.unix()) : momentj();
 
     if (this.hourFormat == '12') {
       if (this.currentHour === 12)
@@ -1500,7 +1500,7 @@ else{
   this.onInput.emit(event);
   }
 
-  parseValueFromString(text: string): moment.Moment {
+  parseValueFromString(text: string): momentj.Moment {
     if (!text || text.trim().length === 0) {
       return null;
     }
@@ -1528,12 +1528,12 @@ else{
     return value;
   }
 
-  parseDateTime(text): moment.Moment {
-    let date: moment.Moment;
+  parseDateTime(text): momentj.Moment {
+    let date: momentj.Moment;
     let parts: string[] = text.split(' ');
 
     if (this.timeOnly) {
-      date = moment();
+      date = momentj();
       this.populateTime(date, parts[0], parts[1]);
     }
     else {
@@ -1564,7 +1564,7 @@ else{
   updateUI() {
 
 
-    let val = this.value || this.date || moment();
+    let val = this.value || this.date || momentj();
     if (Array.isArray(val)) {
       val = val[0];
     }
@@ -1776,8 +1776,8 @@ else{
             case 'o':
               output += formatNumber('o',
                 Math.round((
-                  moment([date.year(), date.month(), date.date()]).unix() -
-                  moment([date.year(), 0, 0]).unix()) / 86400000), 3);
+                  momentj([date.year(), date.month(), date.date()]).unix() -
+                  momentj([date.year(), 0, 0]).unix()) / 86400000), 3);
               break;
             case 'm':
               output += formatNumber('m', date.month() + 1, 2);
@@ -1882,7 +1882,7 @@ else{
 
   let iFormat, dim, extra,
   iValue = 0,
-  shortYearCutoff = (typeof this.shortYearCutoff !== "string" ? this.shortYearCutoff : moment().jYear() % 100 + parseInt(this.shortYearCutoff, 10)),
+  shortYearCutoff = (typeof this.shortYearCutoff !== "string" ? this.shortYearCutoff : momentj().jYear() % 100 + parseInt(this.shortYearCutoff, 10)),
   year = -1,
   month = -1,
   day = -1,
@@ -1975,21 +1975,21 @@ else{
                   year = getNumber("y");
                   break;
               case "@":
-                  date = moment(getNumber("@"));
+                  date = momentj(getNumber("@"));
                   year = date.jYear();
                   month = date.jMonth() + 1;
                   day = date.jDate();
                   break;
               case "!":
               if(this.calendarType){
-                  date = moment((getNumber("!") - this.ticksTo1970) / 10000);
+                  date = momentj((getNumber("!") - this.ticksTo1970) / 10000);
                   year = date.jYear();
                   month = date.jMonth() + 1;
                   day = date.jDate();
                   break;
               }
               else{
-                  date = moment((getNumber("!") - this.ticksTo1970) / 10000);
+                  date = momentj((getNumber("!") - this.ticksTo1970) / 10000);
                   year = date.year();
                   month = date.month() + 1;
                   day = date.date();
@@ -2017,17 +2017,17 @@ else{
   }
     if(this.calendarType){
       if (year === -1) {
-          year = moment().jYear();
+          year = momentj().jYear();
       } else if (year < 100) {
-          year += moment().jYear() - moment().jYear() % 100 +
+          year += momentj().jYear() - momentj().jYear() % 100 +
               (year <= shortYearCutoff ? 0 : -100);
       }
     }
     else{
       if (year === -1) {
-          year = moment().year();
+          year = momentj().year();
       } else if (year < 100) {
-          year += moment().year() - moment().year() % 100 +
+          year += momentj().year() - momentj().year() % 100 +
               (year <= shortYearCutoff ? 0 : -100);
       }
     }
@@ -2046,13 +2046,13 @@ else{
       } while (true);
   }
     if(this.calendarType){
-      date = this.daylightSavingAdjust(moment([year, month - 1, day]));
+      date = this.daylightSavingAdjust(momentj([year, month - 1, day]));
       if (date.jYear() !== year || date.jMonth() + 1 !== month || date.jDate() !== day) {
           throw "Invalid date"; // E.g. 31/02/00
       }
     }
     else{
-      date = this.daylightSavingAdjust(moment([year, month - 1, day]));
+      date = this.daylightSavingAdjust(momentj([year, month - 1, day]));
       if (date.year() !== year || date.month() + 1 !== month || date.date() !== day) {
           throw "Invalid date"; // E.g. 31/02/00
       }
@@ -2080,7 +2080,7 @@ else{
   onTodayButtonClick(event) {
 
     let dateMeta;
-    let date:moment.Moment = moment();
+    let date:momentj.Moment = momentj();
     if(this.calendarType){
      dateMeta = { day: date.jDate(), month: date.jMonth(), year: date.jYear(), otherMonth: date.jMonth() !== this.currentMonth || date.jYear() !== this.currentYear, today: true, selectable: true };
 

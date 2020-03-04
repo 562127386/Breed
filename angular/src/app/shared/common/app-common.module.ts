@@ -96,7 +96,9 @@ import { PrimengDatepickerComponent } from './prime-ng-date-picker/primeng-datep
         DateRangePickerInitialValueSetterDirective,
         DatePickerInitialValueSetterDirective,
         CustomizableDashboardComponent,
-        NgxChartsModule,PrimengDatepickerComponent, SharedModule
+        NgxChartsModule,
+        PrimengDatepickerComponent, 
+        SharedModule
     ],
     providers: [
         DateTimeService,
