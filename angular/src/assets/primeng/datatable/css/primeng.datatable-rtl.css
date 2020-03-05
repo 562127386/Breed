@@ -38,7 +38,7 @@
 .primeng-datatable-container .ui-table td {
     font-family: "IRANSans-web", "Roboto";
     border: none !important;
-    padding: 2px 10px !important;
+    padding: 1px 10px !important;
 }
 
 .primeng-datatable-container .ui-table table {
@@ -64,7 +64,7 @@
 }
 
 .primeng-datatable-container .ui-table table thead tr th {
-    font-size: 14px;
+    font-size: 12px;
     font-family: IRANSans-web;
     font-weight: 300;
     line-height: 21px;

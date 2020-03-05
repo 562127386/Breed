@@ -57,34 +57,10 @@
                                 [responsive]="primengTableHelper.isResponsive"
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
-                                    <tr>                                        
-                                        <th style="width: 90px" pSortableColumn="institution">
-                                            {{'Institution' | localize}}
-                                            <p-sortIcon field="institution"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="subInstitution">
-                                            {{'SubInstitution' | localize}}
-                                            <p-sortIcon field="subInstitution"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="address">
-                                            {{'Address' | localize}}
-                                            <p-sortIcon field="address"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="postalCode">
-                                            {{'PostalCode' | localize}}
-                                            <p-sortIcon field="postalCode"></p-sortIcon>
-                                        </th>
+                                    <tr>     
                                         <th style="width: 90px" pSortableColumn="code">
                                             {{'Code' | localize}}
                                             <p-sortIcon field="code"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="nationalCode">
-                                            {{'NationalCode' | localize}}
-                                            <p-sortIcon field="nationalCode"></p-sortIcon>
-                                        </th> 
-                                        <th style="width: 90px" pSortableColumn="birthDate">
-                                            {{'BirthDate' | localize}}
-                                            <p-sortIcon field="birthDate"></p-sortIcon>
                                         </th>
                                         <th style="width: 90px" pSortableColumn="name">
                                             {{'Name' | localize}}
@@ -94,14 +70,18 @@
                                             {{'Family' | localize}}
                                             <p-sortIcon field="family"></p-sortIcon>
                                         </th>
-                                        <th style="width: 90px" pSortableColumn="phone">
-                                            {{'Phone' | localize}}
-                                            <p-sortIcon field="phone"></p-sortIcon>
+                                        <th style="width: 90px" pSortableColumn="institution">
+                                            {{'Institution' | localize}}
+                                            <p-sortIcon field="institution"></p-sortIcon>
                                         </th>
-                                        <th style="width: 90px" pSortableColumn="email">
-                                            {{'Email' | localize}}
-                                            <p-sortIcon field="email"></p-sortIcon>
-                                        </th>
+                                        <th style="width: 90px" pSortableColumn="subInstitution">
+                                            {{'SubInstitution' | localize}}
+                                            <p-sortIcon field="subInstitution"></p-sortIcon>
+                                        </th>                                        
+                                        <th style="width: 90px" pSortableColumn="nationalCode">
+                                            {{'NationalCode' | localize}}
+                                            <p-sortIcon field="nationalCode"></p-sortIcon>
+                                        </th> 
                                         <th style="width: 90px" pSortableColumn="firmName">
                                             {{'FirmName' | localize}}
                                             <p-sortIcon field="firmName"></p-sortIcon>
@@ -114,68 +94,17 @@
                                             {{'FirmEstablishmentYear' | localize}}
                                             <p-sortIcon field="firmEstablishmentYear"></p-sortIcon>
                                         </th>
-                                        <th style="width: 90px" pSortableColumn="fullTimeStaffDiploma">
-                                            {{'FullTimeStaffDiploma' | localize}}
-                                            <p-sortIcon field="fullTimeStaffDiploma"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="fullTimeStaffAssociateDegree">
-                                            {{'FullTimeStaffAssociateDegree' | localize}}
-                                            <p-sortIcon field="fullTimeStaffAssociateDegree"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="fullTimeStaffBachelorAndUpper">
-                                            {{'FullTimeStaffBachelorAndUpper' | localize}}
-                                            <p-sortIcon field="fullTimeStaffBachelorAndUpper"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="partialTimeStaffDiploma">
-                                            {{'PartialTimeStaffDiploma' | localize}}
-                                            <p-sortIcon field="partialTimeStaffDiploma"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="partialTimeStaffAssociateDegree">
-                                            {{'PartialTimeStaffAssociateDegree' | localize}}
-                                            <p-sortIcon field="partialTimeStaffAssociateDegree"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="partialTimeStaffBachelorAndUpper">
-                                            {{'PartialTimeStaffBachelorAndUpper' | localize}}
-                                            <p-sortIcon field="partialTimeStaffBachelorAndUpper"></p-sortIcon>
-                                        </th>
                                         <th style="width: 130px">
                                             <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
-                                            {{'Actions' | localize}}</th>    
-                                        <th style="width: 100px" pSortableColumn="creationTime">
-                                            {{'CreationTime' | localize}}
-                                            <p-sortIcon field="creationTime"></p-sortIcon>
-                                        </th>                                                                          
+                                            {{'Actions' | localize}}
+                                        </th>                                                      
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
-                                    <tr>                                        
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'Institution' | localize}}</span>
-                                            {{record.institution}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'SubInstitution' | localize}}</span>
-                                            {{record.subInstitution}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'Address' | localize}}</span>
-                                            {{record.address}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'PostalCode' | localize}}</span>
-                                            {{record.postalCode}}
-                                        </td>
+                                    <tr>      
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'Code' | localize}}</span>
                                             {{record.code}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
-                                            {{record.nationalCode}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'BirthDate' | localize}}</span>
-                                            {{record.birthDate| momentFormat:'YYYY/MM/DD'}}
                                         </td>
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'Name' | localize}}</span>
@@ -186,12 +115,16 @@
                                             {{record.family}}
                                         </td>
                                         <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'Phone' | localize}}</span>
-                                            {{record.phone}}
+                                            <span class="ui-column-title"> {{'Institution' | localize}}</span>
+                                            {{record.institution}}
                                         </td>
                                         <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'Email' | localize}}</span>
-                                            {{record.email}}
+                                            <span class="ui-column-title"> {{'SubInstitution' | localize}}</span>
+                                            {{record.subInstitution}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
+                                            {{record.nationalCode}}
                                         </td>
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'FirmName' | localize}}</span>
@@ -205,31 +138,7 @@
                                             <span class="ui-column-title"> {{'FirmEstablishmentYear' | localize}}</span>
                                             {{record.firmEstablishmentYear}}
                                         </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'FullTimeStaffDiploma' | localize}}</span>
-                                            {{record.fullTimeStaffDiploma}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'FullTimeStaffAssociateDegree' | localize}}</span>
-                                            {{record.fullTimeStaffAssociateDegree}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'FullTimeStaffBachelorAndUpper' | localize}}</span>
-                                            {{record.fullTimeStaffBachelorAndUpper}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'PartialTimeStaffDiploma' | localize}}</span>
-                                            {{record.partialTimeStaffDiploma}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'PartialTimeStaffAssociateDegree' | localize}}</span>
-                                            {{record.partialTimeStaffAssociateDegree}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'PartialTimeStaffBachelorAndUpper' | localize}}</span>
-                                            {{record.partialTimeStaffBachelorAndUpper}}
-                                        </td>
-                                        <td style="width: 100px">
+                                        <td style="width: 130px">
                                             <div class="kt-section__content kt-section__content--solid">
                                                 <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditContractorModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
                                                 <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditContractorModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>

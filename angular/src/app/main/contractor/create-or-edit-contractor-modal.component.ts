@@ -63,15 +63,14 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
     }
 
     onShown(): void {
-        this.nameInput.nativeElement.focus();
+        // this.nameInput.nativeElement.focus();
     }
 
     save(): void {
         let input = new ContractorCreateOrUpdateInput();
         input = this.contractor;
-        
-        this.date = momentj('2020-03-17', 'YYYY/MM/DD');
-        input.birthDate = moment('2020-03-17');
+                
+        input.birthDate = moment(this.contractor.birthDate.locale('en'));
         this.saving = true;
         this._contractorService.createOrUpdateContractor(input)
             .pipe(finalize(() => this.saving = false))

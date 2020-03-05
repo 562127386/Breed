@@ -14,17 +14,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-5 col-sm-12">{{"Code" | localize}}</label>
+                                <label class="col-form-label col-md-5 col-sm-12 text-right">{{"Code" | localize}}</label>
                                 <div class="col-md-7 col-sm-12">
                                     <input class="form-control" type="text" (keypress)="numberOnly($event)" im-insert="true" name="code" [(ngModel)]="stateInfo.code" required maxlength="32">                                    
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-5 col-sm-12">{{"Name" | localize}}</label>
+                                <label class="col-form-label col-md-5 col-sm-12 text-right">{{"Name" | localize}}</label>
                                 <div class="col-md-7 col-sm-12">
                                     <input #nameInput class="form-control" type="text" im-insert="true" name="name" [(ngModel)]="stateInfo.name" required maxlength="32">                                    
                                 </div>

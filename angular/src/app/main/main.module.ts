@@ -38,6 +38,9 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { TreeModule } from 'primeng/tree';
 import { DragDropModule } from 'primeng/dragdrop';
+import { FieldsetModule } from 'primeng/fieldset';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TreeDragDropService } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu'
 import { MainRoutingModule } from './main-routing.module';
@@ -67,6 +70,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         TableModule,
         TreeModule,
         DragDropModule,
+        FieldsetModule,
+        KeyFilterModule,
+        InputTextareaModule,
         ContextMenuModule,
         PaginatorModule,
         PrimeNgFileUploadModule,

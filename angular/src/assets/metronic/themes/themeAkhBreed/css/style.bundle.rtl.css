@@ -11842,7 +11842,7 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
   font-family: IRANSans-web;
   -ms-text-size-adjust: 100%;
@@ -18711,7 +18711,7 @@ strong {
     position: relative;
     padding: 0 25px;
     border-bottom: 1px solid #ebedf2;
-    min-height: 50px;
+    min-height: 45px;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px; }
     .kt-portlet .kt-portlet__head.kt-portlet__head--right {
@@ -34298,11 +34298,11 @@ body {
     .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading,
     .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link {
       cursor: pointer;
-      min-height: 44px; }
+      min-height: 35px; }
       .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text,
       .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
         font-weight: 500;
-        font-size: 1rem;
+        font-size: 0.8rem;
         text-transform: initial; }
       .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-icon,
       .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-icon {
@@ -34364,11 +34364,11 @@ body {
       .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__heading,
       .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__link {
         cursor: pointer;
-        min-height: 40px; }
+        min-height: 28px; }
         .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__heading .kt-menu__link-text,
         .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__link .kt-menu__link-text {
           font-weight: 400;
-          font-size: 1rem;
+          font-size: 0.75rem;
           text-transform: initial; }
         .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__heading .kt-menu__link-icon,
         .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__link .kt-menu__link-icon {
@@ -35349,3 +35349,10 @@ body {
         .kt-footer .kt-footer__wrapper .kt-footer__menu a:first-child {
           padding-right: 0;
           margin-right: 0; } }
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
