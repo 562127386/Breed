@@ -1705,7 +1705,7 @@ textarea.form-control {
   height: auto; }
 
 .form-group {
-  margin-bottom: 1rem; }
+  margin-bottom: 0.1rem; }
 
 .form-text {
   display: block;
@@ -2085,8 +2085,8 @@ fieldset:disabled a.btn {
     box-shadow: 0 0 0 0.2rem rgba(113, 126, 226, 0.5); }
   .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
-    background-color: #5867dd;
-    border-color: #5867dd; }
+    background-color: #0b6587 ;
+    border-color: #0b6587 ; }
   .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
   .show > .btn-primary.dropdown-toggle {
     color: #fff;
@@ -4789,7 +4789,7 @@ a.close.disabled {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1.25rem;
+  padding: 0.75rem 1.25rem;
   border-bottom: 1px solid #ebedf2;
   border-top-right-radius: 0.3rem;
   border-top-left-radius: 0.3rem; }
@@ -8833,8 +8833,8 @@ button.btn {
     box-shadow: 0 0 0 0.2rem rgba(113, 126, 226, 0.5); }
   .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
-    background-color: #5867dd;
-    border-color: #5867dd; }
+    background-color: #0b6587 ;
+    border-color: #0b6587 ; }
   .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
   .show > .btn-primary.dropdown-toggle {
     color: #fff;
@@ -10742,7 +10742,7 @@ code {
     margin-top: 0; } }
 
 .form-group {
-  margin-bottom: 2rem; }
+  margin-bottom: 0.2rem; }
   .form-group.form-group-marginless, .form-group.form-group-last {
     margin-bottom: 0px; }
   .form-group label {
@@ -35355,4 +35355,27 @@ body {
 
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
+}
+
+
+/* 
+///////////////////////
+//////////////////////
+/////////////////////  primeeng fieldset
+////////////////////
+///////////////////
+*/
+
+body .ui-fieldset .ui-fieldset-legend a {
+  padding: 0.1em 1em;
+  border: 1px solid #c8c8c8;
+  color: #333333;
+  background-color: #ddd294;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
 }

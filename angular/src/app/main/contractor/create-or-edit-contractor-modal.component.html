@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form *ngIf="active" #contractorForm="ngForm" novalidate (ngSubmit)="save()">
-                <div class="modal-header">
+                <div class="modal-header kt-bg-brand">
                     <h4 class="modal-title">
                         <span *ngIf="contractor.id && editdisabled">{{"ViewNewContractor" | localize}}: {{contractor.name}}</span>
                         <span *ngIf="contractor.id && !editdisabled">{{"EditNewContractor" | localize}}: {{contractor.name}}</span>
@@ -13,13 +13,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p-fieldset [legend]="l('Address')" [toggleable]="true">
+                    <p-fieldset class="kt-padding-0" [legend]="l('Address')" [toggleable]="true">
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12 text-right">{{"Institution" | localize}}</label>
                                     <div class="col-md-8 col-sm-12">
-                                        <input class="form-control" type="text" name="institution" [(ngModel)]="contractor.institution" pInputText  pKeyFilter="alpha" [placeholder]="l('Institution')" required maxlength="32">
+                                        <input class="form-control" type="text" name="institution" [(ngModel)]="contractor.institution" pInputText  pKeyFilter="{/^[^0-9]+$/}"  [placeholder]="l('Institution')" required maxlength="32">
                                     </div>
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12 text-right">{{"SubInstitution" | localize}}</label>
                                     <div class="col-md-8 col-sm-12">
-                                        <input class="form-control" type="text" name="subInstitution" [(ngModel)]="contractor.subInstitution" pInputText  pKeyFilter="alpha" [placeholder]="l('SubInstitution')" maxlength="32">
+                                        <input class="form-control" type="text" name="subInstitution" [(ngModel)]="contractor.subInstitution" pInputText  pKeyFilter="/^[^0-9]+$/"  [placeholder]="l('SubInstitution')" maxlength="32">
                                     </div>
                                 </div>
                             </div>

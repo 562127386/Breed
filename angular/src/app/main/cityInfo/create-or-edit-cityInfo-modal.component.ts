@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 export class CreateOrEditCityInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: true }) nameInput: ElementRef;    
+    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;    
     @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
     
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();

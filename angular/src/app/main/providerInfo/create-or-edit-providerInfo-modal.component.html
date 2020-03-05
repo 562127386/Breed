@@ -1,8 +1,8 @@
 <div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <form *ngIf="active" #providerInfoForm="ngForm" novalidate (ngSubmit)="save()">
-                    <div class="modal-header">
+                    <div class="modal-header kt-bg-brand">
                         <h4 class="modal-title">
                             <span *ngIf="providerInfo.id && editdisabled">{{"ViewNewProviderInfo" | localize}}: {{providerInfo.name}}</span>
                             <span *ngIf="providerInfo.id && !editdisabled">{{"EditNewProviderInfo" | localize}}: {{providerInfo.name}}</span>
@@ -14,18 +14,18 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="form-group col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-5 col-sm-12">{{"Code" | localize}}</label>
-                                    <div class="col-md-7 col-sm-12">
+                                    <label class="col-form-label col-md-3 col-sm-12">{{"Code" | localize}}</label>
+                                    <div class="col-md-9 col-sm-12">
                                         <input class="form-control" type="text" (keypress)="numberOnly($event)" im-insert="true" name="code" [(ngModel)]="providerInfo.code" required maxlength="32">                                    
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <div class="form-group col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-5 col-sm-12">{{"Name" | localize}}</label>
-                                    <div class="col-md-7 col-sm-12">
+                                    <label class="col-form-label col-md-3 col-sm-12">{{"Name" | localize}}</label>
+                                    <div class="col-md-9 col-sm-12">
                                         <input #nameInput class="form-control" type="text" im-insert="true" name="name" [(ngModel)]="providerInfo.name" required maxlength="32">                                    
                                     </div>
                                 </div>

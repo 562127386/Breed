@@ -1092,7 +1092,11 @@
     <text name="ViewItem">نمایش رکورد</text>
     <text name="DeleteItem">حذف رکورد</text>
     <text name="EditItem">ویرایش رکورد</text>
-    
+
+    <text name="ContractorInfo">اطلاعات پیمانکار</text>
+    <text name="FirmInfo">اطلاعت شرکت</text>
+    <text name="FullTimeStaff">کارکنان تمام وقت</text>
+    <text name="PartialTimeStaff">کارکنان پاره وقت</text>
 
   </texts>
 </localizationDictionary>

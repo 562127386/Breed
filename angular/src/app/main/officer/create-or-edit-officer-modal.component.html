@@ -4,7 +4,7 @@
         <div class="modal-content">
             <form *ngIf="active" #officerForm="ngForm" novalidate (ngSubmit)="save()">
                 <div class="modal-header">
-                    <h4 class="modal-title">
+                    <h4 class="modal-title kt-bg-brand">
                         <span *ngIf="officer.id">{{"EditNewOfficer" | localize}}: {{officer.Name}}</span>
                         <span *ngIf="!officer.id">{{"CreateNewOfficer" | localize}}</span>
                     </h4>
