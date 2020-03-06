@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -90,6 +91,8 @@ namespace Akh.Breed.BaseInfos
         
         public async Task CreateOrUpdateVillageInfo(VillageInfoCreateOrUpdateInput input)
         {
+            await CheckValidation(input);
+            
             if (input.Id.HasValue)
             {
                 await UpdateVillageInfoAsync(input);
@@ -132,6 +135,23 @@ namespace Akh.Breed.BaseInfos
                     u.Code.Contains(input.Filter));
 
             return query;
+        }
+        
+        private async Task CheckValidation(VillageInfoCreateOrUpdateInput input)
+        {
+            var existingObj = (await _villageInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Code == input.Code && l.RegionInfoId == input.RegionInfoId));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisCodeAlreadyExists"));
+            }
+            
+            existingObj = (await _villageInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Name == input.Name && l.RegionInfoId == input.RegionInfoId));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisNameAlreadyExists"));
+            }
         }
     }
 }

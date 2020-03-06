@@ -12,7 +12,7 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditSpeciesInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
+    @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     speciesInfo: SpeciesInfoCreateOrUpdateInput = new SpeciesInfoCreateOrUpdateInput();
@@ -51,7 +51,7 @@ export class CreateOrEditSpeciesInfoModalComponent extends AppComponentBase {
     }
 
     onShown(): void {
-        this.nameInput.nativeElement.focus();
+        // this.codeInput.nativeElement.focus();
     }
 
     save(): void {

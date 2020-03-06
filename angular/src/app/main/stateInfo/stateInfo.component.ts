@@ -77,6 +77,9 @@ export class StateInfoComponent extends AppComponentBase implements AfterViewIni
                         this.notify.info(this.l('SuccessfullyDeleted'));
                     });
                 }
+            },
+            {
+                title: "Are you sure?"
             }
         );
     } 

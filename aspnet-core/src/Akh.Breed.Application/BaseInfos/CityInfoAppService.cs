@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors.Dto;
@@ -68,6 +69,8 @@ namespace Akh.Breed.BaseInfos
         
         public async Task CreateOrUpdateCityInfo(CityInfoCreateOrUpdateInput input)
         {
+            await CheckValidation(input);
+            
             if (input.Id.HasValue)
             {
                 await UpdateCityInfoAsync(input);
@@ -116,6 +119,23 @@ namespace Akh.Breed.BaseInfos
             
             return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
+        }
+        
+        private async Task CheckValidation(CityInfoCreateOrUpdateInput input)
+        {
+            var existingObj = (await _cityInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Code == input.Code && l.StateInfoId == input.StateInfoId));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisCodeAlreadyExists"));
+            }
+            
+            existingObj = (await _cityInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Name == input.Name && l.StateInfoId == input.StateInfoId));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisNameAlreadyExists"));
+            }
         }
     }
 }

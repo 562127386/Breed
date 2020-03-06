@@ -1,4 +1,3 @@
-
 import { Component, Injector, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';

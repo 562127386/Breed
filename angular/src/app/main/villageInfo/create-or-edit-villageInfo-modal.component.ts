@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;    
+    @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;    
     @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
     @ViewChild('cityInfoCombobox', { static: true }) cityInfoCombobox: ElementRef;
     @ViewChild('regionInfoCombobox', { static: true }) regionInfoCombobox: ElementRef;
@@ -108,7 +108,7 @@ export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
     }
 
     onShown(): void {
-        this.nameInput.nativeElement.focus();
+        // this.codeInput.nativeElement.focus();
     }
 
     save(): void {

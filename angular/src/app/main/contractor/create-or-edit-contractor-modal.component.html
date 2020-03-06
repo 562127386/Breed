@@ -192,7 +192,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12 text-right">{{"PartialTimeStaffAssociateDegree" | localize}}</label>
                                     <div class="col-md-8 col-sm-12">
-                                        <input class="form-control" type="text" name="partialTimeStaffAssociateDegree" [(ngModel)]="contractor.partialTimeStaffAssociateDegree" pInputText  pKeyFilter="pint" [placeholder]="l('PartialTimeStaffAssociateDegree')" maxlength="32">
+                                        <input #nameInput class="form-control" type="text" name="partialTimeStaffAssociateDegree" [(ngModel)]="contractor.partialTimeStaffAssociateDegree" pInputText  pKeyFilter="pint" [placeholder]="l('PartialTimeStaffAssociateDegree')" maxlength="32">
                                     </div>
                                 </div>
                             </div>

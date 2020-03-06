@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,8 @@ namespace Akh.Breed.BaseInfos
         
         public async Task CreateOrUpdateAcademicDegree(AcademicDegreeCreateOrUpdateInput input)
         {
+            await CheckValidation(input);
+            
             if (input.Id.HasValue)
             {
                 await UpdateAcademicDegreeAsync(input);
@@ -90,6 +93,23 @@ namespace Akh.Breed.BaseInfos
                     u.Code.Contains(input.Filter));
 
             return query;
+        }
+        
+        private async Task CheckValidation(AcademicDegreeCreateOrUpdateInput input)
+        {
+            var existingObj = (await _academicDegreeRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Code == input.Code));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisCodeAlreadyExists"));
+            }
+            
+            existingObj = (await _academicDegreeRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Name == input.Name));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisNameAlreadyExists"));
+            }
         }
     }
 }

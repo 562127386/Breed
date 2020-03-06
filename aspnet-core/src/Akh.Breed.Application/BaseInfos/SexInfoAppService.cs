@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,8 @@ namespace Akh.Breed.BaseInfos
         
         public async Task CreateOrUpdateSexInfo(SexInfoCreateOrUpdateInput input)
         {
+            await CheckValidation(input);
+            
             if (input.Id.HasValue)
             {
                 await UpdateSexInfoAsync(input);
@@ -91,5 +94,23 @@ namespace Akh.Breed.BaseInfos
 
             return query;
         }
+        
+        private async Task CheckValidation(SexInfoCreateOrUpdateInput input)
+        {
+            var existingObj = (await _sexInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Code == input.Code));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisCodeAlreadyExists"));
+            }
+            
+            existingObj = (await _sexInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Name == input.Name));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisNameAlreadyExists"));
+            }
+        }
+        
     }
 }

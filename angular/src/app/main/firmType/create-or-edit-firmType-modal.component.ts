@@ -12,7 +12,7 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditFirmTypeModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
+    @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     firmType: FirmTypeCreateOrUpdateInput = new FirmTypeCreateOrUpdateInput();
@@ -51,7 +51,7 @@ export class CreateOrEditFirmTypeModalComponent extends AppComponentBase {
     }
 
     onShown(): void {
-        this.nameInput.nativeElement.focus();
+        // this.codeInput.nativeElement.focus();
     }
 
     save(): void {

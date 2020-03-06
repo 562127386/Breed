@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -81,6 +82,8 @@ namespace Akh.Breed.BaseInfos
         
         public async Task CreateOrUpdateRegionInfo(RegionInfoCreateOrUpdateInput input)
         {
+            await CheckValidation(input);
+            
             if (input.Id.HasValue)
             {
                 await UpdateRegionInfoAsync(input);
@@ -133,6 +136,23 @@ namespace Akh.Breed.BaseInfos
             
             return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
+        }
+        
+        private async Task CheckValidation(RegionInfoCreateOrUpdateInput input)
+        {
+            var existingObj = (await _regionInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Code == input.Code && l.CityInfoId == input.CityInfoId));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisCodeAlreadyExists"));
+            }
+            
+            existingObj = (await _regionInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Name == input.Name && l.CityInfoId == input.CityInfoId));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisNameAlreadyExists"));
+            }
         }
     }
 }

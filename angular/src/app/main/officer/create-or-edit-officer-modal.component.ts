@@ -1,10 +1,12 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { OfficerEditDto, OfficerServiceProxy, OfficerCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { OfficerServiceProxy, OfficerCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
+import * as _ from 'lodash';
+import * as moment from 'moment';
+import * as momentj from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditOfficerModal',
@@ -17,16 +19,17 @@ export class CreateOrEditOfficerModalComponent extends AppComponentBase {
     @ViewChild('academicDegreeCombobox', { static: true }) academicDegreeCombobox: ElementRef;
     @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
     @ViewChild('contractorCombobox', { static: true }) contractorCombobox: ElementRef;
-
+    
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    officer: OfficerEditDto = new OfficerEditDto();
+    officer: OfficerCreateOrUpdateInput = new OfficerCreateOrUpdateInput();    
     academicDegreesSelectItems: SelectItem[] = [];
     stateInfosSelectItems: SelectItem[] = [];
     contractorsSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
+    editdisabled: boolean = false;
 
     constructor(
         injector: Injector,
@@ -35,12 +38,17 @@ export class CreateOrEditOfficerModalComponent extends AppComponentBase {
         super(injector);
     }
 
-    show(officerId?: number): void {
+    show(officerId?: number,editdisabled?: boolean): void {  
         if (!officerId) {
             this.active = true;
         }
-
+        this.editdisabled = true;
+        if (!editdisabled) {
+            this.editdisabled = false;
+        }
         this._officerService.getOfficerForEdit(officerId).subscribe(userResult => {
+            this.officer = userResult.officer;
+            
             this.officer = userResult.officer;
 
             this.academicDegreesSelectItems = _.map(userResult.academicDegrees, function(academicDegree) {
@@ -60,7 +68,7 @@ export class CreateOrEditOfficerModalComponent extends AppComponentBase {
                     label: contractor.displayText, value: contractor.value
                 };
             });
-            
+
             if (officerId) {
                 this.active = true;
             }
@@ -71,25 +79,35 @@ export class CreateOrEditOfficerModalComponent extends AppComponentBase {
     }
 
     onShown(): void {
-        this.nameInput.nativeElement.focus();
+        // this.nameInput.nativeElement.focus();
     }
 
     save(): void {
         let input = new OfficerCreateOrUpdateInput();
         input = this.officer;
-        
+                
+        input.birthDate = moment(this.officer.birthDate.locale('en'));
         this.saving = true;
         this._officerService.createOrUpdateOfficer(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
-                this.modalSave.emit(input);
+                this.modalSave.emit(this.officer);
             });
     }
 
     close(): void {
         this.active = false;
+        this.editdisabled = true;
         this.modal.hide();
     }
+
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+  }
 }

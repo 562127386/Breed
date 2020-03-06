@@ -1,37 +1,43 @@
 <div [@routerTransition]>
     <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
         <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">
-                        <span>{{"Officer" | localize}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <span class="kt-subheader__desc">
-                        {{"OfficerHeaderInfo" | localize}}
-                    </span>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
-                        <button (click)="createOfficer()" class="btn btn-primary"><i class="fa fa-plus"></i> {{"CreateNewOfficer" | localize}}</button>
-                    </div>
-                </div>
-            </div>
         </div>
+
         <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
             <div class="kt-portlet kt-portlet--mobile">
-                <div class="kt-portlet__body">
+
+                <div class="kt-portlet__head kt-portlet--skin-solid kt-portlet-- kt-bg-brand">
+                    <div class="kt-portlet__head-label">
+                          
+                        <span class="kt-portlet__head-icon">
+                            <i class="flaticon2-graph"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-title">
+                            <span>{{"Officer" | localize}}</span>
+                        </h3>                        
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="kt-portlet__head-actions">
+                            <div (click)="createOfficer()" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                                data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                                <i class="flaticon2-add-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body kt-padding-0">
                     <form class="kt-form" autocomplete="new-password">
                         <div>
-                            <div class="row align-items-center mb-4">
+                            <div class="row align-items-center">
                                 <div class="col-xl-12">
-                                    <div class="form-group m-form__group align-items-center">
+                                    <div class="form-group m-form__group align-items-center mb-0">
                                         <div class="input-group">
                                             <input [(ngModel)]="filterText" name="filterText" autoFocus
                                                 class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
                                                 type="text">
                                             <span class="input-group-btn">
-                                                <button (click)="getOfficer()" class="btn btn-primary" type="submit"><i
+                                                <button (click)="getOfficer()" class="btn btn-brand" type="submit"><i
                                                         class="flaticon-search-1"
                                                         [attr.aria-label]="l('Search')"></i></button>
                                             </span>
@@ -42,7 +48,7 @@
                         </div>
                     </form>
 
-                    <div class="row align-items-center">
+                    <div class="row align-items-center kt-margin-0">
                         <!--<Primeng-TurboTable-Start>-->
                         <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                             <p-table #dataTable (onLazyLoad)="getOfficer($event)" [value]="primengTableHelper.records"
@@ -51,19 +57,7 @@
                                 [responsive]="primengTableHelper.isResponsive"
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
-                                    <tr>
-                                        <th style="width: 90px" pSortableColumn="code">
-                                            {{'Code' | localize}}
-                                            <p-sortIcon field="code"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="nationalCode">
-                                            {{'NationalCode' | localize}}
-                                            <p-sortIcon field="nationalCode"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="birthDate">
-                                            {{'BirthDate' | localize}}
-                                            <p-sortIcon field="birthDate"></p-sortIcon>
-                                        </th>
+                                    <tr>                                             
                                         <th style="width: 90px" pSortableColumn="name">
                                             {{'Name' | localize}}
                                             <p-sortIcon field="name"></p-sortIcon>
@@ -72,69 +66,30 @@
                                             {{'Family' | localize}}
                                             <p-sortIcon field="family"></p-sortIcon>
                                         </th>
-                                        <th style="width: 90px" pSortableColumn="fatherName">
-                                            {{'FatherName' | localize}}
-                                            <p-sortIcon field="fatherName"></p-sortIcon>
-                                        </th> 
-                                        <th style="width: 90px" pSortableColumn="birthDate">
-                                            {{'BirthDate' | localize}}
-                                            <p-sortIcon field="birthDate"></p-sortIcon>
+                                        <th style="width: 90px" pSortableColumn="nationalCode">
+                                            {{'NationalCode' | localize}}
+                                            <p-sortIcon field="nationalCode"></p-sortIcon>
                                         </th>
-                                        <th style="width: 90px" pSortableColumn="idNo">
-                                            {{'IdNo' | localize}}
-                                            <p-sortIcon field="idNo"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="workNumber">
-                                            {{'WorkNumber' | localize}}
-                                            <p-sortIcon field="workNumber"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="mobileNumber">
-                                            {{'MobileNumber' | localize}}
-                                            <p-sortIcon field="mobileNumber"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="address">
-                                            {{'Address' | localize}}
-                                            <p-sortIcon field="address"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="postalCode">
-                                            {{'PostalCode' | localize}}
-                                            <p-sortIcon field="postalCode"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="academicDegreeName">
-                                            {{'AcademicDegreeName' | localize}}
-                                            <p-sortIcon field="academicDegreeName"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="stateInfoName">
-                                            {{'StateInfoName' | localize}}
-                                            <p-sortIcon field="stateInfoName"></p-sortIcon>
+                                        <th style="width: 90px" pSortableColumn="contractorCode">
+                                            {{'ContractorCode' | localize}}
+                                            <p-sortIcon field="contractorCode"></p-sortIcon>
                                         </th>
                                         <th style="width: 90px" pSortableColumn="contractorName">
                                             {{'ContractorName' | localize}}
                                             <p-sortIcon field="contractorName"></p-sortIcon>
-                                        </th>                                       
+                                        </th>   
+										<th style="width: 90px" pSortableColumn="stateInfoName">
+                                            {{'StateInfoName' | localize}}
+                                            <p-sortIcon field="stateInfoName"></p-sortIcon>
+                                        </th>
                                         <th style="width: 130px">
                                             <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
-                                            {{'Actions' | localize}}</th>    
-                                        <th style="width: 100px" pSortableColumn="creationTime">
-                                            {{'CreationTime' | localize}}
-                                            <p-sortIcon field="creationTime"></p-sortIcon>
-                                        </th>                                    
+                                            {{'Actions' | localize}}
+                                        </th>                                                      
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
-                                    <tr>                                        
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'Code' | localize}}</span>
-                                            {{record.code}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
-                                            {{record.nationalCode}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'BirthDate' | localize}}</span>
-                                            {{record.birthDate | momentFormat:'L'}}
-                                        </td>
+                                    <tr>      
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'Name' | localize}}</span>
                                             {{record.name}}
@@ -144,64 +99,29 @@
                                             {{record.family}}
                                         </td>
                                         <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'FatherName' | localize}}</span>
-                                            {{record.fatherName}}
+                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
+                                            {{record.nationalCode}}
                                         </td>
                                         <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'IdNo' | localize}}</span>
-                                            {{record.idNo}}
-                                        </td>
+                                            <span class="ui-column-title"> {{'ContractorCode' | localize}}</span>
+                                            {{record.contractorName}}
+                                        </td> 
                                         <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'WorkNumber' | localize}}</span>
-                                            {{record.workNumber}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'MobileNumber' | localize}}</span>
-                                            {{record.mobileNumber}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'Address' | localize}}</span>
-                                            {{record.address}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'PostalCode' | localize}}</span>
-                                            {{record.postalCode}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'AcademicDegreeName' | localize}}</span>
-                                            {{record.academicDegreeName}}
-                                        </td>
+                                            <span class="ui-column-title"> {{'ContractorName' | localize}}</span>
+                                            {{record.contractorName}}
+                                        </td> 
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'StateInfoName' | localize}}</span>
                                             {{record.stateInfoName}}
                                         </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'ContractorName' | localize}}</span>
-                                            {{record.contractorName}}
-                                        </td>                                        
                                         <td style="width: 130px">
-                                            <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
-                                            <div class="btn-group dropdown" dropdown container="body">
-                                                <button dropdownToggle class="dropdown-toggle btn btn-sm btn-primary">
-                                                    <i class="fa fa-cog"></i><span class="caret"></span>
-                                                    {{"Actions" | localize}}
-                                                </button>
-                                                <ul class="dropdown-menu" *dropdownMenu>
-                                                    <li>
-                                                        <a href="javascript:;"
-                                                            (click)="createOrEditOfficerModal.show(record.id)">{{'Edit' | localize}}</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:;"
-                                                            (click)="deleteOfficer(record)">{{'Delete' | localize}}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>                                      
-                                        <td style="width: 100px">
-                                            <span class="ui-column-title"> {{'CreationTime' | localize}}</span>
-                                             {{record.creationTime | momentFormat:'L'}} 
-                                        </td>
+                                            <div class="kt-section__content kt-section__content--solid">
+                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditOfficerModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditOfficerModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>
+                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteOfficer(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button>
+                                            </div>                                            
+                                            <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->                                    
+                                        </td>                                     
                                     </tr>
                                 </ng-template>
                             </p-table>
@@ -223,6 +143,18 @@
                         <!--<Primeng-TurboTable-End>-->
                     </div>
                 </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 m--valign-middle">
+                            
+                        </div>
+                        <div class="col-lg-6 kt-align-right">
+                            <button (click)="createOfficer()" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewOfficer" | localize}}</button>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
 

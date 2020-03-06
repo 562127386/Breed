@@ -109,7 +109,7 @@
     <text name="EmailActivation_Title">خوش آمدید.</text>
     <text name="EmailActivation_SubTitle">پیام برای تایید آدرس الکترونیک برای شما ارسال شد.</text>
     <text name="EmailActivation_ClickTheLinkBelowToVerifyYourEmail">خواهشمند است جهت تایید آدرس الکترونیک بر روی لینک کلیک کنید:</text>
-    <text name="InvalidEmailAddress">آدرس الکترونبک معتبر نیست</text>
+    <text name="InvalidEmailAddressThisNameAlreadyExists">آدرس الکترونبک معتبر نیست</text>
     <text name="InvalidPasswordResetCode">کد بازیابی کلمه عبور معتبر نیست</text>
     <text name="InvalidPasswordResetCode_Detail">خواهمند است از طریق لینک ارسال شده به این صفحه وارد شوید. در صورت ناموفق بود خواهشمند است دوباره تلاش کنید.</text>
     <text name="PleaseEnterYourNewPassword">خواهشمند است کلمه عبور جدید را وارد کنید.</text>
@@ -379,7 +379,7 @@
     <text name="Timezone">Timezone</text>
     <text name="HasOwnDatabase">Has own database</text>
     <text name="TimeZoneSettingChangedRefreshPageNotification">Timezone setting changed. Click OK button to refresh page and changes to take effect.</text>
-    <text name="Ok">Ok</text>
+    <text name="Ok">تایید</text>
     <text name="Permission">Permission</text>
     <text name="Role">Role</text>
     <text name="Security">Security</text>
@@ -758,9 +758,9 @@
     <text name="UiCustomization_Desktop">Desktop</text>
     <text name="TwoFactorLoginIsNotSupported">Two factor login is not currently supported!</text>
     <text name="LinkToCurrentPage">Link to current page</text>
-    <text name="ThisFieldIsRequired">This field is required.</text>
-    <text name="PleaseEnterAtLeastNCharacter">Please enter at least {0} characters.</text>
-    <text name="PleaseEnterNoMoreThanNCharacter">Please enter no more than {0} characters.</text>
+    <text name="ThisFieldIsRequired">وارد کردن این فیلد الزامی است.</text>
+    <text name="PleaseEnterAtLeastNCharacter">حداقل طول مجاز {0} کاراکتر می باشد.</text>
+    <text name="PleaseEnterNoMoreThanNCharacter">حداکثر طول مجاز {0} کاراکتر می باشد.</text>
     <text name="SelectTwoFactorProvider">Select two factor authentication provider</text>
     <text name="InvoiceInfoIsMissingOrNotCompleted">Invoice info is missing or not completed</text>
     <text name="InvoiceTo">Invoice to</text>
@@ -1097,6 +1097,9 @@
     <text name="FirmInfo">اطلاعت شرکت</text>
     <text name="FullTimeStaff">کارکنان تمام وقت</text>
     <text name="PartialTimeStaff">کارکنان پاره وقت</text>
+
+    <text name="ThisNameAlreadyExists">این نام قبلا ثبت شده است.</text>
+    <text name="ThisCodeAlreadyExists">این کد قبلا ثبت شده است.</text>
 
   </texts>
 </localizationDictionary>

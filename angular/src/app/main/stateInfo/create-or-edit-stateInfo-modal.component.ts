@@ -12,7 +12,7 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditStateInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
-    @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;
+    @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     stateInfo: StateInfoCreateOrUpdateInput = new StateInfoCreateOrUpdateInput();
@@ -51,7 +51,7 @@ export class CreateOrEditStateInfoModalComponent extends AppComponentBase {
     }
 
     onShown(): void {
-        this.nameInput.nativeElement.focus();
+        // this.codeInput.nativeElement.focus();
     }
 
     save(): void {
@@ -71,11 +71,4 @@ export class CreateOrEditStateInfoModalComponent extends AppComponentBase {
         this.modal.hide();
     }
 
-    numberOnly(event): boolean {
-        const charCode = (event.which) ? event.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-  }
 }

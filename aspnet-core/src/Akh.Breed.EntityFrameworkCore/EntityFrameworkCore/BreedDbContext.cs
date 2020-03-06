@@ -111,6 +111,72 @@ namespace Akh.Breed.EntityFrameworkCore
                     .IsUnique();
             });
 
+            modelBuilder.Entity<StateInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<CityInfo>(b =>
+            {
+                b.HasIndex(e => new { e.Code, e.StateInfoId }).IsUnique();
+                b.HasIndex(e => new { e.Name, e.StateInfoId }).IsUnique();
+            });
+            
+            modelBuilder.Entity<RegionInfo>(b =>
+            {
+                b.HasIndex(e => new { e.Code, e.CityInfoId }).IsUnique();
+                b.HasIndex(e => new { e.Name, e.CityInfoId }).IsUnique();
+            });
+            
+            modelBuilder.Entity<VillageInfo>(b =>
+            {
+                b.HasIndex(e => new { e.Code, e.RegionInfoId }).IsUnique();
+                b.HasIndex(e => new { e.Name, e.RegionInfoId }).IsUnique();
+            });
+            
+            modelBuilder.Entity<AcademicDegree>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<FirmType>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<PlaqueState>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<ProviderInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<SexInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<SpeciesInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<StateInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
             modelBuilder.ConfigurePersistedGrantEntity();
         }
     }

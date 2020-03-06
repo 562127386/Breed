@@ -18,7 +18,8 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-3 col-sm-12">{{"Code" | localize}}</label>
                                     <div class="col-md-9 col-sm-12">
-                                        <input class="form-control" type="text" (keypress)="numberOnly($event)" im-insert="true" name="code" [(ngModel)]="providerInfo.code" required maxlength="32">                                    
+                                        <input #codeInput="ngModel" [(ngModel)]="providerInfo.code" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
+                                    <validation-messages [formCtrl]="codeInput"></validation-messages>
                                     </div>
                                 </div>
                             </div>
@@ -26,7 +27,8 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-3 col-sm-12">{{"Name" | localize}}</label>
                                     <div class="col-md-9 col-sm-12">
-                                        <input #nameInput class="form-control" type="text" im-insert="true" name="name" [(ngModel)]="providerInfo.name" required maxlength="32">                                    
+                                        <input #nameInput="ngModel" [(ngModel)]="providerInfo.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
+                                    <validation-messages [formCtrl]="nameInput"></validation-messages>
                                     </div>
                                 </div>
                             </div>
