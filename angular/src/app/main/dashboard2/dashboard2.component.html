@@ -1,0 +1,42 @@
+<div [@routerTransition]>
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+        <div class="kt-subheader kt-grid__item">
+        </div>
+
+        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+            <div class="kt-portlet kt-portlet--mobile">
+
+                <div class="kt-portlet__head kt-portlet--skin-solid kt-portlet-- kt-bg-brand">
+                    <div class="kt-portlet__head-label">
+                          
+                        <span class="kt-portlet__head-icon">
+                            <i class="flaticon2-graph"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-title">
+                            <span>{{"Dashboard" | localize}}</span>
+                        </h3>                        
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="kt-portlet__head-actions">                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body kt-padding-0">
+
+                    <div class="row align-items-center kt-margin-0">
+                        <p-fieldset class="col-md-6 col-sm-12" [legend]="l('News')" [toggleable]="true"></p-fieldset>
+                        <p-fieldset class="col-md-6 col-sm-12" legend="" [toggleable]="true"></p-fieldset>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

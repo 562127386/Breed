@@ -6,6 +6,7 @@ import { UtilsModule } from '@shared/utils/utils.module';
 import { CountoModule } from 'angular2-counto';
 import { ModalModule, TabsModule, TooltipModule, BsDropdownModule, PopoverModule } from 'ngx-bootstrap';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { Dashboard2Component } from './dashboard2/dashboard2.component';
 import { ContractorComponent } from "./contractor/contractor.component";
 import { CreateOrEditContractorModalComponent } from "./contractor/create-or-edit-contractor-modal.component";
 import { OfficerComponent } from "./officer/officer.component";
@@ -83,6 +84,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
     ],
     declarations: [
         DashboardComponent,
+        Dashboard2Component,
         ContractorComponent,
         CreateOrEditContractorModalComponent,
         OfficerComponent,

@@ -1065,12 +1065,12 @@
     <text name="FirmName">نام شرکت</text>
     <text name="FirmRegNumber">شماره ثبت شرکت</text>
     <text name="FirmEstablishmentYear">سال تاسیس شرکت</text>
-    <text name="FullTimeStaffDiploma">تعداد دیپلم تمام وقت</text>
-    <text name="FullTimeStaffAssociateDegree">تعداد فوق دیپلم تمام وقت</text>
-    <text name="FullTimeStaffBachelorAndUpper">تعداد لیسانس و بالاتر تمام وقت</text>
-    <text name="PartialTimeStaffDiploma">تعداد دیپلم پاره وقت</text>
-    <text name="PartialTimeStaffAssociateDegree">تعداد فوق دیپلم پاره وقت</text>
-    <text name="PartialTimeStaffBachelorAndUpper">تعداد لیسانس و بالاتر پاره وقت</text>
+    <text name="FullTimeStaffDiploma">دیپلم</text>
+    <text name="FullTimeStaffAssociateDegree">فوق دیپلم</text>
+    <text name="FullTimeStaffBachelorAndUpper">لیسانس و بالاتر</text>
+    <text name="PartialTimeStaffDiploma">دیپلم</text>
+    <text name="PartialTimeStaffAssociateDegree">فوق دیپلم</text>
+    <text name="PartialTimeStaffBachelorAndUpper">لیسانس و بالاتر</text>
 
     <text name="Officer">مامورین</text>
     <text name="CreateNewOfficer">ایجاد مامور</text>
@@ -1095,12 +1095,16 @@
 
     <text name="ContractorInfo">اطلاعات پیمانکار</text>
     <text name="FirmInfo">اطلاعت شرکت</text>
-    <text name="FullTimeStaff">کارکنان تمام وقت</text>
-    <text name="PartialTimeStaff">کارکنان پاره وقت</text>
+    <text name="FullTimeStaff">تعداد کارکنان تمام وقت</text>
+    <text name="PartialTimeStaff">تعداد کارکنان پاره وقت</text>
 
     <text name="ThisNameAlreadyExists">این نام قبلا ثبت شده است.</text>
     <text name="ThisCodeAlreadyExists">این کد قبلا ثبت شده است.</text>
 
+    <text name="News">اخبار</text>
+      
+    <text name="ContractorCode">کد پیمانکار</text>
+    <text name="OfficerInfo">اطلاعات مامور</text>
   </texts>
 </localizationDictionary>
 

@@ -1596,13 +1596,13 @@ pre {
   width: 100%;
   height: calc(1.1em + 1.3rem + 2px);
   padding: 0.2rem 1rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #e2e5ec;
+  border: 1px solid #a6a6a6;
   border-radius: 4px;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -1624,19 +1624,19 @@ pre {
     box-shadow: 0 0 0 0.2rem rgba(88, 103, 221, 0.25); }
   .form-control::-webkit-input-placeholder {
     color: #74788d;
-    opacity: 1; }
+    opacity: 0.4; }
   .form-control::-moz-placeholder {
     color: #74788d;
-    opacity: 1; }
+    opacity: 0.4; }
   .form-control:-ms-input-placeholder {
     color: #74788d;
-    opacity: 1; }
+    opacity: 0.4; }
   .form-control::-ms-input-placeholder {
     color: #74788d;
-    opacity: 1; }
+    opacity: 0.4; }
   .form-control::placeholder {
     color: #74788d;
-    opacity: 1; }
+    opacity: 0.4; }
   .form-control:disabled, .form-control[readonly] {
     background-color: #f7f8fa;
     opacity: 1; }
@@ -35358,6 +35358,11 @@ body {
 ////////////////////
 ///////////////////
 */
+body .ui-widget {
+  font-family: IRANSans-web;
+  font-size: 11px;
+  text-decoration: none;
+}
 
 body .ui-fieldset .ui-fieldset-legend a {
   padding: 0.1em 1em;
@@ -35372,3 +35377,19 @@ body .ui-fieldset .ui-fieldset-legend a {
   -webkit-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
+
+body .ui-inputtext::-webkit-input-placeholder {
+    color: #74788d;
+    opacity: 0.4; }
+  body .ui-inputtext::-moz-placeholder {
+    color: #74788d;
+    opacity: 0.4; }
+  body .ui-inputtext:-ms-input-placeholder {
+    color: #74788d;
+    opacity: 0.4; }
+  body .ui-inputtext::-ms-input-placeholder {
+    color: #74788d;
+    opacity: 0.4; }
+  body .ui-inputtext::placeholder {
+    color: #74788d;
+    opacity: 0.4; }

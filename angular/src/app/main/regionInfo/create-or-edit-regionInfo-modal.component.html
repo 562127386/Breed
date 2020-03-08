@@ -16,7 +16,7 @@
                         <div class="row">                            
                             <div class="form-group col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12 text-right">{{"StateInfoName" | localize}}</label>
+                                    <label class="col-form-label col-md-3 col-sm-12">{{"StateInfoName" | localize}}</label>
                                     <div class="col-md-9 col-sm-12">
                                         <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
                                             name="stateInfoId" [(ngModel)]="regionInfo.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group col-sm-12">
                                     <div class="row">
-                                        <label class="col-form-label col-md-3 col-sm-12 text-right">{{"CityInfoName" | localize}}</label>
+                                        <label class="col-form-label col-md-3 col-sm-12">{{"CityInfoName" | localize}}</label>
                                         <div class="col-md-9 col-sm-12">
                                             <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                                 name="cityInfoId" [(ngModel)]="regionInfo.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
@@ -36,7 +36,7 @@
                                 </div>                            
                             <div class="form-group col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12  text-right">{{"Code" | localize}}</label>
+                                    <label class="col-form-label col-md-3 col-sm-12 ">{{"Code" | localize}}</label>
                                     <div class="col-md-9 col-sm-12">
                                         <input #codeInput="ngModel" [(ngModel)]="regionInfo.code" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
                                     <validation-messages [formCtrl]="codeInput"></validation-messages>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12  text-right">{{"Name" | localize}}</label>
+                                    <label class="col-form-label col-md-3 col-sm-12 ">{{"Name" | localize}}</label>
                                     <div class="col-md-9 col-sm-12">
                                         <input #nameInput="ngModel" [(ngModel)]="regionInfo.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
                                     <validation-messages [formCtrl]="nameInput"></validation-messages>
@@ -55,8 +55,10 @@
                         </div>                                                
                     </div>
                     <div class="modal-footer">
-                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
-                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!regionInfoForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <div class="col-sm-12">
+                            <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!regionInfoForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                            <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                        </div>
                     </div>
                 </form>
             </div>

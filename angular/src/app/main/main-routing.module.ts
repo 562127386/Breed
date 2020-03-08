@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { Dashboard2Component } from './dashboard2/dashboard2.component';
 import { ContractorComponent } from './contractor/contractor.component';
 import { OfficerComponent } from './officer/officer.component';
 import { ProviderInfoComponent } from './providerInfo/providerInfo.component';
@@ -21,7 +22,8 @@ import { AcademicDegreeComponent } from './academicDegree/academicDegree.compone
                 path: '',
                 children: [
                     { path: 'dashboard', component: DashboardComponent, data: { permission: 'Pages.Tenant.Dashboard' } },
-                    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+                    { path: '', redirectTo: 'dashboard2', pathMatch: 'full' },
+                    { path: 'dashboard2', component: Dashboard2Component },
                     { path: 'contractor', component: ContractorComponent },
                     { path: 'officer', component: OfficerComponent },
                     { path: 'providerInfo', component: ProviderInfoComponent },

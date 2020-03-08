@@ -1,55 +1,57 @@
 <div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <form *ngIf="active" #cityInfoForm="ngForm" novalidate (ngSubmit)="save()">
-                    <div class="modal-header kt-bg-brand">
-                        <h4 class="modal-title">
-                            <span *ngIf="cityInfo.id && editdisabled">{{"ViewNewCityInfo" | localize}}: {{cityInfo.name}}</span>
-                            <span *ngIf="cityInfo.id && !editdisabled">{{"EditNewCityInfo" | localize}}: {{cityInfo.name}}</span>
-                            <span *ngIf="!cityInfo.id">{{"CreateNewCityInfo" | localize}}</span>
-                        </h4>
-                        <button type="button" class="close" (click)="close()" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12 text-right">{{"StateInfoName" | localize}}</label>
-                                    <div class="col-md-9 col-sm-12">
-                                            <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
-                                            name="stateInfoId" [(ngModel)]="cityInfo.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
-                                        <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
-                                    </div>
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #cityInfoForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header kt-bg-brand">
+                    <h4 class="modal-title">
+                        <span *ngIf="cityInfo.id && editdisabled">{{"ViewNewCityInfo" | localize}}: {{cityInfo.name}}</span>
+                        <span *ngIf="cityInfo.id && !editdisabled">{{"EditNewCityInfo" | localize}}: {{cityInfo.name}}</span>
+                        <span *ngIf="!cityInfo.id">{{"CreateNewCityInfo" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"StateInfoName" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                        <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        name="stateInfoId" [(ngModel)]="cityInfo.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                 </div>
                             </div>
-                            <div class="form-group col-sm-12">
-                                <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12 text-right">{{"Code" | localize}}</label>
-                                    <div class="col-md-9 col-sm-12">
-                                        <input #codeInput="ngModel" [(ngModel)]="cityInfo.code" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
-                                    <validation-messages [formCtrl]="codeInput"></validation-messages>
-                                    </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"Code" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input #codeInput="ngModel" [(ngModel)]="cityInfo.code" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
+                                <validation-messages [formCtrl]="codeInput"></validation-messages>
                                 </div>
                             </div>
-                            <div class="form-group col-sm-12">
-                                <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12 text-right">{{"Name" | localize}}</label>
-                                    <div class="col-md-9 col-sm-12">
-                                        <input #nameInput="ngModel" [(ngModel)]="cityInfo.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
-                                    <validation-messages [formCtrl]="nameInput"></validation-messages>
-                                    </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"Name" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input #nameInput="ngModel" [(ngModel)]="cityInfo.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
+                                <validation-messages [formCtrl]="nameInput"></validation-messages>
                                 </div>
                             </div>
-                        </div>                                                
-                    </div>
-                    <div class="modal-footer">
-                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                        </div>
+                    </div>                                                
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
                         <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!cityInfoForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
     

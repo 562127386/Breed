@@ -19,37 +19,41 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"Institution" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Institution" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input class="form-control" type="text" name="institution" [(ngModel)]="contractor.institution" pInputText  pKeyFilter="{/^[^0-9]+$/}"  [placeholder]="l('Institution')" required maxlength="32">
+                                                <input #institutionInput="ngModel" [(ngModel)]="contractor.institution" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Institution' | localize}} *" name="institution" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="institutionInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"SubInstitution" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"SubInstitution" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input class="form-control" type="text" name="subInstitution" [(ngModel)]="contractor.subInstitution" pInputText  pKeyFilter="/^[^0-9]+$/"  [placeholder]="l('SubInstitution')" maxlength="32">
+                                                <input #subInstitutionInput="ngModel" [(ngModel)]="contractor.subInstitution" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'SubInstitution' | localize}}" name="subInstitution" maxlength="64"/>
+                                                <validation-messages [formCtrl]="subInstitutionInput"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">                        
-                                    <div class="form-group col-md-12 col-sm-12">
-                                        <div class="row">
-                                            <label class="col-form-label col-md-2 col-sm-12 text-right">{{"Address" | localize}}</label>
-                                            <div class="col-md-10 col-sm-12">
-                                                <textarea class="form-control" rows="2" name="address" [(ngModel)]="contractor.address" pInputTextarea autoResize="autoResize" [placeholder]="l('Address')" maxlength="256"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-12 col-sm-12">
+                                    <div class="form-group col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-2 col-sm-12 text-right">{{"PostalCode" | localize}}</label>
-                                            <div class="col-md-4 col-sm-12">
-                                                <p-inputMask mask="99999-99999"  name="postalCode" [(ngModel)]="contractor.postalCode" placeholder="99999-99999" maxlength="10"></p-inputMask>
+                                            <label class="col-form-label col-md-2 col-sm-12">{{"Address" | localize}}</label>
+                                            <div class="col-md-10 col-sm-12">
+                                                <textarea rows="2" #addressInput="ngModel" [(ngModel)]="contractor.address" pInputTextarea autoResize="autoResize" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Address' | localize}}" name="address" maxlength="512"></textarea>
+                                                <validation-messages [formCtrl]="addressInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">                                
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-2 col-sm-12">{{"PostalCode" | localize}}</label>
+                                            <div class="col-md-10 col-sm-12">
+                                                <p-inputMask #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="contractor.postalCode" type="text" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10"></p-inputMask>
+                                                <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
@@ -61,17 +65,19 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"NationalCode" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask mask="999-999999-9"  name="nationalCode" [(ngModel)]="contractor.nationalCode" placeholder="999-999999-9" required length="10"></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="contractor.nationalCode" type="text" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
+                                                <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"BirthDate" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BirthDate" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <primeng-datepicker name="birthDate" [(ngModel)]="contractor.birthDate" [isJalali]="true" required></primeng-datepicker>
+                                                <primeng-datepicker [style]="{'width':'100%'}" #birthDateInput="ngModel" name="birthDate" [(ngModel)]="contractor.birthDate" [isJalali]="true" required></primeng-datepicker>
+                                                <validation-messages [formCtrl]="birthDateInput"></validation-messages>
                                             </div>
                                         </div>                                
                                     </div> 
@@ -79,17 +85,19 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"Name" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Name" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input class="form-control" type="text" name="name" [(ngModel)]="contractor.name" pInputText  pKeyFilter="/^[^0-9]+$/" [placeholder]="l('Name')" required maxlength="32">
+                                                <input #nameInput="ngModel" [(ngModel)]="contractor.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="nameInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"Family" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Family" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input class="form-control" type="text" name="family" [(ngModel)]="contractor.family" pInputText  pKeyFilter="/^[^0-9!]+$/" [placeholder]="l('Family')" required maxlength="32">
+                                                <input #familyInput="ngModel" [(ngModel)]="contractor.family" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Family' | localize}} *" name="family" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="familyInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
@@ -97,17 +105,19 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"Phone" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Phone" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask mask="0-999-999-9999"  name="phone" [(ngModel)]="contractor.phone" placeholder="0-999-999-9999" length="11"></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-999-999-9999" [(ngModel)]="contractor.phone" type="text" autocomplete="new-password" name="phone" placeholder="0-912-111-2233" length="11"></p-inputMask>
+                                                <validation-messages [formCtrl]="phoneInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"Email" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Email" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input class="form-control" type="text" name="email" [(ngModel)]="contractor.email" pInputText  pKeyFilter="email" placeholder="*@*.*"  maxlength="32">
+                                                <input #emailInput="ngModel" class="form-control" type="email" placeholder="{{'Email' | localize}}" [(ngModel)]="contractor.email" name="email" maxlength="256" pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" />
+                                                <validation-messages [formCtrl]="emailInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
@@ -119,7 +129,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"FirmType" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FirmType" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
                                                     <p-dropdown #firmTypeCombobox [options]="firmTypesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                                     name="firmTypeId" [(ngModel)]="contractor.firmTypeId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
@@ -129,30 +139,33 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"FirmName" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FirmName" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input class="form-control" type="text" im-insert="true" name="firmName" [(ngModel)]="contractor.firmName" required maxlength="32">                                    
+                                                <input #firmNameInput="ngModel" [(ngModel)]="contractor.firmName" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'FirmName' | localize}} *" name="firmName" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="firmNameInput"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>                            
+                                    </div>                                                              
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-6 col-sm-12">
+                                    <div class="form-group  col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"FirmRegNumber" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FirmRegNumber" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input class="form-control" type="text" name="firmRegNumber" [(ngModel)]="contractor.firmRegNumber" pInputText  pKeyFilter="pint" [placeholder]="l('FirmRegNumber')" maxlength="32">
+                                                <input [style]="{'width':'100%'}" #firmRegNumberInput="ngModel" [(ngModel)]="contractor.firmRegNumber" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'FirmRegNumber' | localize}}" name="firmRegNumber" maxlength="16"/>
+                                            <validation-messages [formCtrl]="firmRegNumberInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"FirmEstablishmentYear" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FirmEstablishmentYear" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask mask="1999"  name="firmEstablishmentYear" [(ngModel)]="contractor.firmEstablishmentYear" placeholder="1999" length="4"></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #firmEstablishmentYearInput="ngModel" mask="1999" [(ngModel)]="contractor.firmEstablishmentYear" type="text" autocomplete="new-password" name="firmEstablishmentYear" placeholder="1398" length="4"></p-inputMask>
+                                                <validation-messages [formCtrl]="firmEstablishmentYearInput"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </p-fieldset>
                         </div>
@@ -161,7 +174,7 @@
                                 <div class="row">                        
                                     <div class="form-group col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"FullTimeStaffDiploma" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FullTimeStaffDiploma" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                     <input class="form-control" type="text" name="fullTimeStaffDiploma" [(ngModel)]="contractor.fullTimeStaffDiploma" pInputText  pKeyFilter="pint" [placeholder]="l('FullTimeStaffDiploma')" maxlength="32">
                                             </div>
@@ -169,7 +182,7 @@
                                     </div>                                               
                                     <div class="form-group col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"FullTimeStaffAssociateDegree" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FullTimeStaffAssociateDegree" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                     <input class="form-control" type="text" name="fullTimeStaffAssociateDegree" [(ngModel)]="contractor.fullTimeStaffAssociateDegree" pInputText  pKeyFilter="pint" [placeholder]="l('FullTimeStaffAssociateDegree')" maxlength="32">
                                             </div>
@@ -177,7 +190,7 @@
                                     </div>
                                     <div class="form-group col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"FullTimeStaffBachelorAndUpper" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FullTimeStaffBachelorAndUpper" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                     <input class="form-control" type="text" name="fullTimeStaffBachelorAndUpper" [(ngModel)]="contractor.fullTimeStaffBachelorAndUpper" pInputText  pKeyFilter="pint" [placeholder]="l('FullTimeStaffBachelorAndUpper')" maxlength="32">
                                             </div>
@@ -191,7 +204,7 @@
                                 <div class="row"> 
                                     <div class="form-group col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"PartialTimeStaffDiploma" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"PartialTimeStaffDiploma" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <input class="form-control" type="text" name="partialTimeStaffDiploma" [(ngModel)]="contractor.partialTimeStaffDiploma" pInputText  pKeyFilter="pint" [placeholder]="l('PartialTimeStaffDiploma')" maxlength="32">
                                             </div>
@@ -199,7 +212,7 @@
                                     </div>
                                     <div class="form-group col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"PartialTimeStaffAssociateDegree" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"PartialTimeStaffAssociateDegree" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <input #nameInput class="form-control" type="text" name="partialTimeStaffAssociateDegree" [(ngModel)]="contractor.partialTimeStaffAssociateDegree" pInputText  pKeyFilter="pint" [placeholder]="l('PartialTimeStaffAssociateDegree')" maxlength="32">
                                             </div>
@@ -207,7 +220,7 @@
                                     </div>
                                     <div class="form-group col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12 text-right">{{"PartialTimeStaffBachelorAndUpper" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"PartialTimeStaffBachelorAndUpper" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <input class="form-control" type="text" name="partialTimeStaffBachelorAndUpper" [(ngModel)]="contractor.partialTimeStaffBachelorAndUpper" pInputText  pKeyFilter="pint" [placeholder]="l('PartialTimeStaffBachelorAndUpper')" maxlength="32">
                                             </div>
@@ -228,8 +241,10 @@
                                                                         
                 </div>
                 <div class="modal-footer">
-                    <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
-                    <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!contractorForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                    <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!contractorForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    </div>
                 </div>
             </form>
         </div>
