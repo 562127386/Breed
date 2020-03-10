@@ -14,6 +14,7 @@ using Akh.Breed.MultiTenancy.Payments;
 using Akh.Breed.Storage;
 using Akh.Breed.Contractors;
 using Akh.Breed.Officers;
+using Akh.Breed.Plaque;
 
 namespace Akh.Breed.EntityFrameworkCore
 {
@@ -60,6 +61,15 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<RegionInfo> RegionInfos { get; set; }
 
         public virtual DbSet<VillageInfo> VillageInfos { get; set; }
+
+       // public virtual DbSet<PlaqueInfo> PlaqueInfos { get; set; }
+
+        public virtual DbSet<PlaqueStore> PlaqueStores { get; set; }
+
+        public virtual DbSet<PlaqueOfficer> PlaqueOfficers { get; set; }
+
+        public virtual DbSet<PlaqueChange> PlaqueChanges { get; set; }
+
         
         public BreedDbContext(DbContextOptions<BreedDbContext> options)
             : base(options)
@@ -177,6 +187,11 @@ namespace Akh.Breed.EntityFrameworkCore
                 b.HasIndex(e => e.Name).IsUnique();
             });
             
+            modelBuilder.Entity<PlaqueInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+            });
+
             modelBuilder.ConfigurePersistedGrantEntity();
         }
     }
