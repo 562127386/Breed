@@ -41,21 +41,21 @@ namespace Akh.Breed.Officers
         [ForeignKey("AcademicDegreeId")]
         public AcademicDegree AcademicDegree { get; set; }
 
-        public int AcademicDegreeId { get; set; }
+        public int? AcademicDegreeId { get; set; }
 
         [ForeignKey("StateInfoId")]
         public StateInfo StateInfo { get; set; }
 
-        public int StateInfoId { get; set; }
+        public int? StateInfoId { get; set; }
 
         [ForeignKey("ContractorId")]
         public Contractor Contractor { get; set; }
 
-        public int ContractorId { get; set; }
+        public int? ContractorId { get; set; }
         
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
         public DateTime CreationTime { get; set; }
         

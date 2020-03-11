@@ -8,7 +8,7 @@ using Abp.Timing;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.Officers;
 
-namespace Akh.Breed.Plaque
+namespace Akh.Breed.Plaques
 {
     [Table("AkhPlaqueInfos")]
     public class PlaqueInfo : Entity<long>, IHasCreationTime, IMayHaveTenant
@@ -29,11 +29,11 @@ namespace Akh.Breed.Plaque
 
         [ForeignKey("OfficerId")]
         public virtual Officer Officer { get; set; }
-        public int OfficerId { get; set; }
+        public int? OfficerId { get; set; }
         
         [ForeignKey("StateId")]
         public virtual PlaqueState State { get; set; }
-        public int StateId { get; set; }
+        public int? StateId { get; set; }
         
         public int? TenantId { get; set; }
 

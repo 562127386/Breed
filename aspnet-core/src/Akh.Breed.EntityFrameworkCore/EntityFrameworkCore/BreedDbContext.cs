@@ -14,7 +14,7 @@ using Akh.Breed.MultiTenancy.Payments;
 using Akh.Breed.Storage;
 using Akh.Breed.Contractors;
 using Akh.Breed.Officers;
-using Akh.Breed.Plaque;
+using Akh.Breed.Plaques;
 
 namespace Akh.Breed.EntityFrameworkCore
 {
@@ -62,7 +62,7 @@ namespace Akh.Breed.EntityFrameworkCore
 
         public virtual DbSet<VillageInfo> VillageInfos { get; set; }
 
-       // public virtual DbSet<PlaqueInfo> PlaqueInfos { get; set; }
+        public virtual DbSet<PlaqueInfo> PlaqueInfos { get; set; }
 
         public virtual DbSet<PlaqueStore> PlaqueStores { get; set; }
 

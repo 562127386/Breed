@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    [Migration("20200310203506_plaque namespace")]
+    [Migration("20200311161756_plaque namespace")]
     partial class plaquenamespace
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2117,7 +2117,7 @@ namespace Akh.Breed.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AcademicDegreeId")
+                    b.Property<int?>("AcademicDegreeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
@@ -2129,7 +2129,7 @@ namespace Akh.Breed.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ContractorId")
+                    b.Property<int?>("ContractorId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreationTime")
@@ -2156,13 +2156,13 @@ namespace Akh.Breed.Migrations
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StateInfoId")
+                    b.Property<int?>("StateInfoId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("WorkNumber")
@@ -2195,19 +2195,19 @@ namespace Akh.Breed.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("NewPlaqueId")
+                    b.Property<long?>("NewPlaqueId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("OfficerId")
+                    b.Property<int?>("OfficerId")
                         .HasColumnType("int");
 
-                    b.Property<long>("PrePlaqueId")
+                    b.Property<long?>("PrePlaqueId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("SetTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StateId")
+                    b.Property<int?>("StateId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -2249,13 +2249,13 @@ namespace Akh.Breed.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OfficerId")
+                    b.Property<int?>("OfficerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SetTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StateId")
+                    b.Property<int?>("StateId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -2271,6 +2271,93 @@ namespace Akh.Breed.Migrations
                     b.HasIndex("StateId");
 
                     b.ToTable("AkhPlaqueInfos");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Plaque.PlaqueOfficer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("FinishedPlaqueId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FromCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int?>("OfficerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PlaqueStoreId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SetTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ToCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinishedPlaqueId");
+
+                    b.HasIndex("OfficerId");
+
+                    b.HasIndex("PlaqueStoreId");
+
+                    b.ToTable("AkhPlaqueOfficers");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Plaque.PlaqueStore", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("FinishedPlaqueId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FromCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<DateTime>("SetTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("SpeciesId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ToCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinishedPlaqueId");
+
+                    b.HasIndex("SpeciesId");
+
+                    b.ToTable("AkhPlaqueStores");
                 });
 
             modelBuilder.Entity("Akh.Breed.Storage.BinaryObject", b =>
@@ -2564,69 +2651,75 @@ namespace Akh.Breed.Migrations
                 {
                     b.HasOne("Akh.Breed.BaseInfo.AcademicDegree", "AcademicDegree")
                         .WithMany()
-                        .HasForeignKey("AcademicDegreeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AcademicDegreeId");
 
                     b.HasOne("Akh.Breed.Contractors.Contractor", "Contractor")
                         .WithMany()
-                        .HasForeignKey("ContractorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContractorId");
 
                     b.HasOne("Akh.Breed.BaseInfo.StateInfo", "StateInfo")
                         .WithMany()
-                        .HasForeignKey("StateInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StateInfoId");
 
                     b.HasOne("Akh.Breed.Authorization.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Akh.Breed.Plaque.PlaqueChange", b =>
                 {
                     b.HasOne("Akh.Breed.Plaque.PlaqueInfo", "NewPlaque")
                         .WithMany()
-                        .HasForeignKey("NewPlaqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("NewPlaqueId");
 
                     b.HasOne("Akh.Breed.Officers.Officer", "Officer")
                         .WithMany()
-                        .HasForeignKey("OfficerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OfficerId");
 
                     b.HasOne("Akh.Breed.Plaque.PlaqueInfo", "PrePlaque")
                         .WithMany()
-                        .HasForeignKey("PrePlaqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PrePlaqueId");
 
                     b.HasOne("Akh.Breed.BaseInfo.PlaqueState", "State")
                         .WithMany()
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StateId");
                 });
 
             modelBuilder.Entity("Akh.Breed.Plaque.PlaqueInfo", b =>
                 {
                     b.HasOne("Akh.Breed.Officers.Officer", "Officer")
                         .WithMany()
-                        .HasForeignKey("OfficerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OfficerId");
 
                     b.HasOne("Akh.Breed.BaseInfo.PlaqueState", "State")
                         .WithMany()
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StateId");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Plaque.PlaqueOfficer", b =>
+                {
+                    b.HasOne("Akh.Breed.Plaque.PlaqueInfo", "FinishedPlaque")
+                        .WithMany()
+                        .HasForeignKey("FinishedPlaqueId");
+
+                    b.HasOne("Akh.Breed.Officers.Officer", "Officer")
+                        .WithMany()
+                        .HasForeignKey("OfficerId");
+
+                    b.HasOne("Akh.Breed.Plaque.PlaqueStore", "PlaqueStore")
+                        .WithMany()
+                        .HasForeignKey("PlaqueStoreId");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Plaque.PlaqueStore", b =>
+                {
+                    b.HasOne("Akh.Breed.Plaque.PlaqueInfo", "FinishedPlaque")
+                        .WithMany()
+                        .HasForeignKey("FinishedPlaqueId");
+
+                    b.HasOne("Akh.Breed.BaseInfo.SpeciesInfo", "Species")
+                        .WithMany()
+                        .HasForeignKey("SpeciesId");
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>
