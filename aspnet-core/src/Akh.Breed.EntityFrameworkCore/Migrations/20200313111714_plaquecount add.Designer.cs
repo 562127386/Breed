@@ -4,14 +4,16 @@ using Akh.Breed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    partial class BreedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200313111714_plaquecount add")]
+    partial class plaquecountadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2231,8 +2233,9 @@ namespace Akh.Breed.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("Code")
-                        .HasColumnType("bigint")
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
                     b.Property<DateTime>("CreationTime")
@@ -2247,6 +2250,9 @@ namespace Akh.Breed.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("OfficerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PlaqueStoreId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SetTime")
@@ -2264,6 +2270,8 @@ namespace Akh.Breed.Migrations
                         .IsUnique();
 
                     b.HasIndex("OfficerId");
+
+                    b.HasIndex("PlaqueStoreId");
 
                     b.HasIndex("StateId");
 
@@ -2283,11 +2291,15 @@ namespace Akh.Breed.Migrations
                     b.Property<long?>("FinishedPlaqueId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("FromCode")
-                        .HasColumnType("bigint")
+                    b.Property<string>("FromCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
                     b.Property<int?>("OfficerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaqueCount")
                         .HasColumnType("int");
 
                     b.Property<int?>("PlaqueStoreId")
@@ -2299,8 +2311,9 @@ namespace Akh.Breed.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<long>("ToCode")
-                        .HasColumnType("bigint")
+                    b.Property<string>("ToCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
                     b.HasKey("Id");
@@ -2331,9 +2344,13 @@ namespace Akh.Breed.Migrations
                     b.Property<long?>("FinishedPlaqueId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("FromCode")
-                        .HasColumnType("bigint")
+                    b.Property<string>("FromCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
+
+                    b.Property<int>("PlaqueCount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("SetTime")
                         .HasColumnType("datetime2");
@@ -2344,8 +2361,9 @@ namespace Akh.Breed.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<long>("ToCode")
-                        .HasColumnType("bigint")
+                    b.Property<string>("ToCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
                     b.HasKey("Id");
@@ -2692,6 +2710,10 @@ namespace Akh.Breed.Migrations
                         .WithMany()
                         .HasForeignKey("OfficerId");
 
+                    b.HasOne("Akh.Breed.Plaques.PlaqueStore", null)
+                        .WithMany("PlaqueInfos")
+                        .HasForeignKey("PlaqueStoreId");
+
                     b.HasOne("Akh.Breed.BaseInfo.PlaqueState", "State")
                         .WithMany()
                         .HasForeignKey("StateId");
@@ -2708,7 +2730,7 @@ namespace Akh.Breed.Migrations
                         .HasForeignKey("OfficerId");
 
                     b.HasOne("Akh.Breed.Plaques.PlaqueStore", "PlaqueStore")
-                        .WithMany("PlaqueOfficers")
+                        .WithMany()
                         .HasForeignKey("PlaqueStoreId");
                 });
 

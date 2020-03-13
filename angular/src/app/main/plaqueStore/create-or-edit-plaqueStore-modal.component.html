@@ -1,0 +1,57 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #plaqueStoreForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header kt-bg-brand">
+                    <h4 class="modal-title">
+                        <span *ngIf="plaqueStore.id && editdisabled">{{"ViewNewPlaqueStore" | localize}}: {{plaqueStore.name}}</span>
+                        <span *ngIf="plaqueStore.id && !editdisabled">{{"EditNewPlaqueStore" | localize}}: {{plaqueStore.name}}</span>
+                        <span *ngIf="!plaqueStore.id">{{"CreateNewPlaqueStore" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesName" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                        <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        name="speciesId" [(ngModel)]="plaqueStore.speciesId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"FromCode" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input #fromCodeInput="ngModel" [(ngModel)]="plaqueStore.fromCode" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'FromCode' | localize}} *" name="fromCode" required maxlength="15"/>
+                                <validation-messages [formCtrl]="fromCodeInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"ToCode" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input #toCodeInput="ngModel" [(ngModel)]="plaqueStore.toCode" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'ToCode' | localize}} *" name="toCode" required maxlength="15"/>
+                                <validation-messages [formCtrl]="toCodeInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>                                                
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!plaqueStoreForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    

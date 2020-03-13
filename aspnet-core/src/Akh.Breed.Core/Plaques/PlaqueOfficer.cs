@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using Abp.Timing;
 using Akh.Breed.Officers;
 
 namespace Akh.Breed.Plaques
@@ -14,12 +15,12 @@ namespace Akh.Breed.Plaques
         
         [Required]
         [StringLength(CodeLength)]
-        public String FromCode { get; set; }
+        public long FromCode { get; set; }
         
         [Required]
         [StringLength(CodeLength)]
-        public String ToCode { get; set; }
-        
+        public long ToCode { get; set; }
+
         public DateTime SetTime { get; set; }
         
         [ForeignKey("OfficerId")] 
@@ -37,5 +38,10 @@ namespace Akh.Breed.Plaques
         public DateTime CreationTime { get; set; }
         
         public int? TenantId { get; set; }
+        
+        public PlaqueOfficer()
+        {
+            SetTime = Clock.Now;
+        }
     }
 }

@@ -4,19 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Akh.Breed.Plaques.Dto
 {
-    public class PlaqueStoreCreateOrUpdateInput
+    public class PlaqueOfficerCreateOrUpdateInput
     {
         public const int CodeLength = 15; 
         
         public int? Id { get; set; }
-       
-        [Required]
+        
+        public int PlaqueCount { get; set; }
+
         public long FromCode { get; set; }
         
-        [Required]
         public long ToCode { get; set; }
         
-        public int? SpeciesId { get; set; }
+        public int? OfficerId { get; set; }
+        
+        public int? PlaqueStoreId { get; set; }
 
         public long? FinishedPlaqueId { get; set; }
     }

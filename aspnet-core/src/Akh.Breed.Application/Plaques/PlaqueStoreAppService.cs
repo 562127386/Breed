@@ -101,11 +101,14 @@ namespace Akh.Breed.Plaques
         
         private IQueryable<PlaqueStore> GetFilteredQuery(GetPlaqueStoreInput input)
         {
+            long tempSearch = Convert.ToInt64(input.Filter);
             var query = QueryableExtensions.WhereIf(
-                _plaqueStoreRepository.GetAll(),
+                _plaqueStoreRepository.GetAll()
+                    .Include(x => x.Species)
+                    .Include(x => x.FinishedPlaque),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
-                    String.Compare(u.FromCode, input.Filter, StringComparison.Ordinal) <= 0 &&
-                    String.Compare(u.ToCode, input.Filter, StringComparison.Ordinal) >= 0)p;
+                    u.FromCode <= tempSearch &&
+                    u.ToCode >= tempSearch);
 
             return query;
         }
@@ -113,10 +116,15 @@ namespace Akh.Breed.Plaques
         private async Task CheckValidation(PlaqueStoreCreateOrUpdateInput input)
         {
             var existingObj = (await _plaqueStoreRepository.GetAll().AsNoTracking()
-                .FirstOrDefaultAsync(l => l.Code == input.Code && l.RegionInfoId == input.RegionInfoId));
+                .FirstOrDefaultAsync(u => 
+                    (u.Id != input.Id) &&
+                    ((u.FromCode.CompareTo(input.FromCode) <= 0 &&
+                     u.ToCode.CompareTo(input.FromCode) >= 0) ||
+                    (u.FromCode.CompareTo(input.ToCode) <= 0 &&
+                     u.ToCode.CompareTo(input.ToCode) >= 0))));
             if (existingObj != null && existingObj.Id != input.Id)
             {
-                throw new UserFriendlyException(L("ThisCodeAlreadyExists"));
+                throw new UserFriendlyException(L("ThisCodeRangeHasOverlap",existingObj.FromCode, existingObj.ToCode));
             }
             
         }

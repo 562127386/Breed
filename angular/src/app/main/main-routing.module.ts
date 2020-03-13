@@ -14,6 +14,8 @@ import { PlaqueStateComponent } from './plaqueState/plaqueState.component';
 import { StateInfoComponent } from './stateInfo/stateInfo.component';
 import { VillageInfoComponent } from './villageInfo/villageInfo.component';
 import { AcademicDegreeComponent } from './academicDegree/academicDegree.component';
+import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
+import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component';
 
 @NgModule({
     imports: [
@@ -35,7 +37,9 @@ import { AcademicDegreeComponent } from './academicDegree/academicDegree.compone
                     { path: 'plaqueState', component: PlaqueStateComponent },
                     { path: 'stateInfo', component: StateInfoComponent },
                     { path: 'villageInfo', component: VillageInfoComponent },
-                    { path: 'academicDegree', component: AcademicDegreeComponent }
+                    { path: 'academicDegree', component: AcademicDegreeComponent },
+                    { path: 'plaqueStore', component: PlaqueStoreComponent },
+                    { path: 'plaqueOfficer', component: PlaqueOfficerComponent }
 
                 ]
             }

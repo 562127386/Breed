@@ -1100,11 +1100,30 @@
 
     <text name="ThisNameAlreadyExists">این نام قبلا ثبت شده است.</text>
     <text name="ThisCodeAlreadyExists">این کد قبلا ثبت شده است.</text>
+    <text name="ThisCodeRangeHasOverlap">محدوده وارد شده با {0} تا {1} همپوشانی دارد.</text>
+    <text name="RemainInCodeRange">تعداد {0} کد در این محدود باقی مانده است.</text>
 
     <text name="News">اخبار</text>
       
     <text name="ContractorCode">کد پیمانکار</text>
     <text name="OfficerInfo">اطلاعات مامور</text>
+
+      <text name="SpeciesName">نوع دام</text>
+      <text name="SetTime">تاریخ اختصاص</text>
+      <text name="FromCode">از کد</text>
+      <text name="ToCode">تا کد</text>
+      <text name="Finished">تمام شده</text>
+      <text name="FinishedCode">کد پایانی</text>
+      <text name="FinishedDate">تاریخ اتمام</text>
+      <text name="CreateNewPlaqueStore">ایجاد انبار جدید</text>
+
+    <text name="PlaqueCount">تعداد پلاک</text>
+    <text name="PlaqueUsed">پلاک استفاده شده</text>
+    <text name="AreYouSureToDeleteThePlaqueStore">آیا از حذف انبار {0} مطمئن هستید؟</text>
+    <text name="PlaqueOfficer">اختصاص پلاک به مامور</text>
+    <text name="CreateNewPlaqueOfficer">اختصاص پلاک به مامور</text>
+    <text name="AreYouSureToDeleteThePlaqueOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
+
   </texts>
 </localizationDictionary>
 

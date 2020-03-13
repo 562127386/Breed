@@ -31,6 +31,10 @@ import { CityInfoComponent } from "./cityInfo/cityInfo.component";
 import { CreateOrEditCityInfoModalComponent } from "./cityInfo/create-or-edit-cityInfo-modal.component";
 import { RegionInfoComponent } from "./regionInfo/regionInfo.component";
 import { CreateOrEditRegionInfoModalComponent } from "./regionInfo/create-or-edit-regionInfo-modal.component";
+import { PlaqueStoreComponent } from "./plaqueStore/plaqueStore.component";
+import { CreateOrEditPlaqueStoreModalComponent } from "./plaqueStore/create-or-edit-plaqueStore-modal.component";
+import { PlaqueOfficerComponent } from "./plaqueOfficer/plaqueOfficer.component";
+import { CreateOrEditPlaqueOfficerModalComponent } from "./plaqueOfficer/create-or-edit-plaqueOfficer-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { EditorModule } from 'primeng/editor';
 import { FileUploadModule as PrimeNgFileUploadModule } from 'primeng/fileupload';
@@ -108,7 +112,11 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CityInfoComponent,
         CreateOrEditCityInfoModalComponent,
         RegionInfoComponent,
-        CreateOrEditRegionInfoModalComponent
+        CreateOrEditRegionInfoModalComponent,
+        PlaqueStoreComponent,
+        CreateOrEditPlaqueStoreModalComponent,
+        PlaqueOfficerComponent,
+        CreateOrEditPlaqueOfficerModalComponent
     
     ],
     providers: [

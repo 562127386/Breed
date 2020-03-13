@@ -53,6 +53,8 @@ export class AppNavigationService {
                 new AppMenuItem('Herd', null, 'flaticon2-box', '')
             ]),
             new AppMenuItem('IdentityInfo', null, 'flaticon-folder-1', '',[                
+                new AppMenuItem('PlaqueStore', null, 'flaticon2-box', '/app/main/plaqueStore'),
+                new AppMenuItem('PlaqueOfficer', null, 'flaticon2-box', '/app/main/plaqueOfficer'),
                 new AppMenuItem('PlaqueAllocation', null, 'flaticon2-box', ''),
                 new AppMenuItem('Identification', null, 'flaticon2-box', '')
             ]),            

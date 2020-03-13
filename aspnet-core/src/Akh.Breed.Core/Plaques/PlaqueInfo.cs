@@ -17,7 +17,7 @@ namespace Akh.Breed.Plaques
         
         [Required]
         [StringLength(CodeLength)]
-        public String Code { get; set; }
+        public long Code { get; set; }
 
         public DateTime SetTime { get; set; }
 
@@ -39,7 +39,7 @@ namespace Akh.Breed.Plaques
 
         public DateTime CreationTime { get; set; }
 
-        public PlaqueInfo(string code, string latitude, string longitude, Officer officer,PlaqueState state)
+        public PlaqueInfo(long code, string latitude, string longitude, Officer officer,PlaqueState state)
         {
             Code = code;
             Longitude = longitude;

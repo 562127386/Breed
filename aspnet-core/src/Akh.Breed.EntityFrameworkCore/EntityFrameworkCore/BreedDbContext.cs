@@ -191,6 +191,18 @@ namespace Akh.Breed.EntityFrameworkCore
             {
                 b.HasIndex(e => e.Code).IsUnique();
             });
+            
+            modelBuilder.Entity<PlaqueStore>(b =>
+            {
+                b.HasIndex(e => e.FromCode);
+                b.HasIndex(e => e.ToCode);
+            });
+            
+            modelBuilder.Entity<PlaqueOfficer>(b =>
+            {
+                b.HasIndex(e => e.FromCode);
+                b.HasIndex(e => e.ToCode);
+            });
 
             modelBuilder.ConfigurePersistedGrantEntity();
         }

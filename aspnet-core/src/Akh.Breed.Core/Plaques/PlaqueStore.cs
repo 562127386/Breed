@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
@@ -15,12 +16,12 @@ namespace Akh.Breed.Plaques
         
         [Required]
         [StringLength(CodeLength)]
-        public string FromCode { get; set; }
+        public long FromCode { get; set; }
         
         [Required]
         [StringLength(CodeLength)]
-        public string ToCode { get; set; }
-        
+        public long ToCode { get; set; }
+
         public DateTime SetTime { get; set; }
 
         [ForeignKey("SpeciesId")]
@@ -34,6 +35,8 @@ namespace Akh.Breed.Plaques
         public DateTime CreationTime { get; set; }
         
         public int? TenantId { get; set; }
+
+        public virtual ICollection<PlaqueOfficer> PlaqueOfficers { get; set; }
 
         public PlaqueStore()
         {
