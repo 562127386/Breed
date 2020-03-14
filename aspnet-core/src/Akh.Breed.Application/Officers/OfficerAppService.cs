@@ -74,7 +74,7 @@ namespace Akh.Breed.Officers
             //Contractors
             output.Contractors = _contractorRepository
                 .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name + "/" + c.FirmName ){ IsSelected = output.Officer.ContractorId == c.Id })
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" +c.Name+","+c.Family+")" ){ IsSelected = output.Officer.ContractorId == c.Id })
                 .ToList();
 
             return output;

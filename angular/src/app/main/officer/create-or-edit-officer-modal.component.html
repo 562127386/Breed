@@ -39,7 +39,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"Name" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                        <input #nameInput="ngModel" [(ngModel)]="officer.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
+                                        <input #nameInput="ngModel" [(ngModel)]="officer.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *"  pattern="[^0-9]*" name="name" required maxlength="64"/>
                                         <validation-messages [formCtrl]="nameInput"></validation-messages>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"Family" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                        <input #familyInput="ngModel" [(ngModel)]="officer.family" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Family' | localize}} *" name="family" required maxlength="64"/>
+                                        <input #familyInput="ngModel" [(ngModel)]="officer.family" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Family' | localize}} *"  pattern="[^0-9]*" name="family" required maxlength="64"/>
                                         <validation-messages [formCtrl]="familyInput"></validation-messages>
                                     </div>
                                 </div>
@@ -122,18 +122,18 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-4 col-sm-12">{{"AcademicDegree" | localize}}</label>
+                                    <label class="col-form-label col-md-4 col-sm-12">{{"AcademicDegree" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                            <p-dropdown #academicDegreeCombobox [options]="academicDegreesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="academicDegreeId" [(ngModel)]="officer.academicDegreeId" [style]="{'width':'100%'}" [placeholder]="l('Select')"></p-dropdown>
+                                            <p-dropdown #academicDegreeCombobox [options]="academicDegreesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="academicDegreeId" [(ngModel)]="officer.academicDegreeId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *"></p-dropdown>
                                             <validation-messages [formCtrl]="academicDegreeCombobox"></validation-messages>
                                     </div>
                                 </div>                                
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-4 col-sm-12">{{"StateInfo" | localize}}</label>
+                                    <label class="col-form-label col-md-4 col-sm-12">{{"StateInfo" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                            <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="stateInfoId" [(ngModel)]="officer.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')"></p-dropdown>
+                                            <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="stateInfoId" [(ngModel)]="officer.stateInfoId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *"></p-dropdown>
                                             <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                     </div>
                                 </div>                                
@@ -142,9 +142,9 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-4 col-sm-12">{{"Contractor" | localize}}</label>
+                                    <label class="col-form-label col-md-4 col-sm-12">{{"Contractor" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                            <p-dropdown #contractorCombobox [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="contractorId" [(ngModel)]="officer.contractorId" [style]="{'width':'100%'}" [placeholder]="l('Select')"></p-dropdown>
+                                            <p-dropdown #contractorCombobox [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="contractorId" [(ngModel)]="officer.contractorId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *"></p-dropdown>
                                         <validation-messages [formCtrl]="contractorCombobox"></validation-messages>
                                     </div>
                                 </div>                                

@@ -87,7 +87,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Name" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input #nameInput="ngModel" [(ngModel)]="contractor.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
+                                                <input #nameInput="ngModel" [(ngModel)]="contractor.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *"  pattern="[^0-9]*" name="name" required maxlength="64"/>
                                                 <validation-messages [formCtrl]="nameInput"></validation-messages>
                                             </div>
                                         </div>
@@ -96,7 +96,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Family" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input #familyInput="ngModel" [(ngModel)]="contractor.family" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Family' | localize}} *" name="family" required maxlength="64"/>
+                                                <input #familyInput="ngModel" [(ngModel)]="contractor.family" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Family' | localize}} *"  pattern="[^0-9]*" name="family" required maxlength="64"/>
                                                 <validation-messages [formCtrl]="familyInput"></validation-messages>
                                             </div>
                                         </div>
@@ -214,7 +214,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"PartialTimeStaffAssociateDegree" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input #nameInput class="form-control" type="text" name="partialTimeStaffAssociateDegree" [(ngModel)]="contractor.partialTimeStaffAssociateDegree" pInputText  pKeyFilter="pint" [placeholder]="l('PartialTimeStaffAssociateDegree')" maxlength="32">
+                                                <input class="form-control" type="text" name="partialTimeStaffAssociateDegree" [(ngModel)]="contractor.partialTimeStaffAssociateDegree" pInputText  pKeyFilter="pint" [placeholder]="l('PartialTimeStaffAssociateDegree')" maxlength="32">
                                             </div>
                                         </div>
                                     </div>

@@ -4,6 +4,7 @@ import { ThemesLayoutBaseComponent } from '@app/shared/layout/themes/themes-layo
 import { UrlHelper } from '@shared/helpers/UrlHelper';
 import { AppConsts } from '@shared/AppConsts';
 import { OffcanvasOptions } from '@metronic/app/core/_base/layout/directives/offcanvas.directive';
+import * as momentj from 'jalali-moment';
 
 @Component({
     templateUrl: './themeAkhBreed-layout.component.html',
@@ -23,6 +24,7 @@ export class ThemeAkhBreedLayoutComponent extends ThemesLayoutBaseComponent impl
     };
 
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
+    time = momentj();
 
     constructor(
         injector: Injector
@@ -32,6 +34,11 @@ export class ThemeAkhBreedLayoutComponent extends ThemesLayoutBaseComponent impl
 
     ngOnInit() {
         this.installationMode = UrlHelper.isInstallUrl(location.href);
-        this.defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/logo3.png';
+        this.defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/logo3.png';        
+
+        setInterval(() => {
+            this.time = momentj();
+            }, 1000);
+        
     }
 }

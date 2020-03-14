@@ -1088,10 +1088,10 @@
     <text name="RegionInfoName">بخش</text>
     <text name="ContractorName">پیمانکار</text>
       
-    <text name="AddItem">ثبت رکورد جدید</text>
-    <text name="ViewItem">نمایش رکورد</text>
-    <text name="DeleteItem">حذف رکورد</text>
-    <text name="EditItem">ویرایش رکورد</text>
+    <text name="AddItem">ثبت جدید</text>
+    <text name="ViewItem">نمایش</text>
+    <text name="DeleteItem">حذف</text>
+    <text name="EditItem">ویرایش</text>
 
     <text name="ContractorInfo">اطلاعات پیمانکار</text>
     <text name="FirmInfo">اطلاعت شرکت</text>
@@ -1120,9 +1120,10 @@
     <text name="PlaqueCount">تعداد پلاک</text>
     <text name="PlaqueUsed">پلاک استفاده شده</text>
     <text name="AreYouSureToDeleteThePlaqueStore">آیا از حذف انبار {0} مطمئن هستید؟</text>
-    <text name="PlaqueOfficer">اختصاص پلاک به مامور</text>
+      <text name="PlaqueOfficer">تخصیص پلاک به مامور</text>
     <text name="CreateNewPlaqueOfficer">اختصاص پلاک به مامور</text>
     <text name="AreYouSureToDeleteThePlaqueOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
+      <text name="ّFatherName">نام پدر</text>
 
   </texts>
 </localizationDictionary>

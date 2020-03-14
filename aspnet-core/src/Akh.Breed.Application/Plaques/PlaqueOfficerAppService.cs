@@ -64,13 +64,13 @@ namespace Akh.Breed.Plaques
             
             //StateInfos
             output.Officers = _officerRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .GetAll().Include(x => x.Contractor)
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Contractor.FirmName+" "+c.NationalCode+" ("+c.Name+","+c.Family+")"))
                 .ToList();
             
             output.PlaqueStores = _plaqueStoreRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FromCode+"-"+c.ToCode))
+                .GetAll().Include(x =>  x.Species)
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FromCode+"-"+c.ToCode+" "+c.Species.Name))
                 .ToList();
 
             return output;
