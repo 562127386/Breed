@@ -19,28 +19,23 @@
     </div>
     <div id="kt_header_mobile_sub" class="kt-header-mobile-sub">
             <div class="kt-header-mobile__toolbar">
-                    <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#kt_widget4_tab11_content" role="tab">
-                                        صفحه نخست
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#kt_widget4_tab12_content" role="tab">
-                                        راهنما
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
-                                        درباره ما
-                                </a>  
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
-                                        پشتیبانی
-                                </a>  
-                            </li>
-                    </ul>                       
+                <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" role="tab">صفحه نخست</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" role="tab">راهنما</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"role="tab">درباره ما</a>  
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" role="tab">پشتیبانی</a>  
+                    </li>
+                    <li class="nav-item align-content-end" >
+                        <label class="nav-link">{{ time | momentFormat:'YYYY/M/D HH:mm:ss' }}</label>
+                    </li>
+                </ul>                       
             </div>
         </div>
     <div class="kt-grid kt-grid--hor kt-grid--root">
@@ -58,33 +53,34 @@
                 <div class="kt-header-sub kt-grid__item  kt-header--fixed" id="kt_header_sub">
                         <div [class]="containerClass">
                             <div class="kt-header__topbar-item d-none d-lg-block subscription-warning">
-                                    <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#kt_widget4_tab11_content" role="tab">
-                                                        صفحه نخست
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#kt_widget4_tab12_content" role="tab">
-                                                        راهنما
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
-                                                        درباره ما
-                                                </a>  
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
-                                                        پشتیبانی
-                                                </a>  
-                                            </li>
-                                    </ul>                                
-                            </div>   
+                                <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#kt_widget4_tab11_content" role="tab">
+                                                    صفحه نخست
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#kt_widget4_tab12_content" role="tab">
+                                                    راهنما
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
+                                                    درباره ما
+                                            </a>  
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
+                                                    پشتیبانی
+                                            </a>  
+                                        </li>
+                                        <li class="nav-item align-content-end" >
+                                        <label class="nav-link">{{ time | momentFormat:'YYYY/M/D HH:mm:ss' }}</label>
+                                    </li>
+                                </ul>                                    
+                            </div>                            
                         </div>
-                        <div>
-                            <label class="col-form-label col-md-6 col-sm-12">{{ time | momentFormat:'jYYYY/jM/jD HH:mm' }}</label>
-                        </div>
+                        
                     </div>
                 <div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
                     <div [class]="containerClass + ' kt-grid kt-grid--ver'">
