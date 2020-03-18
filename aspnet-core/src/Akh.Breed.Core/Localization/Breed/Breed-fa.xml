@@ -974,9 +974,9 @@
     <text name="BaseInfo">تعاریف پایه</text>
     <text name="BaseIntro">معرفی</text>
     <text name="Herd">گله</text>
-    <text name="IdentityInfo">کد هویت</text>
+    <text name="IdentityInfo">هویت</text>
     <text name="PlaqueAllocation">تخصیص پلاک به مامور</text>
-    <text name="Identification">هویت گذاری</text>
+    <text name="Identification">نصب پلاک</text>
     <text name="Activities">عملیات</text>
     <text name="Reports">گزارش گیری</text>
     <text name="SpeciesInfo">گونه دام</text>
@@ -1106,12 +1106,13 @@
     <text name="News">اخبار</text>
       
     <text name="ContractorCode">کد پیمانکار</text>
-    <text name="OfficerInfo">اطلاعات مامور</text>
+    <text name="OfficerInfo">اطلاعات شناسایی مامور</text>
+    <text name="OfficerInfoAddress">اطلاعات محل کار</text>
 
       <text name="SpeciesName">نوع دام</text>
       <text name="SetTime">تاریخ اختصاص</text>
-      <text name="FromCode">از کد</text>
-      <text name="ToCode">تا کد</text>
+      <text name="FromCode">از شماره</text>
+      <text name="ToCode">تا شماره</text>
       <text name="Finished">تمام شده</text>
       <text name="FinishedCode">کد پایانی</text>
       <text name="FinishedDate">تاریخ اتمام</text>
@@ -1135,6 +1136,7 @@
     <text name="EditNewUnionInfo">ویرایش اتحادیه</text>
     <text name="ViewNewActivityInfo">نمایش فعالیت</text>
     <text name="EditNewActivityInfo">ویرایش فعالیت</text>
+    <text name="SetDate">تاریخ تخصیص</text>
 
   </texts>
 </localizationDictionary>

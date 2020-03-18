@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesName" | localize}}</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesName" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                         <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                         name="speciesId" [(ngModel)]="plaqueStore.speciesId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
@@ -26,7 +26,16 @@
                         </div>
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"FromCode" | localize}}</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"SetDate" | localize}} *</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <primeng-datepicker [style]="{'width':'100%'}" #setDateInput="ngModel" name="setDate" [(ngModel)]="plaqueStore.setDate" [isJalali]="true" required></primeng-datepicker>
+                                    <validation-messages [formCtrl]="setDateInput"></validation-messages>
+                                </div>
+                            </div>                                
+                        </div> 
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"FromCode" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                     <input #fromCodeInput="ngModel" [(ngModel)]="plaqueStore.fromCode" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'FromCode' | localize}} *" name="fromCode" required maxlength="15"/>
                                 <validation-messages [formCtrl]="fromCodeInput"></validation-messages>
@@ -35,7 +44,7 @@
                         </div>
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"ToCode" | localize}}</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"ToCode" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                     <input #toCodeInput="ngModel" [(ngModel)]="plaqueStore.toCode" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'ToCode' | localize}} *" name="toCode" required maxlength="15"/>
                                 <validation-messages [formCtrl]="toCodeInput"></validation-messages>
