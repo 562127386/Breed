@@ -24,7 +24,7 @@ export class ThemeAkhBreedLayoutComponent extends ThemesLayoutBaseComponent impl
     };
 
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
-    time = momentj();
+    time = momentj().format('jYYYY/jM/jD HH:mm:ss')
 
     constructor(
         injector: Injector
@@ -37,7 +37,7 @@ export class ThemeAkhBreedLayoutComponent extends ThemesLayoutBaseComponent impl
         this.defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/logo3.png';        
 
         setInterval(() => {
-            this.time = momentj();
+            this.time = momentj().format('jYYYY/jM/jD HH:mm:ss');
             }, 1000);
         
     }
