@@ -19,6 +19,8 @@ namespace Akh.Breed.Migrations.Seed.Host
         {
             CreateAcademicDegree();
             CreateProviderInfo();
+            CreateUnionInfo();
+            CreateActivityInfo();
             CreateSexInfo();
             CreateSpeciesInfo();
             CreatePlaqueState();
@@ -78,6 +80,129 @@ namespace Akh.Breed.Migrations.Seed.Host
             
         }
         
+        private void CreateUnionInfo()
+        {
+            var defaultUnionInfo = _context.UnionInfos.IgnoreQueryFilters().FirstOrDefault(e => e.Name == "سازمان دامپزشکی");
+            if (defaultUnionInfo == null)
+            {
+                defaultUnionInfo = new UnionInfo() {Code = "50" ,Name = "سازمان دامپزشکی"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5210" ,Name = "اتحاديه صنعت  فارس"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5217" ,Name = "اتحاديه صنعت اصفهان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5223" ,Name = "اتحاديه صنعت کهگيلويه و بوير احمد"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5216" ,Name = "اتحاديه صنعت تهران"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5214" ,Name = "اتحاديه صنعت ايلام"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5220" ,Name = "اتحاديه صنعت چهارمحال و بختياري"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5226" ,Name = "اتحاديه صنعت سمنان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5202" ,Name = "اتحاديه صنعت قزوين"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5200" ,Name = "اتحاديه صنعت مازندران"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5222" ,Name = "اتحاديه صنعت مرکزي"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5215" ,Name = "اتحاديه صنعت هرمزگان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5230" ,Name = "شرکت سلامت دام زاگرس گستر سلسله"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5204" ,Name = "اتحاديه صنعت البرز"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "52111" ,Name = "اتحاديه صنعت آدربايجان  غربي"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5227" ,Name = "اتحاديه صنعت دامداران و دامپروران سيستان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5213" ,Name = "اتحاديه صنعت گلستان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5208" ,Name = "اتحاديه صنعت همدان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5209" ,Name = "اتحاديه صنعت کرمان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5206" ,Name = "اتحاديه صنعت خراسان رضوي"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5203" ,Name = "اتحاديه صنعت خوزستان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5281" ,Name = "اتحاديه صنعت آذربايجان شرقي"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5205" ,Name = "اتحاديه صنعت جنوب کرمان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5211" ,Name = "اتحاديه صنعت کرمانشاه"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5201" ,Name = "اتحاديه صنعت سيستان بلوچستان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5219" ,Name = "اتحاديه صنعت گيلان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "5218" ,Name = "اتحاديه صنعت زنجان"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "52155" ,Name = "اتحاديه صنعت بوشهر"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "52041" ,Name = "شرکت مشاوره فارغ التحصيلان علوم دامي"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "52241" ,Name = "اتحاديه صنعت آذربايجان غربي"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                defaultUnionInfo = new UnionInfo {Code = "11111" ,Name = "اتحاديه صنعت اردبيل"};
+                _context.UnionInfos.Add(defaultUnionInfo);
+                _context.SaveChanges();
+
+            }
+            
+        }
+
+        private void CreateActivityInfo()
+        {
+            var defaultActivityInfo = _context.ActivityInfos.IgnoreQueryFilters()
+                .FirstOrDefault(e => e.Name == "مزرعه گوسفندی پرواری");
+            if (defaultActivityInfo == null)
+            {
+                defaultActivityInfo = new ActivityInfo() {Code = "50", Name = "سازمان دامپزشکی"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "1" ,Name = "مزرعه گوسفندی پرواری"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "2" ,Name = "مزرعه گوسفندی داشتی"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "3" ,Name = "مزرعه بز"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "4" ,Name = "مزرعه اسب و استر"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "5" ,Name = "مزرعه گوزن"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "6" ,Name = "مزرعه شتر"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "7" ,Name = "مزرعه لاما"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "8" ,Name = "واحد پرورش سگ"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "9" ,Name = "واحد پرورش حیوانات پوستی"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "10" ,Name = "واحد پرورش آزمایشگاهی"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "11" ,Name = "پرورش دام روستایی"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "12" ,Name = "گاو شیری"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "13" ,Name = "گاو میش "};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "14" ,Name = "مزرعه دام چند منظوره"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "15" ,Name = "مزرعه پرورش دام مستقر در مجتمع دامپروری"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "16" ,Name = "واحد پرورش دام غیر صنعتی "};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "17" ,Name = "مزرعه گاو دو منظوره"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                defaultActivityInfo = new ActivityInfo {Code = "18" ,Name = "مزرعه گاو گوشتی"};
+                _context.ActivityInfos.Add(defaultActivityInfo);
+                _context.SaveChanges();
+
+            }
+        }
+
+
         private void CreateSexInfo()
         {
             var defaultSexInfo = _context.SexInfos.IgnoreQueryFilters().FirstOrDefault(e => e.Name == "نر");

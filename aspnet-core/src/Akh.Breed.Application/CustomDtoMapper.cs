@@ -164,6 +164,14 @@ namespace Akh.Breed
             configuration.CreateMap<ProviderInfoCreateOrUpdateInput, ProviderInfo>();
             configuration.CreateMap<ProviderInfo, ProviderInfoCreateOrUpdateInput>();
 
+            configuration.CreateMap<UnionInfo, UnionInfoListDto>();
+            configuration.CreateMap<UnionInfoCreateOrUpdateInput, UnionInfo>();
+            configuration.CreateMap<UnionInfo, UnionInfoCreateOrUpdateInput>();
+            
+            configuration.CreateMap<ActivityInfo, ActivityInfoListDto>();
+            configuration.CreateMap<ActivityInfoCreateOrUpdateInput, ActivityInfo>();
+            configuration.CreateMap<ActivityInfo, ActivityInfoCreateOrUpdateInput>();
+            
             configuration.CreateMap<AcademicDegree, AcademicDegreeListDto>();
             configuration.CreateMap<AcademicDegreeCreateOrUpdateInput, AcademicDegree>();
             configuration.CreateMap<AcademicDegree, AcademicDegreeCreateOrUpdateInput>();

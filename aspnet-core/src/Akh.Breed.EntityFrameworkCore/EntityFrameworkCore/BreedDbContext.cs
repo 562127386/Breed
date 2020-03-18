@@ -50,6 +50,10 @@ namespace Akh.Breed.EntityFrameworkCore
         
         public virtual DbSet<ProviderInfo> ProviderInfos { get; set; }
         
+        public virtual DbSet<UnionInfo> UnionInfos { get; set; }
+
+        public virtual DbSet<ActivityInfo> ActivityInfos { get; set; }
+
         public virtual DbSet<SexInfo> SexInfos { get; set; }
         
         public virtual DbSet<SpeciesInfo> SpeciesInfos { get; set; }
@@ -164,6 +168,18 @@ namespace Akh.Breed.EntityFrameworkCore
             });
             
             modelBuilder.Entity<ProviderInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<UnionInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<ActivityInfo>(b =>
             {
                 b.HasIndex(e => e.Code).IsUnique();
                 b.HasIndex(e => e.Name).IsUnique();

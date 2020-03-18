@@ -13,6 +13,10 @@ import { OfficerComponent } from "./officer/officer.component";
 import { CreateOrEditOfficerModalComponent } from "./officer/create-or-edit-officer-modal.component";
 import { ProviderInfoComponent } from "./providerInfo/providerInfo.component";
 import { CreateOrEditProviderInfoModalComponent } from "./providerInfo/create-or-edit-providerInfo-modal.component";
+import { UnionInfoComponent } from "./unionInfo/unionInfo.component";
+import { CreateOrEditUnionInfoModalComponent } from "./unionInfo/create-or-edit-unionInfo-modal.component";
+import { ActivityInfoComponent } from "./activityInfo/activityInfo.component";
+import { CreateOrEditActivityInfoModalComponent } from "./activityInfo/create-or-edit-activityInfo-modal.component";
 import { SexInfoComponent } from "./sexInfo/sexInfo.component";
 import { CreateOrEditSexInfoModalComponent } from "./sexInfo/create-or-edit-SexInfo-modal.component";
 import { SpeciesInfoComponent } from "./speciesInfo/speciesInfo.component";
@@ -95,6 +99,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CreateOrEditOfficerModalComponent,
         ProviderInfoComponent,
         CreateOrEditProviderInfoModalComponent,
+        UnionInfoComponent,
+        CreateOrEditUnionInfoModalComponent,
+        ActivityInfoComponent,
+        CreateOrEditActivityInfoModalComponent,
         SexInfoComponent,
         CreateOrEditSexInfoModalComponent,
         SpeciesInfoComponent,

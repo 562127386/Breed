@@ -41,6 +41,8 @@ export class AppNavigationService {
                 new AppMenuItem('RegionInfo', null, 'flaticon-placeholder', '/app/main/regionInfo'),
                 new AppMenuItem('VillageInfo', null, 'flaticon-placeholder-2', '/app/main/villageInfo'),
                 new AppMenuItem('ProviderInfo', null, 'flaticon-truck', '/app/main/providerInfo'),
+                new AppMenuItem('UnionInfo', null, 'flaticon-truck', '/app/main/unionInfo'),
+                new AppMenuItem('ActivityInfo', null, 'flaticon-truck', '/app/main/activityInfo'),
                 new AppMenuItem('AcademicDegree', null, 'flaticon-lock', '/app/main/academicDegree'),
                 new AppMenuItem('SexInfo', null, 'flaticon-technology-1', '/app/main/sexInfo'),
                 new AppMenuItem('SpeciesInfo', null, 'flaticon-interface-6', '/app/main/speciesInfo'),

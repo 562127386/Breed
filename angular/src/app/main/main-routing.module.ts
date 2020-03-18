@@ -5,6 +5,8 @@ import { Dashboard2Component } from './dashboard2/dashboard2.component';
 import { ContractorComponent } from './contractor/contractor.component';
 import { OfficerComponent } from './officer/officer.component';
 import { ProviderInfoComponent } from './providerInfo/providerInfo.component';
+import { UnionInfoComponent } from './unionInfo/unionInfo.component';
+import { ActivityInfoComponent } from './activityInfo/activityInfo.component';
 import { SexInfoComponent } from './sexInfo/sexInfo.component';
 import { SpeciesInfoComponent } from './speciesInfo/speciesInfo.component';
 import { CityInfoComponent } from './cityInfo/cityInfo.component';
@@ -29,6 +31,8 @@ import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component'
                     { path: 'contractor', component: ContractorComponent },
                     { path: 'officer', component: OfficerComponent },
                     { path: 'providerInfo', component: ProviderInfoComponent },
+                    { path: 'unionInfo', component: UnionInfoComponent },
+                    { path: 'activityInfo', component: ActivityInfoComponent },
                     { path: 'sexInfo', component: SexInfoComponent },
                     { path: 'speciesInfo', component: SpeciesInfoComponent },
                     { path: 'cityInfo', component: CityInfoComponent },

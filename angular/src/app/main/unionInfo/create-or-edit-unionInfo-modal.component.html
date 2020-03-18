@@ -1,0 +1,47 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form *ngIf="active" #unionInfoForm="ngForm" novalidate (ngSubmit)="save()">
+                    <div class="modal-header kt-bg-brand">
+                        <h4 class="modal-title">
+                            <span *ngIf="unionInfo.id && editdisabled">{{"ViewNewUnionInfo" | localize}}: {{unionInfo.name}}</span>
+                            <span *ngIf="unionInfo.id && !editdisabled">{{"EditNewUnionInfo" | localize}}: {{unionInfo.name}}</span>
+                            <span *ngIf="!unionInfo.id">{{"CreateNewUnionInfo" | localize}}</span>
+                        </h4>
+                        <button type="button" class="close" (click)="close()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="row">
+                                    <label class="col-form-label col-md-3 col-sm-12">{{"Code" | localize}}</label>
+                                    <div class="col-md-9 col-sm-12">
+                                        <input #codeInput="ngModel" [readonly]="unionInfo.id" [(ngModel)]="unionInfo.code" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
+                                    <validation-messages [formCtrl]="codeInput"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <div class="row">
+                                    <label class="col-form-label col-md-3 col-sm-12">{{"Name" | localize}}</label>
+                                    <div class="col-md-9 col-sm-12">
+                                        <input #nameInput="ngModel" [(ngModel)]="unionInfo.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
+                                    <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                                
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-sm-12">
+                            <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!unionInfoForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                            <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    

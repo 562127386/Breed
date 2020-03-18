@@ -1123,7 +1123,18 @@
       <text name="PlaqueOfficer">تخصیص پلاک به مامور</text>
     <text name="CreateNewPlaqueOfficer">اختصاص پلاک به مامور</text>
     <text name="AreYouSureToDeleteThePlaqueOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
-      <text name="ّFatherName">نام پدر</text>
+    <text name="ّFatherName">نام پدر</text>
+    
+    <text name="UnionInfo">اتحادیه</text>
+    <text name="ActivityInfo">فعالیت</text>
+    <text name="CreateNewUnionInfo">ایجاد اتحادیه</text>
+    <text name="CreateNewActivityInfo">ایجاد فعالیت</text>
+    <text name="AreYouSureToDeleteTheUnionInfo">آیا از حذف اتحادیه {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToDeleteTheActivityInfo">آیا از حذف فعالیت {0} مطمئن هستید؟</text>
+    <text name="ViewNewUnionInfo">نمایش اتحادیه</text>
+    <text name="EditNewUnionInfo">ویرایش اتحادیه</text>
+    <text name="ViewNewActivityInfo">نمایش فعالیت</text>
+    <text name="EditNewActivityInfo">ویرایش فعالیت</text>
 
   </texts>
 </localizationDictionary>
