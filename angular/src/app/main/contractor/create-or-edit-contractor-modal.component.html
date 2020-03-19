@@ -16,25 +16,73 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <p-fieldset class="col-sm-12" [legend]="l('Address')" [toggleable]="true">
+
                                 <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"StateInfoName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                    <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
+                                                    name="stateInfoId" [(ngModel)]="contractor.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"CityInfoName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getRegions($event.value)"
+                                                name="cityInfoId" [(ngModel)]="contractor.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                            <validation-messages [formCtrl]="cityInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"RegionInfoName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #regionInfoCombobox [options]="regionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getVillages($event.value)"
+                                                    name="regionInfoId" [(ngModel)]="contractor.regionInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="regionInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"VillageInfoName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #villageInfoCombobox [options]="villageInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setInstitution($event.value)"
+                                                    name="villageInfoId" [(ngModel)]="contractor.villageInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="villageInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>        
+                                </div>
+
+                                <div class="row">
+                                    
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Institution" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input #institutionInput="ngModel" [(ngModel)]="contractor.institution" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Institution' | localize}} *" name="institution" required maxlength="64"/>
+                                                <input #institutionInput="ngModel" readonly [(ngModel)]="contractor.institution" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Institution' | localize}} *" name="institution" required maxlength="64"/>
                                                 <validation-messages [formCtrl]="institutionInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"SubInstitution" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"SubInstitution" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input #subInstitutionInput="ngModel" [(ngModel)]="contractor.subInstitution" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'SubInstitution' | localize}}" name="subInstitution" maxlength="64"/>
-                                                <validation-messages [formCtrl]="subInstitutionInput"></validation-messages>
+                                                <p-dropdown #unionInfoCombobox [options]="unionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setSubInstitution($event.value)"
+                                                    name="unionInfoId" [(ngModel)]="contractor.unionInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="unionInfoCombobox"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>                                                                
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-sm-12">

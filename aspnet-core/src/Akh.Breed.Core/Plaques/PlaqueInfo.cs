@@ -47,11 +47,13 @@ namespace Akh.Breed.Plaques
             OfficerId = officer.Id;
             StateId = state.Id;
             
+            CreationTime = Clock.Now;
             SetTime = Clock.Now;
         }
         
         public PlaqueInfo()
         {
+            CreationTime = Clock.Now;
             SetTime = Clock.Now;
         }
         

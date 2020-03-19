@@ -150,9 +150,11 @@ namespace Akh.Breed
                 .ForMember(regionD => regionD.FirmTypeName,
                     options => options.MapFrom(l => l.FirmType.Name));
             configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>();
-            configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>();
-            configuration.CreateMap<Contractor, ContractorEditDto>();
-            
+            configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>()
+                .ForMember(d => d.StateInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfo.StateInfoId))
+                .ForMember(d => d.CityInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfoId))
+                .ForMember(d => d.RegionInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfoId));
+
             //Officer
             configuration.CreateMap<Officer, OfficerListDto>();
             configuration.CreateMap<OfficerCreateOrUpdateInput, Officer>();
@@ -216,14 +218,10 @@ namespace Akh.Breed
             configuration.CreateMap<VillageInfo, VillageInfoCreateOrUpdateInput>()
                 .ForMember(regionD => regionD.StateInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfo.StateInfoId))
                 .ForMember(regionD => regionD.CityInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfoId));
-            
+
             configuration.CreateMap<PlaqueStore, PlaqueStoreListDto>()
-                .ForMember(regionD => regionD.PlaqueUsed, options => options.MapFrom(l =>  l.PlaqueOfficers.Sum( u => u.ToCode + u.FromCode + 1)))
-                .ForMember(regionD => regionD.PlaqueDedicated, options => options.MapFrom(l =>  l.PlaqueOfficers.Sum( u => u.ToCode + u.FromCode + 1)))
-                .ForMember(regionD => regionD.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
-                .ForMember(regionD => regionD.SpeciesName, options => options.MapFrom(l => l.Species.Name))
-                .ForMember(regionD => regionD.FinishedCode, options => options.MapFrom(l => l.FinishedPlaque.Code))
-                .ForMember(regionD => regionD.FinishedDate, options => options.MapFrom(l => l.FinishedPlaque.SetTime));
+                .ForMember(regionD => regionD.PlaqueCount, options => options.MapFrom(l => l.ToCode - l.FromCode + 1))
+                .ForMember(regionD => regionD.SpeciesName, options => options.MapFrom(l => l.Species.Name));
             configuration.CreateMap<PlaqueStoreCreateOrUpdateInput, PlaqueStore>();
             configuration.CreateMap<PlaqueStore, PlaqueStoreCreateOrUpdateInput>();
             

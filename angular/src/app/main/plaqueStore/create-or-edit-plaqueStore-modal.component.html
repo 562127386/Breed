@@ -18,7 +18,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesName" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
                                         name="speciesId" [(ngModel)]="plaqueStore.speciesId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
                                 </div>
@@ -28,8 +28,8 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"SetDate" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                    <primeng-datepicker [style]="{'width':'100%'}" #setDateInput="ngModel" name="setDate" [(ngModel)]="plaqueStore.setDate" [isJalali]="true" required></primeng-datepicker>
-                                    <validation-messages [formCtrl]="setDateInput"></validation-messages>
+                                    <primeng-datepicker [style]="{'width':'100%'}" #setTimeInput="ngModel" name="setTime" [(ngModel)]="plaqueStore.setTime" [isJalali]="true" required></primeng-datepicker>
+                                    <validation-messages [formCtrl]="setTimeInput"></validation-messages>
                                 </div>
                             </div>                                
                         </div> 
@@ -37,8 +37,8 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"FromCode" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                    <input #fromCodeInput="ngModel" [(ngModel)]="plaqueStore.fromCode" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'FromCode' | localize}} *" name="fromCode" required maxlength="15"/>
-                                <validation-messages [formCtrl]="fromCodeInput"></validation-messages>
+                                    <p-inputMask [style]="{'width':'100%'}" #fromCodeInput="ngModel" mask="{{codeMask}}" unmask="true" slotChar="-" [(ngModel)]="plaqueStore.fromCode" type="text" autocomplete="new-password" name="fromCode" placeholder="{{codePlaceHolder}}" required length="15"></p-inputMask>
+                                    <validation-messages [formCtrl]="fromCodeInput"></validation-messages>
                                 </div>
                             </div>
                         </div>
@@ -46,8 +46,8 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"ToCode" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                    <input #toCodeInput="ngModel" [(ngModel)]="plaqueStore.toCode" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'ToCode' | localize}} *" name="toCode" required maxlength="15"/>
-                                <validation-messages [formCtrl]="toCodeInput"></validation-messages>
+                                    <p-inputMask [style]="{'width':'100%'}" #toCodeInput="ngModel" mask="{{codeMask}}" unmask="true" slotChar="-" [(ngModel)]="plaqueStore.toCode" type="text" autocomplete="new-password" name="toCode" placeholder="{{codePlaceHolder}}" required length="15"></p-inputMask>
+                                    <validation-messages [formCtrl]="toCodeInput"></validation-messages>
                                 </div>
                             </div>
                         </div>                        

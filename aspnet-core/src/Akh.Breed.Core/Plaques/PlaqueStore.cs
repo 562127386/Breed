@@ -21,6 +21,11 @@ namespace Akh.Breed.Plaques
         [Required]
         [StringLength(CodeLength)]
         public long ToCode { get; set; }
+        
+        [StringLength(CodeLength)]
+        public long LastCode { get; set; }
+        
+        public DateTime LastDate { get; set; }
 
         public DateTime SetTime { get; set; }
 
@@ -40,6 +45,8 @@ namespace Akh.Breed.Plaques
 
         public PlaqueStore()
         {
+            CreationTime = Clock.Now;
+            LastDate = Clock.Now;
             SetTime = Clock.Now;
         }
     }

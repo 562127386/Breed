@@ -137,6 +137,37 @@ namespace Akh.Breed.BaseInfos
             return query;
         }
         
+        public List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input)
+        {
+            var query = _villageInfoRepository.GetAll();
+            if (input.Id.HasValue)
+            {
+                query = query.Where(x => x.RegionInfoId == input.Id);
+            }
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
+        }
+        
+        public string GetCode(NullableIdDto<int> input)
+        {
+            string res = "";
+            if (input.Id.HasValue)
+            {
+                var villageInfo = _villageInfoRepository
+                    .GetAll()
+                    .Include(x => x.RegionInfo)
+                    .ThenInclude(x => x.CityInfo)
+                    .ThenInclude(x => x.StateInfo)
+                    .FirstOrDefault(x => x.Id == input.Id);
+                res = villageInfo?.RegionInfo.CityInfo.StateInfo.Code
+                    + villageInfo?.RegionInfo.CityInfo.Code
+                    + villageInfo?.RegionInfo.Code
+                    + villageInfo?.Code;
+            }
+            
+            return res;
+        }
         private async Task CheckValidation(VillageInfoCreateOrUpdateInput input)
         {
             var existingObj = (await _villageInfoRepository.GetAll().AsNoTracking()

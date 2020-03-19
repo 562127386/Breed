@@ -4,14 +4,16 @@ using Akh.Breed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    partial class BreedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200319082835_change contractor")]
+    partial class changecontractor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2408,13 +2410,6 @@ namespace Akh.Breed.Migrations
                     b.Property<long>("FromCode")
                         .HasColumnType("bigint")
                         .HasMaxLength(15);
-
-                    b.Property<long>("LastCode")
-                        .HasColumnType("bigint")
-                        .HasMaxLength(15);
-
-                    b.Property<DateTime>("LastDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("SetTime")
                         .HasColumnType("datetime2");

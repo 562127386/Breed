@@ -39,6 +39,7 @@ namespace Akh.Breed.Plaques
 
         public PlaqueChange()
         {
+            CreationTime = Clock.Now;
             SetTime = Clock.Now;
         }
     }

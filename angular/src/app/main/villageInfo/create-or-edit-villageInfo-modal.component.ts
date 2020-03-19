@@ -91,6 +91,7 @@ export class CreateOrEditVillageInfoModalComponent extends AppComponentBase {
 
         });
         
+        this.regionInfosSelectItems = [];
     }
 
     getRegions(cityInfoId: string): void {  

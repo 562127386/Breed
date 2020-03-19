@@ -24,6 +24,8 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
     active: boolean = false;
     saving: boolean = false;
     editdisabled: boolean = false;
+    codeMask: string = '0';
+    codePlaceHolder: string = 'X';
 
     constructor(
         injector: Injector,
@@ -65,7 +67,6 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
     save(): void {
         let input = new PlaqueStoreCreateOrUpdateInput();
         input = this.plaqueStore;
-
         this.saving = true;
         this._plaqueStoreService.createOrUpdatePlaqueStore(input)
             .pipe(finalize(() => this.saving = false))
@@ -89,4 +90,16 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
         }
         return true;
   }
+
+    setCodeMask(speciesCode : number): void {
+        if(speciesCode < 10){
+            this.codeMask = '999-9-99-9-99999999';
+            this.codePlaceHolder = '364-0-52-' + speciesCode + '-99999999';
+        }
+        else if(speciesCode < 100){
+            var speciesCodetxt = speciesCode.toString();
+            this.codeMask = '999-9-99-9-99999999';
+            this.codePlaceHolder = '364-0-52-' + speciesCodetxt[0]+ '-' + speciesCodetxt[0] + '9999999';
+        }
+    }
 }

@@ -41,6 +41,7 @@ namespace Akh.Breed.Plaques
         
         public PlaqueOfficer()
         {
+            CreationTime = Clock.Now;
             SetTime = Clock.Now;
         }
     }

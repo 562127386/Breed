@@ -59,7 +59,7 @@ namespace Akh.Breed.Plaques
                 ? ObjectMapper.Map<PlaqueStoreCreateOrUpdateInput>(plaqueStore)
                 : new PlaqueStoreCreateOrUpdateInput();
             
-            //StateInfos
+            //speciesInfo
             output.SpecieInfos = _speciesInfoRepository
                 .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
@@ -115,6 +115,24 @@ namespace Akh.Breed.Plaques
         
         private async Task CheckValidation(PlaqueStoreCreateOrUpdateInput input)
         {
+            var species = _speciesInfoRepository.Get(input.SpeciesId.Value);
+            long minCode = 0,maxCode = 0;
+            long speciesCode = Convert.ToInt64(species.Code);
+            if ( speciesCode < 10)
+            {
+                minCode = (364052 * 10 + speciesCode) * 100000000;
+                maxCode = minCode + 99999999;
+            }
+            else if (speciesCode < 100)
+            {
+                minCode = (364052 * 100 + speciesCode) * 10000000;
+                maxCode = minCode + 9999999;
+            }
+            
+            if ( input.FromCode < minCode || input.FromCode > maxCode || input.ToCode < minCode || input.ToCode > maxCode)
+            {
+                throw new UserFriendlyException(L("ThisCodeRangeShouldBe", species.Name,minCode, maxCode));
+            }
             var existingObj = (await _plaqueStoreRepository.GetAll().AsNoTracking()
                 .FirstOrDefaultAsync(u => 
                     (u.Id != input.Id) &&

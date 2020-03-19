@@ -29,17 +29,12 @@ namespace Akh.Breed.Plaques.Dto
 
         public int PlaqueCount { get; set; }
         
-        public int PlaqueDedicated { get; set; }
-        public int PlaqueUsed { get; set; }
-        
         public DateTime SetTime { get; set; }
 
         public string SpeciesName { get; set; }
-
-        public bool Finished { get; set; }
         
-        public string FinishedCode { get; set; }
+        public string LastCode { get; set; }
         
-        public DateTime? FinishedDate { get; set; }
+        public DateTime? LastDate { get; set; }
     }
 }

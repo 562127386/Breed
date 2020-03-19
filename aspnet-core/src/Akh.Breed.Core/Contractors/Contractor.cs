@@ -55,9 +55,21 @@ namespace Akh.Breed.Contractors
         public int PartialTimeStaffBachelorAndUpper { get; set; }
 
         [ForeignKey("FirmTypeId")]
-        public virtual FirmType FirmType { get; set; }
+        public FirmType FirmType { get; set; }
 
-        public virtual int FirmTypeId { get; set; }
+        public int FirmTypeId { get; set; }
+        
+        [ForeignKey("VillageInfoId")]
+        public VillageInfo VillageInfo { get; set; }
+
+        [Required]
+        public int VillageInfoId { get; set; }
+        
+        [ForeignKey("UnionInfoId")]
+        public UnionInfo UnionInfo { get; set; }
+
+        [Required]
+        public int UnionInfoId { get; set; }
         
         public DateTime CreationTime { get; set; }
         

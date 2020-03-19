@@ -76,20 +76,20 @@
                                             <th style="width: 100px">
                                                 {{'PlaqueCount' | localize}}
                                             </th>
-                                            <th style="width: 100px">
+                                            <!-- <th style="width: 100px">
                                                 {{'PlaqueUsed' | localize}}
                                             </th>
                                             <th style="width: 100px" pSortableColumn="finished">
                                                 {{'Finished' | localize}}
                                                 <p-sortIcon field="finished"></p-sortIcon>
+                                            </th> -->
+                                            <th style="width: 100px" pSortableColumn="lastCode">
+                                                {{'LastCode' | localize}}
+                                                <p-sortIcon field="lastCode"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" pSortableColumn="finishedCode">
-                                                {{'FinishedCode' | localize}}
-                                                <p-sortIcon field="finishedCode"></p-sortIcon>
-                                            </th>
-                                            <th style="width: 100px" pSortableColumn="finishedDate">
-                                                {{'FinishedDate' | localize}}
-                                                <p-sortIcon field="finishedDate"></p-sortIcon>
+                                            <th style="width: 100px" pSortableColumn="lastDate">
+                                                {{'LastDate' | localize}}
+                                                <p-sortIcon field="lastDate"></p-sortIcon>
                                             </th>
                                             <th style="width: 130px">
                                                     <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
@@ -119,7 +119,7 @@
                                                 <span class="ui-column-title"> {{'PlaqueCount' | localize}}</span>
                                                 {{record.plaqueCount}}
                                             </td>
-                                            <td style="width: 100px">
+                                            <!-- <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'PlaqueUsed' | localize}}</span>
                                                 {{record.plaqueUsed}}
                                             </td>
@@ -133,14 +133,14 @@
                                                     *ngIf="!record.finished">
                                                     {{'No' | localize}}
                                                 </span>
+                                            </td> -->
+                                            <td style="width: 100px">
+                                                <span class="ui-column-title"> {{'LastCode' | localize}}</span>
+                                                {{record.lastCode}}
                                             </td>
                                             <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'FinishedCode' | localize}}</span>
-                                                {{record.finishedCode}}
-                                            </td>
-                                            <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'FinishedDate' | localize}}</span>
-                                                {{record.finishedDate | momentFormat:'YYYY/MM/DD HH:SS'}}
+                                                <span class="ui-column-title"> {{'LastDate' | localize}}</span>
+                                                {{record.lastDate | momentFormat:'YYYY/MM/DD HH:SS'}}
                                             </td>
                                             <td style="width: 130px">
                                                 <div class="kt-section__content kt-section__content--solid">

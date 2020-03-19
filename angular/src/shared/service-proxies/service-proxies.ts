@@ -15185,6 +15185,122 @@ export class VillageInfoServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getForCombo(id: number | undefined): Observable<ComboboxItemDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/VillageInfo/GetForCombo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetForCombo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetForCombo(<any>response_);
+                } catch (e) {
+                    return <Observable<ComboboxItemDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ComboboxItemDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetForCombo(response: HttpResponseBase): Observable<ComboboxItemDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ComboboxItemDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ComboboxItemDto[]>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getCode(id: number | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/VillageInfo/GetCode?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCode(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCode(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
 }
 
 @Injectable()
@@ -17600,174 +17716,6 @@ export interface IPagedResultDtoOfContractorListDto {
     items: ContractorListDto[] | undefined;
 }
 
-export class ContractorEditDto implements IContractorEditDto {
-    id!: number | undefined;
-    institution!: string | undefined;
-    subInstitution!: string | undefined;
-    address!: string | undefined;
-    postalCode!: string | undefined;
-    code!: string | undefined;
-    nationalCode!: string | undefined;
-    birthDate!: moment.Moment | undefined;
-    name!: string | undefined;
-    family!: string | undefined;
-    phone!: string | undefined;
-    email!: string | undefined;
-    firmName!: string | undefined;
-    firmRegNumber!: string | undefined;
-    firmEstablishmentYear!: string | undefined;
-    fullTimeStaffDiploma!: number | undefined;
-    fullTimeStaffAssociateDegree!: number | undefined;
-    fullTimeStaffBachelorAndUpper!: number | undefined;
-    partialTimeStaffDiploma!: number | undefined;
-    partialTimeStaffAssociateDegree!: number | undefined;
-    partialTimeStaffBachelorAndUpper!: number | undefined;
-    firmTypeId!: number | undefined;
-
-    constructor(data?: IContractorEditDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.id = data["id"];
-            this.institution = data["institution"];
-            this.subInstitution = data["subInstitution"];
-            this.address = data["address"];
-            this.postalCode = data["postalCode"];
-            this.code = data["code"];
-            this.nationalCode = data["nationalCode"];
-            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
-            this.name = data["name"];
-            this.family = data["family"];
-            this.phone = data["phone"];
-            this.email = data["email"];
-            this.firmName = data["firmName"];
-            this.firmRegNumber = data["firmRegNumber"];
-            this.firmEstablishmentYear = data["firmEstablishmentYear"];
-            this.fullTimeStaffDiploma = data["fullTimeStaffDiploma"];
-            this.fullTimeStaffAssociateDegree = data["fullTimeStaffAssociateDegree"];
-            this.fullTimeStaffBachelorAndUpper = data["fullTimeStaffBachelorAndUpper"];
-            this.partialTimeStaffDiploma = data["partialTimeStaffDiploma"];
-            this.partialTimeStaffAssociateDegree = data["partialTimeStaffAssociateDegree"];
-            this.partialTimeStaffBachelorAndUpper = data["partialTimeStaffBachelorAndUpper"];
-            this.firmTypeId = data["firmTypeId"];
-        }
-    }
-
-    static fromJS(data: any): ContractorEditDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new ContractorEditDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["institution"] = this.institution;
-        data["subInstitution"] = this.subInstitution;
-        data["address"] = this.address;
-        data["postalCode"] = this.postalCode;
-        data["code"] = this.code;
-        data["nationalCode"] = this.nationalCode;
-        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
-        data["name"] = this.name;
-        data["family"] = this.family;
-        data["phone"] = this.phone;
-        data["email"] = this.email;
-        data["firmName"] = this.firmName;
-        data["firmRegNumber"] = this.firmRegNumber;
-        data["firmEstablishmentYear"] = this.firmEstablishmentYear;
-        data["fullTimeStaffDiploma"] = this.fullTimeStaffDiploma;
-        data["fullTimeStaffAssociateDegree"] = this.fullTimeStaffAssociateDegree;
-        data["fullTimeStaffBachelorAndUpper"] = this.fullTimeStaffBachelorAndUpper;
-        data["partialTimeStaffDiploma"] = this.partialTimeStaffDiploma;
-        data["partialTimeStaffAssociateDegree"] = this.partialTimeStaffAssociateDegree;
-        data["partialTimeStaffBachelorAndUpper"] = this.partialTimeStaffBachelorAndUpper;
-        data["firmTypeId"] = this.firmTypeId;
-        return data; 
-    }
-}
-
-export interface IContractorEditDto {
-    id: number | undefined;
-    institution: string | undefined;
-    subInstitution: string | undefined;
-    address: string | undefined;
-    postalCode: string | undefined;
-    code: string | undefined;
-    nationalCode: string | undefined;
-    birthDate: moment.Moment | undefined;
-    name: string | undefined;
-    family: string | undefined;
-    phone: string | undefined;
-    email: string | undefined;
-    firmName: string | undefined;
-    firmRegNumber: string | undefined;
-    firmEstablishmentYear: string | undefined;
-    fullTimeStaffDiploma: number | undefined;
-    fullTimeStaffAssociateDegree: number | undefined;
-    fullTimeStaffBachelorAndUpper: number | undefined;
-    partialTimeStaffDiploma: number | undefined;
-    partialTimeStaffAssociateDegree: number | undefined;
-    partialTimeStaffBachelorAndUpper: number | undefined;
-    firmTypeId: number | undefined;
-}
-
-export class GetContractorForEditOutput implements IGetContractorForEditOutput {
-    contractor!: ContractorEditDto;
-    firmTypes!: ComboboxItemDto[] | undefined;
-
-    constructor(data?: IGetContractorForEditOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.contractor = data["contractor"] ? ContractorEditDto.fromJS(data["contractor"]) : <any>undefined;
-            if (Array.isArray(data["firmTypes"])) {
-                this.firmTypes = [] as any;
-                for (let item of data["firmTypes"])
-                    this.firmTypes!.push(ComboboxItemDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): GetContractorForEditOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetContractorForEditOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["contractor"] = this.contractor ? this.contractor.toJSON() : <any>undefined;
-        if (Array.isArray(this.firmTypes)) {
-            data["firmTypes"] = [];
-            for (let item of this.firmTypes)
-                data["firmTypes"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IGetContractorForEditOutput {
-    contractor: ContractorEditDto;
-    firmTypes: ComboboxItemDto[] | undefined;
-}
-
 export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateInput {
     id!: number | undefined;
     institution!: string | undefined;
@@ -17791,6 +17739,11 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
     partialTimeStaffAssociateDegree!: number | undefined;
     partialTimeStaffBachelorAndUpper!: number | undefined;
     firmTypeId!: number | undefined;
+    unionInfoId!: number | undefined;
+    stateInfoId!: number | undefined;
+    cityInfoId!: number | undefined;
+    regionInfoId!: number | undefined;
+    villageInfoId!: number | undefined;
 
     constructor(data?: IContractorCreateOrUpdateInput) {
         if (data) {
@@ -17825,6 +17778,11 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
             this.partialTimeStaffAssociateDegree = data["partialTimeStaffAssociateDegree"];
             this.partialTimeStaffBachelorAndUpper = data["partialTimeStaffBachelorAndUpper"];
             this.firmTypeId = data["firmTypeId"];
+            this.unionInfoId = data["unionInfoId"];
+            this.stateInfoId = data["stateInfoId"];
+            this.cityInfoId = data["cityInfoId"];
+            this.regionInfoId = data["regionInfoId"];
+            this.villageInfoId = data["villageInfoId"];
         }
     }
 
@@ -17859,6 +17817,11 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
         data["partialTimeStaffAssociateDegree"] = this.partialTimeStaffAssociateDegree;
         data["partialTimeStaffBachelorAndUpper"] = this.partialTimeStaffBachelorAndUpper;
         data["firmTypeId"] = this.firmTypeId;
+        data["unionInfoId"] = this.unionInfoId;
+        data["stateInfoId"] = this.stateInfoId;
+        data["cityInfoId"] = this.cityInfoId;
+        data["regionInfoId"] = this.regionInfoId;
+        data["villageInfoId"] = this.villageInfoId;
         return data; 
     }
 }
@@ -17886,6 +17849,119 @@ export interface IContractorCreateOrUpdateInput {
     partialTimeStaffAssociateDegree: number | undefined;
     partialTimeStaffBachelorAndUpper: number | undefined;
     firmTypeId: number | undefined;
+    unionInfoId: number | undefined;
+    stateInfoId: number | undefined;
+    cityInfoId: number | undefined;
+    regionInfoId: number | undefined;
+    villageInfoId: number | undefined;
+}
+
+export class GetContractorForEditOutput implements IGetContractorForEditOutput {
+    contractor!: ContractorCreateOrUpdateInput;
+    firmTypes!: ComboboxItemDto[] | undefined;
+    stateInfos!: ComboboxItemDto[] | undefined;
+    cityInfos!: ComboboxItemDto[] | undefined;
+    regionInfos!: ComboboxItemDto[] | undefined;
+    villageInfos!: ComboboxItemDto[] | undefined;
+    unionInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IGetContractorForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.contractor = data["contractor"] ? ContractorCreateOrUpdateInput.fromJS(data["contractor"]) : <any>undefined;
+            if (Array.isArray(data["firmTypes"])) {
+                this.firmTypes = [] as any;
+                for (let item of data["firmTypes"])
+                    this.firmTypes!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["cityInfos"])) {
+                this.cityInfos = [] as any;
+                for (let item of data["cityInfos"])
+                    this.cityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["regionInfos"])) {
+                this.regionInfos = [] as any;
+                for (let item of data["regionInfos"])
+                    this.regionInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["villageInfos"])) {
+                this.villageInfos = [] as any;
+                for (let item of data["villageInfos"])
+                    this.villageInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["unionInfos"])) {
+                this.unionInfos = [] as any;
+                for (let item of data["unionInfos"])
+                    this.unionInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetContractorForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetContractorForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["contractor"] = this.contractor ? this.contractor.toJSON() : <any>undefined;
+        if (Array.isArray(this.firmTypes)) {
+            data["firmTypes"] = [];
+            for (let item of this.firmTypes)
+                data["firmTypes"].push(item.toJSON());
+        }
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.cityInfos)) {
+            data["cityInfos"] = [];
+            for (let item of this.cityInfos)
+                data["cityInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.regionInfos)) {
+            data["regionInfos"] = [];
+            for (let item of this.regionInfos)
+                data["regionInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.villageInfos)) {
+            data["villageInfos"] = [];
+            for (let item of this.villageInfos)
+                data["villageInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.unionInfos)) {
+            data["unionInfos"] = [];
+            for (let item of this.unionInfos)
+                data["unionInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetContractorForEditOutput {
+    contractor: ContractorCreateOrUpdateInput;
+    firmTypes: ComboboxItemDto[] | undefined;
+    stateInfos: ComboboxItemDto[] | undefined;
+    cityInfos: ComboboxItemDto[] | undefined;
+    regionInfos: ComboboxItemDto[] | undefined;
+    villageInfos: ComboboxItemDto[] | undefined;
+    unionInfos: ComboboxItemDto[] | undefined;
 }
 
 export class Widget implements IWidget {
@@ -23966,13 +24042,10 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
     fromCode!: string | undefined;
     toCode!: string | undefined;
     plaqueCount!: number;
-    plaqueDedicated!: number;
-    plaqueUsed!: number;
     setTime!: moment.Moment;
     speciesName!: string | undefined;
-    finished!: boolean;
-    finishedCode!: string | undefined;
-    finishedDate!: moment.Moment | undefined;
+    lastCode!: string | undefined;
+    lastDate!: moment.Moment | undefined;
     id!: number;
 
     constructor(data?: IPlaqueStoreListDto) {
@@ -23989,13 +24062,10 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
             this.fromCode = data["fromCode"];
             this.toCode = data["toCode"];
             this.plaqueCount = data["plaqueCount"];
-            this.plaqueDedicated = data["plaqueDedicated"];
-            this.plaqueUsed = data["plaqueUsed"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.speciesName = data["speciesName"];
-            this.finished = data["finished"];
-            this.finishedCode = data["finishedCode"];
-            this.finishedDate = data["finishedDate"] ? moment(data["finishedDate"].toString()) : <any>undefined;
+            this.lastCode = data["lastCode"];
+            this.lastDate = data["lastDate"] ? moment(data["lastDate"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -24012,13 +24082,10 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
         data["fromCode"] = this.fromCode;
         data["toCode"] = this.toCode;
         data["plaqueCount"] = this.plaqueCount;
-        data["plaqueDedicated"] = this.plaqueDedicated;
-        data["plaqueUsed"] = this.plaqueUsed;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["speciesName"] = this.speciesName;
-        data["finished"] = this.finished;
-        data["finishedCode"] = this.finishedCode;
-        data["finishedDate"] = this.finishedDate ? this.finishedDate.toISOString() : <any>undefined;
+        data["lastCode"] = this.lastCode;
+        data["lastDate"] = this.lastDate ? this.lastDate.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -24028,13 +24095,10 @@ export interface IPlaqueStoreListDto {
     fromCode: string | undefined;
     toCode: string | undefined;
     plaqueCount: number;
-    plaqueDedicated: number;
-    plaqueUsed: number;
     setTime: moment.Moment;
     speciesName: string | undefined;
-    finished: boolean;
-    finishedCode: string | undefined;
-    finishedDate: moment.Moment | undefined;
+    lastCode: string | undefined;
+    lastDate: moment.Moment | undefined;
     id: number;
 }
 
@@ -24090,6 +24154,7 @@ export class PlaqueStoreCreateOrUpdateInput implements IPlaqueStoreCreateOrUpdat
     id!: number | undefined;
     fromCode!: number;
     toCode!: number;
+    setTime!: moment.Moment;
     speciesId!: number | undefined;
     finishedPlaqueId!: number | undefined;
 
@@ -24107,6 +24172,7 @@ export class PlaqueStoreCreateOrUpdateInput implements IPlaqueStoreCreateOrUpdat
             this.id = data["id"];
             this.fromCode = data["fromCode"];
             this.toCode = data["toCode"];
+            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.speciesId = data["speciesId"];
             this.finishedPlaqueId = data["finishedPlaqueId"];
         }
@@ -24124,6 +24190,7 @@ export class PlaqueStoreCreateOrUpdateInput implements IPlaqueStoreCreateOrUpdat
         data["id"] = this.id;
         data["fromCode"] = this.fromCode;
         data["toCode"] = this.toCode;
+        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["speciesId"] = this.speciesId;
         data["finishedPlaqueId"] = this.finishedPlaqueId;
         return data; 
@@ -24134,6 +24201,7 @@ export interface IPlaqueStoreCreateOrUpdateInput {
     id: number | undefined;
     fromCode: number;
     toCode: number;
+    setTime: moment.Moment;
     speciesId: number | undefined;
     finishedPlaqueId: number | undefined;
 }

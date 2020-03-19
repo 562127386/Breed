@@ -18,11 +18,21 @@ namespace Akh.Breed.Contractors
     {
         private readonly IRepository<Contractor> _contractorRepository;
         private readonly IRepository<FirmType> _firmTypeRepository;
+        private readonly IRepository<StateInfo> _stateInfoRepository;
+        private readonly IRepository<CityInfo> _cityInfoRepository;
+        private readonly IRepository<RegionInfo> _regionInfoRepository;
+        private readonly IRepository<VillageInfo> _villageInfoRepository;
+        private readonly IRepository<UnionInfo> _unionInfoRepository;
 
-        public ContractorAppService(IRepository<Contractor> contractorRepository, IRepository<FirmType> firmTypeRepository)
+        public ContractorAppService(IRepository<Contractor> contractorRepository, IRepository<FirmType> firmTypeRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository)
         {
             _contractorRepository = contractorRepository;
             _firmTypeRepository = firmTypeRepository;
+            _stateInfoRepository = stateInfoRepository;
+            _cityInfoRepository = cityInfoRepository;
+            _regionInfoRepository = regionInfoRepository;
+            _villageInfoRepository = villageInfoRepository;
+            _unionInfoRepository = unionInfoRepository;
         }
         public async Task<PagedResultDto<ContractorListDto>> GetContractor(GetContractorInput input)
         {
@@ -44,15 +54,20 @@ namespace Akh.Breed.Contractors
             Contractor contractor = null;
             if (input.Id.HasValue)
             {
-                contractor = await _contractorRepository.GetAsync(input.Id.Value);
+                contractor = await _contractorRepository.GetAll()
+                    .Include(x => x.VillageInfo)
+                    .ThenInclude(x => x.RegionInfo)
+                    .ThenInclude(x => x.CityInfo)
+                    .ThenInclude(x => x.StateInfo)
+                    .FirstOrDefaultAsync(x => x.Id == input.Id.Value);
             }
             
             var output = new GetContractorForEditOutput();
             
             //contractor
             output.Contractor = contractor != null
-                ? ObjectMapper.Map<ContractorEditDto>(contractor)
-                : new ContractorEditDto();
+                ? ObjectMapper.Map<ContractorCreateOrUpdateInput>(contractor)
+                : new ContractorCreateOrUpdateInput();
             
             //FirmTypes
             output.FirmTypes = _firmTypeRepository
@@ -60,6 +75,41 @@ namespace Akh.Breed.Contractors
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name ){ IsSelected = output.Contractor.FirmTypeId.Equals(c.Id) })
                 .ToList();
 
+            //StateInfos
+            output.StateInfos = _stateInfoRepository
+                .GetAllList()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
+
+            if (output.Contractor.StateInfoId.HasValue)
+            {
+                output.CityInfos = _cityInfoRepository.GetAll()
+                    .Where(x => x.StateInfoId == output.Contractor.StateInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
+            }
+            
+            if (output.Contractor.CityInfoId.HasValue)
+            {
+                output.RegionInfos = _regionInfoRepository.GetAll()
+                    .Where(x => x.CityInfoId == output.Contractor.CityInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
+            }
+            
+            if (output.Contractor.RegionInfoId.HasValue)
+            {
+                output.VillageInfos = _villageInfoRepository.GetAll()
+                    .Where(x => x.RegionInfoId == output.Contractor.RegionInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
+            }
+            
+            output.UnionInfos = _unionInfoRepository
+                .GetAllList()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
+            
             return output;
         }
         
