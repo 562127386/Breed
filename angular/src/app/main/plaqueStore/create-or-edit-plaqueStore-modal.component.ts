@@ -1,10 +1,13 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { PlaqueStoreServiceProxy, PlaqueStoreCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { SpeciesInfoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
+import * as moment from 'moment';
+import * as momentj from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditPlaqueStoreModal',
@@ -25,11 +28,12 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
     saving: boolean = false;
     editdisabled: boolean = false;
     codeMask: string = '0';
-    codePlaceHolder: string = 'X';
+    codePlaceHolder: string = '0';
 
     constructor(
         injector: Injector,
-        private _plaqueStoreService: PlaqueStoreServiceProxy
+        private _plaqueStoreService: PlaqueStoreServiceProxy,
+        private _speciesInfoService: SpeciesInfoServiceProxy
     ) {
         super(injector);
     }
@@ -68,6 +72,7 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
         let input = new PlaqueStoreCreateOrUpdateInput();
         input = this.plaqueStore;
         this.saving = true;
+        input.setTime = moment(this.plaqueStore.setTime.locale('en'));
         this._plaqueStoreService.createOrUpdatePlaqueStore(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
@@ -91,15 +96,13 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
         return true;
   }
 
-    setCodeMask(speciesCode : number): void {
-        if(speciesCode < 10){
-            this.codeMask = '999-9-99-9-99999999';
-            this.codePlaceHolder = '364-0-52-' + speciesCode + '-99999999';
-        }
-        else if(speciesCode < 100){
-            var speciesCodetxt = speciesCode.toString();
-            this.codeMask = '999-9-99-9-99999999';
-            this.codePlaceHolder = '364-0-52-' + speciesCodetxt[0]+ '-' + speciesCodetxt[0] + '9999999';
-        }
+    setCodeMask(speciesId : number): void {
+        let speciesCode: string = '';
+        this.codeMask = '0';
+        this.codePlaceHolder = '0';
+        this._speciesInfoService.getCodeRange(speciesId).subscribe(userResult => {
+            this.codeMask = userResult;
+            this.codePlaceHolder = userResult;            
+        });
     }
 }

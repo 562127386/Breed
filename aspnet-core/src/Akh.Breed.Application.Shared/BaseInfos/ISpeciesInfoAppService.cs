@@ -11,5 +11,6 @@ namespace Akh.Breed.BaseInfos
         Task<SpeciesInfoCreateOrUpdateInput> GetSpeciesInfoForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateSpeciesInfo(SpeciesInfoCreateOrUpdateInput input);
         Task DeleteSpeciesInfo(EntityDto input);
+        Task<string> GetCodeRange(EntityDto input);
     }
 }

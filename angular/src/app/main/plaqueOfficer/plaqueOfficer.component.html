@@ -59,6 +59,15 @@
                                     <ng-template pTemplate="header">
                                         <tr>                                        
                                             <th style="width: 100px" >
+                                                {{'OfficerCode' | localize}}
+                                            </th>
+                                            <th style="width: 100px" >
+                                                {{'OfficerName' | localize}}
+                                            </th>
+                                            <th style="width: 100px" >
+                                                {{'OfficerFamily' | localize}}
+                                            </th>
+                                            <th style="width: 100px" >
                                                 {{'SpeciesName' | localize}}
                                             </th>
                                             <th style="width: 100px" pSortableColumn="setTime">
@@ -79,18 +88,6 @@
                                             <th style="width: 100px">
                                                 {{'PlaqueUsed' | localize}}
                                             </th>
-                                            <th style="width: 100px" pSortableColumn="finished">
-                                                {{'Finished' | localize}}
-                                                <p-sortIcon field="finished"></p-sortIcon>
-                                            </th>
-                                            <th style="width: 100px" pSortableColumn="finishedCode">
-                                                {{'FinishedCode' | localize}}
-                                                <p-sortIcon field="finishedCode"></p-sortIcon>
-                                            </th>
-                                            <th style="width: 100px" pSortableColumn="finishedDate">
-                                                {{'FinishedDate' | localize}}
-                                                <p-sortIcon field="finishedDate"></p-sortIcon>
-                                            </th>
                                             <th style="width: 130px">
                                                     <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
                                                     {{'Actions' | localize}}
@@ -99,6 +96,18 @@
                                     </ng-template>
                                     <ng-template pTemplate="body" let-record="$implicit">
                                         <tr>                                        
+                                            <td style="width: 100px">
+                                                <span class="ui-column-title"> {{'OfficerCode' | localize}}</span>
+                                                {{record.officerCode}}
+                                            </td>
+                                            <td style="width: 100px">
+                                                <span class="ui-column-title"> {{'OfficerName' | localize}}</span>
+                                                {{record.officerName}}
+                                            </td>
+                                            <td style="width: 100px">
+                                                <span class="ui-column-title"> {{'OfficerFamily' | localize}}</span>
+                                                {{record.officerFamily}}
+                                            </td>
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'SpeciesName' | localize}}</span>
                                                 {{record.speciesName}}
@@ -122,25 +131,6 @@
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'PlaqueUsed' | localize}}</span>
                                                 {{record.plaqueUsed}}
-                                            </td>
-                                            <td style="width: 100px">
-                                                <span class="ui-column-title">{{'Finished' | localize}}</span>
-                                                <span class="kt-badge kt-badge--success kt-badge--inline"
-                                                    *ngIf="record.finished">
-                                                    {{'Yes' | localize}}
-                                                </span>
-                                                <span class="kt-badge kt-badge--dark kt-badge--inline"
-                                                    *ngIf="!record.finished">
-                                                    {{'No' | localize}}
-                                                </span>
-                                            </td>
-                                            <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'FinishedCode' | localize}}</span>
-                                                {{record.finishedCode}}
-                                            </td>
-                                            <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'FinishedDate' | localize}}</span>
-                                                {{record.finishedDate | momentFormat:'YYYY/MM/DD HH:SS'}}
                                             </td>
                                             <td style="width: 130px">
                                                 <div class="kt-section__content kt-section__content--solid">

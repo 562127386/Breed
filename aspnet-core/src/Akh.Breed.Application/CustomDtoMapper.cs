@@ -147,7 +147,7 @@ namespace Akh.Breed
 
             //Contractor
             configuration.CreateMap<Contractor, ContractorListDto>()
-                .ForMember(regionD => regionD.FirmTypeName,
+                .ForMember(d => d.FirmTypeName,
                     options => options.MapFrom(l => l.FirmType.Name));
             configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>();
             configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>()
@@ -204,33 +204,33 @@ namespace Akh.Breed
             configuration.CreateMap<CityInfo, CityInfoCreateOrUpdateInput>();
             
             configuration.CreateMap<RegionInfo, RegionInfoListDto>()
-                .ForMember(regionD => regionD.StateInfoName, options => options.MapFrom(l => l.CityInfo.StateInfo.Name))
-                .ForMember(regionD => regionD.CityInfoName, options => options.MapFrom(l => l.CityInfo.Name));
+                .ForMember(d => d.StateInfoName, options => options.MapFrom(l => l.CityInfo.StateInfo.Name))
+                .ForMember(d => d.CityInfoName, options => options.MapFrom(l => l.CityInfo.Name));
             configuration.CreateMap<RegionInfoCreateOrUpdateInput, RegionInfo>();
             configuration.CreateMap<RegionInfo, RegionInfoCreateOrUpdateInput>()
-                .ForMember(regionD => regionD.StateInfoId, options => options.MapFrom(l => l.CityInfo.StateInfoId));
+                .ForMember(d => d.StateInfoId, options => options.MapFrom(l => l.CityInfo.StateInfoId));
             
             configuration.CreateMap<VillageInfo, VillageInfoListDto>()
-                .ForMember(regionD => regionD.StateInfoName, options => options.MapFrom(l => l.RegionInfo.CityInfo.StateInfo.Name))
-                .ForMember(regionD => regionD.CityInfoName, options => options.MapFrom(l => l.RegionInfo.CityInfo.Name))
-                .ForMember(regionD => regionD.RegionInfoName, options => options.MapFrom(l => l.RegionInfo.Name));
+                .ForMember(d => d.StateInfoName, options => options.MapFrom(l => l.RegionInfo.CityInfo.StateInfo.Name))
+                .ForMember(d => d.CityInfoName, options => options.MapFrom(l => l.RegionInfo.CityInfo.Name))
+                .ForMember(d => d.RegionInfoName, options => options.MapFrom(l => l.RegionInfo.Name));
             configuration.CreateMap<VillageInfoCreateOrUpdateInput, VillageInfo>();
             configuration.CreateMap<VillageInfo, VillageInfoCreateOrUpdateInput>()
-                .ForMember(regionD => regionD.StateInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfo.StateInfoId))
-                .ForMember(regionD => regionD.CityInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfoId));
+                .ForMember(d => d.StateInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfo.StateInfoId))
+                .ForMember(d => d.CityInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfoId));
 
             configuration.CreateMap<PlaqueStore, PlaqueStoreListDto>()
-                .ForMember(regionD => regionD.PlaqueCount, options => options.MapFrom(l => l.ToCode - l.FromCode + 1))
-                .ForMember(regionD => regionD.SpeciesName, options => options.MapFrom(l => l.Species.Name));
+                .ForMember(d => d.PlaqueCount, options => options.MapFrom(l => l.ToCode - l.FromCode + 1))
+                .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.Species.Name));
             configuration.CreateMap<PlaqueStoreCreateOrUpdateInput, PlaqueStore>();
             configuration.CreateMap<PlaqueStore, PlaqueStoreCreateOrUpdateInput>();
             
             configuration.CreateMap<PlaqueOfficer, PlaqueOfficerListDto>()
-                .ForMember(regionD => regionD.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
-                .ForMember(regionD => regionD.OfficerName, options => options.MapFrom(l => l.Officer.Name))
-                .ForMember(regionD => regionD.PlaqueStoreName, options => options.MapFrom(l => l.PlaqueStore.FromCode.ToString()))
-                .ForMember(regionD => regionD.FinishedCode, options => options.MapFrom(l => l.FinishedPlaque.Code))
-                .ForMember(regionD => regionD.FinishedDate, options => options.MapFrom(l => l.FinishedPlaque.SetTime));
+                .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name))
+                .ForMember(d => d.OfficerFamily, options => options.MapFrom(l => l.Officer.Family))
+                .ForMember(d => d.OfficerCode, options => options.MapFrom(l => l.Officer.Code))
+                .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.PlaqueStore.Species.Name));
             configuration.CreateMap<PlaqueOfficerCreateOrUpdateInput, PlaqueOfficer>();
             configuration.CreateMap<PlaqueOfficer, PlaqueOfficerCreateOrUpdateInput>();
         }

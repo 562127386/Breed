@@ -1102,7 +1102,7 @@
     <text name="ThisCodeAlreadyExists">این کد قبلا ثبت شده است.</text>
     <text name="ThisCodeRangeHasOverlap">محدوده وارد شده با {0} تا {1} همپوشانی دارد.</text>
     <text name="ThisCodeRangeShouldBe">برای گونه {0} محدوده {1} تا {2} مجاز است.</text>
-    <text name="RemainInCodeRange">تعداد {0} کد در این محدود باقی مانده است.</text>
+    <text name="RemainInCodeRange">برای گونه فوق انبار های زیر خالی است. {0}</text>
 
     <text name="News">اخبار</text>
       
@@ -1110,7 +1110,7 @@
     <text name="OfficerInfo">اطلاعات شناسایی مامور</text>
     <text name="OfficerInfoAddress">اطلاعات محل کار</text>
 
-      <text name="SpeciesName">نوع دام</text>
+      <text name="SpeciesName">گونه دام</text>
       <text name="SetTime">تاریخ اختصاص</text>
       <text name="FromCode">از شماره</text>
       <text name="ToCode">تا شماره</text>
@@ -1120,7 +1120,7 @@
       <text name="CreateNewPlaqueStore">ایجاد انبار جدید</text>
 
     <text name="PlaqueCount">تعداد پلاک</text>
-    <text name="PlaqueUsed">پلاک استفاده شده</text>
+    <text name="PlaqueUsed">پلاک نصب شده</text>
     <text name="AreYouSureToDeleteThePlaqueStore">آیا از حذف انبار {0} مطمئن هستید؟</text>
       <text name="PlaqueOfficer">تخصیص پلاک به مامور</text>
     <text name="CreateNewPlaqueOfficer">اختصاص پلاک به مامور</text>
@@ -1139,6 +1139,9 @@
     <text name="EditNewActivityInfo">ویرایش فعالیت</text>
     <text name="SetDate">تاریخ تخصیص</text>
     <text name="VillageInfoName">دهستان</text>
+    <text name="OfficerCode">کد مامور</text>
+    <text name="OfficerName">نام مامور</text>
+    <text name="OfficerFamily">نام خانوادگی</text>
 
   </texts>
 </localizationDictionary>

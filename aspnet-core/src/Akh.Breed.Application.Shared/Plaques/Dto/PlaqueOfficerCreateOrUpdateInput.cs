@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Abp.Timing;
 
 namespace Akh.Breed.Plaques.Dto
 {
@@ -19,7 +20,15 @@ namespace Akh.Breed.Plaques.Dto
         public int? OfficerId { get; set; }
         
         public int? PlaqueStoreId { get; set; }
+        public int? SpeciesInfoId { get; set; }
 
         public long? FinishedPlaqueId { get; set; }
+        
+        public DateTime? SetTime { get; set; }
+
+        public PlaqueOfficerCreateOrUpdateInput()
+        {
+            SetTime = Clock.Now;
+        } 
     }
 }

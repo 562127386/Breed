@@ -8,12 +8,12 @@ namespace Akh.Breed.Plaques.Dto
         public PlaqueOfficerCreateOrUpdateInput PlaqueOfficer { get; set; }
         
         public List<ComboboxItemDto> Officers { get; set; }
-        public List<ComboboxItemDto> PlaqueStores { get; set; }
+        public List<ComboboxItemDto> SpeciesInfos { get; set; }
 
         public PlaqueOfficerGetForEditOutput()
         {
             Officers = new List<ComboboxItemDto>();
-            PlaqueStores = new List<ComboboxItemDto>();
+            SpeciesInfos = new List<ComboboxItemDto>();
         }
     }
 }

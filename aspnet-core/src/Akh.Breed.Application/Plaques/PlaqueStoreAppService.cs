@@ -116,22 +116,16 @@ namespace Akh.Breed.Plaques
         private async Task CheckValidation(PlaqueStoreCreateOrUpdateInput input)
         {
             var species = _speciesInfoRepository.Get(input.SpeciesId.Value);
-            long minCode = 0,maxCode = 0;
-            long speciesCode = Convert.ToInt64(species.Code);
-            if ( speciesCode < 10)
+            if ( input.FromCode < species.FromCode)
             {
-                minCode = (364052 * 10 + speciesCode) * 100000000;
-                maxCode = minCode + 99999999;
+                input.FromCode += species.FromCode;
+                input.ToCode += species.FromCode;
+
             }
-            else if (speciesCode < 100)
+
+            if ( input.FromCode < species.FromCode || input.FromCode > species.ToCode || input.ToCode < species.FromCode || input.ToCode > species.ToCode)
             {
-                minCode = (364052 * 100 + speciesCode) * 10000000;
-                maxCode = minCode + 9999999;
-            }
-            
-            if ( input.FromCode < minCode || input.FromCode > maxCode || input.ToCode < minCode || input.ToCode > maxCode)
-            {
-                throw new UserFriendlyException(L("ThisCodeRangeShouldBe", species.Name,minCode, maxCode));
+                throw new UserFriendlyException(L("ThisCodeRangeShouldBe", species.Name,species.FromCode, species.ToCode));
             }
             var existingObj = (await _plaqueStoreRepository.GetAll().AsNoTracking()
                 .FirstOrDefaultAsync(u => 

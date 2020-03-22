@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Text;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.Collections.Extensions;
@@ -21,12 +22,14 @@ namespace Akh.Breed.Plaques
         private readonly IRepository<PlaqueOfficer> _plaqueOfficerRepository;
         private readonly IRepository<Officer> _officerRepository;
         private readonly IRepository<PlaqueStore> _plaqueStoreRepository;
+        private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
         
-        public PlaqueOfficerAppService(IRepository<PlaqueOfficer> plaqueOfficerRepository, IRepository<Officer> officerRepository, IRepository<PlaqueStore> plaqueStoreRepository)
+        public PlaqueOfficerAppService(IRepository<PlaqueOfficer> plaqueOfficerRepository, IRepository<Officer> officerRepository, IRepository<PlaqueStore> plaqueStoreRepository, IRepository<SpeciesInfo> speciesInfoRepository)
         {
             _plaqueOfficerRepository = plaqueOfficerRepository;
             _officerRepository = officerRepository;
             _plaqueStoreRepository = plaqueStoreRepository;
+            _speciesInfoRepository = speciesInfoRepository;
         }
 
         public async Task<PagedResultDto<PlaqueOfficerListDto>> GetPlaqueOfficer(GetPlaqueOfficerInput input)
@@ -68,9 +71,10 @@ namespace Akh.Breed.Plaques
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Contractor.FirmName+" "+c.NationalCode+" ("+c.Name+","+c.Family+")"))
                 .ToList();
             
-            output.PlaqueStores = _plaqueStoreRepository
-                .GetAll().Include(x =>  x.Species)
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FromCode+"-"+c.ToCode+" "+c.Species.Name))
+            
+            output.SpeciesInfos = _speciesInfoRepository
+                .GetAll()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
 
             return output;
@@ -103,7 +107,10 @@ namespace Akh.Breed.Plaques
         
         private async Task CreatePlaqueOfficerAsync(PlaqueOfficerCreateOrUpdateInput input)
         {
+            var plaqueStore = _plaqueStoreRepository.Get(input.PlaqueStoreId.Value);
+            plaqueStore.LastCode = input.ToCode;
             var plaqueOfficer = ObjectMapper.Map<PlaqueOfficer>(input);
+            await _plaqueStoreRepository.UpdateAsync(plaqueStore);
             await _plaqueOfficerRepository.InsertAsync(plaqueOfficer);
         }
         
@@ -114,6 +121,7 @@ namespace Akh.Breed.Plaques
                 _plaqueOfficerRepository.GetAll()
                     .Include(x => x.Officer)
                     .Include(x => x.PlaqueStore)
+                    .ThenInclude(x => x.Species)
                     .Include(x => x.FinishedPlaque),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.FromCode <= tempSearch &&
@@ -121,42 +129,22 @@ namespace Akh.Breed.Plaques
 
             return query;
         }
-        
+
         private async Task CheckValidation(PlaqueOfficerCreateOrUpdateInput input)
         {
-            var plaque = _plaqueStoreRepository.GetAll().AsNoTracking().Include(x => x.PlaqueOfficers).FirstOrDefault(x => x.Id == input.PlaqueStoreId);
-            input.FromCode = plaque.FromCode;
-            if (plaque.PlaqueOfficers.Any())
+            var plaqueStoreQuery = _plaqueStoreRepository.GetAll().AsNoTracking()
+                .Where(x => x.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);
+            var plaqueStore = await plaqueStoreQuery.FirstOrDefaultAsync(x => (x.LastCode != 0 && x.ToCode - x.LastCode >= input.PlaqueCount) || (x.LastCode == 0 && x.ToCode - x.FromCode + 1 >= input.PlaqueCount));
+            if (plaqueStore != null)
             {
-                // ReSharper disable once PossibleInvalidOperationException
-                input.FromCode = plaque.PlaqueOfficers.Max(x => x.ToCode) + 1;
+                input.FromCode = plaqueStore.LastCode != 0 ? + plaqueStore.LastCode + 1 : plaqueStore.FromCode;
+                input.ToCode = input.FromCode + input.PlaqueCount - 1;
+                input.PlaqueStoreId = plaqueStore.Id;
             }
-            input.ToCode = input.FromCode + input.PlaqueCount - 1;
-            var existingPar = (await _plaqueStoreRepository.GetAll().AsNoTracking()
-                .FirstOrDefaultAsync(u => 
-                    (u.Id == input.PlaqueStoreId) &&
-                    (u.FromCode > input.FromCode ||
-                      u.ToCode < input.FromCode ||
-                      u.FromCode > input.ToCode ||
-                      u.ToCode < input.ToCode)));
-            if (existingPar != null && existingPar.Id != input.Id)
+            else
             {
-                throw new UserFriendlyException(L("RemainInCodeRange", existingPar.ToCode - input.FromCode + 1));
+                throw new UserFriendlyException(L("RemainInCodeRange", input.PlaqueCount));
             }
-            
-            var existingObj = (await _plaqueOfficerRepository.GetAll().AsNoTracking()
-                .FirstOrDefaultAsync(u => 
-                    (u.Id != input.Id) &&
-                    (u.PlaqueStoreId == input.PlaqueStoreId) &&
-                    ((u.FromCode.CompareTo(input.FromCode) <= 0 &&
-                     u.ToCode.CompareTo(input.FromCode) >= 0) ||
-                    (u.FromCode.CompareTo(input.ToCode) <= 0 &&
-                     u.ToCode.CompareTo(input.ToCode) >= 0))));
-            if (existingObj != null && existingObj.Id != input.Id)
-            {
-                throw new UserFriendlyException(L("ThisCodeRangeHasOverlap",existingObj.FromCode, existingObj.ToCode));
-            }
-            
         }
     }
 }

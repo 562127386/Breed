@@ -13,17 +13,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"PlaqueStore" | localize}}</label>
-                                <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #plaqueStoreCombobox [options]="plaqueStoresSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
-                                        name="plaqueStoreId" [(ngModel)]="plaqueOfficer.plaqueStoreId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
-                                    <validation-messages [formCtrl]="plaqueStoreCombobox"></validation-messages>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row">                        
                         <div class="form-group col-sm-12">
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"Officer" | localize}}</label>
@@ -34,6 +24,25 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesInfo" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                        <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        name="speciesInfoId" [(ngModel)]="plaqueOfficer.speciesInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"SetDate" | localize}} *</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <primeng-datepicker [style]="{'width':'100%'}" #setTimeInput="ngModel" name="setTime" [(ngModel)]="plaqueOfficer.setTime" [isJalali]="true" required></primeng-datepicker>
+                                    <validation-messages [formCtrl]="setTimeInput"></validation-messages>
+                                </div>
+                            </div>                                
+                        </div> 
                         <div class="form-group col-sm-12">
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"PlaqueCount" | localize}}</label>

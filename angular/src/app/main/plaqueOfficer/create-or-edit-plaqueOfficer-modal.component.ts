@@ -5,6 +5,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Component({
     selector: 'createOrEditPlaqueOfficerModal',
@@ -14,13 +15,13 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;    
-    @ViewChild('plaqueStoreCombobox', { static: true }) plaqueStoreCombobox: ElementRef;
+    @ViewChild('speciesInfoCombobox', { static: true }) speciesInfoCombobox: ElementRef;
     @ViewChild('officerCombobox', { static: true }) officerCombobox: ElementRef;
     
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     plaqueOfficer: PlaqueOfficerCreateOrUpdateInput = new PlaqueOfficerCreateOrUpdateInput();    
-    plaqueStoresSelectItems: SelectItem[] = [];
+    speciesInfosSelectItems: SelectItem[] = [];
     officersSelectItems: SelectItem[] = [];
 
     active: boolean = false;
@@ -45,9 +46,9 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
         this._plaqueOfficerService.getPlaqueOfficerForEdit(plaqueOfficerId).subscribe(userResult => {
             this.plaqueOfficer = userResult.plaqueOfficer;
             
-            this.plaqueStoresSelectItems = _.map(userResult.plaqueStores, function(stateInfo) {
+            this.speciesInfosSelectItems = _.map(userResult.speciesInfos, function(speciesInfo) {
                 return {
-                    label: stateInfo.displayText, value: Number(stateInfo.value)
+                    label: speciesInfo.displayText, value: Number(speciesInfo.value)
                 };
             });
 
@@ -73,8 +74,8 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
     save(): void {
         let input = new PlaqueOfficerCreateOrUpdateInput();
         input = this.plaqueOfficer;
-
-        this.saving = true;
+        this.saving = true;        
+        input.setTime = moment(this.plaqueOfficer.setTime.locale('en'));
         this._plaqueOfficerService.createOrUpdatePlaqueOfficer(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {

@@ -10857,6 +10857,62 @@ export class SpeciesInfoServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getCodeRange(id: number | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/SpeciesInfo/GetCodeRange?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCodeRange(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCodeRange(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCodeRange(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
 }
 
 @Injectable()
@@ -23664,11 +23720,10 @@ export class PlaqueOfficerListDto implements IPlaqueOfficerListDto {
     plaqueCount!: number;
     plaqueUsed!: number;
     setTime!: moment.Moment;
+    officerCode!: string | undefined;
     officerName!: string | undefined;
-    plaqueStoreName!: string | undefined;
-    finished!: boolean;
-    finishedCode!: string | undefined;
-    finishedDate!: moment.Moment | undefined;
+    officerFamily!: string | undefined;
+    speciesName!: string | undefined;
     id!: number;
 
     constructor(data?: IPlaqueOfficerListDto) {
@@ -23687,11 +23742,10 @@ export class PlaqueOfficerListDto implements IPlaqueOfficerListDto {
             this.plaqueCount = data["plaqueCount"];
             this.plaqueUsed = data["plaqueUsed"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
+            this.officerCode = data["officerCode"];
             this.officerName = data["officerName"];
-            this.plaqueStoreName = data["plaqueStoreName"];
-            this.finished = data["finished"];
-            this.finishedCode = data["finishedCode"];
-            this.finishedDate = data["finishedDate"] ? moment(data["finishedDate"].toString()) : <any>undefined;
+            this.officerFamily = data["officerFamily"];
+            this.speciesName = data["speciesName"];
             this.id = data["id"];
         }
     }
@@ -23710,11 +23764,10 @@ export class PlaqueOfficerListDto implements IPlaqueOfficerListDto {
         data["plaqueCount"] = this.plaqueCount;
         data["plaqueUsed"] = this.plaqueUsed;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
+        data["officerCode"] = this.officerCode;
         data["officerName"] = this.officerName;
-        data["plaqueStoreName"] = this.plaqueStoreName;
-        data["finished"] = this.finished;
-        data["finishedCode"] = this.finishedCode;
-        data["finishedDate"] = this.finishedDate ? this.finishedDate.toISOString() : <any>undefined;
+        data["officerFamily"] = this.officerFamily;
+        data["speciesName"] = this.speciesName;
         data["id"] = this.id;
         return data; 
     }
@@ -23726,11 +23779,10 @@ export interface IPlaqueOfficerListDto {
     plaqueCount: number;
     plaqueUsed: number;
     setTime: moment.Moment;
+    officerCode: string | undefined;
     officerName: string | undefined;
-    plaqueStoreName: string | undefined;
-    finished: boolean;
-    finishedCode: string | undefined;
-    finishedDate: moment.Moment | undefined;
+    officerFamily: string | undefined;
+    speciesName: string | undefined;
     id: number;
 }
 
@@ -23789,7 +23841,9 @@ export class PlaqueOfficerCreateOrUpdateInput implements IPlaqueOfficerCreateOrU
     toCode!: number;
     officerId!: number | undefined;
     plaqueStoreId!: number | undefined;
+    speciesInfoId!: number | undefined;
     finishedPlaqueId!: number | undefined;
+    setTime!: moment.Moment | undefined;
 
     constructor(data?: IPlaqueOfficerCreateOrUpdateInput) {
         if (data) {
@@ -23808,7 +23862,9 @@ export class PlaqueOfficerCreateOrUpdateInput implements IPlaqueOfficerCreateOrU
             this.toCode = data["toCode"];
             this.officerId = data["officerId"];
             this.plaqueStoreId = data["plaqueStoreId"];
+            this.speciesInfoId = data["speciesInfoId"];
             this.finishedPlaqueId = data["finishedPlaqueId"];
+            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
         }
     }
 
@@ -23827,7 +23883,9 @@ export class PlaqueOfficerCreateOrUpdateInput implements IPlaqueOfficerCreateOrU
         data["toCode"] = this.toCode;
         data["officerId"] = this.officerId;
         data["plaqueStoreId"] = this.plaqueStoreId;
+        data["speciesInfoId"] = this.speciesInfoId;
         data["finishedPlaqueId"] = this.finishedPlaqueId;
+        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -23839,13 +23897,15 @@ export interface IPlaqueOfficerCreateOrUpdateInput {
     toCode: number;
     officerId: number | undefined;
     plaqueStoreId: number | undefined;
+    speciesInfoId: number | undefined;
     finishedPlaqueId: number | undefined;
+    setTime: moment.Moment | undefined;
 }
 
 export class PlaqueOfficerGetForEditOutput implements IPlaqueOfficerGetForEditOutput {
     plaqueOfficer!: PlaqueOfficerCreateOrUpdateInput;
     officers!: ComboboxItemDto[] | undefined;
-    plaqueStores!: ComboboxItemDto[] | undefined;
+    speciesInfos!: ComboboxItemDto[] | undefined;
 
     constructor(data?: IPlaqueOfficerGetForEditOutput) {
         if (data) {
@@ -23864,10 +23924,10 @@ export class PlaqueOfficerGetForEditOutput implements IPlaqueOfficerGetForEditOu
                 for (let item of data["officers"])
                     this.officers!.push(ComboboxItemDto.fromJS(item));
             }
-            if (Array.isArray(data["plaqueStores"])) {
-                this.plaqueStores = [] as any;
-                for (let item of data["plaqueStores"])
-                    this.plaqueStores!.push(ComboboxItemDto.fromJS(item));
+            if (Array.isArray(data["speciesInfos"])) {
+                this.speciesInfos = [] as any;
+                for (let item of data["speciesInfos"])
+                    this.speciesInfos!.push(ComboboxItemDto.fromJS(item));
             }
         }
     }
@@ -23887,10 +23947,10 @@ export class PlaqueOfficerGetForEditOutput implements IPlaqueOfficerGetForEditOu
             for (let item of this.officers)
                 data["officers"].push(item.toJSON());
         }
-        if (Array.isArray(this.plaqueStores)) {
-            data["plaqueStores"] = [];
-            for (let item of this.plaqueStores)
-                data["plaqueStores"].push(item.toJSON());
+        if (Array.isArray(this.speciesInfos)) {
+            data["speciesInfos"] = [];
+            for (let item of this.speciesInfos)
+                data["speciesInfos"].push(item.toJSON());
         }
         return data; 
     }
@@ -23899,7 +23959,7 @@ export class PlaqueOfficerGetForEditOutput implements IPlaqueOfficerGetForEditOu
 export interface IPlaqueOfficerGetForEditOutput {
     plaqueOfficer: PlaqueOfficerCreateOrUpdateInput;
     officers: ComboboxItemDto[] | undefined;
-    plaqueStores: ComboboxItemDto[] | undefined;
+    speciesInfos: ComboboxItemDto[] | undefined;
 }
 
 export class PlaqueStateListDto implements IPlaqueStateListDto {

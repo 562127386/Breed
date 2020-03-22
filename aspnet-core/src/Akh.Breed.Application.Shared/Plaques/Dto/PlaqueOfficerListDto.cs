@@ -26,21 +26,18 @@ namespace Akh.Breed.Plaques.Dto
         public long FromCode { get; set; }
         
         public long ToCode { get; set; }
-
         public int PlaqueCount { get; set; }
 
         public int PlaqueUsed { get; set; }
 
         public DateTime SetTime { get; set; }
 
-        public string OfficerName { get; set; }
+        public string OfficerCode { get; set; }
+        public string OfficerName { get; set; } 
         
-        public string PlaqueStoreName { get; set; }
-
-        public bool Finished { get; set; }
+        public string OfficerFamily { get; set; }
         
-        public string FinishedCode { get; set; }
+        public string SpeciesName { get; set; }
         
-        public DateTime? FinishedDate { get; set; }
     }
 }

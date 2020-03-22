@@ -16,6 +16,8 @@ namespace Akh.Breed.BaseInfos
 {
     public class SpeciesInfoAppService :  BreedAppServiceBase, ISpeciesInfoAppService
     {
+        public const string CodePrefixStr = "364-0-52-"; 
+
         private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
 
         public SpeciesInfoAppService(IRepository<SpeciesInfo> speciesInfoRepository)
@@ -73,6 +75,11 @@ namespace Akh.Breed.BaseInfos
             await _speciesInfoRepository.DeleteAsync(input.Id);
         }
 
+        public async Task<string> GetCodeRange(EntityDto input)
+        {
+            var species = await _speciesInfoRepository.GetAsync(input.Id);
+            return species != null ? species.ToCodeStr : "0";
+        }
         private async Task UpdateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
         {
             var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
