@@ -987,6 +987,7 @@
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
+    <text name="EpidemiologicInfo">اپیدمولوژیک</text>
     <text name="SexInfo">جنسیت دام</text>
     <text name="FirmType">انواع شرکت</text>
     <text name="CreateNewProviderInfo">ایجاد تامین کننده</text>
@@ -1013,6 +1014,12 @@
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
 
+    <text name="CreateNewEpidemiologicInfo">ایجاد اپیدمولوژیک</text>
+    <text name="AreYouSureToDeleteTheEpidemiologicInfo">آیا از حذف اپیدمولوژیک {0} مطمئن هستید؟</text>
+    <text name="EpidemiologicInfoHeaderInfo">مدیریت اپیدمولوژیک</text>
+    <text name="ViewNewEpidemiologicInfo">نمایش اپیدمولوژیک</text>
+    <text name="EditNewEpidemiologicInfo">ویرایش اپیدمولوژیک</text>
+    
     <text name="CreateNewFirmType">ایجاد نوع شرکت</text>
     <text name="AreYouSureToDeleteTheFirmType">آیا از حذف نوع شرکت {0} مطمئن هستید؟</text>
     <text name="FirmTypeHeaderInfo">مدیریت انواع شرکت</text>
@@ -1083,6 +1090,7 @@
     <text name="WorkNumber">تلفن محل کار</text>
     <text name="MobileNumber">تلفن همراه</text>
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
+    <text name="EpidemiologicInfoName">اپیدمولوژیک</text>
     <text name="StateInfoName">استان</text>
     <text name="CityInfoName">شهر</text>
     <text name="RegionInfoName">بخش</text>

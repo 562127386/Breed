@@ -88,14 +88,6 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
         this.modal.hide();
     }
 
-    numberOnly(event): boolean {
-        const charCode = (event.which) ? event.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-  }
-
     setCodeMask(speciesId : number): void {
         let speciesCode: string = '';
         this.codeMask = '0';

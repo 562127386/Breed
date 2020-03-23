@@ -16,6 +16,7 @@ import { PlaqueStateComponent } from './plaqueState/plaqueState.component';
 import { StateInfoComponent } from './stateInfo/stateInfo.component';
 import { VillageInfoComponent } from './villageInfo/villageInfo.component';
 import { AcademicDegreeComponent } from './academicDegree/academicDegree.component';
+import { EpidemiologicInfoComponent } from './epidemiologicInfo/epidemiologicInfo.component';
 import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
 import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component';
 
@@ -42,6 +43,7 @@ import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component'
                     { path: 'stateInfo', component: StateInfoComponent },
                     { path: 'villageInfo', component: VillageInfoComponent },
                     { path: 'academicDegree', component: AcademicDegreeComponent },
+                    { path: 'epidemiologicInfo', component: EpidemiologicInfoComponent },
                     { path: 'plaqueStore', component: PlaqueStoreComponent },
                     { path: 'plaqueOfficer', component: PlaqueOfficerComponent }
 

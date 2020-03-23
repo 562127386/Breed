@@ -131,13 +131,6 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
         this.modal.hide();
     }
 
-    numberOnly(event): boolean {
-        const charCode = (event.which) ? event.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-  }
     getCities(stateInfoId: string): void {  
 
         this._cityInfoService.getForCombo(Number(stateInfoId)).subscribe(userResult => {

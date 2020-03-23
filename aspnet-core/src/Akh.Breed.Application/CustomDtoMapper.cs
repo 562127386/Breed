@@ -26,11 +26,15 @@ using Akh.Breed.Chat;
 using Akh.Breed.Chat.Dto;
 using Akh.Breed.Contractors;
 using Akh.Breed.Contractors.Dto;
+using Akh.Breed.Herds;
+using Akh.Breed.Herds.Dto;
 using Akh.Breed.Editions;
 using Akh.Breed.Editions.Dto;
 using Akh.Breed.Friendships;
 using Akh.Breed.Friendships.Cache;
 using Akh.Breed.Friendships.Dto;
+using Akh.Breed.Livestocks;
+using Akh.Breed.Livestocks.Dto;
 using Akh.Breed.Localization.Dto;
 using Akh.Breed.MultiTenancy;
 using Akh.Breed.MultiTenancy.Dto;
@@ -155,6 +159,25 @@ namespace Akh.Breed
                 .ForMember(d => d.CityInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfoId))
                 .ForMember(d => d.RegionInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfoId));
 
+            configuration.CreateMap<Herd, HerdListDto>()
+                .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.Name))
+                .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
+                .ForMember(d => d.EpidemiologicInfoCode, options => options.MapFrom(l => l.EpidemiologicInfo.Code));
+            configuration.CreateMap<HerdCreateOrUpdateInput, Herd>();
+            configuration.CreateMap<Herd, HerdCreateOrUpdateInput>()
+                .ForMember(d => d.StateInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfo.StateInfoId))
+                .ForMember(d => d.CityInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfoId))
+                .ForMember(d => d.RegionInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfoId));
+            
+            configuration.CreateMap<Livestock, LivestockListDto>()
+                .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
+                .ForMember(d => d.SexInfoName, options => options.MapFrom(l => l.SexInfo.Name))
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Name))
+                .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Code));
+            configuration.CreateMap<LivestockCreateOrUpdateInput, Livestock>();
+            configuration.CreateMap<Livestock, LivestockCreateOrUpdateInput>();
+
             //Officer
             configuration.CreateMap<Officer, OfficerListDto>();
             configuration.CreateMap<OfficerCreateOrUpdateInput, Officer>();
@@ -177,6 +200,10 @@ namespace Akh.Breed
             configuration.CreateMap<AcademicDegree, AcademicDegreeListDto>();
             configuration.CreateMap<AcademicDegreeCreateOrUpdateInput, AcademicDegree>();
             configuration.CreateMap<AcademicDegree, AcademicDegreeCreateOrUpdateInput>();
+            
+            configuration.CreateMap<EpidemiologicInfo, EpidemiologicInfoListDto>();
+            configuration.CreateMap<EpidemiologicInfoCreateOrUpdateInput, EpidemiologicInfo>();
+            configuration.CreateMap<EpidemiologicInfo, EpidemiologicInfoCreateOrUpdateInput>();
 
             configuration.CreateMap<FirmType, FirmTypeListDto>();
             configuration.CreateMap<FirmTypeCreateOrUpdateInput, FirmType>();

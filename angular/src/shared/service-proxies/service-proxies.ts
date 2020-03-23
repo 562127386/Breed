@@ -4066,6 +4066,249 @@ export class EditionServiceProxy {
 }
 
 @Injectable()
+export class EpidemiologicInfoServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getEpidemiologicInfo(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfEpidemiologicInfoListDto> {
+        let url_ = this.baseUrl + "/api/services/app/EpidemiologicInfo/GetEpidemiologicInfo?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetEpidemiologicInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetEpidemiologicInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfEpidemiologicInfoListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfEpidemiologicInfoListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetEpidemiologicInfo(response: HttpResponseBase): Observable<PagedResultDtoOfEpidemiologicInfoListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfEpidemiologicInfoListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfEpidemiologicInfoListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getEpidemiologicInfoForEdit(id: number | undefined): Observable<EpidemiologicInfoCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/EpidemiologicInfo/GetEpidemiologicInfoForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetEpidemiologicInfoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetEpidemiologicInfoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<EpidemiologicInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<EpidemiologicInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetEpidemiologicInfoForEdit(response: HttpResponseBase): Observable<EpidemiologicInfoCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = EpidemiologicInfoCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<EpidemiologicInfoCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateEpidemiologicInfo(body: EpidemiologicInfoCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/EpidemiologicInfo/CreateOrUpdateEpidemiologicInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateEpidemiologicInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateEpidemiologicInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateEpidemiologicInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteEpidemiologicInfo(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/EpidemiologicInfo/DeleteEpidemiologicInfo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteEpidemiologicInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteEpidemiologicInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteEpidemiologicInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class FirmTypeServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -4569,6 +4812,249 @@ export class FriendshipServiceProxy {
     }
 
     protected processAcceptFriendshipRequest(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class HerdServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getHerd(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfHerdListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Herd/GetHerd?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHerd(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHerd(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfHerdListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfHerdListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetHerd(response: HttpResponseBase): Observable<PagedResultDtoOfHerdListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfHerdListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfHerdListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getHerdForEdit(id: number | undefined): Observable<GetHerdForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Herd/GetHerdForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHerdForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHerdForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetHerdForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetHerdForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetHerdForEdit(response: HttpResponseBase): Observable<GetHerdForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetHerdForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetHerdForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateHerd(body: HerdCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Herd/CreateOrUpdateHerd";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateHerd(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateHerd(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateHerd(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteHerd(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Herd/DeleteHerd?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteHerd(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteHerd(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteHerd(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -5739,6 +6225,249 @@ export class LanguageServiceProxy {
     }
 
     protected processUpdateLanguageText(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class LivestockServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getLivestock(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfLivestockListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Livestock/GetLivestock?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLivestock(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLivestock(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfLivestockListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfLivestockListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetLivestock(response: HttpResponseBase): Observable<PagedResultDtoOfLivestockListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfLivestockListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfLivestockListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getLivestockForEdit(id: number | undefined): Observable<GetLivestockForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Livestock/GetLivestockForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLivestockForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLivestockForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetLivestockForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetLivestockForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetLivestockForEdit(response: HttpResponseBase): Observable<GetLivestockForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetLivestockForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetLivestockForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateLivestock(body: LivestockCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Livestock/CreateOrUpdateLivestock";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateLivestock(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateLivestock(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateLivestock(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteLivestock(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Livestock/DeleteLivestock?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteLivestock(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteLivestock(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteLivestock(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -19346,6 +20075,150 @@ export interface IMoveTenantsToAnotherEditionDto {
     targetEditionId: number;
 }
 
+export class EpidemiologicInfoListDto implements IEpidemiologicInfoListDto {
+    name!: string | undefined;
+    family!: string | undefined;
+    code!: string | undefined;
+    id!: number;
+
+    constructor(data?: IEpidemiologicInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.family = data["family"];
+            this.code = data["code"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EpidemiologicInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new EpidemiologicInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["code"] = this.code;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEpidemiologicInfoListDto {
+    name: string | undefined;
+    family: string | undefined;
+    code: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfEpidemiologicInfoListDto implements IPagedResultDtoOfEpidemiologicInfoListDto {
+    totalCount!: number;
+    items!: EpidemiologicInfoListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfEpidemiologicInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(EpidemiologicInfoListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfEpidemiologicInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfEpidemiologicInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfEpidemiologicInfoListDto {
+    totalCount: number;
+    items: EpidemiologicInfoListDto[] | undefined;
+}
+
+export class EpidemiologicInfoCreateOrUpdateInput implements IEpidemiologicInfoCreateOrUpdateInput {
+    id!: number | undefined;
+    name!: string | undefined;
+    family!: string | undefined;
+    code!: string | undefined;
+
+    constructor(data?: IEpidemiologicInfoCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.family = data["family"];
+            this.code = data["code"];
+        }
+    }
+
+    static fromJS(data: any): EpidemiologicInfoCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new EpidemiologicInfoCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["code"] = this.code;
+        return data; 
+    }
+}
+
+export interface IEpidemiologicInfoCreateOrUpdateInput {
+    id: number | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    code: string | undefined;
+}
+
 export class FirmTypeListDto implements IFirmTypeListDto {
     name!: string | undefined;
     code!: string | undefined;
@@ -19680,6 +20553,402 @@ export class AcceptFriendshipRequestInput implements IAcceptFriendshipRequestInp
 export interface IAcceptFriendshipRequestInput {
     userId: number;
     tenantId: number | undefined;
+}
+
+export class HerdListDto implements IHerdListDto {
+    herdName!: string | undefined;
+    agriculturalId!: string | undefined;
+    code!: string | undefined;
+    institution!: string | undefined;
+    name!: string | undefined;
+    family!: string | undefined;
+    epidemiologicInfoCode!: string | undefined;
+    activityInfoName!: string | undefined;
+    contractorName!: string | undefined;
+    id!: number;
+
+    constructor(data?: IHerdListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.herdName = data["herdName"];
+            this.agriculturalId = data["agriculturalId"];
+            this.code = data["code"];
+            this.institution = data["institution"];
+            this.name = data["name"];
+            this.family = data["family"];
+            this.epidemiologicInfoCode = data["epidemiologicInfoCode"];
+            this.activityInfoName = data["activityInfoName"];
+            this.contractorName = data["contractorName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): HerdListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new HerdListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["herdName"] = this.herdName;
+        data["agriculturalId"] = this.agriculturalId;
+        data["code"] = this.code;
+        data["institution"] = this.institution;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["epidemiologicInfoCode"] = this.epidemiologicInfoCode;
+        data["activityInfoName"] = this.activityInfoName;
+        data["contractorName"] = this.contractorName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IHerdListDto {
+    herdName: string | undefined;
+    agriculturalId: string | undefined;
+    code: string | undefined;
+    institution: string | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    epidemiologicInfoCode: string | undefined;
+    activityInfoName: string | undefined;
+    contractorName: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfHerdListDto implements IPagedResultDtoOfHerdListDto {
+    totalCount!: number;
+    items!: HerdListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfHerdListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(HerdListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfHerdListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfHerdListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfHerdListDto {
+    totalCount: number;
+    items: HerdListDto[] | undefined;
+}
+
+export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
+    id!: number | undefined;
+    herdName!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    agriculturalId!: string | undefined;
+    activityStatus!: boolean;
+    licenseStatus!: boolean;
+    licenseNum!: string | undefined;
+    issueDate!: moment.Moment | undefined;
+    validityDate!: moment.Moment | undefined;
+    iranian!: boolean;
+    reality!: boolean;
+    code!: string | undefined;
+    nationalCode!: string | undefined;
+    birthDate!: moment.Moment;
+    name!: string | undefined;
+    family!: string | undefined;
+    mobile!: string | undefined;
+    phone!: string | undefined;
+    address!: string | undefined;
+    epidemiologicInfoId!: number | undefined;
+    unionInfoId!: number | undefined;
+    activityInfoId!: number | undefined;
+    contractorId!: number | undefined;
+    stateInfoId!: number | undefined;
+    cityInfoId!: number | undefined;
+    regionInfoId!: number | undefined;
+    villageInfoId!: number | undefined;
+
+    constructor(data?: IHerdCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.herdName = data["herdName"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.agriculturalId = data["agriculturalId"];
+            this.activityStatus = data["activityStatus"];
+            this.licenseStatus = data["licenseStatus"];
+            this.licenseNum = data["licenseNum"];
+            this.issueDate = data["issueDate"] ? moment(data["issueDate"].toString()) : <any>undefined;
+            this.validityDate = data["validityDate"] ? moment(data["validityDate"].toString()) : <any>undefined;
+            this.iranian = data["iranian"];
+            this.reality = data["reality"];
+            this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.name = data["name"];
+            this.family = data["family"];
+            this.mobile = data["mobile"];
+            this.phone = data["phone"];
+            this.address = data["address"];
+            this.epidemiologicInfoId = data["epidemiologicInfoId"];
+            this.unionInfoId = data["unionInfoId"];
+            this.activityInfoId = data["activityInfoId"];
+            this.contractorId = data["contractorId"];
+            this.stateInfoId = data["stateInfoId"];
+            this.cityInfoId = data["cityInfoId"];
+            this.regionInfoId = data["regionInfoId"];
+            this.villageInfoId = data["villageInfoId"];
+        }
+    }
+
+    static fromJS(data: any): HerdCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new HerdCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["herdName"] = this.herdName;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["agriculturalId"] = this.agriculturalId;
+        data["activityStatus"] = this.activityStatus;
+        data["licenseStatus"] = this.licenseStatus;
+        data["licenseNum"] = this.licenseNum;
+        data["issueDate"] = this.issueDate ? this.issueDate.toISOString() : <any>undefined;
+        data["validityDate"] = this.validityDate ? this.validityDate.toISOString() : <any>undefined;
+        data["iranian"] = this.iranian;
+        data["reality"] = this.reality;
+        data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["mobile"] = this.mobile;
+        data["phone"] = this.phone;
+        data["address"] = this.address;
+        data["epidemiologicInfoId"] = this.epidemiologicInfoId;
+        data["unionInfoId"] = this.unionInfoId;
+        data["activityInfoId"] = this.activityInfoId;
+        data["contractorId"] = this.contractorId;
+        data["stateInfoId"] = this.stateInfoId;
+        data["cityInfoId"] = this.cityInfoId;
+        data["regionInfoId"] = this.regionInfoId;
+        data["villageInfoId"] = this.villageInfoId;
+        return data; 
+    }
+}
+
+export interface IHerdCreateOrUpdateInput {
+    id: number | undefined;
+    herdName: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    agriculturalId: string | undefined;
+    activityStatus: boolean;
+    licenseStatus: boolean;
+    licenseNum: string | undefined;
+    issueDate: moment.Moment | undefined;
+    validityDate: moment.Moment | undefined;
+    iranian: boolean;
+    reality: boolean;
+    code: string | undefined;
+    nationalCode: string | undefined;
+    birthDate: moment.Moment;
+    name: string | undefined;
+    family: string | undefined;
+    mobile: string | undefined;
+    phone: string | undefined;
+    address: string | undefined;
+    epidemiologicInfoId: number | undefined;
+    unionInfoId: number | undefined;
+    activityInfoId: number | undefined;
+    contractorId: number | undefined;
+    stateInfoId: number | undefined;
+    cityInfoId: number | undefined;
+    regionInfoId: number | undefined;
+    villageInfoId: number | undefined;
+}
+
+export class GetHerdForEditOutput implements IGetHerdForEditOutput {
+    herd!: HerdCreateOrUpdateInput;
+    epidemiologicInfos!: ComboboxItemDto[] | undefined;
+    stateInfos!: ComboboxItemDto[] | undefined;
+    cityInfos!: ComboboxItemDto[] | undefined;
+    regionInfos!: ComboboxItemDto[] | undefined;
+    villageInfos!: ComboboxItemDto[] | undefined;
+    unionInfos!: ComboboxItemDto[] | undefined;
+    activityInfos!: ComboboxItemDto[] | undefined;
+    contractors!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IGetHerdForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.herd = data["herd"] ? HerdCreateOrUpdateInput.fromJS(data["herd"]) : <any>undefined;
+            if (Array.isArray(data["epidemiologicInfos"])) {
+                this.epidemiologicInfos = [] as any;
+                for (let item of data["epidemiologicInfos"])
+                    this.epidemiologicInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["cityInfos"])) {
+                this.cityInfos = [] as any;
+                for (let item of data["cityInfos"])
+                    this.cityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["regionInfos"])) {
+                this.regionInfos = [] as any;
+                for (let item of data["regionInfos"])
+                    this.regionInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["villageInfos"])) {
+                this.villageInfos = [] as any;
+                for (let item of data["villageInfos"])
+                    this.villageInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["unionInfos"])) {
+                this.unionInfos = [] as any;
+                for (let item of data["unionInfos"])
+                    this.unionInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["activityInfos"])) {
+                this.activityInfos = [] as any;
+                for (let item of data["activityInfos"])
+                    this.activityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["contractors"])) {
+                this.contractors = [] as any;
+                for (let item of data["contractors"])
+                    this.contractors!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetHerdForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetHerdForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["herd"] = this.herd ? this.herd.toJSON() : <any>undefined;
+        if (Array.isArray(this.epidemiologicInfos)) {
+            data["epidemiologicInfos"] = [];
+            for (let item of this.epidemiologicInfos)
+                data["epidemiologicInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.cityInfos)) {
+            data["cityInfos"] = [];
+            for (let item of this.cityInfos)
+                data["cityInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.regionInfos)) {
+            data["regionInfos"] = [];
+            for (let item of this.regionInfos)
+                data["regionInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.villageInfos)) {
+            data["villageInfos"] = [];
+            for (let item of this.villageInfos)
+                data["villageInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.unionInfos)) {
+            data["unionInfos"] = [];
+            for (let item of this.unionInfos)
+                data["unionInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.activityInfos)) {
+            data["activityInfos"] = [];
+            for (let item of this.activityInfos)
+                data["activityInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.contractors)) {
+            data["contractors"] = [];
+            for (let item of this.contractors)
+                data["contractors"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetHerdForEditOutput {
+    herd: HerdCreateOrUpdateInput;
+    epidemiologicInfos: ComboboxItemDto[] | undefined;
+    stateInfos: ComboboxItemDto[] | undefined;
+    cityInfos: ComboboxItemDto[] | undefined;
+    regionInfos: ComboboxItemDto[] | undefined;
+    villageInfos: ComboboxItemDto[] | undefined;
+    unionInfos: ComboboxItemDto[] | undefined;
+    activityInfos: ComboboxItemDto[] | undefined;
+    contractors: ComboboxItemDto[] | undefined;
 }
 
 export class TopStatsData implements ITopStatsData {
@@ -21512,6 +22781,290 @@ export interface IUpdateLanguageTextInput {
     sourceName: string | undefined;
     key: string | undefined;
     value: string | undefined;
+}
+
+export class LivestockListDto implements ILivestockListDto {
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    imported!: boolean;
+    birthDate!: moment.Moment;
+    speciesInfoName!: string | undefined;
+    sexInfoName!: string | undefined;
+    herdName!: string | undefined;
+    activityInfoName!: string | undefined;
+    officerName!: string | undefined;
+    id!: number;
+
+    constructor(data?: ILivestockListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.imported = data["imported"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.speciesInfoName = data["speciesInfoName"];
+            this.sexInfoName = data["sexInfoName"];
+            this.herdName = data["herdName"];
+            this.activityInfoName = data["activityInfoName"];
+            this.officerName = data["officerName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): LivestockListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LivestockListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["imported"] = this.imported;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["speciesInfoName"] = this.speciesInfoName;
+        data["sexInfoName"] = this.sexInfoName;
+        data["herdName"] = this.herdName;
+        data["activityInfoName"] = this.activityInfoName;
+        data["officerName"] = this.officerName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ILivestockListDto {
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    imported: boolean;
+    birthDate: moment.Moment;
+    speciesInfoName: string | undefined;
+    sexInfoName: string | undefined;
+    herdName: string | undefined;
+    activityInfoName: string | undefined;
+    officerName: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfLivestockListDto implements IPagedResultDtoOfLivestockListDto {
+    totalCount!: number;
+    items!: LivestockListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfLivestockListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(LivestockListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfLivestockListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfLivestockListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfLivestockListDto {
+    totalCount: number;
+    items: LivestockListDto[] | undefined;
+}
+
+export class LivestockCreateOrUpdateInput implements ILivestockCreateOrUpdateInput {
+    id!: number | undefined;
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    imported!: boolean;
+    birthDate!: moment.Moment;
+    speciesInfoId!: number | undefined;
+    sexInfoId!: number | undefined;
+    herdId!: number | undefined;
+    activityInfoId!: number | undefined;
+    officerId!: number | undefined;
+
+    constructor(data?: ILivestockCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.imported = data["imported"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.speciesInfoId = data["speciesInfoId"];
+            this.sexInfoId = data["sexInfoId"];
+            this.herdId = data["herdId"];
+            this.activityInfoId = data["activityInfoId"];
+            this.officerId = data["officerId"];
+        }
+    }
+
+    static fromJS(data: any): LivestockCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new LivestockCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["imported"] = this.imported;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["speciesInfoId"] = this.speciesInfoId;
+        data["sexInfoId"] = this.sexInfoId;
+        data["herdId"] = this.herdId;
+        data["activityInfoId"] = this.activityInfoId;
+        data["officerId"] = this.officerId;
+        return data; 
+    }
+}
+
+export interface ILivestockCreateOrUpdateInput {
+    id: number | undefined;
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    imported: boolean;
+    birthDate: moment.Moment;
+    speciesInfoId: number | undefined;
+    sexInfoId: number | undefined;
+    herdId: number | undefined;
+    activityInfoId: number | undefined;
+    officerId: number | undefined;
+}
+
+export class GetLivestockForEditOutput implements IGetLivestockForEditOutput {
+    livestock!: LivestockCreateOrUpdateInput;
+    speciesInfos!: ComboboxItemDto[] | undefined;
+    sexInfos!: ComboboxItemDto[] | undefined;
+    herds!: ComboboxItemDto[] | undefined;
+    activityInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IGetLivestockForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.livestock = data["livestock"] ? LivestockCreateOrUpdateInput.fromJS(data["livestock"]) : <any>undefined;
+            if (Array.isArray(data["speciesInfos"])) {
+                this.speciesInfos = [] as any;
+                for (let item of data["speciesInfos"])
+                    this.speciesInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["sexInfos"])) {
+                this.sexInfos = [] as any;
+                for (let item of data["sexInfos"])
+                    this.sexInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["herds"])) {
+                this.herds = [] as any;
+                for (let item of data["herds"])
+                    this.herds!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["activityInfos"])) {
+                this.activityInfos = [] as any;
+                for (let item of data["activityInfos"])
+                    this.activityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetLivestockForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetLivestockForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["livestock"] = this.livestock ? this.livestock.toJSON() : <any>undefined;
+        if (Array.isArray(this.speciesInfos)) {
+            data["speciesInfos"] = [];
+            for (let item of this.speciesInfos)
+                data["speciesInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.sexInfos)) {
+            data["sexInfos"] = [];
+            for (let item of this.sexInfos)
+                data["sexInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.herds)) {
+            data["herds"] = [];
+            for (let item of this.herds)
+                data["herds"].push(item.toJSON());
+        }
+        if (Array.isArray(this.activityInfos)) {
+            data["activityInfos"] = [];
+            for (let item of this.activityInfos)
+                data["activityInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetLivestockForEditOutput {
+    livestock: LivestockCreateOrUpdateInput;
+    speciesInfos: ComboboxItemDto[] | undefined;
+    sexInfos: ComboboxItemDto[] | undefined;
+    herds: ComboboxItemDto[] | undefined;
+    activityInfos: ComboboxItemDto[] | undefined;
 }
 
 export enum UserNotificationState {

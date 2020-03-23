@@ -1,21 +1,21 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { FirmTypeServiceProxy, FirmTypeCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { EpidemiologicInfoServiceProxy, EpidemiologicInfoCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-    selector: 'createOrEditFirmTypeModal',
-    templateUrl: './create-or-edit-firmType-modal.component.html'
+    selector: 'createOrEditEpidemiologicInfoModal',
+    templateUrl: './create-or-edit-epidemiologicInfo-modal.component.html'
 })
-export class CreateOrEditFirmTypeModalComponent extends AppComponentBase {
+export class CreateOrEditEpidemiologicInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    firmType: FirmTypeCreateOrUpdateInput = new FirmTypeCreateOrUpdateInput();
+    epidemiologicInfo: EpidemiologicInfoCreateOrUpdateInput = new EpidemiologicInfoCreateOrUpdateInput();
 
     active: boolean = false;
     saving: boolean = false;
@@ -23,25 +23,26 @@ export class CreateOrEditFirmTypeModalComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _firmTypeService: FirmTypeServiceProxy
+        private _epidemiologicInfoService: EpidemiologicInfoServiceProxy
     ) {
         super(injector);
     }
 
-    show(firmTypeId?: number,editdisabled?: boolean): void {        
-        if (!firmTypeId) {
+    show(epidemiologicInfoId?: number,editdisabled?: boolean): void {        
+        if (!epidemiologicInfoId) {
             this.active = true;
         }
         this.editdisabled = true;
         if (!editdisabled) {
             this.editdisabled = false;
         }
-        this._firmTypeService.getFirmTypeForEdit(firmTypeId).subscribe(userResult => {
-            this.firmType.name = userResult.name;
-            this.firmType.code = userResult.code;
-            this.firmType.id =  firmTypeId;
+        this._epidemiologicInfoService.getEpidemiologicInfoForEdit(epidemiologicInfoId).subscribe(userResult => {
+            this.epidemiologicInfo.name = userResult.name;
+            this.epidemiologicInfo.family = userResult.family;
+            this.epidemiologicInfo.code = userResult.code;
+            this.epidemiologicInfo.id =  epidemiologicInfoId;
 
-            if (firmTypeId) {
+            if (epidemiologicInfoId) {
                 this.active = true;
             }
 
@@ -56,12 +57,12 @@ export class CreateOrEditFirmTypeModalComponent extends AppComponentBase {
 
     save(): void {
         this.saving = true;
-        this._firmTypeService.createOrUpdateFirmType(this.firmType)
+        this._epidemiologicInfoService.createOrUpdateEpidemiologicInfo(this.epidemiologicInfo)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
-                this.modalSave.emit(this.firmType);
+                this.modalSave.emit(this.epidemiologicInfo);
             });
     }
 
