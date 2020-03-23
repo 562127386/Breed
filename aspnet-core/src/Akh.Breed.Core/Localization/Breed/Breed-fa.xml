@@ -986,6 +986,7 @@
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
+    <text name="Livestock">اطلاعات دام</text>
     <text name="Herd">اطلاعات گله</text>
     <text name="EpidemiologicInfo">اپیدمولوژیک</text>
     <text name="SexInfo">جنسیت دام</text>
@@ -1013,6 +1014,12 @@
     <text name="AcademicDegreeHeaderInfo">مدیریت مقطع تحصیلی</text>
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
+
+    <text name="CreateNewLivestock">ایجاد دام</text>
+    <text name="AreYouSureToDeleteTheLivestock">آیا از حذف دام {0} مطمئن هستید؟</text>
+    <text name="LivestockHeaderInfo">مدیریت دام</text>
+    <text name="ViewNewLivestock">نمایش دام</text>
+    <text name="EditNewLivestock">ویرایش دام</text>
 
     <text name="CreateNewHerd">ایجاد گله</text>
     <text name="AreYouSureToDeleteTheHerd">آیا از حذف گله {0} مطمئن هستید؟</text>
@@ -1096,6 +1103,7 @@
     <text name="WorkNumber">تلفن محل کار</text>
     <text name="MobileNumber">تلفن همراه</text>
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
+    <text name="LivestockName">اطلاعات دام</text>
     <text name="HerdName">نام گله</text>
     <text name="EpidemiologicInfoName">اپیدمولوژیک</text>
     <text name="StateInfoName">استان</text>
