@@ -22,26 +22,22 @@ namespace Akh.Breed.Herds
         
         public string Longitude { get; set; }
 
-        [Required]
         public string AgriculturalId { get; set; }
 
-        [Required]
         public bool ActivityStatus { get; set; }
 
-        [Required]
         public bool LicenseStatus { get; set; }
 
-        [Required]
+        public string Institution { get; set; }
+        
         public string LicenseNum { get; set; }
 
         public DateTime? IssueDate { get; set; }
         
         public DateTime? ValidityDate { get; set; }
 
-        [Required]
         public bool Iranian { get; set; }
 
-        [Required]
         public bool Reality { get; set; }
 
         public string Code { get; set; }
@@ -49,8 +45,7 @@ namespace Akh.Breed.Herds
         [Required]
         public string NationalCode { get; set; }
 
-        [Required]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -58,7 +53,6 @@ namespace Akh.Breed.Herds
         [Required]
         public string Family { get; set; }
 
-        [Required]
         public string Mobile { get; set; }
         
         public string Phone { get; set; }

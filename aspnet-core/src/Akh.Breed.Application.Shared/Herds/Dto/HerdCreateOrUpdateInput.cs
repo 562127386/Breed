@@ -21,6 +21,8 @@ namespace Akh.Breed.Herds.Dto
 
         public string LicenseNum { get; set; }
 
+        public string Institution { get; set; }
+        
         public DateTime? IssueDate { get; set; }
         
         public DateTime? ValidityDate { get; set; }
@@ -33,7 +35,7 @@ namespace Akh.Breed.Herds.Dto
         
         public string NationalCode { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public string Name { get; set; }
 

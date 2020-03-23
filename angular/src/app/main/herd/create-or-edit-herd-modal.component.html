@@ -1,0 +1,317 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #herdForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header kt-bg-brand">
+                    <h4 class="modal-title">
+                        <span *ngIf="herd.id && editdisabled">{{"ViewNewHerd" | localize}}: {{herd.name}}</span>
+                        <span *ngIf="herd.id && !editdisabled">{{"EditNewHerd" | localize}}: {{herd.name}}</span>
+                        <span *ngIf="!herd.id">{{"CreateNewHerd" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p-fieldset class="col-sm-12" [legend]="l('HerdInfo')" [toggleable]="true">
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"StateInfoName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                    <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
+                                                    name="stateInfoId" [(ngModel)]="herd.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"CityInfoName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getRegions($event.value)"
+                                                name="cityInfoId" [(ngModel)]="herd.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                            <validation-messages [formCtrl]="cityInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"RegionInfoName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #regionInfoCombobox [options]="regionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getVillages($event.value)"
+                                                    name="regionInfoId" [(ngModel)]="herd.regionInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="regionInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"VillageInfoName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #villageInfoCombobox [options]="villageInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setInstitution($event.value)"
+                                                    name="villageInfoId" [(ngModel)]="herd.villageInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="villageInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>        
+                                </div>
+                                <div class="row">
+                                    
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Institution" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #institutionInput="ngModel" readonly [(ngModel)]="herd.institution" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Institution' | localize}} *" name="institution" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="institutionInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"SubInstitution" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #unionInfoCombobox [options]="unionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="unionInfoId" [(ngModel)]="herd.unionInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="unionInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>                                                                
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Contractor" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #contractorCombobox [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                                    name="contractorId" [(ngModel)]="herd.contractorId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="contractorCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"HerdName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #herdNameInput="ngModel" [(ngModel)]="herd.herdName" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'HerdName' | localize}} *"  pattern="[^0-9]*" name="herdName" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="herdNameInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Latitude" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #latitudeInput="ngModel" class="form-control" type="text" placeholder="{{'Latitude' | localize}}" [(ngModel)]="herd.latitude" name="latitude" maxlength="256" pattern="^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$" />
+                                                <validation-messages [formCtrl]="latitudeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Longitude" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #longitudeInput="ngModel" class="form-control" type="longitude" placeholder="{{'Longitude' | localize}}" [(ngModel)]="herd.longitude" name="text" maxlength="256" pattern="^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$" />
+                                                <validation-messages [formCtrl]="longitudeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div>
+                        <div class="col-sm-12">
+                            <p-fieldset class="col-sm-12" [legend]="l('SubHerdInfo')" [toggleable]="true">
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"AgriculturalId" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #agriculturalIdInput="ngModel" [(ngModel)]="herd.agriculturalId" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'AgriculturalId' | localize}} *" name="agriculturalId" required maxlength="16"/>
+                                            <validation-messages [formCtrl]="agriculturalIdInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"ActivityInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #activityInfoCombobox [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                                    name="activityInfoId" [(ngModel)]="herd.activityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="activityInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="kt-checkbox-list">
+                                                <label for="activityStatus" class="kt-checkbox">
+                                                    <input id="activityStatus" type="checkbox" name="activityStatus" [(ngModel)]="herd.activityStatus">
+                                                    {{"ActivityStatus" | localize}}
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="kt-checkbox-list">
+                                                <label for="licenseStatus" class="kt-checkbox">
+                                                    <input id="licenseStatus" type="checkbox" name="licenseStatus" [(ngModel)]="herd.licenseStatus">
+                                                    {{"LicenseStatus" | localize}}
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="herd.licenseStatus">
+                                    <div class="form-group col-md-4 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"LicenseNum" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #licenseNumInput="ngModel" [(ngModel)]="herd.licenseNum" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'LicenseNum' | localize}} *" name="licenseNum" maxlength="16"/>
+                                            <validation-messages [formCtrl]="licenseNumInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"IssueDate" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <primeng-datepicker [style]="{'width':'100%'}" #issueDateInput="ngModel" name="issueDate" [(ngModel)]="herd.issueDate" [isJalali]="true" required></primeng-datepicker>
+                                                <validation-messages [formCtrl]="issueDateInput"></validation-messages>
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                    <div class="form-group col-md-4 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"ValidityDate" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <primeng-datepicker [style]="{'width':'100%'}" #validityDateInput="ngModel" name="validityDate" [(ngModel)]="herd.validityDate" [isJalali]="true" required></primeng-datepicker>
+                                                <validation-messages [formCtrl]="validityDateInput"></validation-messages>
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                </div>
+                            </p-fieldset>                                
+                        </div>
+                        <div class="col-sm-12">
+                            <p-fieldset class="col-sm-12" [legend]="l('LiveStockOwnerInfo')" [toggleable]="true">
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="kt-checkbox-list">
+                                                <label for="iranian" class="kt-checkbox">
+                                                    <input id="iranian" type="checkbox" name="iranian" [(ngModel)]="herd.iranian">
+                                                    {{"Iranian" | localize}}
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="kt-checkbox-list">
+                                                <label for="reality" class="kt-checkbox">
+                                                    <input id="reality" type="checkbox" name="reality" [(ngModel)]="herd.reality">
+                                                    {{"Reality" | localize}}
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="herd.nationalCode" type="text" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
+                                                <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BirthDate" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <primeng-datepicker [style]="{'width':'100%'}" #birthDateInput="ngModel" name="birthDate" [(ngModel)]="herd.birthDate" [isJalali]="true" required></primeng-datepicker>
+                                                <validation-messages [formCtrl]="birthDateInput"></validation-messages>
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                </div>                        
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Name" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #nameInput="ngModel" [(ngModel)]="herd.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *"  pattern="[^0-9]*" name="name" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Family" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #familyInput="ngModel" [(ngModel)]="herd.family" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Family' | localize}} *"  pattern="[^0-9]*" name="family" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="familyInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask [style]="{'width':'100%'}" #mobileInput="ngModel" mask="0-999-999-9999" [(ngModel)]="herd.mobile" type="text" autocomplete="new-password" name="mobile" placeholder="0-912-111-2233" length="11"></p-inputMask>
+                                                <validation-messages [formCtrl]="phoneInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Phone" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-99-9999-9999" [(ngModel)]="herd.phone" type="text" autocomplete="new-password" name="phone" placeholder="0-21-2111-2233" length="11"></p-inputMask>
+                                                <validation-messages [formCtrl]="phoneInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-2 col-sm-12">{{"Address" | localize}}</label>
+                                            <div class="col-md-10 col-sm-12">
+                                                <textarea rows="2" #addressInput="ngModel" [(ngModel)]="herd.address" pInputTextarea autoResize="autoResize" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Address' | localize}}" name="address" maxlength="512"></textarea>
+                                                <validation-messages [formCtrl]="addressInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </p-fieldset>
+                        </div>
+                    </div>
+                                                                        
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!herdForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

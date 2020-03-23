@@ -973,7 +973,6 @@
     <text name="PlaqueStore">انبار پلاک</text>
     <text name="BaseInfo">تعاریف پایه</text>
     <text name="BaseIntro">معرفی</text>
-    <text name="Herd">گله</text>
     <text name="IdentityInfo">هویت</text>
     <text name="PlaqueAllocation">تخصیص پلاک به مامور</text>
     <text name="Identification">نصب پلاک</text>
@@ -987,6 +986,7 @@
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
+    <text name="Herd">اطلاعات گله</text>
     <text name="EpidemiologicInfo">اپیدمولوژیک</text>
     <text name="SexInfo">جنسیت دام</text>
     <text name="FirmType">انواع شرکت</text>
@@ -1013,6 +1013,12 @@
     <text name="AcademicDegreeHeaderInfo">مدیریت مقطع تحصیلی</text>
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
+
+    <text name="CreateNewHerd">ایجاد گله</text>
+    <text name="AreYouSureToDeleteTheHerd">آیا از حذف گله {0} مطمئن هستید؟</text>
+    <text name="HerdHeaderInfo">مدیریت گله</text>
+    <text name="ViewNewHerd">نمایش گله</text>
+    <text name="EditNewHerd">ویرایش گله</text>
 
     <text name="CreateNewEpidemiologicInfo">ایجاد اپیدمولوژیک</text>
     <text name="AreYouSureToDeleteTheEpidemiologicInfo">آیا از حذف اپیدمولوژیک {0} مطمئن هستید؟</text>
@@ -1090,6 +1096,7 @@
     <text name="WorkNumber">تلفن محل کار</text>
     <text name="MobileNumber">تلفن همراه</text>
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
+    <text name="HerdName">نام گله</text>
     <text name="EpidemiologicInfoName">اپیدمولوژیک</text>
     <text name="StateInfoName">استان</text>
     <text name="CityInfoName">شهر</text>
@@ -1150,6 +1157,24 @@
     <text name="OfficerCode">کد مامور</text>
     <text name="OfficerName">نام مامور</text>
     <text name="OfficerFamily">نام خانوادگی</text>
+
+    <text name="HerdInfo">اطلاعات گله</text>
+    <text name="Latitude">عرض جغرافیایی</text>
+    <text name="Longitude">طول جغرافیایی</text>
+    <text name="SubHerdInfo">اطلاعات زیر واحد</text>
+    <text name="AgriculturalId">شناسه واحد کشاورزی</text>
+    <text name="ActivityStatus">شرکت فعال است</text>
+    <text name="LicenseStatus">شرکت پروانه دارد</text>
+    <text name="IssueDate">تاریخ صدور</text>
+    <text name="ValidityDate">تاریخ اعتبار</text>
+    <text name="LiveStockOwnerInfo">اطلاعات دامدار</text>
+    <text name="Iranian">شرکت ایرانی</text>
+    <text name="Reality">شرکت حقیقی</text>
+    <text name="Mobile">تلفن همراه</text>
+    <text name="EpidemiologicInfoCode">کد اپیدومیولوژیک</text>
+    <text name="ActivityInfoName">نوع فعالیت</text>
+    <text name="LicenseNum">شماره پروانه</text>
+
 
   </texts>
 </localizationDictionary>

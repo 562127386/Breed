@@ -41,6 +41,8 @@ import { PlaqueStoreComponent } from "./plaqueStore/plaqueStore.component";
 import { CreateOrEditPlaqueStoreModalComponent } from "./plaqueStore/create-or-edit-plaqueStore-modal.component";
 import { PlaqueOfficerComponent } from "./plaqueOfficer/plaqueOfficer.component";
 import { CreateOrEditPlaqueOfficerModalComponent } from "./plaqueOfficer/create-or-edit-plaqueOfficer-modal.component";
+import { HerdComponent } from "./herd/herd.component";
+import { CreateOrEditHerdModalComponent } from "./herd/create-or-edit-herd-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { EditorModule } from 'primeng/editor';
 import { FileUploadModule as PrimeNgFileUploadModule } from 'primeng/fileupload';
@@ -128,7 +130,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         PlaqueStoreComponent,
         CreateOrEditPlaqueStoreModalComponent,
         PlaqueOfficerComponent,
-        CreateOrEditPlaqueOfficerModalComponent
+        CreateOrEditPlaqueOfficerModalComponent,
+        HerdComponent,
+        CreateOrEditHerdModalComponent
     
     ],
     providers: [

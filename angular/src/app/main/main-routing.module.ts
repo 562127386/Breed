@@ -19,6 +19,7 @@ import { AcademicDegreeComponent } from './academicDegree/academicDegree.compone
 import { EpidemiologicInfoComponent } from './epidemiologicInfo/epidemiologicInfo.component';
 import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
 import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component';
+import { HerdComponent } from './herd/herd.component';
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component'
                     { path: 'academicDegree', component: AcademicDegreeComponent },
                     { path: 'epidemiologicInfo', component: EpidemiologicInfoComponent },
                     { path: 'plaqueStore', component: PlaqueStoreComponent },
-                    { path: 'plaqueOfficer', component: PlaqueOfficerComponent }
+                    { path: 'plaqueOfficer', component: PlaqueOfficerComponent },
+                    { path: 'herd', component: HerdComponent }
 
                 ]
             }

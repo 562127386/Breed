@@ -20684,13 +20684,14 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
     activityStatus!: boolean;
     licenseStatus!: boolean;
     licenseNum!: string | undefined;
+    institution!: string | undefined;
     issueDate!: moment.Moment | undefined;
     validityDate!: moment.Moment | undefined;
     iranian!: boolean;
     reality!: boolean;
     code!: string | undefined;
     nationalCode!: string | undefined;
-    birthDate!: moment.Moment;
+    birthDate!: moment.Moment | undefined;
     name!: string | undefined;
     family!: string | undefined;
     mobile!: string | undefined;
@@ -20724,6 +20725,7 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
             this.activityStatus = data["activityStatus"];
             this.licenseStatus = data["licenseStatus"];
             this.licenseNum = data["licenseNum"];
+            this.institution = data["institution"];
             this.issueDate = data["issueDate"] ? moment(data["issueDate"].toString()) : <any>undefined;
             this.validityDate = data["validityDate"] ? moment(data["validityDate"].toString()) : <any>undefined;
             this.iranian = data["iranian"];
@@ -20764,6 +20766,7 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
         data["activityStatus"] = this.activityStatus;
         data["licenseStatus"] = this.licenseStatus;
         data["licenseNum"] = this.licenseNum;
+        data["institution"] = this.institution;
         data["issueDate"] = this.issueDate ? this.issueDate.toISOString() : <any>undefined;
         data["validityDate"] = this.validityDate ? this.validityDate.toISOString() : <any>undefined;
         data["iranian"] = this.iranian;
@@ -20797,13 +20800,14 @@ export interface IHerdCreateOrUpdateInput {
     activityStatus: boolean;
     licenseStatus: boolean;
     licenseNum: string | undefined;
+    institution: string | undefined;
     issueDate: moment.Moment | undefined;
     validityDate: moment.Moment | undefined;
     iranian: boolean;
     reality: boolean;
     code: string | undefined;
     nationalCode: string | undefined;
-    birthDate: moment.Moment;
+    birthDate: moment.Moment | undefined;
     name: string | undefined;
     family: string | undefined;
     mobile: string | undefined;
