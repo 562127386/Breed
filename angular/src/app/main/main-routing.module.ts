@@ -20,6 +20,7 @@ import { EpidemiologicInfoComponent } from './epidemiologicInfo/epidemiologicInf
 import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
 import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component';
 import { HerdComponent } from './herd/herd.component';
+import { LivestockComponent } from './livestock/livestock.component';
 
 @NgModule({
     imports: [
@@ -47,7 +48,8 @@ import { HerdComponent } from './herd/herd.component';
                     { path: 'epidemiologicInfo', component: EpidemiologicInfoComponent },
                     { path: 'plaqueStore', component: PlaqueStoreComponent },
                     { path: 'plaqueOfficer', component: PlaqueOfficerComponent },
-                    { path: 'herd', component: HerdComponent }
+                    { path: 'herd', component: HerdComponent },
+                    { path: 'livestock', component: LivestockComponent }
 
                 ]
             }

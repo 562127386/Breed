@@ -19,26 +19,20 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('nameInput' , { static: false }) nameInput: ElementRef;    
-    @ViewChild('epidemiologicInfoCombobox', { static: true }) epidemiologicInfoCombobox: ElementRef;
-    @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
+    @ViewChild('speciesInfoCombobox', { static: true }) speciesInfoCombobox: ElementRef;
+    @ViewChild('sexInfoCombobox', { static: true }) sexInfoCombobox: ElementRef;
     @ViewChild('cityInfoCombobox', { static: true }) cityInfoCombobox: ElementRef;
-    @ViewChild('regionInfoCombobox', { static: true }) regionInfoCombobox: ElementRef;
-    @ViewChild('villageInfoCombobox', { static: true }) villageInfoCombobox: ElementRef;
-    @ViewChild('unionInfoCombobox', { static: true }) unionInfoCombobox: ElementRef;
+    @ViewChild('herdCombobox', { static: true }) herdCombobox: ElementRef;
     @ViewChild('activityInfoCombobox', { static: true }) activityInfoCombobox: ElementRef;
-    @ViewChild('contractorCombobox', { static: true }) contractorCombobox: ElementRef;
     
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     livestock: LivestockCreateOrUpdateInput = new LivestockCreateOrUpdateInput();    
-    epidemiologicInfosSelectItems: SelectItem[] = [];
-    stateInfosSelectItems: SelectItem[] = [];
-    cityInfosSelectItems: SelectItem[] = [];
-    regionInfosSelectItems: SelectItem[] = [];
-    villageInfosSelectItems: SelectItem[] = [];
-    unionInfosSelectItems: SelectItem[] = [];
+    speciesInfosSelectItems: SelectItem[] = [];
+    sexInfosSelectItems: SelectItem[] = [];
+    herdsSelectItems: SelectItem[] = [];
     activityInfosSelectItems: SelectItem[] = [];
-    contractorsSelectItems: SelectItem[] = [];
+    sSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
@@ -46,10 +40,7 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _livestockService: LivestockServiceProxy,
-        private _villageInfoService: VillageInfoServiceProxy,
-        private _cityInfoService : CityInfoServiceProxy,
-        private _regionInfoService : RegionInfoServiceProxy
+        private _livestockService: LivestockServiceProxy
     ) {
         super(injector);
     }
@@ -65,51 +56,27 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         this._livestockService.getLivestockForEdit(livestockId).subscribe(userResult => {
             this.livestock = userResult.livestock;
             
-            this.epidemiologicInfosSelectItems = _.map(userResult.epidemiologicInfos, function(epidemiologicInfo) {
+            this.speciesInfosSelectItems = _.map(userResult.speciesInfos, function(speciesInfo) {
                 return {
-                    label: epidemiologicInfo.displayText, value: Number(epidemiologicInfo.value)
+                    label: speciesInfo.displayText, value: Number(speciesInfo.value)
                 };
             });
 
-            this.stateInfosSelectItems = _.map(userResult.stateInfos, function(stateInfo) {
+            this.sexInfosSelectItems = _.map(userResult.sexInfos, function(sexInfo) {
                 return {
-                    label: stateInfo.displayText, value: Number(stateInfo.value)
+                    label: sexInfo.displayText, value: Number(sexInfo.value)
                 };
             });
 
-            this.cityInfosSelectItems = _.map(userResult.cityInfos, function(cityInfo) {
+            this.herdsSelectItems = _.map(userResult.herds, function(herd) {
                 return {
-                    label: cityInfo.displayText, value: Number(cityInfo.value)
-                };
-            });
-
-            this.regionInfosSelectItems = _.map(userResult.regionInfos, function(regionInfo) {
-                return {
-                    label: regionInfo.displayText, value: Number(regionInfo.value)
+                    label: herd.displayText, value: Number(herd.value)
                 };
             });
             
-            this.villageInfosSelectItems = _.map(userResult.villageInfos, function(villageInfo) {
-                return {
-                    label: villageInfo.displayText, value: Number(villageInfo.value)
-                };
-            });
-
-            this.unionInfosSelectItems = _.map(userResult.unionInfos, function(unionInfo) {
-                return {
-                    label: unionInfo.displayText, value: Number(unionInfo.value)
-                };
-            });
-
             this.activityInfosSelectItems = _.map(userResult.activityInfos, function(activityInfo) {
                 return {
                     label: activityInfo.displayText, value: Number(activityInfo.value)
-                };
-            });
-
-            this.contractorsSelectItems = _.map(userResult.contractors, function(contractor) {
-                return {
-                    label: contractor.displayText, value: Number(contractor.value)
                 };
             });
 
@@ -131,13 +98,7 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         input = this.livestock;
         if(this.livestock.birthDate != undefined){        
             input.birthDate = moment(this.livestock.birthDate.locale('en'));
-        }
-        if(this.livestock.issueDate != undefined){
-            input.issueDate = moment(this.livestock.issueDate.locale('en'));
-        }
-        if(this.livestock.validityDate != undefined){
-            input.validityDate = moment(this.livestock.validityDate.locale('en'));
-        }
+        }        
         this.saving = true;
         this._livestockService.createOrUpdateLivestock(input)
             .pipe(finalize(() => this.saving = false))
@@ -152,60 +113,6 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         this.active = false;
         this.editdisabled = true;
         this.modal.hide();
-    }
-
-    getCities(stateInfoId: string): void {  
-
-        this._cityInfoService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
-            
-            this.cityInfosSelectItems = _.map(userResult, function(cityInfo) {
-                return {
-                    label: cityInfo.displayText, value: Number(cityInfo.value)
-                };
-            });
-
-        });
-        this.regionInfosSelectItems = [];
-        this.villageInfosSelectItems = [];
-        this.livestock.institution = '';        
-    }
-
-    getRegions(cityInfoId: string): void {  
-
-        this._regionInfoService.getForCombo(Number(cityInfoId)).subscribe(userResult => {
-            
-            this.regionInfosSelectItems = _.map(userResult, function(regionInfo) {
-                return {
-                    label: regionInfo.displayText, value: Number(regionInfo.value)
-                };
-            });
-
-        });
-        
-        this.villageInfosSelectItems = [];
-        this.livestock.institution = '';        
-    }
-
-    getVillages(regionInfoId: string): void {  
-
-        this._villageInfoService.getForCombo(Number(regionInfoId)).subscribe(userResult => {
-            
-            this.villageInfosSelectItems = _.map(userResult, function(villageInfo) {
-                return {
-                    label: villageInfo.displayText, value: Number(villageInfo.value)
-                };
-            });
-
-        });
-
-        this.livestock.institution = '';
-    }
-
-    setInstitution(villageInfoId: string): void {
-
-        this._villageInfoService.getCode(Number(villageInfoId)).subscribe(userResult => {            
-            this.livestock.institution = userResult;
-        });
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
@@ -89,6 +91,8 @@ namespace Akh.Breed.Livestocks
         
         public async Task CreateOrUpdateLivestock(LivestockCreateOrUpdateInput input)
         {
+            await CheckValidation(input);
+            
             if (input.Id.HasValue)
             {
                 await UpdateLivestockAsync(input);
@@ -130,5 +134,18 @@ namespace Akh.Breed.Livestocks
 
             return query;
         }        
+        
+        private async Task CheckValidation(LivestockCreateOrUpdateInput input)
+        {
+            var species = _speciesInfoRepository.Get(input.SpeciesInfoId.Value);
+            long nationalCode = Convert.ToInt64(input.NationalCode);
+            if ( nationalCode < species.FromCode || nationalCode > species.ToCode)
+            {
+                throw new UserFriendlyException(L("ThisCodeRangeShouldBe", species.Name,species.FromCode, species.ToCode));
+            }
+
+            //throw new UserFriendlyException(L("ThisCodeRangeHasOverlap",existingObj.FromCode, existingObj.ToCode));
+
+        }
    }
 }

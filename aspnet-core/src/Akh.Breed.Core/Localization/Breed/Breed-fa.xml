@@ -1182,6 +1182,8 @@
     <text name="EpidemiologicInfoCode">کد اپیدومیولوژیک</text>
     <text name="ActivityInfoName">نوع فعالیت</text>
     <text name="LicenseNum">شماره پروانه</text>
+    <text name="SpeciesInfoName">گونه</text>
+    <text name="SexInfoName">جنسیت</text>
 
 
   </texts>

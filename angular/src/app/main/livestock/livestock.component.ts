@@ -68,7 +68,7 @@ export class LivestockComponent extends AppComponentBase implements AfterViewIni
 
     deleteLivestock(livestock: LivestockListDto): void {
         this.message.confirm(
-            this.l('AreYouSureToDeleteTheLivestock', livestock.name),            
+            this.l('AreYouSureToDeleteTheLivestock', livestock.nationalCode),            
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {

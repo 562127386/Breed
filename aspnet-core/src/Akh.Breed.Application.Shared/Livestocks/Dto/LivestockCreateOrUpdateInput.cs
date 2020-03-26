@@ -15,7 +15,7 @@ namespace Akh.Breed.Livestocks.Dto
 
         public bool Imported { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         
         public int? SpeciesInfoId { get; set; }
 
