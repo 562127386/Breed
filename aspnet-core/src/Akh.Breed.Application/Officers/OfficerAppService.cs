@@ -7,10 +7,14 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Zero.Configuration;
+using Akh.Breed.Authorization.Users;
+using Akh.Breed.Authorization.Users.Dto;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
 using Akh.Breed.Officers.Dto;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Officers
@@ -21,13 +25,15 @@ namespace Akh.Breed.Officers
         private readonly IRepository<AcademicDegree> _academicDegreeRepository;
         private readonly IRepository<StateInfo> _stateInfoRepository;
         private readonly IRepository<Contractor> _contractorRepository;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public OfficerAppService(IRepository<Officer> officerRepository, IRepository<AcademicDegree> academicDegreeRepository, IRepository<StateInfo> stateInfoRepository, IRepository<Contractor> contractorRepository)
+        public OfficerAppService(IRepository<Officer> officerRepository, IRepository<AcademicDegree> academicDegreeRepository, IRepository<StateInfo> stateInfoRepository, IRepository<Contractor> contractorRepository, IPasswordHasher<User> passwordHasher)
         {
             _officerRepository = officerRepository;
             _academicDegreeRepository = academicDegreeRepository;
             _stateInfoRepository = stateInfoRepository;
             _contractorRepository = contractorRepository;
+            _passwordHasher = passwordHasher;
         }
         public async Task<PagedResultDto<OfficerListDto>> GetOfficer(GetOfficerInput input)
         {
@@ -105,7 +111,23 @@ namespace Akh.Breed.Officers
         
         private async Task CreateOfficerAsync(OfficerCreateOrUpdateInput input)
         {
+            var nationalCode = input.NationalCode.Replace("-", "");
+            var user = new User
+            {
+                IsActive = true,
+                ShouldChangePasswordOnNextLogin = true,
+                UserName = nationalCode,
+                EmailAddress = nationalCode + "@mgnsys.ir",
+                Name = input.Name,
+                Surname = input.Family
+            };
+            user.Password = _passwordHasher.HashPassword(user, nationalCode);
+            CheckErrors(await UserManager.CreateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            var a = user.ToUserIdentifier().UserId;
             var officer = ObjectMapper.Map<Officer>(input);
+            officer.UserId = a;
             await _officerRepository.InsertAsync(officer);
         }
         

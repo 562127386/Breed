@@ -1,9 +1,7 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { LivestockServiceProxy, LivestockCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
-import { VillageInfoServiceProxy } from '@shared/service-proxies/service-proxies';
-import { CityInfoServiceProxy } from '@shared/service-proxies/service-proxies';
-import { RegionInfoServiceProxy } from '@shared/service-proxies/service-proxies';
+import { SpeciesInfoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
@@ -37,10 +35,13 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
     active: boolean = false;
     saving: boolean = false;
     editdisabled: boolean = false;
+    codeMask: string = '0';
+    codePlaceHolder: string = '0';
 
     constructor(
         injector: Injector,
-        private _livestockService: LivestockServiceProxy
+        private _livestockService: LivestockServiceProxy,
+        private _speciesInfoService: SpeciesInfoServiceProxy
     ) {
         super(injector);
     }
@@ -83,14 +84,13 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
             if (livestockId) {
                 this.active = true;
             }
-
+            this.getUserLocation();
             this.modal.show();
         });
         
     }
 
-    onShown(): void {
-        // this.nameInput.nativeElement.focus();
+    onShown(): void {        
     }
 
     save(): void {
@@ -115,4 +115,44 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         this.modal.hide();
     }
 
+    setCodeMask(speciesId : number): void {
+        let speciesCode: string = '';
+        this.codeMask = '0';
+        this.codePlaceHolder = '0';
+        this._speciesInfoService.getCodeRange(speciesId).subscribe(userResult => {
+            this.codeMask = userResult;
+            this.codePlaceHolder = userResult;            
+        });
+    }
+
+    getUserLocation(): void {
+        // get Users current position    
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+            this.livestock.latitude = position.coords.latitude.toString();
+            this.livestock.longitude = position.coords.longitude.toString();
+            console.log("position", position)
+            }, error => {
+              //Handle Errors
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        console.log("User denied the request for Geolocation.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        console.log("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        console.log("The request to get user location timed out.");
+                        break;
+                    default:
+                        console.log("An unknown error occurred.");
+                        break;
+                }
+            });            
+        }
+        else{
+            // container.innerHTML = "Geolocation is not Supported for this browser/OS.";
+            alert("Geolocation is not Supported for this browser/OS");
+        }        
+    }
 }

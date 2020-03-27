@@ -208,4 +208,34 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
         });
     }
 
+    getUserLocation(): void {
+        // get Users current position    
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+            this.herd.latitude = position.coords.latitude.toString();
+            this.herd.longitude = position.coords.longitude.toString();
+            console.log("position", position)
+            }, error => {
+              //Handle Errors
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        console.log("User denied the request for Geolocation.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        console.log("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        console.log("The request to get user location timed out.");
+                        break;
+                    default:
+                        console.log("An unknown error occurred.");
+                        break;
+                }
+            });            
+        }
+        else{
+            // container.innerHTML = "Geolocation is not Supported for this browser/OS.";
+            alert("Geolocation is not Supported for this browser/OS");
+        }        
+    }
 }

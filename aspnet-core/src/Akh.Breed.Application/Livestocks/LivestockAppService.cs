@@ -14,6 +14,8 @@ using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
 using Akh.Breed.Herds;
 using Akh.Breed.Livestocks.Dto;
+using Akh.Breed.Officers;
+using Akh.Breed.Plaques;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Livestocks
@@ -25,14 +27,20 @@ namespace Akh.Breed.Livestocks
         private readonly IRepository<SexInfo> _sexInfoRepository;
         private readonly IRepository<Herd> _herdRepository;
         private readonly IRepository<ActivityInfo> _activityInfoRepository;
+        private readonly IRepository<Officer> _officerRepository;
+        private readonly IRepository<PlaqueOfficer> _plaqueOfficerRepository;
+        private readonly IRepository<PlaqueInfo, long> _plaqueInfoRepository;
         
-        public LivestockAppService(IRepository<Livestock> livestockRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository)
+        public LivestockAppService(IRepository<Livestock> livestockRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Officer> officerRepository, IRepository<PlaqueOfficer> plaqueOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository)
         {
             _livestockRepository = livestockRepository;
             _speciesInfoRepository = speciesInfoRepository;
             _sexInfoRepository = sexInfoRepository;
             _herdRepository = herdRepository;
             _activityInfoRepository = activityInfoRepository;
+            _officerRepository = officerRepository;
+            _plaqueOfficerRepository = plaqueOfficerRepository;
+            _plaqueInfoRepository = plaqueInfoRepository;
         }
         public async Task<PagedResultDto<LivestockListDto>> GetLivestock(GetLivestockInput input)
         {
@@ -118,6 +126,20 @@ namespace Akh.Breed.Livestocks
         {
             var livestock = ObjectMapper.Map<Livestock>(input);
             await _livestockRepository.InsertAsync(livestock);
+            
+            await CurrentUnitOfWork.SaveChangesAsync();
+            
+            var plaqueInfo = new PlaqueInfo
+            {
+                Code =  Convert.ToInt64(livestock.NationalCode),
+                SetTime = livestock.CreationTime,
+                Latitude = livestock.Latitude,
+                Longitude = livestock.Longitude,
+                OfficerId = livestock.OfficerId,
+                StateId = 1,
+                LivestockId = livestock.Id
+            };
+            await _plaqueInfoRepository.InsertAsync(plaqueInfo);
         }
         
         private IQueryable<Livestock> GetFilteredQuery(GetLivestockInput input)
@@ -139,13 +161,39 @@ namespace Akh.Breed.Livestocks
         {
             var species = _speciesInfoRepository.Get(input.SpeciesInfoId.Value);
             long nationalCode = Convert.ToInt64(input.NationalCode);
+            if ( nationalCode < species.FromCode)
+            {
+                nationalCode += species.FromCode;
+            }
             if ( nationalCode < species.FromCode || nationalCode > species.ToCode)
             {
                 throw new UserFriendlyException(L("ThisCodeRangeShouldBe", species.Name,species.FromCode, species.ToCode));
             }
 
-            //throw new UserFriendlyException(L("ThisCodeRangeHasOverlap",existingObj.FromCode, existingObj.ToCode));
+            var plaqueInfo = _plaqueInfoRepository.FirstOrDefault(x => x.Code == nationalCode);
+            if ( plaqueInfo != null)
+            {
+                throw new UserFriendlyException(L("ThisCodeIsAllocated",nationalCode));
+            }
+            
+            var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+            if (officer == null)
+            {
+                throw new UserFriendlyException(L("TheOfficerDoesNotExists"));
+            }
+            else
+            {
+                input.OfficerId = officer.Id;
+                var plaqueOfficer = _plaqueOfficerRepository.FirstOrDefault(x =>x.FromCode <= nationalCode && x.ToCode >= nationalCode);
+                if (plaqueOfficer == null)
+                {
+                    throw new UserFriendlyException(L("ThisStoreIsNotAllocatedTo", nationalCode));
+                }
+            }
 
+
+
+            input.NationalCode = nationalCode.ToString();
         }
    }
 }

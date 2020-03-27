@@ -107,8 +107,11 @@
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Latitude" | localize}}</label>
-                                            <div class="col-md-8 col-sm-12">
+                                            <div class="input-group col-md-8 col-sm-12">
                                                 <input #latitudeInput="ngModel" class="form-control" type="text" placeholder="{{'Latitude' | localize}}" [(ngModel)]="herd.latitude" name="latitude" maxlength="256" pattern="^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$" />
+                                                <div class="input-group-append">
+                                                    <div class="form-control" type="button" (click)="getUserLocation()"><i class="flaticon2-refresh-arrow"></i></div>
+                                                </div> 
                                                 <validation-messages [formCtrl]="latitudeInput"></validation-messages>
                                             </div>
                                         </div>
@@ -116,8 +119,11 @@
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Longitude" | localize}}</label>
-                                            <div class="col-md-8 col-sm-12">
+                                            <div class="input-group col-md-8 col-sm-12">
                                                 <input #longitudeInput="ngModel" class="form-control" type="longitude" placeholder="{{'Longitude' | localize}}" [(ngModel)]="herd.longitude" name="text" maxlength="256" pattern="^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$" />
+                                                <div class="input-group-append">
+                                                    <div class="form-control" type="button" (click)="getUserLocation()"><i class="flaticon2-refresh-arrow"></i></div>
+                                                </div> 
                                                 <validation-messages [formCtrl]="longitudeInput"></validation-messages>
                                             </div>
                                         </div>
