@@ -33,7 +33,11 @@ namespace Akh.Breed.Herds.Dto
 
         public string Family { get; set; }
 
-        public string EpidemiologicInfoCode { get; set; }
+        public string EpidemiologicCode { get; set; }
+
+        public string PostalCode { get; set; }
+
+        public string Mobile { get; set; }
 
         public string ActivityInfoName { get; set; }
 

@@ -48,24 +48,22 @@ export class CreateOrEditOfficerModalComponent extends AppComponentBase {
         }
         this._officerService.getOfficerForEdit(officerId).subscribe(userResult => {
             this.officer = userResult.officer;
-            
-            this.officer = userResult.officer;
 
             this.academicDegreesSelectItems = _.map(userResult.academicDegrees, function(academicDegree) {
                 return {
-                    label: academicDegree.displayText, value: academicDegree.value
+                    label: academicDegree.displayText, value: Number(academicDegree.value)
                 };
             });
 
             this.stateInfosSelectItems = _.map(userResult.stateInfos, function(stateInfo) {
                 return {
-                    label: stateInfo.displayText, value: stateInfo.value
+                    label: stateInfo.displayText, value: Number(stateInfo.value)
                 };
             });
 
             this.contractorsSelectItems = _.map(userResult.contractors, function(contractor) {
                 return {
-                    label: contractor.displayText, value: contractor.value
+                    label: contractor.displayText, value: Number(contractor.value)
                 };
             });
 

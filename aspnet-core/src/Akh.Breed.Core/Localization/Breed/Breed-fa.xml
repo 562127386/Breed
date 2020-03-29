@@ -1040,7 +1040,7 @@
     <text name="EditNewFirmType">ویرایش نوع شرکت</text>
 
     <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
-    <text name="AreYouSureToDeleteThePlaqueState">آیا از حذف وضعیت پلاک {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToDeleteThePlaqueState">امکان حذف وجود ندارد.</text>
     <text name="PlaqueStateHeaderInfo">مدیریت وضعیت پلاک</text>
     <text name="ViewNewPlaqueState">نمایش وضعیت پلاک</text>
     <text name="EditNewPlaqueState">ویرایش وضعیت پلاک</text>
@@ -1125,7 +1125,7 @@
     <text name="ThisCodeAlreadyExists">این کد قبلا ثبت شده است.</text>
     <text name="ThisCodeRangeHasOverlap">محدوده وارد شده با {0} تا {1} همپوشانی دارد.</text>
     <text name="ThisCodeRangeShouldBe">برای گونه {0} محدوده {1} تا {2} مجاز است.</text>
-    <text name="RemainInCodeRange">برای گونه فوق انبار های زیر خالی است. {0}</text>
+    <text name="RemainInCodeRange">سریال برای تخصیص وجود ندارد.</text>
 
     <text name="News">اخبار</text>
       
@@ -1170,7 +1170,7 @@
     <text name="Latitude">عرض جغرافیایی</text>
     <text name="Longitude">طول جغرافیایی</text>
     <text name="SubHerdInfo">اطلاعات زیر واحد</text>
-    <text name="AgriculturalId">شناسه واحد کشاورزی</text>
+    <text name="AgriculturalId">شناسه یکتا واحد کشاورزی</text>
     <text name="ActivityStatus">شرکت فعال است</text>
     <text name="LicenseStatus">شرکت پروانه دارد</text>
     <text name="IssueDate">تاریخ صدور</text>
@@ -1179,7 +1179,7 @@
     <text name="Iranian">شرکت ایرانی</text>
     <text name="Reality">شرکت حقیقی</text>
     <text name="Mobile">تلفن همراه</text>
-    <text name="EpidemiologicInfoCode">کد اپیدومیولوژیک</text>
+    <text name="EpidemiologicCode">کد اپیدومیولوژیک</text>
     <text name="ActivityInfoName">نوع فعالیت</text>
     <text name="LicenseNum">شماره پروانه</text>
     <text name="SpeciesInfoName">گونه</text>
@@ -1191,6 +1191,7 @@
     <text name="EditLivestockCode">ویرایش شماره ملی دام</text>
     <text name="EditGeoHerd">اصلاح موقعیت گله</text>
     <text name="EditStatePlaque">تغییر وضعیت پلاک</text>
+    <text name="PlaqueAllocated">تعداد پلاک اختصاص داده شده</text>
 
 
   </texts>

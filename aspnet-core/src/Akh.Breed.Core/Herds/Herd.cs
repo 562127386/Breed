@@ -58,6 +58,10 @@ namespace Akh.Breed.Herds
         public string Phone { get; set; }
 
         public string Address { get; set; }
+
+        public string PostalCode { get; set; }
+        
+        public string EpidemiologicCode { get; set; }
         
         [ForeignKey("EpidemiologicInfoId")]
         public EpidemiologicInfo EpidemiologicInfo { get; set; }
@@ -66,6 +70,18 @@ namespace Akh.Breed.Herds
         [ForeignKey("UnionInfoId")]
         public UnionInfo UnionInfo { get; set; }
         public int? UnionInfoId { get; set; }
+
+        [ForeignKey("StateInfoId")]
+        public StateInfo StateInfo { get; set; }
+        public int? StateInfoId { get; set; }
+
+        [ForeignKey("CityInfoId")]
+        public CityInfo CityInfo { get; set; }
+        public int? CityInfoId { get; set; }
+
+        [ForeignKey("RegionInfoId")]
+        public RegionInfo RegionInfo { get; set; }
+        public int? RegionInfoId { get; set; }
 
         [ForeignKey("VillageInfoId")]
         public VillageInfo VillageInfo { get; set; }

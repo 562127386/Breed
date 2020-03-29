@@ -158,14 +158,11 @@ namespace Akh.Breed
             configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>();
 
             configuration.CreateMap<Herd, HerdListDto>()
-                .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.Name))
+                .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.FirmName + "(" + l.Contractor.Name + "," + l.Contractor.Family + ")"))
                 .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
-                .ForMember(d => d.EpidemiologicInfoCode, options => options.MapFrom(l => l.EpidemiologicInfo.Code));
+                .ForMember(d => d.Institution, options => options.MapFrom(l => l.Institution + " - " + l.StateInfo.Name + " - " + l.CityInfo.Name + (" - " + l.RegionInfo.Name) ?? "" + (" - " + l.VillageInfo.Name) ?? ""  ));
             configuration.CreateMap<HerdCreateOrUpdateInput, Herd>();
-            configuration.CreateMap<Herd, HerdCreateOrUpdateInput>()
-                .ForMember(d => d.StateInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfo.StateInfoId))
-                .ForMember(d => d.CityInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfoId))
-                .ForMember(d => d.RegionInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfoId));
+            configuration.CreateMap<Herd, HerdCreateOrUpdateInput>();
             
             configuration.CreateMap<Livestock, LivestockListDto>()
                 .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
@@ -177,7 +174,9 @@ namespace Akh.Breed
             configuration.CreateMap<Livestock, LivestockCreateOrUpdateInput>();
 
             //Officer
-            configuration.CreateMap<Officer, OfficerListDto>();
+            configuration.CreateMap<Officer, OfficerListDto>()
+                .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.FirmName + "(" + l.Contractor.Family + "," + l.Contractor.Name + ")"))
+                .ForMember(d => d.StateInfoName, options => options.MapFrom(l => l.StateInfo.Name  ));
             configuration.CreateMap<OfficerCreateOrUpdateInput, Officer>();
             configuration.CreateMap<Officer, OfficerCreateOrUpdateInput>();
             configuration.CreateMap<Officer, OfficerEditDto>();
@@ -246,6 +245,7 @@ namespace Akh.Breed
 
             configuration.CreateMap<PlaqueStore, PlaqueStoreListDto>()
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l => l.ToCode - l.FromCode + 1))
+                .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => Convert.ToInt32(l.LastCode - l.FromCode + 1)))
                 .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.Species.Name));
             configuration.CreateMap<PlaqueStoreCreateOrUpdateInput, PlaqueStore>();
             configuration.CreateMap<PlaqueStore, PlaqueStoreCreateOrUpdateInput>();

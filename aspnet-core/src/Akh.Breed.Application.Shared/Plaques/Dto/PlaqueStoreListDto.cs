@@ -28,6 +28,8 @@ namespace Akh.Breed.Plaques.Dto
         public string ToCode { get; set; }
 
         public int PlaqueCount { get; set; }
+
+        public int PlaqueAllocated { get; set; }
         
         public DateTime SetTime { get; set; }
 

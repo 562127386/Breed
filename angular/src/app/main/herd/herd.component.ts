@@ -68,7 +68,7 @@ export class HerdComponent extends AppComponentBase implements AfterViewInit {
 
     deleteHerd(herd: HerdListDto): void {
         this.message.confirm(
-            this.l('AreYouSureToDeleteTheHerd', herd.name),            
+            this.l('AreYouSureToDeleteTheHerd', herd.herdName),            
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {

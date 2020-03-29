@@ -20674,7 +20674,9 @@ export class HerdListDto implements IHerdListDto {
     institution!: string | undefined;
     name!: string | undefined;
     family!: string | undefined;
-    epidemiologicInfoCode!: string | undefined;
+    epidemiologicCode!: string | undefined;
+    postalCode!: string | undefined;
+    mobile!: string | undefined;
     activityInfoName!: string | undefined;
     contractorName!: string | undefined;
     id!: number;
@@ -20696,7 +20698,9 @@ export class HerdListDto implements IHerdListDto {
             this.institution = data["institution"];
             this.name = data["name"];
             this.family = data["family"];
-            this.epidemiologicInfoCode = data["epidemiologicInfoCode"];
+            this.epidemiologicCode = data["epidemiologicCode"];
+            this.postalCode = data["postalCode"];
+            this.mobile = data["mobile"];
             this.activityInfoName = data["activityInfoName"];
             this.contractorName = data["contractorName"];
             this.id = data["id"];
@@ -20718,7 +20722,9 @@ export class HerdListDto implements IHerdListDto {
         data["institution"] = this.institution;
         data["name"] = this.name;
         data["family"] = this.family;
-        data["epidemiologicInfoCode"] = this.epidemiologicInfoCode;
+        data["epidemiologicCode"] = this.epidemiologicCode;
+        data["postalCode"] = this.postalCode;
+        data["mobile"] = this.mobile;
         data["activityInfoName"] = this.activityInfoName;
         data["contractorName"] = this.contractorName;
         data["id"] = this.id;
@@ -20733,7 +20739,9 @@ export interface IHerdListDto {
     institution: string | undefined;
     name: string | undefined;
     family: string | undefined;
-    epidemiologicInfoCode: string | undefined;
+    epidemiologicCode: string | undefined;
+    postalCode: string | undefined;
+    mobile: string | undefined;
     activityInfoName: string | undefined;
     contractorName: string | undefined;
     id: number;
@@ -20809,6 +20817,8 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
     mobile!: string | undefined;
     phone!: string | undefined;
     address!: string | undefined;
+    postalCode!: string | undefined;
+    epidemiologicCode!: string | undefined;
     epidemiologicInfoId!: number | undefined;
     unionInfoId!: number | undefined;
     activityInfoId!: number | undefined;
@@ -20850,6 +20860,8 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
             this.mobile = data["mobile"];
             this.phone = data["phone"];
             this.address = data["address"];
+            this.postalCode = data["postalCode"];
+            this.epidemiologicCode = data["epidemiologicCode"];
             this.epidemiologicInfoId = data["epidemiologicInfoId"];
             this.unionInfoId = data["unionInfoId"];
             this.activityInfoId = data["activityInfoId"];
@@ -20891,6 +20903,8 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
         data["mobile"] = this.mobile;
         data["phone"] = this.phone;
         data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
+        data["epidemiologicCode"] = this.epidemiologicCode;
         data["epidemiologicInfoId"] = this.epidemiologicInfoId;
         data["unionInfoId"] = this.unionInfoId;
         data["activityInfoId"] = this.activityInfoId;
@@ -20925,6 +20939,8 @@ export interface IHerdCreateOrUpdateInput {
     mobile: string | undefined;
     phone: string | undefined;
     address: string | undefined;
+    postalCode: string | undefined;
+    epidemiologicCode: string | undefined;
     epidemiologicInfoId: number | undefined;
     unionInfoId: number | undefined;
     activityInfoId: number | undefined;
@@ -20937,7 +20953,6 @@ export interface IHerdCreateOrUpdateInput {
 
 export class GetHerdForEditOutput implements IGetHerdForEditOutput {
     herd!: HerdCreateOrUpdateInput;
-    epidemiologicInfos!: ComboboxItemDto[] | undefined;
     stateInfos!: ComboboxItemDto[] | undefined;
     cityInfos!: ComboboxItemDto[] | undefined;
     regionInfos!: ComboboxItemDto[] | undefined;
@@ -20958,11 +20973,6 @@ export class GetHerdForEditOutput implements IGetHerdForEditOutput {
     init(data?: any) {
         if (data) {
             this.herd = data["herd"] ? HerdCreateOrUpdateInput.fromJS(data["herd"]) : <any>undefined;
-            if (Array.isArray(data["epidemiologicInfos"])) {
-                this.epidemiologicInfos = [] as any;
-                for (let item of data["epidemiologicInfos"])
-                    this.epidemiologicInfos!.push(ComboboxItemDto.fromJS(item));
-            }
             if (Array.isArray(data["stateInfos"])) {
                 this.stateInfos = [] as any;
                 for (let item of data["stateInfos"])
@@ -21011,11 +21021,6 @@ export class GetHerdForEditOutput implements IGetHerdForEditOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["herd"] = this.herd ? this.herd.toJSON() : <any>undefined;
-        if (Array.isArray(this.epidemiologicInfos)) {
-            data["epidemiologicInfos"] = [];
-            for (let item of this.epidemiologicInfos)
-                data["epidemiologicInfos"].push(item.toJSON());
-        }
         if (Array.isArray(this.stateInfos)) {
             data["stateInfos"] = [];
             for (let item of this.stateInfos)
@@ -21057,7 +21062,6 @@ export class GetHerdForEditOutput implements IGetHerdForEditOutput {
 
 export interface IGetHerdForEditOutput {
     herd: HerdCreateOrUpdateInput;
-    epidemiologicInfos: ComboboxItemDto[] | undefined;
     stateInfos: ComboboxItemDto[] | undefined;
     cityInfos: ComboboxItemDto[] | undefined;
     regionInfos: ComboboxItemDto[] | undefined;
@@ -25771,6 +25775,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
     fromCode!: string | undefined;
     toCode!: string | undefined;
     plaqueCount!: number;
+    plaqueAllocated!: number;
     setTime!: moment.Moment;
     speciesName!: string | undefined;
     lastCode!: string | undefined;
@@ -25791,6 +25796,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
             this.fromCode = data["fromCode"];
             this.toCode = data["toCode"];
             this.plaqueCount = data["plaqueCount"];
+            this.plaqueAllocated = data["plaqueAllocated"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.speciesName = data["speciesName"];
             this.lastCode = data["lastCode"];
@@ -25811,6 +25817,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
         data["fromCode"] = this.fromCode;
         data["toCode"] = this.toCode;
         data["plaqueCount"] = this.plaqueCount;
+        data["plaqueAllocated"] = this.plaqueAllocated;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["speciesName"] = this.speciesName;
         data["lastCode"] = this.lastCode;
@@ -25824,6 +25831,7 @@ export interface IPlaqueStoreListDto {
     fromCode: string | undefined;
     toCode: string | undefined;
     plaqueCount: number;
+    plaqueAllocated: number;
     setTime: moment.Moment;
     speciesName: string | undefined;
     lastCode: string | undefined;

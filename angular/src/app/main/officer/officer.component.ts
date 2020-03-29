@@ -68,7 +68,7 @@ export class OfficerComponent extends AppComponentBase implements AfterViewInit 
 
     deleteOfficer(officer: OfficerListDto): void {
         this.message.confirm(
-            this.l('AreYouSureToDeleteTheOfficer', officer.name),            
+            this.l('AreYouSureToDeleteTheOfficer', officer.name + ' - ' + officer.family),            
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {

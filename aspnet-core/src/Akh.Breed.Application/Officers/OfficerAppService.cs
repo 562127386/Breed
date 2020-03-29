@@ -133,9 +133,18 @@ namespace Akh.Breed.Officers
         
         private IQueryable<Officer> GetFilteredQuery(GetOfficerInput input)
         {
-            var query = QueryableExtensions.WhereIf(_officerRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_officerRepository.GetAll()
+                    .Include(x => x.Contractor)
+                    .Include(x => x.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
+                    u.Family.Contains(input.Filter) ||
+                    u.NationalCode.Replace("-","").Contains(input.Filter) ||
+                    u.MobileNumber.Replace("-","").Contains(input.Filter) ||
+                    u.Contractor.Name.Contains(input.Filter) ||
+                    u.Contractor.Family.Contains(input.Filter) ||
+                    u.Contractor.FirmName.Contains(input.Filter) ||
+                    u.StateInfo.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));
 
             return query;

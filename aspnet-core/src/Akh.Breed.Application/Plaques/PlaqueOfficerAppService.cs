@@ -96,6 +96,7 @@ namespace Akh.Breed.Plaques
         
         public async Task DeletePlaqueOfficer(EntityDto input)
         {
+            throw new UserFriendlyException(L("AreYouSureToDeleteThePlaqueState"));
             await _plaqueOfficerRepository.DeleteAsync(input.Id);
         }
 

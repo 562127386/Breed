@@ -83,13 +83,9 @@
                                                 {{'Finished' | localize}}
                                                 <p-sortIcon field="finished"></p-sortIcon>
                                             </th> -->
-                                            <th style="width: 100px" pSortableColumn="lastCode">
-                                                {{'LastCode' | localize}}
-                                                <p-sortIcon field="lastCode"></p-sortIcon>
-                                            </th>
-                                            <th style="width: 100px" pSortableColumn="lastDate">
-                                                {{'LastDate' | localize}}
-                                                <p-sortIcon field="lastDate"></p-sortIcon>
+                                            <th style="width: 100px" pSortableColumn="plaqueAllocated">
+                                                {{'PlaqueAllocated' | localize}}
+                                                <p-sortIcon field="plaqueAllocated"></p-sortIcon>
                                             </th>
                                             <th style="width: 130px">
                                                     <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
@@ -135,12 +131,8 @@
                                                 </span>
                                             </td> -->
                                             <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'LastCode' | localize}}</span>
-                                                {{record.lastCode}}
-                                            </td>
-                                            <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'LastDate' | localize}}</span>
-                                                {{record.lastDate | momentFormat:'YYYY/MM/DD HH:SS'}}
+                                                <span class="ui-column-title"> {{'PlaqueAllocated' | localize}}</span>
+                                                {{record.plaqueAllocated}}
                                             </td>
                                             <td style="width: 130px">
                                                 <div class="kt-section__content kt-section__content--solid">

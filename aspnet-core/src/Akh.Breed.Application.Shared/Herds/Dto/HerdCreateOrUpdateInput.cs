@@ -46,6 +46,10 @@ namespace Akh.Breed.Herds.Dto
         public string Phone { get; set; }
 
         public string Address { get; set; }
+
+        public string PostalCode { get; set; }
+        
+        public string EpidemiologicCode { get; set; }
         
         public int? EpidemiologicInfoId { get; set; }
 

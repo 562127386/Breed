@@ -31,7 +31,6 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     herd: HerdCreateOrUpdateInput = new HerdCreateOrUpdateInput();    
-    epidemiologicInfosSelectItems: SelectItem[] = [];
     stateInfosSelectItems: SelectItem[] = [];
     cityInfosSelectItems: SelectItem[] = [];
     regionInfosSelectItems: SelectItem[] = [];
@@ -64,13 +63,7 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
         }
         this._herdService.getHerdForEdit(herdId).subscribe(userResult => {
             this.herd = userResult.herd;
-            
-            this.epidemiologicInfosSelectItems = _.map(userResult.epidemiologicInfos, function(epidemiologicInfo) {
-                return {
-                    label: epidemiologicInfo.displayText, value: Number(epidemiologicInfo.value)
-                };
-            });
-
+ 
             this.stateInfosSelectItems = _.map(userResult.stateInfos, function(stateInfo) {
                 return {
                     label: stateInfo.displayText, value: Number(stateInfo.value)
@@ -183,7 +176,9 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
         });
         
         this.villageInfosSelectItems = [];
-        this.herd.institution = '';        
+        this._cityInfoService.getCode(Number(cityInfoId)).subscribe(userResult => {            
+            this.herd.institution = userResult;
+        });       
     }
 
     getVillages(regionInfoId: string): void {  
@@ -198,7 +193,9 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
 
         });
 
-        this.herd.institution = '';
+        this._regionInfoService.getCode(Number(regionInfoId)).subscribe(userResult => {            
+            this.herd.institution = userResult;
+        });
     }
 
     setInstitution(villageInfoId: string): void {

@@ -56,9 +56,9 @@ namespace Akh.Breed.Contractors
             {
                 contractor = await _contractorRepository.GetAll()
                     .Include(x => x.VillageInfo)
-                    .ThenInclude(x => x.RegionInfo)
-                    .ThenInclude(x => x.CityInfo)
-                    .ThenInclude(x => x.StateInfo)
+                    .Include(x => x.RegionInfo)
+                    .Include(x => x.CityInfo)
+                    .Include(x => x.StateInfo)
                     .FirstOrDefaultAsync(x => x.Id == input.Id.Value);
             }
             

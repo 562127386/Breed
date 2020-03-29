@@ -61,9 +61,9 @@ namespace Akh.Breed.Herds
             {
                 herd = await _herdRepository.GetAll()
                     .Include(x => x.VillageInfo)
-                    .ThenInclude(x => x.RegionInfo)
-                    .ThenInclude(x => x.CityInfo)
-                    .ThenInclude(x => x.StateInfo)
+                    .Include(x => x.RegionInfo)
+                    .Include(x => x.CityInfo)
+                    .Include(x => x.StateInfo)
                     .FirstOrDefaultAsync(x => x.Id == input.Id.Value);
             }
             
@@ -74,13 +74,7 @@ namespace Akh.Breed.Herds
                 ? ObjectMapper.Map<HerdCreateOrUpdateInput>(herd)
                 : new HerdCreateOrUpdateInput();
             
-            //FirmTypes
-            output.EpidemiologicInfos = _epidemiologicInfoRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " - " + c.Name ))
-                .ToList();
-
-            //StateInfos
+           //StateInfos
             output.StateInfos = _stateInfoRepository
                 .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
@@ -163,10 +157,26 @@ namespace Akh.Breed.Herds
                 _herdRepository.GetAll()
                 .Include(x => x.Contractor)
                 .Include(x => x.ActivityInfo)
-                .Include(x => x.EpidemiologicInfo),
+                .Include(x => x.StateInfo)
+                .Include(x => x.CityInfo)
+                .Include(x => x.RegionInfo)
+                .Include(x => x.VillageInfo)
+                .Include(x => x.UnionInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
-                    u.Code.Contains(input.Filter));
+                    u.Family.Contains(input.Filter) ||
+                    u.NationalCode.Replace("-","").Contains(input.Filter) ||
+                    u.Mobile.Replace("-","").Contains(input.Filter) ||
+                    u.PostalCode.Replace("-","").Contains(input.Filter) ||
+                    u.HerdName.Contains(input.Filter) ||
+                    u.EpidemiologicCode.Contains(input.Filter) ||
+                    u.Contractor.Name.Contains(input.Filter) ||
+                    u.Contractor.Family.Contains(input.Filter) ||
+                    u.Contractor.FirmName.Contains(input.Filter) ||
+                    u.StateInfo.Name.Contains(input.Filter) ||
+                    u.CityInfo.Name.Contains(input.Filter) ||
+                    u.RegionInfo.Name.Contains(input.Filter) ||
+                    u.VillageInfo.Name.Contains(input.Filter));
 
             return query;
         }        

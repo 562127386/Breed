@@ -57,7 +57,11 @@
                                 [responsive]="primengTableHelper.isResponsive"
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
-                                    <tr>                                             
+                                    <tr>   
+                                        <th style="width: 90px" pSortableColumn="nationalCode">
+                                            {{'NationalCode' | localize}}
+                                            <p-sortIcon field="nationalCode"></p-sortIcon>
+                                        </th>                                          
                                         <th style="width: 90px" pSortableColumn="name">
                                             {{'Name' | localize}}
                                             <p-sortIcon field="name"></p-sortIcon>
@@ -66,13 +70,9 @@
                                             {{'Family' | localize}}
                                             <p-sortIcon field="family"></p-sortIcon>
                                         </th>
-                                        <th style="width: 90px" pSortableColumn="nationalCode">
-                                            {{'NationalCode' | localize}}
-                                            <p-sortIcon field="nationalCode"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="contractorCode">
-                                            {{'ContractorCode' | localize}}
-                                            <p-sortIcon field="contractorCode"></p-sortIcon>
+                                        <th style="width: 90px" pSortableColumn="mobileNumber">
+                                            {{'MobileNumber' | localize}}
+                                            <p-sortIcon field="mobileNumber"></p-sortIcon>
                                         </th>
                                         <th style="width: 90px" pSortableColumn="contractorName">
                                             {{'ContractorName' | localize}}
@@ -89,7 +89,11 @@
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
-                                    <tr>      
+                                    <tr>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
+                                            {{record.nationalCode}}
+                                        </td>      
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'Name' | localize}}</span>
                                             {{record.name}}
@@ -99,13 +103,9 @@
                                             {{record.family}}
                                         </td>
                                         <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
-                                            {{record.nationalCode}}
+                                            <span class="ui-column-title"> {{'MobileNumber' | localize}}</span>
+                                            {{record.mobileNumber}}
                                         </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'ContractorCode' | localize}}</span>
-                                            {{record.contractorName}}
-                                        </td> 
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'ContractorName' | localize}}</span>
                                             {{record.contractorName}}
