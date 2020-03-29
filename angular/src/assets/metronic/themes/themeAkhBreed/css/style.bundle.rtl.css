@@ -1596,7 +1596,7 @@ pre {
   width: 100%;
   height: calc(1.1em + 1.3rem + 2px);
   padding: 0.2rem 1rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
@@ -33427,6 +33427,12 @@ body {
       height: 50%;
       background-color: #e0e1d3; }
 
+.login-background {
+  background-image: url('/assets/common/images/login.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
 @media (min-width: 1025px) {
   .kt-container {
     padding: 0 30px; }
@@ -35393,3 +35399,8 @@ body .ui-inputtext::-webkit-input-placeholder {
   body .ui-inputtext::placeholder {
     color: #74788d;
     opacity: 0.4; }
+    
+p-inputmask, p-inputmask>input {
+  direction: ltr;
+  text-align: left;
+}

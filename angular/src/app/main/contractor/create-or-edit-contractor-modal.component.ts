@@ -113,7 +113,7 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
     save(): void {
         let input = new ContractorCreateOrUpdateInput();
         input = this.contractor;
-                
+  
         input.birthDate = moment(this.contractor.birthDate.locale('en'));
         this.saving = true;
         this._contractorService.createOrUpdateContractor(input)
@@ -159,8 +159,10 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
 
         });
         
-        this.villageInfosSelectItems = [];
-        this.contractor.institution = '';        
+        this.villageInfosSelectItems = [];        
+        this._cityInfoService.getCode(Number(cityInfoId)).subscribe(userResult => {            
+            this.contractor.institution = userResult;
+        });     
     }
 
     getVillages(regionInfoId: string): void {  
@@ -175,7 +177,9 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
 
         });
 
-        this.contractor.institution = '';
+        this._regionInfoService.getCode(Number(regionInfoId)).subscribe(userResult => {            
+            this.contractor.institution = userResult;
+        });
     }
 
     setInstitution(villageInfoId: string): void {

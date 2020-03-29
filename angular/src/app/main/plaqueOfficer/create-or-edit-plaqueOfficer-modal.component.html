@@ -47,7 +47,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"PlaqueCount" | localize}}</label>
                                 <div class="col-md-9 col-sm-12">
-                                    <input #plaqueCountInput="ngModel" [(ngModel)]="plaqueOfficer.plaqueCount" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'PlaqueCount' | localize}} *" name="plaqueCount" required maxlength="15"/>
+                                    <input #plaqueCountInput="ngModel" [(ngModel)]="plaqueOfficer.plaqueCount" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'PlaqueCount' | localize}} *" name="plaqueCount" required maxlength="15"/>
                                 <validation-messages [formCtrl]="plaqueCountInput"></validation-messages>
                                 </div>
                             </div>

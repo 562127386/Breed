@@ -13,5 +13,6 @@ namespace Akh.Breed.BaseInfos
         Task CreateOrUpdateRegionInfo(RegionInfoCreateOrUpdateInput input);
         Task DeleteRegionInfo(EntityDto input);
         List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input);
+        string GetCode(NullableIdDto<int> input);
     }
 }

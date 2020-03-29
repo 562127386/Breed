@@ -37,19 +37,6 @@
                     <div class="row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="kt-checkbox-list">
-                                    <label for="imported" class="kt-checkbox">
-                                        <input id="imported" type="checkbox" name="imported" [(ngModel)]="livestock.imported">
-                                        {{"Iranian" | localize}}
-                                        <span></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"SexInfo" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
                                     <p-dropdown #sexInfoCombobox [options]="sexInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 

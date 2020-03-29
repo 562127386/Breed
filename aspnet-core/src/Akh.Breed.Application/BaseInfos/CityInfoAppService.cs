@@ -121,6 +121,22 @@ namespace Akh.Breed.BaseInfos
                 .ToList();
         }
         
+        public string GetCode(NullableIdDto<int> input)
+        {
+            string res = "";
+            if (input.Id.HasValue)
+            {
+                var cityInfo = _cityInfoRepository
+                    .GetAll()
+                    .Include(x => x.StateInfo)
+                    .FirstOrDefault(x => x.Id == input.Id);
+                res = cityInfo?.StateInfo.Code
+                      + cityInfo?.Code;
+            }
+            
+            return res;
+        }
+        
         private async Task CheckValidation(CityInfoCreateOrUpdateInput input)
         {
             var existingObj = (await _cityInfoRepository.GetAll().AsNoTracking()

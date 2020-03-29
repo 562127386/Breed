@@ -987,10 +987,10 @@
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
     <text name="Livestock">اطلاعات دام</text>
-    <text name="Herd">اطلاعات گله</text>
+    <text name="Herd">گله</text>
     <text name="EpidemiologicInfo">اپیدمولوژیک</text>
     <text name="SexInfo">جنسیت دام</text>
-    <text name="FirmType">انواع شرکت</text>
+    <text name="FirmType">نوع شرکت</text>
     <text name="CreateNewProviderInfo">ایجاد تامین کننده</text>
     <text name="AreYouSureToDeleteTheProviderInfo">آیا از حذف تامین کننده {0} مطمئن هستید؟</text>
     <text name="ProviderInfoHeaderInfo">مدیریت تامین کنندگان</text>
@@ -1092,7 +1092,7 @@
     <text name="PartialTimeStaffAssociateDegree">فوق دیپلم</text>
     <text name="PartialTimeStaffBachelorAndUpper">لیسانس و بالاتر</text>
 
-    <text name="Officer">مامورین</text>
+    <text name="Officer">مامور</text>
     <text name="CreateNewOfficer">ایجاد مامور</text>
     <text name="AreYouSureToDeleteTheOfficer">آیا از حذف مامور {0} مطمئن هستید؟</text>
     <text name="OfficerHeaderInfo">مدیریت مامورین</text>
@@ -1104,7 +1104,7 @@
     <text name="MobileNumber">تلفن همراه</text>
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
     <text name="LivestockName">اطلاعات دام</text>
-    <text name="HerdName">نام گله</text>
+    <text name="HerdName">کد گله</text>
     <text name="EpidemiologicInfoName">اپیدمولوژیک</text>
     <text name="StateInfoName">استان</text>
     <text name="CityInfoName">شهر</text>
@@ -1183,10 +1183,14 @@
     <text name="ActivityInfoName">نوع فعالیت</text>
     <text name="LicenseNum">شماره پروانه</text>
     <text name="SpeciesInfoName">گونه</text>
-    <text name="SexInfoName">جنسیت</text>
     <text name="ThisCodeIsAllocated">این کد قبلا استفاده شده است.</text>
     <text name="ThisStoreIsNotAllocatedTo">پلاک {0} به این مامور اختصاص داده نشده است.</text>
     <text name="TheOfficerDoesNotExists">ابن کاربر به عنوان مامور تعریف نشده است.</text>
+    <text name="Information">اطلاعات</text>
+    <text name="Monitoring">نظارت</text>
+    <text name="EditLivestockCode">ویرایش شماره ملی دام</text>
+    <text name="EditGeoHerd">اصلاح موقعیت گله</text>
+    <text name="EditStatePlaque">تغییر وضعیت پلاک</text>
 
 
   </texts>

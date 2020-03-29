@@ -13,5 +13,6 @@ namespace Akh.Breed.BaseInfos
         Task CreateOrUpdateCityInfo(CityInfoCreateOrUpdateInput input);
         Task DeleteCityInfo(EntityDto input);
         List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input);
+        string GetCode(NullableIdDto<int> input);
     }
 }

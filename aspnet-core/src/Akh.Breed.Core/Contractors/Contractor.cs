@@ -58,6 +58,18 @@ namespace Akh.Breed.Contractors
         public FirmType FirmType { get; set; }
         public int? FirmTypeId { get; set; }
         
+        [ForeignKey("StateInfoId")]
+        public StateInfo StateInfo { get; set; }
+        public int? StateInfoId { get; set; }
+        
+        [ForeignKey("CityInfoId")]
+        public CityInfo CityInfo { get; set; }
+        public int? CityInfoId { get; set; }
+        
+        [ForeignKey("RegionInfoId")]
+        public RegionInfo RegionInfo { get; set; }
+        public int? RegionInfoId { get; set; }
+        
         [ForeignKey("VillageInfoId")]
         public VillageInfo VillageInfo { get; set; }
         public int? VillageInfoId { get; set; }

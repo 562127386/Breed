@@ -146,9 +146,22 @@ namespace Akh.Breed.Contractors
         {
             var query = QueryableExtensions.WhereIf(
                 _contractorRepository.GetAll()
-                    .Include(x => x.FirmType),
+                    .Include(x => x.FirmType)
+                    .Include(x => x.StateInfo)
+                    .Include(x => x.CityInfo)
+                    .Include(x => x.RegionInfo)
+                    .Include(x => x.VillageInfo)
+                    .Include(x => x.UnionInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
+                    u.Family.Contains(input.Filter) ||
+                    u.StateInfo.Name.Contains(input.Filter) ||
+                    u.CityInfo.Name.Contains(input.Filter) ||
+                    u.RegionInfo.Name.Contains(input.Filter) ||
+                    u.VillageInfo.Name.Contains(input.Filter) ||
+                    u.UnionInfo.Name.Contains(input.Filter) ||
+                    u.NationalCode.Replace("-","").Contains(input.Filter) ||
+                    u.FirmName.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));
 
             return query;

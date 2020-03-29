@@ -18,7 +18,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-3 col-sm-12">{{"Code" | localize}}</label>
                                     <div class="col-md-9 col-sm-12">
-                                        <input #codeInput="ngModel" [readonly]="unionInfo.id" [(ngModel)]="unionInfo.code" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
+                                        <input #codeInput="ngModel" [readonly]="unionInfo.id" [(ngModel)]="unionInfo.code" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
                                     <validation-messages [formCtrl]="codeInput"></validation-messages>
                                     </div>
                                 </div>

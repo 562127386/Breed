@@ -25,6 +25,9 @@ export class ThemeAkhBreedLayoutComponent extends ThemesLayoutBaseComponent impl
 
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
     time = momentj().format('jYYYY/jM/jD HH:mm:ss')
+    installationMode;
+    defaultLogo;
+    defaultLogo2;
 
     constructor(
         injector: Injector
@@ -35,6 +38,7 @@ export class ThemeAkhBreedLayoutComponent extends ThemesLayoutBaseComponent impl
     ngOnInit() {
         this.installationMode = UrlHelper.isInstallUrl(location.href);
         this.defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/logo3.png';        
+        this.defaultLogo2 = AppConsts.appBaseUrl + '/assets/common/images/logo2.png';        
 
         setInterval(() => {
             this.time = momentj().format('jYYYY/jM/jD HH:mm:ss');

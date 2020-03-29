@@ -151,13 +151,11 @@ namespace Akh.Breed
 
             //Contractor
             configuration.CreateMap<Contractor, ContractorListDto>()
-                .ForMember(d => d.FirmTypeName,
-                    options => options.MapFrom(l => l.FirmType.Name));
+                .ForMember(d => d.FirmTypeName, options => options.MapFrom(l => l.FirmType.Name))
+                .ForMember(d => d.SubInstitution, options => options.MapFrom(l => l.UnionInfo.Name))
+                .ForMember(d => d.Institution, options => options.MapFrom(l => l.Institution + " - " + l.StateInfo.Name + " - " + l.CityInfo.Name + (" - " + l.RegionInfo.Name) ?? "" + (" - " + l.VillageInfo.Name) ?? ""  ));
             configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>();
-            configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>()
-                .ForMember(d => d.StateInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfo.StateInfoId))
-                .ForMember(d => d.CityInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfo.CityInfoId))
-                .ForMember(d => d.RegionInfoId,options => options.MapFrom(l => l.VillageInfo.RegionInfoId));
+            configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>();
 
             configuration.CreateMap<Herd, HerdListDto>()
                 .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.Name))

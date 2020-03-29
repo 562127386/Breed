@@ -13,6 +13,7 @@ import { DOCUMENT } from '@angular/common';
 export class ThemeAkhBreedBrandComponent extends AppComponentBase {
 
     defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/logo3.png';
+    defaultLogo2 = AppConsts.appBaseUrl + '/assets/common/images/logo2.png';
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
 
     constructor(

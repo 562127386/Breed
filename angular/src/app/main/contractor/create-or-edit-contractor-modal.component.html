@@ -18,8 +18,8 @@
                             <p-fieldset class="col-sm-12" [legend]="l('Address')" [toggleable]="true">
 
                                 <div class="row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"StateInfoName" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
                                                     <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
@@ -27,9 +27,7 @@
                                                 <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"CityInfoName" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getRegions($event.value)"
@@ -38,24 +36,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"RegionInfoName" | localize}} *</label>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"RegionInfoName" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <p-dropdown #regionInfoCombobox [options]="regionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getVillages($event.value)"
-                                                    name="regionInfoId" [(ngModel)]="contractor.regionInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                    name="regionInfoId" [(ngModel)]="contractor.regionInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')"></p-dropdown>
                                                 <validation-messages [formCtrl]="regionInfoCombobox"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"VillageInfoName" | localize}} *</label>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"VillageInfoName" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <p-dropdown #villageInfoCombobox [options]="villageInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setInstitution($event.value)"
-                                                    name="villageInfoId" [(ngModel)]="contractor.villageInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                    name="villageInfoId" [(ngModel)]="contractor.villageInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')"></p-dropdown>
                                                 <validation-messages [formCtrl]="villageInfoCombobox"></validation-messages>
                                             </div>
                                         </div>
@@ -68,11 +62,13 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Institution" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input #institutionInput="ngModel" readonly [(ngModel)]="contractor.institution" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Institution' | localize}} *" name="institution" required maxlength="64"/>
+                                                <input  [ngStyle]="{'border':'0px'}" #institutionInput="ngModel" readonly [(ngModel)]="contractor.institution" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Institution' | localize}} *" name="institution" required maxlength="64"/>
                                                 <validation-messages [formCtrl]="institutionInput"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                                            
+                                </div>
+                                <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"SubInstitution" | localize}} *</label>
@@ -110,6 +106,17 @@
                         </div>
                         <div class="col-sm-12">
                             <p-fieldset class="col-sm-12" [legend]="l('ContractorInfo')" [toggleable]="true">
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-3 col-sm-12">{{"ContractorCode" | localize}}</label>
+                                            <div class="col-md-9 col-sm-12">
+                                                <input #codeInput="ngModel" [(ngModel)]="contractor.code" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'ContractorCode' | localize}} *" name="code" required maxlength="16"/>
+                                            <validation-messages [formCtrl]="codeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
@@ -153,7 +160,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"Phone" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-999-999-9999" [(ngModel)]="contractor.phone" type="text" autocomplete="new-password" name="phone" placeholder="0-912-111-2233" length="11"></p-inputMask>
                                                 <validation-messages [formCtrl]="phoneInput"></validation-messages>
@@ -200,7 +207,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"FirmRegNumber" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input [style]="{'width':'100%'}" #firmRegNumberInput="ngModel" [(ngModel)]="contractor.firmRegNumber" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'FirmRegNumber' | localize}}" name="firmRegNumber" maxlength="16"/>
+                                                <input [style]="{'width':'100%'}" #firmRegNumberInput="ngModel" [(ngModel)]="contractor.firmRegNumber" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'FirmRegNumber' | localize}}" name="firmRegNumber" maxlength="16"/>
                                             <validation-messages [formCtrl]="firmRegNumberInput"></validation-messages>
                                             </div>
                                         </div>
