@@ -200,5 +200,5 @@ namespace Akh.Breed.Livestocks
             return query.Select(c => new ComboboxItemDto(c.ActivityInfo.Id.ToString(), c.ActivityInfo.Name))
                 .ToList();
         }
-   }
+    }
 }

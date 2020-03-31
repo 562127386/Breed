@@ -58,7 +58,7 @@
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
                                     <tr>     
-                                        <th style="width: 90px" pSortableColumn="nationalCode">
+                                        <th style="width: 110px" pSortableColumn="nationalCode">
                                             {{'NationalCode' | localize}}
                                             <p-sortIcon field="nationalCode"></p-sortIcon>
                                         </th>
@@ -73,11 +73,7 @@
                                         <th style="width: 90px" pSortableColumn="speciesInfoName">
                                             {{'SpeciesInfoName' | localize}}
                                             <p-sortIcon field="speciesInfoName"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="sexInfoName">
-                                            {{'SexInfoName' | localize}}
-                                            <p-sortIcon field="sexInfoName"></p-sortIcon>
-                                        </th>                                        
+                                        </th>                                       
                                         <th style="width: 90px" pSortableColumn="herdName">
                                             {{'HerdName' | localize}}
                                             <p-sortIcon field="herdName"></p-sortIcon>
@@ -102,7 +98,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
                                     <tr>      
-                                        <td style="width: 90px">
+                                        <td style="width: 110px">
                                             <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
                                             {{record.nationalCode}}
                                         </td>
@@ -117,10 +113,6 @@
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'SpeciesInfoName' | localize}}</span>
                                             {{record.speciesInfoName}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'SexInfoName' | localize}}</span>
-                                            {{record.sexInfoName}}
                                         </td>
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'HerdName' | localize}}</span>
@@ -142,7 +134,7 @@
                                             <div class="kt-section__content kt-section__content--solid">
                                                 <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditLivestockModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
                                                 <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditLivestockModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>
-                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteLivestock(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button>
+                                                <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteLivestock(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button> -->
                                             </div>                                            
                                             <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->                                    
                                         </td>                                     

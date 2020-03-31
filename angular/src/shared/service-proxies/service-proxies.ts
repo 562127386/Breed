@@ -21165,6 +21165,8 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
     iranian!: boolean;
     reality!: boolean;
     code!: string | undefined;
+    firmCode!: string | undefined;
+    firmName!: string | undefined;
     nationalCode!: string | undefined;
     birthDate!: moment.Moment | undefined;
     name!: string | undefined;
@@ -21175,6 +21177,7 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
     postalCode!: string | undefined;
     epidemiologicCode!: string | undefined;
     epidemiologicInfoId!: number | undefined;
+    capacity!: number;
     unionInfoId!: number | undefined;
     activityInfoId!: number | undefined;
     contractorId!: number | undefined;
@@ -21208,6 +21211,8 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
             this.iranian = data["iranian"];
             this.reality = data["reality"];
             this.code = data["code"];
+            this.firmCode = data["firmCode"];
+            this.firmName = data["firmName"];
             this.nationalCode = data["nationalCode"];
             this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
             this.name = data["name"];
@@ -21218,6 +21223,7 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
             this.postalCode = data["postalCode"];
             this.epidemiologicCode = data["epidemiologicCode"];
             this.epidemiologicInfoId = data["epidemiologicInfoId"];
+            this.capacity = data["capacity"];
             this.unionInfoId = data["unionInfoId"];
             this.activityInfoId = data["activityInfoId"];
             this.contractorId = data["contractorId"];
@@ -21251,6 +21257,8 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
         data["iranian"] = this.iranian;
         data["reality"] = this.reality;
         data["code"] = this.code;
+        data["firmCode"] = this.firmCode;
+        data["firmName"] = this.firmName;
         data["nationalCode"] = this.nationalCode;
         data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
         data["name"] = this.name;
@@ -21261,6 +21269,7 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
         data["postalCode"] = this.postalCode;
         data["epidemiologicCode"] = this.epidemiologicCode;
         data["epidemiologicInfoId"] = this.epidemiologicInfoId;
+        data["capacity"] = this.capacity;
         data["unionInfoId"] = this.unionInfoId;
         data["activityInfoId"] = this.activityInfoId;
         data["contractorId"] = this.contractorId;
@@ -21287,6 +21296,8 @@ export interface IHerdCreateOrUpdateInput {
     iranian: boolean;
     reality: boolean;
     code: string | undefined;
+    firmCode: string | undefined;
+    firmName: string | undefined;
     nationalCode: string | undefined;
     birthDate: moment.Moment | undefined;
     name: string | undefined;
@@ -21297,6 +21308,7 @@ export interface IHerdCreateOrUpdateInput {
     postalCode: string | undefined;
     epidemiologicCode: string | undefined;
     epidemiologicInfoId: number | undefined;
+    capacity: number;
     unionInfoId: number | undefined;
     activityInfoId: number | undefined;
     contractorId: number | undefined;

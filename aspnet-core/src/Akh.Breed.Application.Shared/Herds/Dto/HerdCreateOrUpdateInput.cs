@@ -33,6 +33,10 @@ namespace Akh.Breed.Herds.Dto
 
         public string Code { get; set; }
         
+        public string FirmCode { get; set; }
+        
+        public string FirmName { get; set; }
+        
         public string NationalCode { get; set; }
 
         public DateTime? BirthDate { get; set; }
@@ -53,6 +57,8 @@ namespace Akh.Breed.Herds.Dto
         
         public int? EpidemiologicInfoId { get; set; }
 
+        public int Capacity { get; set; }
+        
         public int? UnionInfoId { get; set; }
 
         public int? ActivityInfoId { get; set; }

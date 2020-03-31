@@ -169,7 +169,7 @@ namespace Akh.Breed
             configuration.CreateMap<Livestock, LivestockListDto>()
                 .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
                 .ForMember(d => d.SexInfoName, options => options.MapFrom(l => l.SexInfo.Name))
-                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Name))
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code))
                 .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<LivestockCreateOrUpdateInput, Livestock>();

@@ -161,7 +161,7 @@
                         <div class="col-sm-12">
                             <p-fieldset class="col-sm-12" [legend]="l('SubHerdInfo')" [toggleable]="true">
                                 <div class="row">
-                                    <div class="form-group col-md-6 col-sm-12">
+                                    <div class="form-group col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"AgriculturalId" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
@@ -170,6 +170,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"ActivityInfo" | localize}} *</label>
@@ -180,30 +182,35 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-5 col-sm-12">{{"ActivityStatus" | localize}} *</label>
+                                            <div class="col-md-7 col-sm-12">
+                                                <input type="radio" [(ngModel)]="herd.activityStatus" name="activityStatus" [value]="true" required>{{"Enable" | localize}}
+                                                <input type="radio" [(ngModel)]="herd.activityStatus" name="activityStatus" [value]="false" required>{{"Disable" | localize}}
+                                            </div>
+                                        </div>                                        
+                                    </div>
                                 </div>
-                                <div class="row">
+                                <div class="row">                                    
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="kt-checkbox-list">
-                                                <label for="activityStatus" class="kt-checkbox">
-                                                    <input id="activityStatus" type="checkbox" name="activityStatus" [(ngModel)]="herd.activityStatus">
-                                                    {{"ActivityStatus" | localize}}
-                                                    <span></span>
-                                                </label>
+                                            <label class="col-form-label col-md-5 col-sm-12">{{"LicenseStatus" | localize}} *</label>
+                                            <div class="col-md-7 col-sm-12">
+                                                <input type="radio" [(ngModel)]="herd.licenseStatus" name="licenseStatus" [value]="true" required>{{"Have" | localize}}
+                                                <input type="radio" [(ngModel)]="herd.licenseStatus" name="licenseStatus" [value]="false" required>{{"HaveNot" | localize}}
                                             </div>
-                                        </div>
+                                        </div>                                            
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="kt-checkbox-list">
-                                                <label for="licenseStatus" class="kt-checkbox">
-                                                    <input id="licenseStatus" type="checkbox" name="licenseStatus" [(ngModel)]="herd.licenseStatus">
-                                                    {{"LicenseStatus" | localize}}
-                                                    <span></span>
-                                                </label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Capacity" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #capacityInput="ngModel" [(ngModel)]="herd.capacity" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Capacity' | localize}} *" name="capacity" required maxlength="15"/>
+                                            <validation-messages [formCtrl]="capacityInput"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>  
                                 </div>
                                 <div class="row" *ngIf="herd.licenseStatus">
                                     <div class="form-group col-md-4 col-sm-12">
@@ -241,28 +248,24 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="kt-checkbox-list">
-                                                <label for="iranian" class="kt-checkbox">
-                                                    <input id="iranian" type="checkbox" name="iranian" [(ngModel)]="herd.iranian">
-                                                    {{"Iranian" | localize}}
-                                                    <span></span>
-                                                </label>
+                                            <label class="col-form-label col-md-5 col-sm-12">{{"Nationality" | localize}} *</label>
+                                            <div class="col-md-7 col-sm-12">
+                                                <input type="radio" [(ngModel)]="herd.iranian" name="iranian" [value]="true" required>{{"Iranian" | localize}}
+                                                <input type="radio" [(ngModel)]="herd.iranian" name="iranian" [value]="false" required>{{"NoneIranian" | localize}}
                                             </div>
-                                        </div>
+                                        </div>                                            
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="kt-checkbox-list">
-                                                <label for="reality" class="kt-checkbox">
-                                                    <input id="reality" type="checkbox" name="reality" [(ngModel)]="herd.reality">
-                                                    {{"Reality" | localize}}
-                                                    <span></span>
-                                                </label>
+                                            <label class="col-form-label col-md-5 col-sm-12">{{"RealityOrNone" | localize}} *</label>
+                                            <div class="col-md-7 col-sm-12">
+                                                <input type="radio" [(ngModel)]="herd.reality" name="reality" [value]="true" required>{{"Reality" | localize}}
+                                                <input type="radio" [(ngModel)]="herd.reality" name="reality" [value]="false" required>{{"NoneReality" | localize}}
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div>                                            
+                                    </div>                                    
                                 </div>
-                                <div class="row">
+                                <div class="row" *ngIf="herd.iranian && herd.reality">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
@@ -282,7 +285,7 @@
                                         </div>                                
                                     </div> 
                                 </div>                        
-                                <div class="row">
+                                <div class="row" *ngIf="herd.iranian && herd.reality">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Name" | localize}} *</label>
@@ -302,12 +305,32 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row" *ngIf="herd.iranian && !herd.reality">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FirmCode" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #firmCodeInput="ngModel" [(ngModel)]="herd.firmCode" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'FirmCode' | localize}} *" name="firmCode" required maxlength="15"/>
+                                            <validation-messages [formCtrl]="firmCodeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"FirmName" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #firmNameInput="ngModel" [(ngModel)]="herd.firmName" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'FirmName' | localize}} *"  pattern="[^0-9]*" name="firmName" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="firmNameInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>                                        
+                                </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #mobileInput="ngModel" mask="0-999-999-9999" [(ngModel)]="herd.mobile" type="text" autocomplete="new-password" name="mobile" placeholder="0-912-111-2233" length="11"></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #mobileInput="ngModel" mask="0-999-999-9999" [(ngModel)]="herd.mobile" type="text" autocomplete="new-password" name="mobile" placeholder="0-912-111-2233" length="11" required></p-inputMask>
                                                 <validation-messages [formCtrl]="phoneInput"></validation-messages>
                                             </div>
                                         </div>

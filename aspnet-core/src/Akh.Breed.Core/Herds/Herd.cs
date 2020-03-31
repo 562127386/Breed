@@ -63,6 +63,12 @@ namespace Akh.Breed.Herds
         
         public string EpidemiologicCode { get; set; }
         
+        public string FirmCode { get; set; }
+        
+        public string FirmName { get; set; }
+        
+        public int Capacity { get; set; }
+        
         [ForeignKey("EpidemiologicInfoId")]
         public EpidemiologicInfo EpidemiologicInfo { get; set; }
         public int? EpidemiologicInfoId { get; set; }
