@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Akh.Breed.Livestocks.Dto;
@@ -11,5 +12,6 @@ namespace Akh.Breed.Livestocks
         Task<GetLivestockForEditOutput> GetLivestockForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateLivestock(LivestockCreateOrUpdateInput input);
         Task DeleteLivestock(EntityDto input);
+        List<ComboboxItemDto> GetActivityForCombo(NullableIdDto<int> input);
     }
 }

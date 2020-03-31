@@ -89,6 +89,10 @@
                                         <th style="width: 90px" pSortableColumn="officerName">
                                             {{'OfficerName' | localize}}
                                             <p-sortIcon field="officerName"></p-sortIcon>
+                                        </th> 
+                                        <th style="width: 90px" pSortableColumn="creationTime">
+                                            {{'CreationTime' | localize}}
+                                            <p-sortIcon field="creationTime"></p-sortIcon>
                                         </th>
                                         <th style="width: 130px">
                                             <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
@@ -129,6 +133,10 @@
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'OfficerName' | localize}}</span>
                                             {{record.officerName}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'CreationTime' | localize}}</span>
+                                            {{record.creationTime |  momentFormat:'YYYY/MM/DD HH:MM'}}
                                         </td>
                                         <td style="width: 130px">
                                             <div class="kt-section__content kt-section__content--solid">

@@ -171,7 +171,7 @@ namespace Akh.Breed
                 .ForMember(d => d.SexInfoName, options => options.MapFrom(l => l.SexInfo.Name))
                 .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Name))
                 .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
-                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Code));
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<LivestockCreateOrUpdateInput, Livestock>();
             configuration.CreateMap<Livestock, LivestockCreateOrUpdateInput>();
 
@@ -252,7 +252,7 @@ namespace Akh.Breed
 
             configuration.CreateMap<PlaqueStore, PlaqueStoreListDto>()
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l => l.ToCode - l.FromCode + 1))
-                .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => Convert.ToInt32(l.LastCode - l.FromCode + 1)))
+                .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => l.LastCode == 0 ? 0 : Convert.ToInt32(l.LastCode - l.FromCode + 1)))
                 .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.Species.Name));
             configuration.CreateMap<PlaqueStoreCreateOrUpdateInput, PlaqueStore>();
             configuration.CreateMap<PlaqueStore, PlaqueStoreCreateOrUpdateInput>();

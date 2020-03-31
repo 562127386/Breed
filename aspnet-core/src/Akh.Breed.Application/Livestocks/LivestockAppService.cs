@@ -83,12 +83,7 @@ namespace Akh.Breed.Livestocks
                 .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
-            
-            output.ActivityInfos = _activityInfoRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
-                .ToList();
-            
+           
             output.Herds = _herdRepository
                 .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " (" +c.Name+","+c.Family+")" ))
@@ -194,6 +189,16 @@ namespace Akh.Breed.Livestocks
 
 
             input.NationalCode = nationalCode.ToString();
+        }
+        
+        public List<ComboboxItemDto> GetActivityForCombo(NullableIdDto<int> input)
+        {
+            var query = _herdRepository.GetAll()
+                .Include(x => x.ActivityInfo)
+                .Where(x => x.Id == input.Id);
+
+            return query.Select(c => new ComboboxItemDto(c.ActivityInfo.Id.ToString(), c.ActivityInfo.Name))
+                .ToList();
         }
    }
 }

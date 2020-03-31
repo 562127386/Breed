@@ -41,5 +41,8 @@ namespace Akh.Breed.Livestocks.Dto
 
         public string OfficerName { get; set; }
         
+        
+        public DateTime CreationTime { get; set; }
+        
     }
 }

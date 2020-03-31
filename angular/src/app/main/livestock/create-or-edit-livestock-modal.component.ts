@@ -30,7 +30,6 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
     sexInfosSelectItems: SelectItem[] = [];
     herdsSelectItems: SelectItem[] = [];
     activityInfosSelectItems: SelectItem[] = [];
-    sSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
@@ -123,6 +122,20 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
             this.codeMask = userResult;
             this.codePlaceHolder = userResult;            
         });
+    }
+
+    getActivities(activityInfoId: string): void {  
+
+        this._livestockService.getActivityForCombo(Number(activityInfoId)).subscribe(userResult => {
+            
+            this.activityInfosSelectItems = _.map(userResult, function(activityInfo) {
+                return {
+                    label: activityInfo.displayText, value: Number(activityInfo.value)
+                };
+            });
+
+        });
+        
     }
 
     getUserLocation(): void {

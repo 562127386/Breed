@@ -1200,7 +1200,7 @@
     <text name="SpeciesInfoName">گونه</text>
     <text name="ThisCodeIsAllocated">این کد قبلا استفاده شده است.</text>
     <text name="ThisStoreIsNotAllocatedTo">پلاک {0} به این مامور اختصاص داده نشده است.</text>
-    <text name="TheOfficerDoesNotExists">ابن کاربر به عنوان مامور تعریف نشده است.</text>
+    <text name="TheOfficerDoesNotExists">این کاربر به عنوان مامور تعریف نشده است.</text>
     <text name="Information">اطلاعات</text>
     <text name="Monitoring">نظارت</text>
     <text name="EditLivestockCode">ویرایش شماره ملی دام</text>
