@@ -15,7 +15,6 @@ namespace Akh.Breed.Herds
     [Table("AkhHerds")]
     public class Herd : Entity, IHasCreationTime, IMayHaveTenant
     {
-        [Required]
         public string HerdName { get; set; }
         
         public string Latitude { get; set; }
@@ -42,15 +41,12 @@ namespace Akh.Breed.Herds
 
         public string Code { get; set; }
         
-        [Required]
         public string NationalCode { get; set; }
 
         public DateTime? BirthDate { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
         public string Family { get; set; }
 
         public string Mobile { get; set; }

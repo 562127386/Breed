@@ -32,14 +32,14 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="herd.postalCode" type="text" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10"></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="herd.postalCode" type="text" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10"></p-inputMask>
                                                 <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"EpidemiologicCode" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"EpidemiologicCode" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <input #epidemiologicCodeInput="ngModel" [(ngModel)]="herd.epidemiologicCode" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'EpidemiologicCode' | localize}} *" name="epidemiologicCode" required maxlength="15"/>
                                             <validation-messages [formCtrl]="epidemiologicCodeInput"></validation-messages>
@@ -161,9 +161,9 @@
                         <div class="col-sm-12">
                             <p-fieldset class="col-sm-12" [legend]="l('SubHerdInfo')" [toggleable]="true">
                                 <div class="row">
-                                    <div class="form-group col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"AgriculturalId" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"AgriculturalId" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <input #agriculturalIdInput="ngModel" [(ngModel)]="herd.agriculturalId" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'AgriculturalId' | localize}} *" name="agriculturalId" required maxlength="16"/>
                                             <validation-messages [formCtrl]="agriculturalIdInput"></validation-messages>
@@ -222,6 +222,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row" *ngIf="herd.licenseStatus">
                                     <div class="form-group col-md-4 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"IssueDate" | localize}} *</label>
@@ -328,7 +330,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}}</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <p-inputMask [style]="{'width':'100%'}" #mobileInput="ngModel" mask="0-999-999-9999" [(ngModel)]="herd.mobile" type="text" autocomplete="new-password" name="mobile" placeholder="0-912-111-2233" length="11" required></p-inputMask>
                                                 <validation-messages [formCtrl]="phoneInput"></validation-messages>
