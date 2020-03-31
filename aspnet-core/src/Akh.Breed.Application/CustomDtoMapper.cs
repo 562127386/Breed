@@ -41,6 +41,8 @@ using Akh.Breed.MultiTenancy.Dto;
 using Akh.Breed.MultiTenancy.HostDashboard.Dto;
 using Akh.Breed.MultiTenancy.Payments;
 using Akh.Breed.MultiTenancy.Payments.Dto;
+using Akh.Breed.Notices;
+using Akh.Breed.Notices.Dto;
 using Akh.Breed.Notifications.Dto;
 using Akh.Breed.Officers;
 using Akh.Breed.Officers.Dto;
@@ -197,6 +199,11 @@ namespace Akh.Breed
             configuration.CreateMap<AcademicDegree, AcademicDegreeListDto>();
             configuration.CreateMap<AcademicDegreeCreateOrUpdateInput, AcademicDegree>();
             configuration.CreateMap<AcademicDegree, AcademicDegreeCreateOrUpdateInput>();
+
+            configuration.CreateMap<Notice, NoticeListDto>()
+                .ForMember(d => d.UserName, options => options.MapFrom(l => l.User.Name + " " + l.User.Surname));
+            configuration.CreateMap<NoticeCreateOrUpdateInput, Notice>();
+            configuration.CreateMap<Notice, NoticeCreateOrUpdateInput>();
             
             configuration.CreateMap<EpidemiologicInfo, EpidemiologicInfoListDto>();
             configuration.CreateMap<EpidemiologicInfoCreateOrUpdateInput, EpidemiologicInfo>();

@@ -47,7 +47,8 @@ export class AppNavigationService {
                 new AppMenuItem('SexInfo', null, 'flaticon-technology-1', '/app/main/sexInfo'),
                 new AppMenuItem('SpeciesInfo', null, 'flaticon-interface-6', '/app/main/speciesInfo'),
                 new AppMenuItem('FirmType', null, 'flaticon-line-chart-1', '/app/main/firmType'),
-                new AppMenuItem('PlaqueState', null, 'flaticon-technology-2', '/app/main/plaqueState')
+                new AppMenuItem('PlaqueState', null, 'flaticon-technology-2', '/app/main/plaqueState'),
+                new AppMenuItem('Notice', null, 'flaticon-technology-2', '/app/main/notice')
             ]),
             new AppMenuItem('BaseIntro', null, 'flaticon-folder-1', '',[
                 new AppMenuItem('Contractor', null, 'flaticon-diagram', '/app/main/contractor'),
@@ -58,11 +59,11 @@ export class AppNavigationService {
                 new AppMenuItem('PlaqueStore', null, 'flaticon2-box', '/app/main/plaqueStore'),
                 new AppMenuItem('PlaqueOfficer', null, 'flaticon2-box', '/app/main/plaqueOfficer'),
                 new AppMenuItem('Identification', null, 'flaticon2-box', '/app/main/livestock'),
-                new AppMenuItem('EditLivestockCode', null, 'flaticon2-box', '/app/main/livestock')
+                new AppMenuItem('EditLivestockCode', null, 'flaticon2-box', '')
             ]),            
             new AppMenuItem('Activities', null, 'flaticon2-box', '',[                
-                new AppMenuItem('EditGeoHerd', null, 'flaticon2-box', '/app/main/livestock'),
-                new AppMenuItem('EditStatePlaque', null, 'flaticon2-box', '/app/main/livestock')
+                new AppMenuItem('EditGeoHerd', null, 'flaticon2-box', ''),
+                new AppMenuItem('EditStatePlaque', null, 'flaticon2-box', '')
             ]),
             new AppMenuItem('Reports', null, 'flaticon2-box', '')
 

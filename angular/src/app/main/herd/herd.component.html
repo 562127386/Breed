@@ -61,6 +61,10 @@
                                         <th style="width: 90px" pSortableColumn="herdName">
                                             {{'HerdName' | localize}}
                                             <p-sortIcon field="herdName"></p-sortIcon>
+                                        </th> 
+                                        <th style="width: 90px" pSortableColumn="code">
+                                            {{'UniqueCode' | localize}}
+                                            <p-sortIcon field="code"></p-sortIcon>
                                         </th>      
                                         <th style="width: 90px" pSortableColumn="epidemiologicCode">
                                             {{'EpidemiologicCode' | localize}}
@@ -101,6 +105,10 @@
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'HerdName' | localize}}</span>
                                             {{record.herdName}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'UniqueCode' | localize}}</span>
+                                            {{record.code}}
                                         </td>      
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'EpidemiologicCode' | localize}}</span>

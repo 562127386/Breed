@@ -58,8 +58,12 @@
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
                                     <tr>     
+                                        <th style="width: 90px" pSortableColumn="firmName">
+                                            {{'FirmName' | localize}}
+                                            <p-sortIcon field="firmName"></p-sortIcon>
+                                        </th>
                                         <th style="width: 90px" pSortableColumn="code">
-                                            {{'Code' | localize}}
+                                            {{'UniqueCode' | localize}}
                                             <p-sortIcon field="code"></p-sortIcon>
                                         </th>
                                         <th style="width: 90px" pSortableColumn="name">
@@ -82,10 +86,6 @@
                                             {{'NationalCode' | localize}}
                                             <p-sortIcon field="nationalCode"></p-sortIcon>
                                         </th> 
-                                        <th style="width: 90px" pSortableColumn="firmName">
-                                            {{'FirmName' | localize}}
-                                            <p-sortIcon field="firmName"></p-sortIcon>
-                                        </th>
                                         <th style="width: 130px">
                                             <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
                                             {{'Actions' | localize}}
@@ -93,9 +93,13 @@
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
-                                    <tr>      
+                                    <tr>
                                         <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'Code' | localize}}</span>
+                                            <span class="ui-column-title"> {{'FirmName' | localize}}</span>
+                                            {{record.firmName}}
+                                        </td>      
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'UniqueCode' | localize}}</span>
                                             {{record.code}}
                                         </td>
                                         <td style="width: 90px">
@@ -117,10 +121,6 @@
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
                                             {{record.nationalCode}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'FirmName' | localize}}</span>
-                                            {{record.firmName}}
                                         </td>
                                         <td style="width: 130px">
                                             <div class="kt-section__content kt-section__content--solid">

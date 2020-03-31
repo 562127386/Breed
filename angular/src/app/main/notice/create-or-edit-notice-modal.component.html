@@ -1,0 +1,70 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #noticeForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header kt-bg-brand">
+                    <h4 class="modal-title">
+                        <span *ngIf="notice.id && editdisabled">{{"ViewNewNotice" | localize}}: {{notice.title}}</span>
+                        <span *ngIf="notice.id && !editdisabled">{{"EditNewNotice" | localize}}: {{notice.title}}</span>
+                        <span *ngIf="!notice.id">{{"CreateNewNotice" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-2 col-sm-12">{{"Title" | localize}}</label>
+                                <div class="col-md-10 col-sm-12">
+                                    <input #titleInput="ngModel" [(ngModel)]="notice.title" autoFocus class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Title' | localize}} *" name="title" required maxlength="64"/>
+                                    <validation-messages [formCtrl]="titleInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-2 col-sm-12">{{"Message" | localize}}</label>
+                                <div class="col-md-10 col-sm-12">
+                                    <textarea rows="3" #messageInput="ngModel" [(ngModel)]="notice.message" pInputTextarea autoResize="autoResize" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Message' | localize}}" name="message" maxlength="1024"></textarea>
+                                    <validation-messages [formCtrl]="messageInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="kt-checkbox-list">
+                                    <label for="isEnabled" class="kt-checkbox">
+                                        <input id="isEnabled" type="checkbox" name="isEnabled" class="form-control m-input" [(ngModel)]="notice.isEnabled">
+                                        {{"Enabled" | localize}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"NoticeType" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input type="radio" [(ngModel)]="notice.noticeType" [checked]="notice.noticeType === 1" name="noticeType" value="1">{{"News" | localize}}
+                                    <input type="radio" [(ngModel)]="notice.noticeType" [checked]="notice.noticeType === 2" name="noticeType" value="2">{{"Information" | localize}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                              
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!noticeForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,37 @@
                         <div class="col-sm-12">
                             <p-fieldset class="col-sm-12" [legend]="l('HerdInfo')" [toggleable]="true">
                                 <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-3 col-sm-12">{{"UniqueCode" | localize}}</label>
+                                            <div class="col-md-9 col-sm-12">
+                                                <input #codeInput="ngModel" [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="herd.code" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'UniqueCode' | localize}}" name="code" maxlength="16"/>
+                                            <validation-messages [formCtrl]="codeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="herd.postalCode" type="text" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10"></p-inputMask>
+                                                <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"EpidemiologicCode" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #epidemiologicCodeInput="ngModel" [(ngModel)]="herd.epidemiologicCode" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'EpidemiologicCode' | localize}} *" name="epidemiologicCode" required maxlength="15"/>
+                                            <validation-messages [formCtrl]="epidemiologicCodeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"StateInfoName" | localize}} *</label>
@@ -301,27 +332,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>   
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}}</label>
-                                            <div class="col-md-8 col-sm-12">
-                                                <p-inputMask #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="herd.postalCode" type="text" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10"></p-inputMask>
-                                                <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"EpidemiologicCode" | localize}}</label>
-                                            <div class="col-md-8 col-sm-12">
-                                                <input #epidemiologicCodeInput="ngModel" [(ngModel)]="herd.epidemiologicCode" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'EpidemiologicCode' | localize}} *" name="epidemiologicCode" required maxlength="15"/>
-                                            <validation-messages [formCtrl]="epidemiologicCodeInput"></validation-messages>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>                           
+                                </div>                                                            
                             </p-fieldset>
                         </div>
                     </div>

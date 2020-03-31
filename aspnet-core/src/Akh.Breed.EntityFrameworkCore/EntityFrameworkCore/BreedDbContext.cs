@@ -15,6 +15,7 @@ using Akh.Breed.Storage;
 using Akh.Breed.Contractors;
 using Akh.Breed.Herds;
 using Akh.Breed.Livestocks;
+using Akh.Breed.Notices;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques;
 
@@ -49,6 +50,8 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<Officer> Officers { get; set; }
 
         public virtual DbSet<AcademicDegree> AcademicDegrees { get; set; }
+        
+        public virtual DbSet<Notice> Notices { get; set; }
 
         public virtual DbSet<EpidemiologicInfo> EpidemiologicInfos { get; set; }
 

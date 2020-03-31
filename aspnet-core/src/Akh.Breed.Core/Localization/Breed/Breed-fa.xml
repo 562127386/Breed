@@ -392,7 +392,6 @@
     <text name="NewChatMessageEmail_SubTitle"></text>
     <text name="NewChatMessageEmail_Subject">You have a new chat message</text>
     <text name="Sender">فرستنده</text>
-    <text name="Message">Message</text>
     <text name="UserBlocked">User blocked successfully.</text>
     <text name="UserUnblocked">Block removed from user successfully.</text>
     <text name="BlockUser">Block user</text>
@@ -618,7 +617,11 @@
     <text name="GoogleAuthenticatorReferrerLink">Not sure what this screen means? You may need to check this </text>
     <text name="ScanQrCodeWithYourMobileApp">Scan this QR code with your mobile app</text>
     <text name="Profile">Profile</text>
-    <text name="Enable">Enable</text>
+    <text name="Enable">فعال</text>
+    <text name="Title">عنوان</text>
+    <text name="Enabled">فعال/غیرفعال</text>
+    <text name="Message">پیام</text>
+    <text name="NoticeType">نوع اعلان</text>
     <text name="GoogleAuthenticatorIsNotEnabled">Google Authenticator is not enabled for your account. You must first enable it in your settings.</text>
     <text name="SubscriptionExpiringSoon_Email_Subject">Your Breed subscription expiration notice</text>
     <text name="SubscriptionExpiringSoon_Email_Body">Your Breed subscription will expire at {0}.</text>
@@ -909,7 +912,7 @@
     <text name="ShowTimeOutNotificationSecond">Countdown Modal Wait Time (Seconds)</text>
     <text name="OneConcurrentLoginPerUser">Only one concurrent login per user</text>
     <text name="OneConcurrentLoginPerUserActive">Disable concurrent login for a user. If a user logins with a second device, the first session is automatically closed.</text>
-    <text name="Disable">Disable</text>
+    <text name="Disable">غیرفعال</text>
     <text name="UseCaptchaOnLogin">Use security image question (captcha) on login.</text>
     <text name="XCountPermissionFiltered">{0} permission filtered.</text>
     <text name="SelectPermissions">Select Permissions</text>
@@ -986,6 +989,7 @@
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
+    <text name="Notice">اعلانات</text>
     <text name="Livestock">اطلاعات دام</text>
     <text name="Herd">گله</text>
     <text name="EpidemiologicInfo">اپیدمولوژیک</text>
@@ -1015,11 +1019,21 @@
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
 
-    <text name="CreateNewLivestock">ایجاد دام</text>
-    <text name="AreYouSureToDeleteTheLivestock">آیا از حذف دام {0} مطمئن هستید؟</text>
+    <text name="CreateNewNotice">ایجاد اعلان</text>
+    <text name="AreYouSureToDeleteTheNotice">آیا از حذف اعلان {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToEnableTheNotice">آیا از فعال کردن اعلان {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToDisableTheNotice">آیا از غیرفعال کردن اعلان {0} مطمئن هستید؟</text>
+    <text name="NoticeHeaderInfo">مدیریت اعلان</text>
+    <text name="ViewNewNotice">نمایش اعلان</text>
+    <text name="EditNewNotice">ویرایش اعلان</text>
+    <text name="EnableNotice">فعال کردن</text>
+    <text name="DisableNotice">غیرفعال کردن</text>
+
+    <text name="CreateNewLivestock">نصب پلاک</text>
+    <text name="AreYouSureToDeleteTheLivestock">آیا از حذف پلاک نصب شده {0} مطمئن هستید؟</text>
     <text name="LivestockHeaderInfo">مدیریت دام</text>
-    <text name="ViewNewLivestock">نمایش دام</text>
-    <text name="EditNewLivestock">ویرایش دام</text>
+    <text name="ViewNewLivestock">نمایش پلاک نصب شده</text>
+    <text name="EditNewLivestock">اصلاح پلاک نصب شده</text>
 
     <text name="CreateNewHerd">ایجاد گله</text>
     <text name="AreYouSureToDeleteTheHerd">آیا از حذف گله {0} مطمئن هستید؟</text>
@@ -1104,6 +1118,7 @@
     <text name="MobileNumber">تلفن همراه</text>
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
     <text name="LivestockName">اطلاعات دام</text>
+    <text name="LivestockCode">کد ملی دام</text>
     <text name="HerdName">کد گله</text>
     <text name="EpidemiologicInfoName">اپیدمولوژیک</text>
     <text name="StateInfoName">استان</text>
@@ -1192,6 +1207,8 @@
     <text name="EditGeoHerd">اصلاح موقعیت گله</text>
     <text name="EditStatePlaque">تغییر وضعیت پلاک</text>
     <text name="PlaqueAllocated">تعداد پلاک اختصاص داده شده</text>
+    <text name="SexInfoName">جنیست دام</text>
+    <text name="UniqueCode">شناسه یکتا</text>
 
 
   </texts>
