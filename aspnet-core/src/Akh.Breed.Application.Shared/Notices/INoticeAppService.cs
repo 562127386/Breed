@@ -8,6 +8,8 @@ namespace Akh.Breed.Notices
     public interface INoticeAppService : IApplicationService
     {
         Task<PagedResultDto<NoticeListDto>> GetNotice(GetNoticeInput input);
+        Task<PagedResultDto<NoticeListDto>> GetNews();
+        Task<PagedResultDto<NoticeListDto>> GetInfos();
         Task<NoticeCreateOrUpdateInput> GetNoticeForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateNotice(NoticeCreateOrUpdateInput input);
         Task DeleteNotice(EntityDto input);

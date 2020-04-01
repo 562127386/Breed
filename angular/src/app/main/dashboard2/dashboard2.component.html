@@ -25,9 +25,18 @@
                 <div class="kt-portlet__body kt-padding-0">
 
                     <div class="row align-items-center kt-margin-0">
-                        <p-fieldset class="col-sm-12" [legend]="l('Monitoring')" [toggleable]="true"></p-fieldset>
-                        <p-fieldset class="col-md-6 col-sm-12" [legend]="l('News')" [toggleable]="true"></p-fieldset>
-                        <p-fieldset class="col-md-6 col-sm-12" [legend]="l('Information')" [toggleable]="true"></p-fieldset>
+                        <p-fieldset class="col-sm-12" [legend]="l('Monitoring')" [toggleable]="true">                              
+                        </p-fieldset>
+                        <p-fieldset class="col-md-6 col-sm-12" [legend]="l('News')" [toggleable]="true">
+                            <div class="row" *ngFor="let record of news">
+                                <card class="col-sm-12" [title]="record.title" [message]="record.message"></card>
+                            </div> 
+                        </p-fieldset>
+                        <p-fieldset class="col-md-6 col-sm-12" [legend]="l('Information')" [toggleable]="true">
+                            <div class="row" *ngFor="let record of infos">
+                                <card class="col-sm-12" [title]="record.title" [message]="record.message"></card>
+                            </div> 
+                        </p-fieldset>
                     </div>
                 </div>
 

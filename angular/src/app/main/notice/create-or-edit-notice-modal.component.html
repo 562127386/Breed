@@ -35,24 +35,22 @@
                             </div>
                         </div>
                     </div> 
-                    <div class="row">
+                    <div class="row">                        
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="kt-checkbox-list">
-                                    <label for="isEnabled" class="kt-checkbox">
-                                        <input id="isEnabled" type="checkbox" name="isEnabled" class="form-control m-input" [(ngModel)]="notice.isEnabled">
-                                        {{"Enabled" | localize}}
-                                        <span></span>
-                                    </label>
+                                <label class="col-form-label col-md-5 col-sm-12">{{"Enabled" | localize}} *</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input type="radio" [(ngModel)]="notice.isEnabled" name="isEnabled" [value]="true" required>{{"Enable" | localize}}
+                                    <input type="radio" [(ngModel)]="notice.isEnabled" name="isEnabled" [value]="false" required>{{"Disable" | localize}}
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"NoticeType" | localize}}</label>
-                                <div class="col-md-9 col-sm-12">
-                                    <input type="radio" [(ngModel)]="notice.noticeType" [checked]="notice.noticeType === 1" name="noticeType" value="1">{{"News" | localize}}
-                                    <input type="radio" [(ngModel)]="notice.noticeType" [checked]="notice.noticeType === 2" name="noticeType" value="2">{{"Information" | localize}}
+                                <label class="col-form-label col-md-5 col-sm-12">{{"NoticeType" | localize}} *</label>
+                                <div class="col-md-7 col-sm-12">
+                                    <input type="radio" [(ngModel)]="notice.noticeType" name="noticeType" [value]="1" required>{{"News" | localize}}
+                                    <input type="radio" [(ngModel)]="notice.noticeType" name="noticeType" [value]="2" required>{{"Information" | localize}}
                                 </div>
                             </div>
                         </div>

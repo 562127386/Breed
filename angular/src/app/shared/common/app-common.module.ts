@@ -43,6 +43,7 @@ import { PrimengDatepickerModule } from './prime-ng-date-picker/primeng-datepick
 import { ButtonModule } from 'primeng/button';
 import { SharedModule } from './prime-ng-date-picker/shared';
 import { PrimengDatepickerComponent } from './prime-ng-date-picker/primeng-datepicker.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
     imports: [
@@ -86,7 +87,8 @@ import { PrimengDatepickerComponent } from './prime-ng-date-picker/primeng-datep
         WidgetTopStatsComponent,
         FilterDateRangePickerComponent,
         AddWidgetModalComponent,
-        PrimengDatepickerComponent
+        PrimengDatepickerComponent,
+        CardComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -98,7 +100,8 @@ import { PrimengDatepickerComponent } from './prime-ng-date-picker/primeng-datep
         CustomizableDashboardComponent,
         NgxChartsModule,
         PrimengDatepickerComponent, 
-        SharedModule
+        SharedModule,
+        CardComponent
     ],
     providers: [
         DateTimeService,

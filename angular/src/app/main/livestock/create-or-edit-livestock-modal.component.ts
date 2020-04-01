@@ -8,6 +8,7 @@ import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import * as momentjalali from 'jalali-moment';
+import { format } from 'path';
 
 @Component({
     selector: 'createOrEditLivestockModal',
@@ -37,6 +38,9 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
     codeMask: string = '0';
     codePlaceHolder: string = '0';
     birthDateTemp: string;
+    liveStockOfficer: string;
+    liveStockNowDate: string;
+    liveStockNowTime: string;
 
     constructor(
         injector: Injector,
@@ -49,6 +53,14 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
     show(livestockId?: number,editdisabled?: boolean): void {  
         if (!livestockId) {
             this.active = true;
+            this.liveStockOfficer = this.appSession.user.name + ' ' + this.appSession.user.surname;
+            this.liveStockNowDate = momentjalali().format('jYYYY/jMM/jDD');
+            this.liveStockNowTime = momentjalali().format('HH:mm');
+        }
+        else{
+            this.liveStockOfficer = '';
+            this.liveStockNowDate = '';
+            this.liveStockNowTime = '';
         }
         this.editdisabled = true;
         if (!editdisabled) {

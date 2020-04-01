@@ -37,6 +37,35 @@ namespace Akh.Breed.Notices
                 noticesListDto
             );
         }
+        public async Task<PagedResultDto<NoticeListDto>> GetNews()
+        {
+            var query = _noticeRepository.GetAll()
+                .Where(x => x.IsEnabled == true && x.NoticeType == NoticeType.News);
+            var userCount = await query.CountAsync();
+            var notices = await query
+                .OrderBy(x => x.CreationTime)
+                .ToListAsync();
+            var noticesListDto = ObjectMapper.Map<List<NoticeListDto>>(notices);
+            return new PagedResultDto<NoticeListDto>(
+                userCount,
+                noticesListDto
+            );
+        }
+        
+        public async Task<PagedResultDto<NoticeListDto>> GetInfos()
+        {
+            var query = _noticeRepository.GetAll()
+                .Where(x => x.IsEnabled == true && x.NoticeType == NoticeType.Info);
+            var userCount = await query.CountAsync();
+            var notices = await query
+                .OrderBy(x => x.CreationTime)
+                .ToListAsync();
+            var noticesListDto = ObjectMapper.Map<List<NoticeListDto>>(notices);
+            return new PagedResultDto<NoticeListDto>(
+                userCount,
+                noticesListDto
+            );
+        }
         
         public async Task<NoticeCreateOrUpdateInput> GetNoticeForEdit(NullableIdDto<int> input)
         {

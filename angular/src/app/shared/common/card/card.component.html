@@ -1,0 +1,18 @@
+<div class="row card kt-margin-5">
+    <div class="title">
+        {{title}}
+    </div>
+    <div class="message">        
+        <div *ngIf="message">
+            <div *ngIf="message.length <= limit">{{message}}</div>
+            <div *ngIf="hide && message.length > limit">
+                {{message | slice:0: limit}}
+                <a (click)="toggle()">نمایش بیشتر</a>
+            </div>
+            <div *ngIf="!hide && message.length > limit">
+                {{message}}
+                <a (click)="toggle()">نمایش کمتر</a>
+            </div>
+        </div>
+    </div>     
+</div>
