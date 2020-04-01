@@ -79,7 +79,7 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
         this.saving = true;
         
         
-        input.steTime = this.setDate(this.steTimeTemp);
+        input.setTime = this.setDate(this.setTimeTemp);
 
         this._plaqueStoreService.createOrUpdatePlaqueStore(input)
             .pipe(finalize(() => this.saving = false))

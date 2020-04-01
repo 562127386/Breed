@@ -171,4 +171,21 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
             alert("Geolocation is not Supported for this browser/OS");
         }        
     }
+    
+    getDate(input: moment.Moment): string {
+        if( input !== undefined){
+            return input.format('YYYY/MM/DD');
+        }
+        return '';
+    }
+
+    setDate(input: string): moment.Moment {
+        if( input !== undefined || input != ''){
+            let m = momentjalali(input,'jYYYY/jMM/jDD');
+            if(m && m.isValid()){
+                return moment(m.format('YYYY/MM/DD'));
+            }
+        }
+        return undefined;
+    }
 }

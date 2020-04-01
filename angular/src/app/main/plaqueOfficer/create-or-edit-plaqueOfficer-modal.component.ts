@@ -80,7 +80,7 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
         input = this.plaqueOfficer;
         this.saving = true;        
         
-        input.steTime = this.setDate(this.steTimeTemp);
+        input.setTime = this.setDate(this.setTimeTemp);
         
         this._plaqueOfficerService.createOrUpdatePlaqueOfficer(input)
             .pipe(finalize(() => this.saving = false))

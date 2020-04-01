@@ -17,3 +17,4 @@ aspnet-core/DeleteBinsAndObjs.bat
 aspnet-core/src/MyCompanyName.AbpZeroTemplate.Web.Host/healthchecksdb
 aspnet-core/src/MyCompanyName.AbpZeroTemplate.Web.Public/healthchecksdb
 aspnet-core/src/MyCompanyName.AbpZeroTemplate.Web.Mvc/healthchecksdb
+aspnet-core/src/Akh.Breed.Migrator/appsettings.json
