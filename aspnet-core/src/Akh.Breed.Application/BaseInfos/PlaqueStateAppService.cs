@@ -70,7 +70,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeletePlaqueState(EntityDto input)
         {
-            await _plaqueStateRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _plaqueStateRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();            
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdatePlaqueStateAsync(PlaqueStateCreateOrUpdateInput input)

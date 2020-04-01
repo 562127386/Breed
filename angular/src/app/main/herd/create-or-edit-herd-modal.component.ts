@@ -9,7 +9,7 @@ import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import * as momentj from 'jalali-moment';
+import * as momentjalali from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditHerdModal',
@@ -42,6 +42,9 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
     active: boolean = false;
     saving: boolean = false;
     editdisabled: boolean = false;
+    birthDateTemp: string;
+    issueDateTemp: string;
+    validityDateTemp: string;
 
     constructor(
         injector: Injector,
@@ -63,7 +66,12 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
         }
         this._herdService.getHerdForEdit(herdId).subscribe(userResult => {
             this.herd = userResult.herd;
- 
+
+            this.birthDateTemp = this.getDate(userResult.herd.birthDate);
+            this.issueDateTemp = this.getDate(userResult.herd.issueDate);
+            this.validityDateTemp = this.getDate(userResult.herd.validityDate);
+
+
             this.stateInfosSelectItems = _.map(userResult.stateInfos, function(stateInfo) {
                 return {
                     label: stateInfo.displayText, value: Number(stateInfo.value)
@@ -122,15 +130,11 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
     save(): void {
         let input = new HerdCreateOrUpdateInput();
         input = this.herd;
-        if(this.herd.birthDate != undefined){        
-            input.birthDate = moment(this.herd.birthDate.locale('en'));
-        }
-        if(this.herd.issueDate != undefined){
-            input.issueDate = moment(this.herd.issueDate.locale('en'));
-        }
-        if(this.herd.validityDate != undefined){
-            input.validityDate = moment(this.herd.validityDate.locale('en'));
-        }
+
+        input.birthDate = this.setDate(this.birthDateTemp);   
+        input.issueDate = this.setDate(this.issueDateTemp); 
+        input.validityDate = this.setDate(this.validityDateTemp); 
+
         this.saving = true;
         this._herdService.createOrUpdateHerd(input)
             .pipe(finalize(() => this.saving = false))
@@ -234,5 +238,22 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
             // container.innerHTML = "Geolocation is not Supported for this browser/OS.";
             alert("Geolocation is not Supported for this browser/OS");
         }        
+    }
+
+    getDate(input: moment.Moment): string {
+        if( input !== undefined){
+            return input.format('YYYY/MM/DD');
+        }
+        return '';
+    }
+
+    setDate(input: string): moment.Moment {
+        if( input !== undefined || input != ''){
+            let m = momentjalali(input,'jYYYY/jMM/jDD');
+            if(m && m.isValid()){
+                return moment(m.format('YYYY/MM/DD'));
+            }
+        }
+        return undefined;
     }
 }

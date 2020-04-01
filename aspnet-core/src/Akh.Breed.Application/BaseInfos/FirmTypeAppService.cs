@@ -70,7 +70,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteFirmType(EntityDto input)
         {
-            await _firmTypeRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _firmTypeRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();            
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateFirmTypeAsync(FirmTypeCreateOrUpdateInput input)

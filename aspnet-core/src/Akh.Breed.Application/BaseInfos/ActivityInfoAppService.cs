@@ -70,7 +70,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteActivityInfo(EntityDto input)
         {
-            await _activityInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _activityInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();            
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateActivityInfoAsync(ActivityInfoCreateOrUpdateInput input)

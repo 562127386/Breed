@@ -1,4 +1,4 @@
-<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form *ngIf="active" #herdForm="ngForm" novalidate (ngSubmit)="save()">
@@ -213,7 +213,7 @@
                                     </div>  
                                 </div>
                                 <div class="row" *ngIf="herd.licenseStatus">
-                                    <div class="form-group col-md-4 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"LicenseNum" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
@@ -224,21 +224,21 @@
                                     </div>
                                 </div>
                                 <div class="row" *ngIf="herd.licenseStatus">
-                                    <div class="form-group col-md-4 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"IssueDate" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <primeng-datepicker [style]="{'width':'100%'}" #issueDateInput="ngModel" name="issueDate" [(ngModel)]="herd.issueDate" [isJalali]="true" required></primeng-datepicker>
-                                                <validation-messages [formCtrl]="issueDateInput"></validation-messages>
+                                                <p-inputMask [style]="{'width':'100%'}" #issueDateTempInput="ngModel" mask="9999/99/99" [(ngModel)]="issueDateTemp" type="text" autocomplete="new-password" name="issueDateTemp" placeholder="1398/01/01" length="8" required></p-inputMask>
+                                                <validation-messages [formCtrl]="issueDateTempInput"></validation-messages>
                                             </div>
                                         </div>                                
                                     </div> 
-                                    <div class="form-group col-md-4 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"ValidityDate" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <primeng-datepicker [style]="{'width':'100%'}" #validityDateInput="ngModel" name="validityDate" [(ngModel)]="herd.validityDate" [isJalali]="true" required></primeng-datepicker>
-                                                <validation-messages [formCtrl]="validityDateInput"></validation-messages>
+                                                <p-inputMask [style]="{'width':'100%'}" #validityDateTempInput="ngModel" mask="9999/99/99" [(ngModel)]="validityDateTemp" type="text" autocomplete="new-password" name="validityDateTemp" placeholder="1398/01/01" length="8" required></p-inputMask>
+                                                <validation-messages [formCtrl]="validityDateTempInput"></validation-messages>
                                             </div>
                                         </div>                                
                                     </div> 
@@ -281,8 +281,8 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"BirthDate" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <primeng-datepicker [style]="{'width':'100%'}" #birthDateInput="ngModel" name="birthDate" [(ngModel)]="herd.birthDate" [isJalali]="true" required></primeng-datepicker>
-                                                <validation-messages [formCtrl]="birthDateInput"></validation-messages>
+                                                <p-inputMask [style]="{'width':'100%'}" #birthDateTempInput="ngModel" mask="9999/99/99" [(ngModel)]="birthDateTemp" type="text" autocomplete="new-password" name="birthDateTemp" placeholder="1398/01/01" length="8" required></p-inputMask>
+                                                <validation-messages [formCtrl]="birthDateTempInput"></validation-messages>
                                             </div>
                                         </div>                                
                                     </div> 

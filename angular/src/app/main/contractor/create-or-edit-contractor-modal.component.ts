@@ -9,7 +9,7 @@ import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import * as momentj from 'jalali-moment';
+import * as momentjalali from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditContractorModal',
@@ -39,6 +39,7 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
     active: boolean = false;
     saving: boolean = false;
     editdisabled: boolean = false;
+    birthDateTemp: string;
 
     constructor(
         injector: Injector,
@@ -61,6 +62,8 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
         this._contractorService.getContractorForEdit(contractorId).subscribe(userResult => {
             this.contractor = userResult.contractor;
             
+            this.birthDateTemp = this.getDate(userResult.contractor.birthDate);
+
             this.firmTypesSelectItems = _.map(userResult.firmTypes, function(firmType) {
                 return {
                     label: firmType.displayText, value: Number(firmType.value)
@@ -114,7 +117,8 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
         let input = new ContractorCreateOrUpdateInput();
         input = this.contractor;
   
-        input.birthDate = moment(this.contractor.birthDate.locale('en'));
+        input.birthDate = this.setDate(this.birthDateTemp);   
+        
         this.saving = true;
         this._contractorService.createOrUpdateContractor(input)
             .pipe(finalize(() => this.saving = false))
@@ -192,5 +196,22 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
     setSubInstitution(subInstitution: string): void {
 
            this.contractor.subInstitution = subInstitution;
+    }
+    
+    getDate(input: moment.Moment): string {
+        if( input !== undefined){
+            return input.format('YYYY/MM/DD');
+        }
+        return '';
+    }
+
+    setDate(input: string): moment.Moment {
+        if( input !== undefined || input != ''){
+            let m = momentjalali(input,'jYYYY/jMM/jDD');
+            if(m && m.isValid()){
+                return moment(m.format('YYYY/MM/DD'));
+            }
+        }
+        return undefined;
     }
 }

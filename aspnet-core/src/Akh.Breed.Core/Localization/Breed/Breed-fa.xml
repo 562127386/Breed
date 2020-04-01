@@ -742,7 +742,7 @@
     <text name="NoInternetConnection">You are currently not connected to internet</text>
     <text name="Warning">Warning</text>
     <text name="RequestTimedOut">Your request timed out, please try again later.</text>
-    <text name="AnErrorOccurred">An error occurred, please try again later.</text>
+    <text name="AnErrorOccurred">خطایی در سیستم رخ داده است.</text>
     <text name="AnHttpErrorOccured">There was an error communicating with the server.</text>
     <text name="ChangePasswordToLogin">You must change your password before logging on!</text>
     <text name="NoPermission">You do not have any permission. Contact your administrator.</text>
@@ -995,6 +995,7 @@
     <text name="EpidemiologicInfo">اپیدمولوژیک</text>
     <text name="SexInfo">جنسیت دام</text>
     <text name="FirmType">نوع شرکت</text>
+    <text name="YouCanNotDeleteThisRecord">امکان حذف این رکورد وجود ندارد.</text>
     <text name="CreateNewProviderInfo">ایجاد تامین کننده</text>
     <text name="AreYouSureToDeleteTheProviderInfo">آیا از حذف تامین کننده {0} مطمئن هستید؟</text>
     <text name="ProviderInfoHeaderInfo">مدیریت تامین کنندگان</text>
@@ -1210,7 +1211,7 @@
     <text name="ThisStoreIsNotAllocatedTo">پلاک {0} به این مامور اختصاص داده نشده است.</text>
     <text name="TheOfficerDoesNotExists">این کاربر به عنوان مامور تعریف نشده است.</text>
     <text name="Information">اطلاعات</text>
-    <text name="Monitoring">نظارت</text>
+    <text name="Monitoring">عملیات</text>
     <text name="EditLivestockCode">ویرایش شماره ملی دام</text>
     <text name="EditGeoHerd">اصلاح موقعیت گله</text>
     <text name="EditStatePlaque">تغییر وضعیت پلاک</text>

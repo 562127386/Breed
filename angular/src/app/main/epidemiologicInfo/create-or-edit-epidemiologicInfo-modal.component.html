@@ -1,4 +1,4 @@
-<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <form *ngIf="active" #epidemiologicInfoForm="ngForm" novalidate (ngSubmit)="save()">

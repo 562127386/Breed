@@ -84,7 +84,15 @@ namespace Akh.Breed.Plaques
         
         public async Task DeletePlaqueStore(EntityDto input)
         {
-            await _plaqueStoreRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _plaqueStoreRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdatePlaqueStoreAsync(PlaqueStoreCreateOrUpdateInput input)

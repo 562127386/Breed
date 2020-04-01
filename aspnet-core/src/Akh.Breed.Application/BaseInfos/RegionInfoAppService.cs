@@ -93,10 +93,18 @@ namespace Akh.Breed.BaseInfos
                 await CreateRegionInfoAsync(input);
             }
         }
-        
+
         public async Task DeleteRegionInfo(EntityDto input)
         {
-            await _regionInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _regionInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateRegionInfoAsync(RegionInfoCreateOrUpdateInput input)

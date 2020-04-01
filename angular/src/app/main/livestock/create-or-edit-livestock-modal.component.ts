@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import * as momentj from 'jalali-moment';
+import * as momentjalali from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditLivestockModal',
@@ -36,6 +36,7 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
     editdisabled: boolean = false;
     codeMask: string = '0';
     codePlaceHolder: string = '0';
+    birthDateTemp: string;
 
     constructor(
         injector: Injector,
@@ -56,6 +57,8 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         this._livestockService.getLivestockForEdit(livestockId).subscribe(userResult => {
             this.livestock = userResult.livestock;
             
+            this.birthDateTemp = this.getDate(userResult.livestock.birthDate);
+
             this.speciesInfosSelectItems = _.map(userResult.speciesInfos, function(speciesInfo) {
                 return {
                     label: speciesInfo.displayText, value: Number(speciesInfo.value)
@@ -95,9 +98,9 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
     save(): void {
         let input = new LivestockCreateOrUpdateInput();
         input = this.livestock;
-        if(this.livestock.birthDate != undefined){        
-            input.birthDate = moment(this.livestock.birthDate.locale('en'));
-        }        
+        
+        input.birthDate = this.setDate(this.birthDateTemp);
+        
         this.saving = true;
         this._livestockService.createOrUpdateLivestock(input)
             .pipe(finalize(() => this.saving = false))

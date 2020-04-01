@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
@@ -136,7 +137,15 @@ namespace Akh.Breed.Herds
         
         public async Task DeleteHerd(EntityDto input)
         {
-            await _herdRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _herdRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateHerdAsync(HerdCreateOrUpdateInput input)

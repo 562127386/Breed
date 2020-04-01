@@ -72,7 +72,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteSpeciesInfo(EntityDto input)
         {
-            await _speciesInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _speciesInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         public async Task<string> GetCodeRange(EntityDto input)

@@ -108,7 +108,15 @@ namespace Akh.Breed.Livestocks
         
         public async Task DeleteLivestock(EntityDto input)
         {
-            await _livestockRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _livestockRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateLivestockAsync(LivestockCreateOrUpdateInput input)
@@ -154,7 +162,7 @@ namespace Akh.Breed.Livestocks
         
         private async Task CheckValidation(LivestockCreateOrUpdateInput input)
         {
-            var species = _speciesInfoRepository.Get(input.SpeciesInfoId.Value);
+            var species = await _speciesInfoRepository.GetAsync(input.SpeciesInfoId.Value);
             long nationalCode = Convert.ToInt64(input.NationalCode);
             if ( nationalCode < species.FromCode)
             {

@@ -70,7 +70,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteAcademicDegree(EntityDto input)
         {
-            await _academicDegreeRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _academicDegreeRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();            
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateAcademicDegreeAsync(AcademicDegreeCreateOrUpdateInput input)

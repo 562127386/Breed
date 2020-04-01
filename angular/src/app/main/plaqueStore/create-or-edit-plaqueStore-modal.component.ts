@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import * as momentj from 'jalali-moment';
+import * as momentjalali from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditPlaqueStoreModal',
@@ -29,6 +29,7 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
     editdisabled: boolean = false;
     codeMask: string = '0';
     codePlaceHolder: string = '0';
+    setTimeTemp: string;
 
     constructor(
         injector: Injector,
@@ -46,9 +47,13 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
         if (!editdisabled) {
             this.editdisabled = false;
         }
+
+                
         this._plaqueStoreService.getPlaqueStoreForEdit(plaqueStoreId).subscribe(userResult => {
             this.plaqueStore = userResult.plaqueStore;
             
+            this.setTimeTemp = this.getDate(userResult.plaqueStore.setTime);
+
             this.speciesInfosSelectItems = _.map(userResult.specieInfos, function(stateInfo) {
                 return {
                     label: stateInfo.displayText, value: Number(stateInfo.value)
@@ -72,7 +77,10 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
         let input = new PlaqueStoreCreateOrUpdateInput();
         input = this.plaqueStore;
         this.saving = true;
-        input.setTime = moment(this.plaqueStore.setTime.locale('en'));
+        
+        
+        input.steTime = this.setDate(this.steTimeTemp);
+
         this._plaqueStoreService.createOrUpdatePlaqueStore(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
@@ -96,5 +104,22 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
             this.codeMask = userResult;
             this.codePlaceHolder = userResult;            
         });
+    }
+
+    getDate(input: moment.Moment): string {
+        if( input !== undefined){
+            return input.format('YYYY/MM/DD');
+        }
+        return '';
+    }
+
+    setDate(input: string): moment.Moment {
+        if( input !== undefined || input != ''){
+            let m = momentjalali(input,'jYYYY/jMM/jDD');
+            if(m && m.isValid()){
+                return moment(m.format('YYYY/MM/DD'));
+            }
+        }
+        return undefined;
     }
 }

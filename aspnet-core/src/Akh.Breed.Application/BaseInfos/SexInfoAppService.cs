@@ -70,7 +70,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteSexInfo(EntityDto input)
         {
-            await _sexInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _sexInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateSexInfoAsync(SexInfoCreateOrUpdateInput input)

@@ -74,7 +74,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteStateInfo(EntityDto input)
         {
-            await _stateInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _stateInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();            
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateStateInfoAsync(StateInfoCreateOrUpdateInput input)

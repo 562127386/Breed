@@ -70,7 +70,15 @@ namespace Akh.Breed.Notices
         
         public async Task DeleteNotice(EntityDto input)
         {
-            await _noticeRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _noticeRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
         
         public async Task ToggleNotice(int? input)

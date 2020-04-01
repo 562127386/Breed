@@ -70,7 +70,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteEpidemiologicInfo(EntityDto input)
         {
-            await _epidemiologicInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _epidemiologicInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();            
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateEpidemiologicInfoAsync(EpidemiologicInfoCreateOrUpdateInput input)

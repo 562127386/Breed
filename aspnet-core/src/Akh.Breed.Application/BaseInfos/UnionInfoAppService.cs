@@ -70,7 +70,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteUnionInfo(EntityDto input)
         {
-            await _unionInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _unionInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateUnionInfoAsync(UnionInfoCreateOrUpdateInput input)

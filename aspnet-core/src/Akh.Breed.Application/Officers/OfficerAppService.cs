@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Abp.Zero.Configuration;
 using Akh.Breed.Authorization.Users;
 using Akh.Breed.Authorization.Users.Dto;
@@ -100,7 +101,15 @@ namespace Akh.Breed.Officers
         
         public async Task DeleteOfficer(EntityDto input)
         {
-            await _officerRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _officerRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateOfficerAsync(OfficerCreateOrUpdateInput input)
@@ -125,10 +134,17 @@ namespace Akh.Breed.Officers
             CheckErrors(await UserManager.CreateAsync(user));
             await CurrentUnitOfWork.SaveChangesAsync();
 
-            var a = user.ToUserIdentifier().UserId;
-            var officer = ObjectMapper.Map<Officer>(input);
-            officer.UserId = a;
-            await _officerRepository.InsertAsync(officer);
+            long userId = user.ToUserIdentifier().UserId;
+            if (userId > 0)
+            {
+                var officer = ObjectMapper.Map<Officer>(input);
+                officer.UserId = userId;
+                await _officerRepository.InsertAsync(officer);
+            }
+            else
+            {
+                throw new UserFriendlyException(L("AnErrorOccurred"));
+            }
         }
         
         private IQueryable<Officer> GetFilteredQuery(GetOfficerInput input)

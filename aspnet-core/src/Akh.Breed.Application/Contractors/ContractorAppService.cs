@@ -7,6 +7,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.UI;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors.Dto;
@@ -127,7 +128,15 @@ namespace Akh.Breed.Contractors
         
         public async Task DeleteContractor(EntityDto input)
         {
-            await _contractorRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _contractorRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateContractorAsync(ContractorCreateOrUpdateInput input)

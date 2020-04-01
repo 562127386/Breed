@@ -83,7 +83,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteCityInfo(EntityDto input)
         {
-            await _cityInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _cityInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();            
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateCityInfoAsync(CityInfoCreateOrUpdateInput input)

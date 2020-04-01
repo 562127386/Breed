@@ -70,7 +70,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteProviderInfo(EntityDto input)
         {
-            await _providerInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _providerInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();            
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateProviderInfoAsync(ProviderInfoCreateOrUpdateInput input)

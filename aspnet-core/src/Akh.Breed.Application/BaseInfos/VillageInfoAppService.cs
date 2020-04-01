@@ -105,7 +105,15 @@ namespace Akh.Breed.BaseInfos
         
         public async Task DeleteVillageInfo(EntityDto input)
         {
-            await _villageInfoRepository.DeleteAsync(input.Id);
+            try
+            {
+                await _villageInfoRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         private async Task UpdateVillageInfoAsync(VillageInfoCreateOrUpdateInput input)

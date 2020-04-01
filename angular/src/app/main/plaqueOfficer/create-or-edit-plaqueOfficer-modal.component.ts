@@ -6,6 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import * as momentjalali from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditPlaqueOfficerModal',
@@ -27,6 +28,7 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
     active: boolean = false;
     saving: boolean = false;
     editdisabled: boolean = false;
+    setTimeTemp: string;
 
     constructor(
         injector: Injector,
@@ -46,6 +48,8 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
         this._plaqueOfficerService.getPlaqueOfficerForEdit(plaqueOfficerId).subscribe(userResult => {
             this.plaqueOfficer = userResult.plaqueOfficer;
             
+            this.setTimeTemp = this.getDate(userResult.plaqueOfficer.setTime);
+
             this.speciesInfosSelectItems = _.map(userResult.speciesInfos, function(speciesInfo) {
                 return {
                     label: speciesInfo.displayText, value: Number(speciesInfo.value)
@@ -75,7 +79,9 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
         let input = new PlaqueOfficerCreateOrUpdateInput();
         input = this.plaqueOfficer;
         this.saving = true;        
-        input.setTime = moment(this.plaqueOfficer.setTime.locale('en'));
+        
+        input.steTime = this.setDate(this.steTimeTemp);
+        
         this._plaqueOfficerService.createOrUpdatePlaqueOfficer(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
@@ -89,6 +95,23 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
         this.active = false;
         this.editdisabled = true;
         this.modal.hide();
+    }
+
+    getDate(input: moment.Moment): string {
+        if( input !== undefined){
+            return input.format('YYYY/MM/DD');
+        }
+        return '';
+    }
+
+    setDate(input: string): moment.Moment {
+        if( input !== undefined || input != ''){
+            let m = momentjalali(input,'jYYYY/jMM/jDD');
+            if(m && m.isValid()){
+                return moment(m.format('YYYY/MM/DD'));
+            }
+        }
+        return undefined;
     }
 
 }
