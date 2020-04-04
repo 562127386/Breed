@@ -1218,6 +1218,9 @@
     <text name="PlaqueAllocated">تعداد پلاک اختصاص داده شده</text>
     <text name="SexInfoName">جنیست دام</text>
     <text name="UniqueCode">شناسه یکتا</text>
+    <text name="UniqueCodeContractor">شناسه یکتا پیمانکار</text>
+    <text name="UniqueCodeOfficer">شناسه یکتا مامور</text>
+    <text name="UniqueCodeHerd">شناسه یکتا گله</text>
     <text name="LiveStockOfficer">نام مامور نصب</text>
     <text name="LiveStockNowDate">تاریخ نصب</text>
     <text name="LiveStockNowTime">ساعت نصب</text>

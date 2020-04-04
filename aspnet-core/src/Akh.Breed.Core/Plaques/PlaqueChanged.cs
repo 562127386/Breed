@@ -9,25 +9,22 @@ using Akh.Breed.Officers;
 
 namespace Akh.Breed.Plaques
 {
-    [Table("PlaqueChanges")]
+    [Table("AkhPlaqueChanges")]
     public class PlaqueChange : Entity, IHasCreationTime, IMayHaveTenant
     {
-        [ForeignKey("PrePlaqueId")]
-        public virtual PlaqueInfo PrePlaque { get; set; }
-        public long? PrePlaqueId { get; set; }
-        
-        [ForeignKey("NewPlaqueId")]
-        public virtual PlaqueInfo NewPlaque { get; set; }
-        public long? NewPlaqueId { get; set; }
+        [ForeignKey("PlaqueId")]
+        public virtual PlaqueInfo Plaque { get; set; }
+        public long? PlaqueId { get; set; }
 
-        [Required]
-        public string ChangeReson { get; set; }
+        public string ChangeReason { get; set; }
         
-        public DateTime SetTime { get; set; }
-
-        [ForeignKey("StateId")]
-        public virtual PlaqueState State { get; set; }
-        public int? StateId { get; set; }
+        [ForeignKey("PreStateId")]
+        public virtual PlaqueState PreState { get; set; }
+        public int? PreStateId { get; set; }
+        
+        [ForeignKey("NewStateId")]
+        public virtual PlaqueState NewState { get; set; }
+        public int? NewStateId { get; set; }
         
         [ForeignKey("OfficerId")]
         public virtual Officer Officer { get; set; }
@@ -40,7 +37,6 @@ namespace Akh.Breed.Plaques
         public PlaqueChange()
         {
             CreationTime = Clock.Now;
-            SetTime = Clock.Now;
         }
     }
 }

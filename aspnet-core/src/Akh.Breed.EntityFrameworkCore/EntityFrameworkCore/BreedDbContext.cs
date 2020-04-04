@@ -85,6 +85,8 @@ namespace Akh.Breed.EntityFrameworkCore
 
         public virtual DbSet<PlaqueChange> PlaqueChanges { get; set; }
 
+        public virtual DbSet<HerdGeoLog> HerdGeoLogs { get; set; }
+
         
         public BreedDbContext(DbContextOptions<BreedDbContext> options)
             : base(options)

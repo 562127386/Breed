@@ -4,14 +4,16 @@ using Akh.Breed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    partial class BreedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200404133032_plaqueChnages")]
+    partial class plaqueChnages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2157,40 +2159,6 @@ namespace Akh.Breed.Migrations
                     b.ToTable("AkhHerds");
                 });
 
-            modelBuilder.Entity("Akh.Breed.Herds.HerdGeoLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("HerdId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Latitude")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Longitude")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OfficerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HerdId");
-
-                    b.HasIndex("OfficerId");
-
-                    b.ToTable("AkhHerdGeoLogs");
-                });
-
             modelBuilder.Entity("Akh.Breed.Livestocks.Livestock", b =>
                 {
                     b.Property<int>("Id")
@@ -2619,7 +2587,7 @@ namespace Akh.Breed.Migrations
 
                     b.HasIndex("PreStateId");
 
-                    b.ToTable("AkhPlaqueChanges");
+                    b.ToTable("PlaqueChanges");
                 });
 
             modelBuilder.Entity("Akh.Breed.Plaques.PlaqueInfo", b =>
@@ -3081,17 +3049,6 @@ namespace Akh.Breed.Migrations
                     b.HasOne("Akh.Breed.BaseInfo.VillageInfo", "VillageInfo")
                         .WithMany()
                         .HasForeignKey("VillageInfoId");
-                });
-
-            modelBuilder.Entity("Akh.Breed.Herds.HerdGeoLog", b =>
-                {
-                    b.HasOne("Akh.Breed.Herds.Herd", "EpidemiHerdologicInfo")
-                        .WithMany()
-                        .HasForeignKey("HerdId");
-
-                    b.HasOne("Akh.Breed.Officers.Officer", "Officer")
-                        .WithMany()
-                        .HasForeignKey("OfficerId");
                 });
 
             modelBuilder.Entity("Akh.Breed.Livestocks.Livestock", b =>

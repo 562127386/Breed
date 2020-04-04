@@ -4,12 +4,10 @@
         <div class="kt-header-mobile__logo">
             <a routerLink="/" target="_blank">
                 <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="defaultLogo" alt="logo" height="28" />
-                <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="defaultLogo2" alt="logo" height="28" />
+                <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="defaultLogo2" alt="logo" height="28" class="kt-padding-l-10"/>
+                <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="defaultLogo3" alt="logo" height="28" class="kt-padding-l-20"/>
                 <img *ngIf="appSession.tenant && appSession.tenant.logoId" [src]="remoteServiceBaseUrl + '/TenantCustomization/GetTenantLogo?skin=' + currentTheme.baseSettings.menu.asideSkin + '&tenantId=' + appSession.tenant.id + '&id=' + appSession.tenant.logoId" alt="logo" height="38" />
             </a>
-        </div>
-        <div>
-        سامانه سامانه دامیار
         </div>
         <div class="kt-header-mobile__toolbar">
             <button class="kt-header-mobile__toolbar-toggler kt-header-mobile__toolbar-toggler--left" id="kt_aside_mobile_toggler">

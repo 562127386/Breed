@@ -12,8 +12,9 @@ import { DOCUMENT } from '@angular/common';
 })
 export class ThemeAkhBreedBrandComponent extends AppComponentBase {
 
-    defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/logo3.png';
-    defaultLogo2 = AppConsts.appBaseUrl + '/assets/common/images/logo2.png';
+    defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/arm1.png';
+    defaultLogo2 = AppConsts.appBaseUrl + '/assets/common/images/arm2.png';
+    defaultLogo3 = AppConsts.appBaseUrl + '/assets/common/images/arm3.png';
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
 
     constructor(

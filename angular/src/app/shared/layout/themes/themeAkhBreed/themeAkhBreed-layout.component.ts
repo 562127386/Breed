@@ -28,6 +28,7 @@ export class ThemeAkhBreedLayoutComponent extends ThemesLayoutBaseComponent impl
     installationMode;
     defaultLogo;
     defaultLogo2;
+    defaultLogo3;
 
     constructor(
         injector: Injector
@@ -37,8 +38,9 @@ export class ThemeAkhBreedLayoutComponent extends ThemesLayoutBaseComponent impl
 
     ngOnInit() {
         this.installationMode = UrlHelper.isInstallUrl(location.href);
-        this.defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/logo3.png';        
-        this.defaultLogo2 = AppConsts.appBaseUrl + '/assets/common/images/logo2.png';        
+        this.defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/arm1.png';        
+        this.defaultLogo2 = AppConsts.appBaseUrl + '/assets/common/images/arm2.png';        
+        this.defaultLogo3 = AppConsts.appBaseUrl + '/assets/common/images/arm3.png';        
 
         setInterval(() => {
             this.time = momentj().format('jYYYY/jM/jD HH:mm:ss');

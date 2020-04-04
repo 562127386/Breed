@@ -58,8 +58,7 @@ export class AppNavigationService {
             new AppMenuItem('IdentityInfo', null, 'flaticon-folder-1', '',[                
                 new AppMenuItem('PlaqueStore', null, 'flaticon2-box', '/app/main/plaqueStore'),
                 new AppMenuItem('PlaqueOfficer', null, 'flaticon2-box', '/app/main/plaqueOfficer'),
-                new AppMenuItem('Identification', null, 'flaticon2-box', '/app/main/livestock'),
-                new AppMenuItem('EditLivestockCode', null, 'flaticon2-box', '')
+                new AppMenuItem('Identification', null, 'flaticon2-box', '/app/main/livestock')
             ]),            
             new AppMenuItem('Activities', null, 'flaticon2-box', '',[                
                 new AppMenuItem('EditGeoHerd', null, 'flaticon2-box', ''),
