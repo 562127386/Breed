@@ -19,7 +19,7 @@ namespace Akh.Breed.Herds
     public class HerdAppService : BreedAppServiceBase, IHerdAppService
     {
         private readonly IRepository<Herd> _herdRepository;
-        private readonly IRepository<EpidemiologicInfo> _epidemiologicInfoRepository;
+        private readonly IRepository<HerdGeoLog> _herdGeoLogInfoRepository;
         private readonly IRepository<StateInfo> _stateInfoRepository;
         private readonly IRepository<CityInfo> _cityInfoRepository;
         private readonly IRepository<RegionInfo> _regionInfoRepository;
@@ -28,7 +28,7 @@ namespace Akh.Breed.Herds
         private readonly IRepository<ActivityInfo> _activityInfoRepository;
         private readonly IRepository<Contractor> _contractorRepository;
         
-        public HerdAppService(IRepository<Herd> herdRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<EpidemiologicInfo> epidemiologicInfoRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Contractor> contractorRepository)
+        public HerdAppService(IRepository<Herd> herdRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<HerdGeoLog> herdGeoLogInfoRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Contractor> contractorRepository)
         {
             _herdRepository = herdRepository;
             _stateInfoRepository = stateInfoRepository;
@@ -36,7 +36,7 @@ namespace Akh.Breed.Herds
             _regionInfoRepository = regionInfoRepository;
             _villageInfoRepository = villageInfoRepository;
             _unionInfoRepository = unionInfoRepository;
-            _epidemiologicInfoRepository = epidemiologicInfoRepository;
+            _herdGeoLogInfoRepository = herdGeoLogInfoRepository;
             _activityInfoRepository = activityInfoRepository;
             _contractorRepository = contractorRepository;
         }
@@ -158,6 +158,17 @@ namespace Akh.Breed.Herds
         {
             var herd = ObjectMapper.Map<Herd>(input);
             await _herdRepository.InsertAsync(herd);
+            
+            await CurrentUnitOfWork.SaveChangesAsync();
+            
+            var herdGeoLog = new HerdGeoLog
+            {
+                HerdId = herd.Id,
+                Latitude = herd.Latitude,
+                Longitude = herd.Longitude,
+                CreationTime = herd.CreationTime
+            };
+            await _herdGeoLogInfoRepository.InsertAsync(herdGeoLog);
         }
         
         private IQueryable<Herd> GetFilteredQuery(GetHerdInput input)

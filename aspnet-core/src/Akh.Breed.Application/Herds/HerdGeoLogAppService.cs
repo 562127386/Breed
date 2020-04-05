@@ -102,9 +102,6 @@ namespace Akh.Breed.Herds
         {
             var herd = _herdRepository.Get(input.HerdId.Value);
             var herdGeoLog = ObjectMapper.Map<HerdGeoLog>(input);
-            herdGeoLog.Latitude = herd.Latitude;
-            herdGeoLog.Longitude = herd.Longitude;
-            herdGeoLog.CreationTime = herd.CreationTime;
             
             herd.Latitude = input.Latitude;
             herd.Longitude = input.Longitude;
