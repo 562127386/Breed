@@ -5131,6 +5131,249 @@ export class HerdServiceProxy {
 }
 
 @Injectable()
+export class HerdGeoLogServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getHerdGeoLog(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfHerdGeoLogListDto> {
+        let url_ = this.baseUrl + "/api/services/app/HerdGeoLog/GetHerdGeoLog?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHerdGeoLog(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHerdGeoLog(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfHerdGeoLogListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfHerdGeoLogListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetHerdGeoLog(response: HttpResponseBase): Observable<PagedResultDtoOfHerdGeoLogListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfHerdGeoLogListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfHerdGeoLogListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getHerdGeoLogForEdit(id: number | undefined): Observable<GetHerdGeoLogForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/HerdGeoLog/GetHerdGeoLogForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHerdGeoLogForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHerdGeoLogForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetHerdGeoLogForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetHerdGeoLogForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetHerdGeoLogForEdit(response: HttpResponseBase): Observable<GetHerdGeoLogForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetHerdGeoLogForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetHerdGeoLogForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateHerdGeoLog(body: HerdGeoLogCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/HerdGeoLog/CreateOrUpdateHerdGeoLog";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateHerdGeoLog(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateHerdGeoLog(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateHerdGeoLog(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteHerdGeoLog(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/HerdGeoLog/DeleteHerdGeoLog?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteHerdGeoLog(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteHerdGeoLog(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteHerdGeoLog(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class HostDashboardServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -6540,6 +6783,62 @@ export class LivestockServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    checkValidation(body: LivestockCreateOrUpdateInput | undefined): Observable<LivestockCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/Livestock/CheckValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckValidation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckValidation(<any>response_);
+                } catch (e) {
+                    return <Observable<LivestockCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<LivestockCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckValidation(response: HttpResponseBase): Observable<LivestockCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = LivestockCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<LivestockCreateOrUpdateInput>(<any>null);
     }
 
     /**
@@ -9251,6 +9550,357 @@ export class PermissionServiceProxy {
             }));
         }
         return _observableOf<ListResultDtoOfFlatPermissionWithLevelDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class PlaqueChangeServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getPlaqueChange(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlaqueChangeListDto> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueChange/GetPlaqueChange?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueChange(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueChange(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPlaqueChangeListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPlaqueChangeListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueChange(response: HttpResponseBase): Observable<PagedResultDtoOfPlaqueChangeListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfPlaqueChangeListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfPlaqueChangeListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPlaqueChangeForEdit(id: number | undefined): Observable<PlaqueChangeGetForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueChange/GetPlaqueChangeForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueChangeForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueChangeForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<PlaqueChangeGetForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlaqueChangeGetForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueChangeForEdit(response: HttpResponseBase): Observable<PlaqueChangeGetForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PlaqueChangeGetForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlaqueChangeGetForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdatePlaqueChange(body: PlaqueChangeCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueChange/CreateOrUpdatePlaqueChange";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdatePlaqueChange(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdatePlaqueChange(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdatePlaqueChange(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deletePlaqueChange(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueChange/DeletePlaqueChange?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeletePlaqueChange(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeletePlaqueChange(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeletePlaqueChange(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param input (optional) 
+     * @return Success
+     */
+    checkPlaqueCode(input: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueChange/CheckPlaqueCode?";
+        if (input === null)
+            throw new Error("The parameter 'input' cannot be null.");
+        else if (input !== undefined)
+            url_ += "input=" + encodeURIComponent("" + input) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckPlaqueCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckPlaqueCode(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckPlaqueCode(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    checkValidation(body: PlaqueChangeCreateOrUpdateInput | undefined): Observable<PlaqueChangeCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueChange/CheckValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckValidation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckValidation(<any>response_);
+                } catch (e) {
+                    return <Observable<PlaqueChangeCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlaqueChangeCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckValidation(response: HttpResponseBase): Observable<PlaqueChangeCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PlaqueChangeCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlaqueChangeCreateOrUpdateInput>(<any>null);
     }
 }
 
@@ -21540,6 +22190,210 @@ export interface IGetHerdForEditOutput {
     contractors: ComboboxItemDto[] | undefined;
 }
 
+export class HerdGeoLogListDto implements IHerdGeoLogListDto {
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    herdName!: string | undefined;
+    officerName!: string | undefined;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: IHerdGeoLogListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.herdName = data["herdName"];
+            this.officerName = data["officerName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): HerdGeoLogListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new HerdGeoLogListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["herdName"] = this.herdName;
+        data["officerName"] = this.officerName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IHerdGeoLogListDto {
+    latitude: string | undefined;
+    longitude: string | undefined;
+    herdName: string | undefined;
+    officerName: string | undefined;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class PagedResultDtoOfHerdGeoLogListDto implements IPagedResultDtoOfHerdGeoLogListDto {
+    totalCount!: number;
+    items!: HerdGeoLogListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfHerdGeoLogListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(HerdGeoLogListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfHerdGeoLogListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfHerdGeoLogListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfHerdGeoLogListDto {
+    totalCount: number;
+    items: HerdGeoLogListDto[] | undefined;
+}
+
+export class HerdGeoLogCreateOrUpdateInput implements IHerdGeoLogCreateOrUpdateInput {
+    id!: number | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    herdId!: number | undefined;
+    officerId!: number | undefined;
+
+    constructor(data?: IHerdGeoLogCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.herdId = data["herdId"];
+            this.officerId = data["officerId"];
+        }
+    }
+
+    static fromJS(data: any): HerdGeoLogCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new HerdGeoLogCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["herdId"] = this.herdId;
+        data["officerId"] = this.officerId;
+        return data; 
+    }
+}
+
+export interface IHerdGeoLogCreateOrUpdateInput {
+    id: number | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    herdId: number | undefined;
+    officerId: number | undefined;
+}
+
+export class GetHerdGeoLogForEditOutput implements IGetHerdGeoLogForEditOutput {
+    herdGeoLog!: HerdGeoLogCreateOrUpdateInput;
+    herds!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IGetHerdGeoLogForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.herdGeoLog = data["herdGeoLog"] ? HerdGeoLogCreateOrUpdateInput.fromJS(data["herdGeoLog"]) : <any>undefined;
+            if (Array.isArray(data["herds"])) {
+                this.herds = [] as any;
+                for (let item of data["herds"])
+                    this.herds!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetHerdGeoLogForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetHerdGeoLogForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["herdGeoLog"] = this.herdGeoLog ? this.herdGeoLog.toJSON() : <any>undefined;
+        if (Array.isArray(this.herds)) {
+            data["herds"] = [];
+            for (let item of this.herds)
+                data["herds"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetHerdGeoLogForEditOutput {
+    herdGeoLog: HerdGeoLogCreateOrUpdateInput;
+    herds: ComboboxItemDto[] | undefined;
+}
+
 export class TopStatsData implements ITopStatsData {
     newTenantsCount!: number;
     newSubscriptionAmount!: number;
@@ -26019,6 +26873,234 @@ export class ListResultDtoOfFlatPermissionWithLevelDto implements IListResultDto
 
 export interface IListResultDtoOfFlatPermissionWithLevelDto {
     items: FlatPermissionWithLevelDto[] | undefined;
+}
+
+export class PlaqueChangeListDto implements IPlaqueChangeListDto {
+    plaqueCode!: string | undefined;
+    plaqueHerdName!: string | undefined;
+    changeReason!: string | undefined;
+    preStateName!: string | undefined;
+    newStateName!: string | undefined;
+    officerName!: string | undefined;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: IPlaqueChangeListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.plaqueCode = data["plaqueCode"];
+            this.plaqueHerdName = data["plaqueHerdName"];
+            this.changeReason = data["changeReason"];
+            this.preStateName = data["preStateName"];
+            this.newStateName = data["newStateName"];
+            this.officerName = data["officerName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PlaqueChangeListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueChangeListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plaqueCode"] = this.plaqueCode;
+        data["plaqueHerdName"] = this.plaqueHerdName;
+        data["changeReason"] = this.changeReason;
+        data["preStateName"] = this.preStateName;
+        data["newStateName"] = this.newStateName;
+        data["officerName"] = this.officerName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPlaqueChangeListDto {
+    plaqueCode: string | undefined;
+    plaqueHerdName: string | undefined;
+    changeReason: string | undefined;
+    preStateName: string | undefined;
+    newStateName: string | undefined;
+    officerName: string | undefined;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class PagedResultDtoOfPlaqueChangeListDto implements IPagedResultDtoOfPlaqueChangeListDto {
+    totalCount!: number;
+    items!: PlaqueChangeListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfPlaqueChangeListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(PlaqueChangeListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPlaqueChangeListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfPlaqueChangeListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPlaqueChangeListDto {
+    totalCount: number;
+    items: PlaqueChangeListDto[] | undefined;
+}
+
+export class PlaqueChangeCreateOrUpdateInput implements IPlaqueChangeCreateOrUpdateInput {
+    id!: number | undefined;
+    plaqueCode!: string | undefined;
+    plaqueHerdName!: string | undefined;
+    plaqueId!: number | undefined;
+    changeReason!: string | undefined;
+    preStateName!: string | undefined;
+    preStateId!: number | undefined;
+    newStateId!: number | undefined;
+    officerId!: number | undefined;
+
+    constructor(data?: IPlaqueChangeCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.plaqueCode = data["plaqueCode"];
+            this.plaqueHerdName = data["plaqueHerdName"];
+            this.plaqueId = data["plaqueId"];
+            this.changeReason = data["changeReason"];
+            this.preStateName = data["preStateName"];
+            this.preStateId = data["preStateId"];
+            this.newStateId = data["newStateId"];
+            this.officerId = data["officerId"];
+        }
+    }
+
+    static fromJS(data: any): PlaqueChangeCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueChangeCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["plaqueCode"] = this.plaqueCode;
+        data["plaqueHerdName"] = this.plaqueHerdName;
+        data["plaqueId"] = this.plaqueId;
+        data["changeReason"] = this.changeReason;
+        data["preStateName"] = this.preStateName;
+        data["preStateId"] = this.preStateId;
+        data["newStateId"] = this.newStateId;
+        data["officerId"] = this.officerId;
+        return data; 
+    }
+}
+
+export interface IPlaqueChangeCreateOrUpdateInput {
+    id: number | undefined;
+    plaqueCode: string | undefined;
+    plaqueHerdName: string | undefined;
+    plaqueId: number | undefined;
+    changeReason: string | undefined;
+    preStateName: string | undefined;
+    preStateId: number | undefined;
+    newStateId: number | undefined;
+    officerId: number | undefined;
+}
+
+export class PlaqueChangeGetForEditOutput implements IPlaqueChangeGetForEditOutput {
+    plaqueChange!: PlaqueChangeCreateOrUpdateInput;
+    plaqueStates!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IPlaqueChangeGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.plaqueChange = data["plaqueChange"] ? PlaqueChangeCreateOrUpdateInput.fromJS(data["plaqueChange"]) : <any>undefined;
+            if (Array.isArray(data["plaqueStates"])) {
+                this.plaqueStates = [] as any;
+                for (let item of data["plaqueStates"])
+                    this.plaqueStates!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PlaqueChangeGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueChangeGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plaqueChange"] = this.plaqueChange ? this.plaqueChange.toJSON() : <any>undefined;
+        if (Array.isArray(this.plaqueStates)) {
+            data["plaqueStates"] = [];
+            for (let item of this.plaqueStates)
+                data["plaqueStates"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPlaqueChangeGetForEditOutput {
+    plaqueChange: PlaqueChangeCreateOrUpdateInput;
+    plaqueStates: ComboboxItemDto[] | undefined;
 }
 
 export class PlaqueOfficerListDto implements IPlaqueOfficerListDto {

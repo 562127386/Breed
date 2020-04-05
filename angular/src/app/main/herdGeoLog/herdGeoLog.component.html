@@ -13,12 +13,12 @@
                             <i class="flaticon2-graph"></i>
                         </span>
                         <h3 class="kt-portlet__head-title">
-                            <span>{{"Identification" | localize}}</span>
+                            <span>{{"HerdGeoLog" | localize}}</span>
                         </h3>                        
                     </div>
                     <div class="kt-portlet__head-toolbar">
                         <div class="kt-portlet__head-actions">
-                            <div (click)="createLivestock()" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                            <div (click)="createHerdGeoLog()" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
                                 data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                 <i class="flaticon2-add-1"></i>
                             </div>
@@ -37,7 +37,7 @@
                                                 class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
                                                 type="text">
                                             <span class="input-group-btn">
-                                                <button (click)="getLivestock()" class="btn btn-brand" type="submit"><i
+                                                <button (click)="getHerdGeoLog()" class="btn btn-brand" type="submit"><i
                                                         class="flaticon-search-1"
                                                         [attr.aria-label]="l('Search')"></i></button>
                                             </span>
@@ -51,16 +51,16 @@
                     <div class="row align-items-center kt-margin-0">
                         <!--<Primeng-TurboTable-Start>-->
                         <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                            <p-table #dataTable (onLazyLoad)="getLivestock($event)" [value]="primengTableHelper.records"
+                            <p-table #dataTable (onLazyLoad)="getHerdGeoLog($event)" [value]="primengTableHelper.records"
                                 rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false"
                                 [lazy]="true" [scrollable]="true" ScrollWidth="100%"
                                 [responsive]="primengTableHelper.isResponsive"
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
                                     <tr>     
-                                        <th style="width: 110px" pSortableColumn="nationalCode">
-                                            {{'NationalCode' | localize}}
-                                            <p-sortIcon field="nationalCode"></p-sortIcon>
+                                        <th style="width: 110px" pSortableColumn="herdName">
+                                            {{'HerdName' | localize}}
+                                            <p-sortIcon field="herdName"></p-sortIcon>
                                         </th>
                                         <th style="width: 90px" pSortableColumn="latitude">
                                             {{'Latitude' | localize}}
@@ -70,18 +70,6 @@
                                             {{'Longitude' | localize}}
                                             <p-sortIcon field="longitude"></p-sortIcon>
                                         </th>
-                                        <th style="width: 90px" pSortableColumn="speciesInfoName">
-                                            {{'SpeciesInfoName' | localize}}
-                                            <p-sortIcon field="speciesInfoName"></p-sortIcon>
-                                        </th>                                       
-                                        <th style="width: 90px" pSortableColumn="herdName">
-                                            {{'HerdName' | localize}}
-                                            <p-sortIcon field="herdName"></p-sortIcon>
-                                        </th> 
-                                        <th style="width: 90px" pSortableColumn="activityInfoName">
-                                            {{'ActivityInfoName' | localize}}
-                                            <p-sortIcon field="activityInfoName"></p-sortIcon>
-                                        </th> 
                                         <th style="width: 90px" pSortableColumn="officerName">
                                             {{'OfficerName' | localize}}
                                             <p-sortIcon field="officerName"></p-sortIcon>
@@ -99,8 +87,8 @@
                                 <ng-template pTemplate="body" let-record="$implicit">
                                     <tr>      
                                         <td style="width: 110px">
-                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
-                                            {{record.nationalCode}}
+                                            <span class="ui-column-title"> {{'HerdName' | localize}}</span>
+                                            {{record.herdName}}
                                         </td>
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'Latitude' | localize}}</span>
@@ -109,18 +97,6 @@
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'Longitude' | localize}}</span>
                                             {{record.longitude}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'SpeciesInfoName' | localize}}</span>
-                                            {{record.speciesInfoName}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'HerdName' | localize}}</span>
-                                            {{record.herdName}}
-                                        </td>
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'ActivityInfoName' | localize}}</span>
-                                            {{record.activityInfoName}}
                                         </td>
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'OfficerName' | localize}}</span>
@@ -132,9 +108,9 @@
                                         </td>
                                         <td style="width: 130px">
                                             <div class="kt-section__content kt-section__content--solid">
-                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditLivestockModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
-                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditLivestockModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>
-                                                <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteLivestock(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button> -->
+                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditHerdGeoLogModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditHerdGeoLogModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>
+                                                <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteHerdGeoLog(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button> -->
                                             </div>                                            
                                             <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->                                    
                                         </td>                                     
@@ -146,7 +122,7 @@
                             </div>
                             <div class="primeng-paging-container">
                                 <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                                    (onPageChange)="getLivestock($event)"
+                                    (onPageChange)="getHerdGeoLog($event)"
                                     [totalRecords]="primengTableHelper.totalRecordsCount"
                                     [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
 
@@ -166,7 +142,7 @@
                             
                         </div>
                         <div class="col-lg-6 kt-align-right">
-                            <button (click)="createLivestock()" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewLivestock" | localize}}</button>
+                            <button (click)="createHerdGeoLog()" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewHerdGeoLog" | localize}}</button>
                         </div>
                     </div>
                 </div>
@@ -174,6 +150,6 @@
             </div>
         </div>
 
-        <createOrEditLivestockModal #createOrEditLivestockModal (modalSave)="getLivestock()"></createOrEditLivestockModal>
+        <createOrEditHerdGeoLogModal #createOrEditHerdGeoLogModal (modalSave)="getHerdGeoLog()"></createOrEditHerdGeoLogModal>
     </div>
 </div>

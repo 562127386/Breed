@@ -257,6 +257,20 @@ namespace Akh.Breed
             configuration.CreateMap<PlaqueStoreCreateOrUpdateInput, PlaqueStore>();
             configuration.CreateMap<PlaqueStore, PlaqueStoreCreateOrUpdateInput>();
             
+            configuration.CreateMap<PlaqueChange, PlaqueChangeListDto>()
+                .ForMember(d => d.PlaqueCode, options => options.MapFrom(l => l.Plaque.Code))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
+                .ForMember(d => d.PlaqueHerdName, options => options.MapFrom(l => l.Plaque.Livestock.Herd.HerdName))
+                .ForMember(d => d.PreStateName, options => options.MapFrom(l => l.PreState.Name));
+            configuration.CreateMap<PlaqueChangeCreateOrUpdateInput, PlaqueChange>();
+            configuration.CreateMap<PlaqueChange, PlaqueChangeCreateOrUpdateInput>();
+            
+            configuration.CreateMap<HerdGeoLog, HerdGeoLogListDto>()
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.HerdName))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
+            configuration.CreateMap<HerdGeoLogCreateOrUpdateInput, HerdGeoLog>();
+            configuration.CreateMap<HerdGeoLog, HerdGeoLogCreateOrUpdateInput>();
+            
             configuration.CreateMap<PlaqueOfficer, PlaqueOfficerListDto>()
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name))

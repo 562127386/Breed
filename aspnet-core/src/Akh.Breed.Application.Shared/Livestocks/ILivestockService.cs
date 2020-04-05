@@ -11,6 +11,7 @@ namespace Akh.Breed.Livestocks
         Task<PagedResultDto<LivestockListDto>> GetLivestock(GetLivestockInput input);
         Task<GetLivestockForEditOutput> GetLivestockForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateLivestock(LivestockCreateOrUpdateInput input);
+        Task<LivestockCreateOrUpdateInput> CheckValidation(LivestockCreateOrUpdateInput input);
         Task DeleteLivestock(EntityDto input);
         List<ComboboxItemDto> GetActivityForCombo(NullableIdDto<int> input);
     }

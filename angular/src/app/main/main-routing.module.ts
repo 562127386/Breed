@@ -22,6 +22,8 @@ import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
 import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component';
 import { HerdComponent } from './herd/herd.component';
 import { LivestockComponent } from './livestock/livestock.component';
+import { PlaqueChangeComponent } from './plaqueChange/plaqueChange.component';
+import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
 
 @NgModule({
     imports: [
@@ -51,7 +53,9 @@ import { LivestockComponent } from './livestock/livestock.component';
                     { path: 'plaqueStore', component: PlaqueStoreComponent },
                     { path: 'plaqueOfficer', component: PlaqueOfficerComponent },
                     { path: 'herd', component: HerdComponent },
-                    { path: 'livestock', component: LivestockComponent }
+                    { path: 'livestock', component: LivestockComponent },
+                    { path: 'plaqueChange', component: PlaqueChangeComponent },
+                    { path: 'herdGeoLog', component: HerdGeoLogComponent }
 
                 ]
             }

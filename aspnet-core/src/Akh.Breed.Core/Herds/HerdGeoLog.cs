@@ -21,7 +21,7 @@ namespace Akh.Breed.Herds
         public string Longitude { get; set; }
         
         [ForeignKey("HerdId")]
-        public Herd EpidemiHerdologicInfo { get; set; }
+        public Herd Herd { get; set; }
         public int? HerdId { get; set; }
         
         [ForeignKey("OfficerId")]

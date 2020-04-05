@@ -45,8 +45,12 @@ import { PlaqueOfficerComponent } from "./plaqueOfficer/plaqueOfficer.component"
 import { CreateOrEditPlaqueOfficerModalComponent } from "./plaqueOfficer/create-or-edit-plaqueOfficer-modal.component";
 import { HerdComponent } from "./herd/herd.component";
 import { CreateOrEditHerdModalComponent } from "./herd/create-or-edit-herd-modal.component";
+import { PlaqueChangeComponent } from "./plaqueChange/plaqueChange.component";
+import { CreateOrEditPlaqueChangeModalComponent } from "./plaqueChange/create-or-edit-plaqueChange-modal.component";
 import { LivestockComponent } from "./livestock/livestock.component";
 import { CreateOrEditLivestockModalComponent } from "./livestock/create-or-edit-livestock-modal.component";
+import { HerdGeoLogComponent } from "./herdGeoLog/herdGeoLog.component";
+import { CreateOrEditHerdGeoLogModalComponent } from "./herdGeoLog/create-or-edit-herdGeoLog-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { EditorModule } from 'primeng/editor';
 import { FileUploadModule as PrimeNgFileUploadModule } from 'primeng/fileupload';
@@ -140,7 +144,11 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         HerdComponent,
         CreateOrEditHerdModalComponent,
         LivestockComponent,
-        CreateOrEditLivestockModalComponent
+        CreateOrEditLivestockModalComponent,
+        PlaqueChangeComponent,
+        CreateOrEditPlaqueChangeModalComponent,
+        HerdGeoLogComponent,
+        CreateOrEditHerdGeoLogModalComponent
     
     ],
     providers: [

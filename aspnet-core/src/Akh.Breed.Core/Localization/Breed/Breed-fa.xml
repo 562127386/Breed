@@ -989,6 +989,8 @@
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
+    <text name="HerdGeoLog">موقیعت گله</text>
+    <text name="PlaqueChange">تغییر وضعیت پلاک</text>
     <text name="Notice">اعلانات</text>
     <text name="Livestock">اطلاعات دام</text>
     <text name="Herd">گله</text>
@@ -1019,6 +1021,17 @@
     <text name="AcademicDegreeHeaderInfo">مدیریت مقطع تحصیلی</text>
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
+
+    <text name="CreateNewHerdGeoLog">اصلاح موقیعت گله</text>
+    <text name="HerdGeoLogHeaderInfo">مدیریت موقیعت گله</text>
+    <text name="ViewNewHerdGeoLog">نمایش موقیعت گله</text>
+    <text name="EditNewHerdGeoLog">ویرایش موقیعت گله</text>
+
+    <text name="CreateNewPlaqueChange">ایجاد تغییر وضعیت پلاک</text>
+    <text name="AreYouSureToDeleteThePlaqueChange">آیا از حذف تغییر وضعیت پلاک {0} مطمئن هستید؟</text>
+    <text name="PlaqueChangeHeaderInfo">مدیریت تغییر وضعیت پلاک</text>
+    <text name="ViewNewPlaqueChange">نمایش تغییر وضعیت پلاک</text>
+    <text name="EditNewPlaqueChange">ویرایش تغییر وضعیت پلاک</text>
 
     <text name="CreateNewNotice">ایجاد اعلان</text>
     <text name="AreYouSureToDeleteTheNotice">آیا از حذف اعلان {0} مطمئن هستید؟</text>
@@ -1210,6 +1223,8 @@
     <text name="ThisCodeIsAllocated">این کد قبلا استفاده شده است.</text>
     <text name="ThisStoreIsNotAllocatedTo">پلاک {0} به این مامور اختصاص داده نشده است.</text>
     <text name="TheOfficerDoesNotExists">این کاربر به عنوان مامور تعریف نشده است.</text>
+    <text name="ThePlaqueStoreDoesNotExists">برای این کد انبار تعریف نشده است.</text>
+    <text name="ThisCodeChanged">برای این کد تغییر وضعیت ثبت شده است.</text>
     <text name="Information">اطلاعات</text>
     <text name="Monitoring">عملیات</text>
     <text name="EditLivestockCode">ویرایش شماره ملی دام</text>
@@ -1224,6 +1239,11 @@
     <text name="LiveStockOfficer">نام مامور نصب</text>
     <text name="LiveStockNowDate">تاریخ نصب</text>
     <text name="LiveStockNowTime">ساعت نصب</text>
+    <text name="PlaqueCode">شماره پلاک</text>
+    <text name="PlaqueHerdName">نام گله پلاک</text>
+    <text name="ChangeReason">دلیل تعویض</text>
+    <text name="PreStateName">وضعیت قدیم</text>
+    <text name="NewStateName">وضعیت جدید</text>
 
 
   </texts>

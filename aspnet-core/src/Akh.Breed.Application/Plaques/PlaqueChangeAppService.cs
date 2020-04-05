@@ -10,6 +10,7 @@ using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
 using Akh.Breed.BaseInfo;
+using Akh.Breed.Officers;
 using Akh.Breed.Plaques.Dto;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,11 +20,17 @@ namespace Akh.Breed.Plaques
     {
         private readonly IRepository<PlaqueChange> _plaqueChangeRepository;
         private readonly IRepository<PlaqueState> _plaqueStateRepository;
+        private readonly IRepository<PlaqueStore> _plaqueStoreRepository;
+        private readonly IRepository<PlaqueInfo, long> _plaqueInfoRepository;
+        private readonly IRepository<Officer> _officerRepository;
         
-        public PlaqueChangeAppService(IRepository<PlaqueChange> plaqueChangeRepository, IRepository<PlaqueState> plaqueStateRepository)
+        public PlaqueChangeAppService(IRepository<PlaqueChange> plaqueChangeRepository, IRepository<PlaqueState> plaqueStateRepository, IRepository<PlaqueStore> plaqueStoreRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<Officer> officerRepository)
         {
             _plaqueChangeRepository = plaqueChangeRepository;
             _plaqueStateRepository = plaqueStateRepository;
+            _plaqueStoreRepository = plaqueStoreRepository;
+            _plaqueInfoRepository = plaqueInfoRepository;
+            _officerRepository = officerRepository;
         }
 
         public async Task<PagedResultDto<PlaqueChangeListDto>> GetPlaqueChange(GetPlaqueChangeInput input)
@@ -62,6 +69,7 @@ namespace Akh.Breed.Plaques
             //speciesInfo
             output.PlaqueStates = _plaqueStateRepository
                 .GetAllList()
+                .Where(x => x.Id != 1)
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
 
@@ -108,6 +116,25 @@ namespace Akh.Breed.Plaques
         
         private async Task CreatePlaqueChangeAsync(PlaqueChangeCreateOrUpdateInput input)
         {
+            if (input.PlaqueId.HasValue)
+            {
+                var plaqueInfo = _plaqueInfoRepository.Get(input.PlaqueId.Value);
+                plaqueInfo.StateId = input.NewStateId;
+                await _plaqueInfoRepository.UpdateAsync(plaqueInfo);
+            }
+            else
+            {
+                var plaqueInfo = new PlaqueInfo { 
+                    Code = Convert.ToInt64(input.PlaqueCode),
+                    OfficerId = input.OfficerId,
+                    StateId = input.NewStateId,
+                    Latitude = "",
+                    Longitude = ""
+                };
+                await _plaqueInfoRepository.InsertAsync(plaqueInfo);
+                await CurrentUnitOfWork.SaveChangesAsync();
+                input.PlaqueId = plaqueInfo.Id;
+            }
             var plaqueChange = ObjectMapper.Map<PlaqueChange>(input);
             await _plaqueChangeRepository.InsertAsync(plaqueChange);
         }
@@ -118,6 +145,8 @@ namespace Akh.Breed.Plaques
             var query = QueryableExtensions.WhereIf(
                 _plaqueChangeRepository.GetAll()
                     .Include(x => x.Plaque)
+                    .ThenInclude(x => x.Livestock)
+                    .ThenInclude(x => x.Herd)
                     .Include(x => x.PreState)
                     .Include(x => x.NewState)
                     .Include(x => x.Officer),
@@ -127,32 +156,53 @@ namespace Akh.Breed.Plaques
             return query;
         }
         
-        private async Task CheckValidation(PlaqueChangeCreateOrUpdateInput input)
+        public async Task<PlaqueChangeCreateOrUpdateInput> CheckValidation(PlaqueChangeCreateOrUpdateInput input)
         {
-            /*var species = _speciesinforepository.get(input.speciesid.value);
-            if ( input.fromcode < species.fromcode)
+            var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+            if (officer == null)
             {
-                input.fromcode += species.fromcode;
-                input.tocode += species.fromcode;
-
+                throw new UserFriendlyException(L("TheOfficerDoesNotExists"));
             }
-
-            if ( input.fromcode < species.fromcode || input.fromcode > species.tocode || input.tocode < species.fromcode || input.tocode > species.tocode)
+            else
             {
-                throw new userfriendlyexception(l("thiscoderangeshouldbe", species.name,species.fromcode, species.tocode));
+                input.OfficerId = officer.Id;
             }
-            var existingobj = (await _plaquechangerepository.getall().asnotracking()
-                .firstordefaultasync(u => 
-                    (u.id != input.id) &&
-                    ((u.fromcode.compareto(input.fromcode) <= 0 &&
-                     u.tocode.compareto(input.fromcode) >= 0) ||
-                    (u.fromcode.compareto(input.tocode) <= 0 &&
-                     u.tocode.compareto(input.tocode) >= 0))));
-            if (existingobj != null && existingobj.id != input.id)
-            {
-                throw new userfriendlyexception(l("thiscoderangehasoverlap",existingobj.fromcode, existingobj.tocode));
-            }*/
             
+            long code = 364052000000000 + Convert.ToInt64(input.PlaqueCode);
+            var plaqueStores = _plaqueStoreRepository
+                .FirstOrDefault(x => x.FromCode <= code && x.ToCode >= code);
+            if (plaqueStores == null)
+            {
+                throw new UserFriendlyException(L("ThePlaqueStoreDoesNotExists"));
+            }
+            
+            var plaqueChanged = _plaqueChangeRepository.GetAll()
+                .Include(x => x.Plaque)
+                .FirstOrDefault(x => x.Plaque.Code == code);
+            if (plaqueChanged != null)
+            {
+                throw new UserFriendlyException(L("ThisCodeChanged"));
+            }
+
+            var plaqueInfo = _plaqueInfoRepository.GetAll()
+                .Include(x => x.State)
+                .Include(x => x.Livestock)
+                .ThenInclude(x => x.Herd)
+                .FirstOrDefault(x => x.Code == code);
+            if (plaqueInfo != null)
+            {
+                input.PlaqueId = plaqueInfo.Id;
+                input.PreStateName = plaqueInfo.State.Name;
+                input.PreStateId = plaqueInfo.State.Id;
+                input.PlaqueHerdName = plaqueInfo.Livestock.Herd.HerdName;
+            }
+            else
+            {
+                input.PreStateName = "در انبار";
+            }
+
+            input.PlaqueCode = code.ToString();
+            return input;
         }
     }
 }

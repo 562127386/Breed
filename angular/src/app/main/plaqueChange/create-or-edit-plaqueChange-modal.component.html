@@ -1,0 +1,102 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #plaqueChangeForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header kt-bg-brand">
+                    <h4 class="modal-title">
+                        <span *ngIf="plaqueChange.id && editdisabled">{{"ViewNewPlaqueChange" | localize}}: {{plaqueChange.name}}</span>
+                        <span *ngIf="plaqueChange.id && !editdisabled">{{"EditNewPlaqueChange" | localize}}: {{plaqueChange.name}}</span>
+                        <span *ngIf="!plaqueChange.id">{{"CreateNewPlaqueChange" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockOfficer" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="plaqueChangeOfficer" class="form-control m-input" type="text" name="plaqueChangeOfficer"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockNowDate" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="plaqueChangeNowDate" class="form-control m-input" type="text" name="plaqueChangeNowDate"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockNowTime" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="plaqueChangeNowTime" class="form-control m-input" type="text" name="plaqueChangeNowTime"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"PlaqueCode" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-inputMask [style]="{'width':'100%'}" #plaqueCodeInput="ngModel" mask="364-0-52-9-99999999" unmask="true" [(ngModel)]="plaqueChange.plaqueCode" type="text" name="plaqueCode" placeholder="364-0-52-9-99999999" (onComplete)="checkValidation()" length="15" required></p-inputMask>
+                                    <validation-messages [formCtrl]="plaqueCodeInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"PlaqueHerdName" | localize}}</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="plaqueChange.plaqueHerdName" class="form-control m-input" type="text" name="plaqueHerdName"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"PreStateName" | localize}}</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="plaqueChange.preStateName" class="form-control m-input" type="text" name="preStateName"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"NewStateName" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-dropdown #newStateCombobox [options]="plaqueStatesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                        name="newStateId" [(ngModel)]="plaqueChange.newStateId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="newStateCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"ChangeReason" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input #changeReasonInput="ngModel" [(ngModel)]="plaqueChange.changeReason" autoFocus class="form-control m-input" type="text" autocomplete="new-password"  placeholder="{{'ChangeReason' | localize}}" name="changeReason" maxlength="264"/>
+                                <validation-messages [formCtrl]="changeReasonInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>                                                                       
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!plaqueChangeForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

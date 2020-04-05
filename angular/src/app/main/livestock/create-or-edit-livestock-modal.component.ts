@@ -200,4 +200,10 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         }
         return undefined;
     }
+
+    checkValidation(): void {                
+        this._livestockService.checkValidation(this.livestock).subscribe(userResult => {
+            this.livestock = userResult;
+        });
+    }
 }

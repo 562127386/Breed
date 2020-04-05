@@ -14,7 +14,7 @@ namespace Akh.Breed.Plaques.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "PlaqueCode";
+                Sorting = "PlaqueId";
             }
 
             Filter = Filter?.Trim();
@@ -34,5 +34,10 @@ namespace Akh.Breed.Plaques.Dto
         public string NewStateName { get; set; }
         
         public string OfficerName { get; set; }
+        
+        public DateTime CreationTime { get; set; }
+        
+        
+        
     }
 }

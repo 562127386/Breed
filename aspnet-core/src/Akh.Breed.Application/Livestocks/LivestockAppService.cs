@@ -160,7 +160,7 @@ namespace Akh.Breed.Livestocks
             return query;
         }        
         
-        private async Task CheckValidation(LivestockCreateOrUpdateInput input)
+        public async Task<LivestockCreateOrUpdateInput> CheckValidation(LivestockCreateOrUpdateInput input)
         {
             var species = await _speciesInfoRepository.GetAsync(input.SpeciesInfoId.Value);
             long nationalCode = Convert.ToInt64(input.NationalCode);
@@ -197,6 +197,7 @@ namespace Akh.Breed.Livestocks
 
 
             input.NationalCode = nationalCode.ToString();
+            return input;
         }
         
         public List<ComboboxItemDto> GetActivityForCombo(NullableIdDto<int> input)

@@ -61,8 +61,8 @@ export class AppNavigationService {
                 new AppMenuItem('Identification', null, 'flaticon2-box', '/app/main/livestock')
             ]),            
             new AppMenuItem('Activities', null, 'flaticon2-box', '',[                
-                new AppMenuItem('EditGeoHerd', null, 'flaticon2-box', ''),
-                new AppMenuItem('EditStatePlaque', null, 'flaticon2-box', '')
+                new AppMenuItem('EditGeoHerd', null, 'flaticon2-box', '/app/main/herdGeoLog'),
+                new AppMenuItem('EditStatePlaque', null, 'flaticon2-box', '/app/main/plaqueChange')
             ]),
             new AppMenuItem('Reports', null, 'flaticon2-box', '')
 

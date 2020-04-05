@@ -37,7 +37,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"FromCode" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                    <p-inputMask [style]="{'width':'100%'}" #fromCodeInput="ngModel" mask="{{codeMask}}" unmask="true" slotChar="-" [(ngModel)]="plaqueStore.fromCode" type="text" autocomplete="new-password" name="fromCode" placeholder="{{codePlaceHolder}}" required length="15"></p-inputMask>
+                                    <p-inputMask [style]="{'width':'100%'}" #fromCodeInput="ngModel" mask="{{codeMask}}" unmask="true" [(ngModel)]="plaqueStore.fromCode" type="text" autocomplete="new-password" name="fromCode" placeholder="{{codePlaceHolder}}" required length="15"></p-inputMask>
                                     <validation-messages [formCtrl]="fromCodeInput"></validation-messages>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"ToCode" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                    <p-inputMask [style]="{'width':'100%'}" #toCodeInput="ngModel" mask="{{codeMask}}" unmask="true" slotChar="-" [(ngModel)]="plaqueStore.toCode" type="text" autocomplete="new-password" name="toCode" placeholder="{{codePlaceHolder}}" required length="15"></p-inputMask>
+                                    <p-inputMask [style]="{'width':'100%'}" #toCodeInput="ngModel" mask="{{codeMask}}" unmask="true" [(ngModel)]="plaqueStore.toCode" type="text" autocomplete="new-password" name="toCode" placeholder="{{codePlaceHolder}}" required length="15"></p-inputMask>
                                     <validation-messages [formCtrl]="toCodeInput"></validation-messages>
                                 </div>
                             </div>

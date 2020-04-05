@@ -13,6 +13,8 @@ namespace Akh.Breed.Plaques.Dto
        
         public string PlaqueCode { get; set; }
         
+        public string PlaqueHerdName { get; set; }
+        
         public long? PlaqueId { get; set; }
 
         public string ChangeReason { get; set; }
@@ -25,11 +27,5 @@ namespace Akh.Breed.Plaques.Dto
         
         public int? OfficerId { get; set; }
         
-        public DateTime CreationTime { get; set; }
-
-        public PlaqueChangeCreateOrUpdateInput()
-        {
-            CreationTime = Clock.Now;
-        }
     }
 }
