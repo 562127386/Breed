@@ -1003,24 +1003,28 @@
     <text name="ProviderInfoHeaderInfo">مدیریت تامین کنندگان</text>
     <text name="ViewNewProviderInfo">نمایش تامین کننده</text>
     <text name="EditNewProviderInfo">ویرایش تامین کننده</text>
+    <text name="DeleteNewProviderInfo">حذف تامین کننده</text>
     
     <text name="CreateNewSexInfo">ایجاد جنسیت دام</text>
     <text name="AreYouSureToDeleteTheSexInfo">آیا از حذف جنسیت دام {0} مطمئن هستید؟</text>
     <text name="SexInfoHeaderInfo">مدیریت جنسیت دام</text>
     <text name="ViewNewSexInfo">نمایش جنسیت دام</text>
     <text name="EditNewSexInfo">ویرایش جنسیت دام</text>
+    <text name="DeleteNewSexInfo">حذف جنسیت دام</text>
 
     <text name="CreateNewSpeciesInfo">ایجاد گونه دام</text>
     <text name="AreYouSureToDeleteTheSpeciesInfo">آیا از حذف گونه دام {0} مطمئن هستید؟</text>
     <text name="SpeciesInfoHeaderInfo">مدیریت گونه دام</text>
     <text name="ViewNewSpeciesInfo">نمایش گونه دام</text>
     <text name="EditNewSpeciesInfo">ویرایش گونه دام</text>
+    <text name="DeleteNewSpeciesInfo">حذف گونه دام</text>
 
     <text name="CreateNewAcademicDegree">ایجاد مقطع تحصیلی</text>
     <text name="AreYouSureToDeleteTheAcademicDegree">آیا از حذف مقطع تحصیلی {0} مطمئن هستید؟</text>
     <text name="AcademicDegreeHeaderInfo">مدیریت مقطع تحصیلی</text>
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
+    <text name="DeleteNewAcademicDegree">حذف مقطع تحصیلی</text>
 
     <text name="CreateNewHerdGeoLog">اصلاح موقیعت گله</text>
     <text name="HerdGeoLogHeaderInfo">مدیریت موقیعت گله</text>
@@ -1040,6 +1044,7 @@
     <text name="NoticeHeaderInfo">مدیریت اعلان</text>
     <text name="ViewNewNotice">نمایش اعلان</text>
     <text name="EditNewNotice">ویرایش اعلان</text>
+    <text name="DeleteNewNotice">حذف اعلان</text>
     <text name="EnableNotice">فعال کردن</text>
     <text name="DisableNotice">غیرفعال کردن</text>
 
@@ -1054,6 +1059,7 @@
     <text name="HerdHeaderInfo">مدیریت گله</text>
     <text name="ViewNewHerd">نمایش گله</text>
     <text name="EditNewHerd">ویرایش گله</text>
+    <text name="DeleteNewHerd">حذف گله</text>
 
     <text name="CreateNewEpidemiologicInfo">ایجاد اپیدمولوژیک</text>
     <text name="AreYouSureToDeleteTheEpidemiologicInfo">آیا از حذف اپیدمولوژیک {0} مطمئن هستید؟</text>
@@ -1066,42 +1072,49 @@
     <text name="FirmTypeHeaderInfo">مدیریت انواع شرکت</text>
     <text name="ViewNewFirmType">نمایش نوع شرکت</text>
     <text name="EditNewFirmType">ویرایش نوع شرکت</text>
+    <text name="DeleteNewFirmType">حذف نوع شرکت</text>
 
     <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
     <text name="AreYouSureToDeleteThePlaqueState">امکان حذف وجود ندارد.</text>
     <text name="PlaqueStateHeaderInfo">مدیریت وضعیت پلاک</text>
     <text name="ViewNewPlaqueState">نمایش وضعیت پلاک</text>
     <text name="EditNewPlaqueState">ویرایش وضعیت پلاک</text>
+    <text name="DeleteNewPlaqueState">حذف وضعیت پلاک</text>
     
     <text name="CreateNewStateInfo">ایجاد استان</text>
     <text name="AreYouSureToDeleteTheStateInfo">آیا از حذف استان {0} مطمئن هستید؟</text>
     <text name="StateInfoHeaderInfo">مدیریت استان</text>
     <text name="ViewNewStateInfo">نمایش استان</text>
     <text name="EditNewStateInfo">ویرایش استان</text>
+    <text name="DeleteNewStateInfo">حذف استان</text>
 
     <text name="CreateNewCityInfo">ایجاد شهر</text>
     <text name="AreYouSureToDeleteTheCityInfo">آیا از حذف شهر {0} مطمئن هستید؟</text>
     <text name="CityInfoHeaderInfo">مدیریت شهر</text>
     <text name="ViewNewCityInfo">نمایش شهر</text>
     <text name="EditNewCityInfo">ویرایش شهر</text>
+    <text name="DeleteNewCityInfo">حذف شهر</text>
 
     <text name="CreateNewRegionInfo">ایجاد بخش</text>
     <text name="AreYouSureToDeleteTheRegionInfo">آیا از حذف بخش {0} مطمئن هستید؟</text>
     <text name="RegionInfoHeaderInfo">مدیریت بخش</text>
     <text name="ViewNewRegionInfo">نمایش بخش</text>
     <text name="EditNewRegionInfo">ویرایش بخش</text>
+    <text name="DeleteNewRegionInfo">حذف بخش</text>
 
     <text name="CreateNewVillageInfo">ایجاد دهستان</text>
     <text name="AreYouSureToDeleteTheVillageInfo">آیا از حذف دهستان {0} مطمئن هستید؟</text>
     <text name="VillageInfoHeaderInfo">مدیریت دهستان</text>
     <text name="ViewNewVillageInfo">نمایش دهستان</text>
     <text name="EditNewVillageInfo">ویرایش دهستان</text>
+    <text name="DeleteNewVillageInfo">حذف دهستان</text>
     
     <text name="CreateNewContractor">ایجاد پیمانکار</text>
     <text name="AreYouSureToDeleteTheContractor">آیا از حذف پیمانکار {0} مطمئن هستید؟</text>
     <text name="ContractorHeaderInfo">مدیریت پیمانکاران</text>
     <text name="ViewNewContractor">نمایش پیمانکار</text>
     <text name="EditNewContractor">ویرایش پیمانکار</text>
+    <text name="DeleteNewContractor">حذف پیمانکار</text>
     
     <text name="Institution">نهاد</text>
     <text name="SubInstitution">اتحادیه</text>
@@ -1126,6 +1139,8 @@
     <text name="OfficerHeaderInfo">مدیریت مامورین</text>
     <text name="ViewNewOfficer">نمایش مامور</text>
     <text name="EditNewOfficer">ویرایش مامور</text>
+    <text name="DeleteNewOfficer">حذف مامور</text>
+    
     <text name="FatherName">نام پدر</text>
     <text name="IdNo">شماره شناسنامه</text>
     <text name="WorkNumber">تلفن محل کار</text>
@@ -1187,8 +1202,12 @@
     <text name="AreYouSureToDeleteTheActivityInfo">آیا از حذف فعالیت {0} مطمئن هستید؟</text>
     <text name="ViewNewUnionInfo">نمایش اتحادیه</text>
     <text name="EditNewUnionInfo">ویرایش اتحادیه</text>
+    <text name="DeleteNewUnionInfo">حذف اتحادیه</text>
+    
     <text name="ViewNewActivityInfo">نمایش فعالیت</text>
     <text name="EditNewActivityInfo">ویرایش فعالیت</text>
+    <text name="DeleteNewActivityInfo">حذف فعالیت</text>
+    
     <text name="SetDate">تاریخ تخصیص</text>
     <text name="VillageInfoName">دهستان</text>
     <text name="OfficerCode">کد مامور</text>

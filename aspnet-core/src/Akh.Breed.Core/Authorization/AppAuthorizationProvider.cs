@@ -87,6 +87,136 @@ namespace Akh.Breed.Authorization
             administration.CreateChildPermission(AppPermissions.Pages_Administration_Host_Maintenance, L("Maintenance"), multiTenancySides: _isMultiTenancyEnabled ? MultiTenancySides.Host : MultiTenancySides.Tenant);
             administration.CreateChildPermission(AppPermissions.Pages_Administration_HangfireDashboard, L("HangfireDashboard"), multiTenancySides: _isMultiTenancyEnabled ? MultiTenancySides.Host : MultiTenancySides.Tenant);
             administration.CreateChildPermission(AppPermissions.Pages_Administration_Host_Dashboard, L("Dashboard"), multiTenancySides: MultiTenancySides.Host);
+            
+            //Breed-app BaseInfo
+
+            var baseInfo = pages.CreateChildPermission(AppPermissions.Pages_BaseInfo, L("BaseInfo"));
+
+            var stateInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_StateInfo, L("StateInfo"));
+            stateInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_StateInfo_Create, L("CreateNewStateInfo"));
+            stateInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_StateInfo_Edit, L("EditNewStateInfo"));
+            stateInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_StateInfo_Delete, L("DeleteNewStateInfo"));
+
+            var cityInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_CityInfo, L("CityInfo"));
+            cityInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_CityInfo_Create, L("CreateNewCityInfo"));
+            cityInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_CityInfo_Edit, L("EditNewCityInfo"));
+            cityInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_CityInfo_Delete, L("DeleteNewCityInfo"));
+
+            var regionInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_RegionInfo, L("RegionInfo"));
+            regionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_RegionInfo_Create, L("CreateNewRegionInfo"));
+            regionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_RegionInfo_Edit, L("EditNewRegionInfo"));
+            regionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_RegionInfo_Delete, L("DeleteNewRegionInfo"));
+
+            var villageInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_VillageInfo, L("VillageInfo"));
+            villageInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_VillageInfo_Create, L("CreateNewVillageInfo"));
+            villageInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_VillageInfo_Edit, L("EditNewVillageInfo"));
+            villageInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_VillageInfo_Delete, L("DeleteNewVillageInfo"));
+
+            var providerInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ProviderInfo, L("ProviderInfo"));
+            providerInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ProviderInfo_Create, L("CreateNewProviderInfo"));
+            providerInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ProviderInfo_Edit, L("EditNewProviderInfo"));
+            providerInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ProviderInfo_Delete, L("DeleteNewProviderInfo"));
+
+            var unionInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_UnionInfo, L("UnionInfo"));
+            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_UnionInfo_Create, L("CreateNewUnionInfo"));
+            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_UnionInfo_Edit, L("EditNewUnionInfo"));
+            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_UnionInfo_Delete, L("DeleteNewUnionInfo"));
+
+            var activityInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ActivityInfo, L("ActivityInfo"));
+            activityInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ActivityInfo_Create, L("CreateNewActivityInfo"));
+            activityInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ActivityInfo_Edit, L("EditNewActivityInfo"));
+            activityInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ActivityInfo_Delete, L("DeleteNewActivityInfo"));
+
+            var academicDegree = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_AcademicDegree, L("AcademicDegree"));
+            academicDegree.CreateChildPermission(AppPermissions.Pages_BaseInfo_AcademicDegree_Create, L("CreateNewAcademicDegree"));
+            academicDegree.CreateChildPermission(AppPermissions.Pages_BaseInfo_AcademicDegree_Edit, L("EditNewAcademicDegree"));
+            academicDegree.CreateChildPermission(AppPermissions.Pages_BaseInfo_AcademicDegree_Delete, L("DeleteNewAcademicDegree"));
+
+            var sexInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SexInfo, L("SexInfo"));
+            sexInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SexInfo_Create, L("CreateNewSexInfo"));
+            sexInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SexInfo_Edit, L("EditNewSexInfo"));
+            sexInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SexInfo_Delete, L("DeleteNewSexInfo"));
+
+            var speciesInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SpeciesInfo, L("SpeciesInfo"));
+            speciesInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SpeciesInfo_Create, L("CreateNewSpeciesInfo"));
+            speciesInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SpeciesInfo_Edit, L("EditNewSpeciesInfo"));
+            speciesInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SpeciesInfo_Delete, L("DeleteNewSpeciesInfo"));
+
+            var firmType = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_FirmType, L("FirmType"));
+            firmType.CreateChildPermission(AppPermissions.Pages_BaseInfo_FirmType_Create, L("CreateNewFirmType"));
+            firmType.CreateChildPermission(AppPermissions.Pages_BaseInfo_FirmType_Edit, L("EditNewFirmType"));
+            firmType.CreateChildPermission(AppPermissions.Pages_BaseInfo_FirmType_Delete, L("DeleteNewFirmType"));
+
+            var plaqueState = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState, L("PlaqueState"));
+            plaqueState.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState_Create, L("CreateNewPlaqueState"));
+            plaqueState.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState_Edit, L("EditNewPlaqueState"));
+            plaqueState.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState_Delete, L("DeleteNewPlaqueState"));
+
+            var notice = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_Notice, L("Notice"));
+            notice.CreateChildPermission(AppPermissions.Pages_BaseInfo_Notice_Create, L("CreateNewNotice"));
+            notice.CreateChildPermission(AppPermissions.Pages_BaseInfo_Notice_Edit, L("EditNewNotice"));
+            notice.CreateChildPermission(AppPermissions.Pages_BaseInfo_Notice_Delete, L("DeleteNewNotice"));
+            
+            //Breed-app BaseInfo
+
+            var baseIntro = pages.CreateChildPermission(AppPermissions.Pages_BaseIntro, L("BaseIntro"));
+
+            var contractor = baseIntro.CreateChildPermission(AppPermissions.Pages_BaseIntro_Contractor, L("Contractor"));
+            contractor.CreateChildPermission(AppPermissions.Pages_BaseIntro_Contractor_Create, L("CreateNewContractor"));
+            contractor.CreateChildPermission(AppPermissions.Pages_BaseIntro_Contractor_Edit, L("EditNewContractor"));
+            contractor.CreateChildPermission(AppPermissions.Pages_BaseIntro_Contractor_Delete, L("DeleteNewContractor"));
+
+            var officer = baseIntro.CreateChildPermission(AppPermissions.Pages_BaseIntro_Officer, L("Officer"));
+            officer.CreateChildPermission(AppPermissions.Pages_BaseIntro_Officer_Create, L("CreateNewOfficer"));
+            officer.CreateChildPermission(AppPermissions.Pages_BaseIntro_Officer_Edit, L("EditNewOfficer"));
+            officer.CreateChildPermission(AppPermissions.Pages_BaseIntro_Officer_Delete, L("DeleteNewOfficer"));
+
+            var herd = baseIntro.CreateChildPermission(AppPermissions.Pages_BaseIntro_Herd, L("Herd"));
+            herd.CreateChildPermission(AppPermissions.Pages_BaseIntro_Herd_Create, L("CreateNewHerd"));
+            herd.CreateChildPermission(AppPermissions.Pages_BaseIntro_Herd_Edit, L("EditNewHerd"));
+            herd.CreateChildPermission(AppPermissions.Pages_BaseIntro_Herd_Delete, L("DeleteNewHerd"));
+            
+            //Breed-app BaseInfo
+
+            var identityInfo = pages.CreateChildPermission(AppPermissions.Pages_IdentityInfo, L("IdentityInfo"));
+
+            var plaqueStore = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueStore, L("PlaqueStore"));
+            plaqueStore.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueStore_Create, L("CreateNewPlaqueStore"));
+            plaqueStore.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueStore_Edit, L("EditNewPlaqueStore"));
+            plaqueStore.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueStore_Delete, L("DeleteNewPlaqueStore"));
+
+            var plaqueOfficer = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueOfficer, L("PlaqueOfficer"));
+            plaqueOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Create, L("CreateNewPlaqueOfficer"));
+            plaqueOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Edit, L("EditNewPlaqueOfficer"));
+            plaqueOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Delete, L("DeleteNewPlaqueOfficer"));
+
+            var identification = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification, L("Identification"));
+            identification.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification_Create, L("CreateNewIdentification"));
+            identification.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification_Edit, L("EditNewIdentification"));
+            identification.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification_Delete, L("DeleteNewIdentification"));
+            
+            //Breed-app BaseInfo
+
+            var activities = pages.CreateChildPermission(AppPermissions.Pages_Activities, L("Activities"));
+
+            var editGeoHerd = activities.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd, L("EditGeoHerd"));
+            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Create, L("CreateNewEditGeoHerd"));
+            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Edit, L("EditNewEditGeoHerd"));
+            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Delete, L("DeleteNewEditGeoHerd"));
+
+            var editStatePlaque = activities.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque, L("EditStatePlaque"));
+            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Create, L("CreateNewEditStatePlaque"));
+            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Edit, L("EditNewEditStatePlaque"));
+            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Delete, L("DeleteNewEditStatePlaque"));
+            
+            //Breed-app BaseInfo
+
+            var reports = pages.CreateChildPermission(AppPermissions.Pages_Reports, L("Reports"));
+
+            var editGeoHerd2 = reports.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd, L("EditGeoHerd"));
+            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Create, L("CreateNewEditGeoHerd"));
+            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Edit, L("EditNewEditGeoHerd"));
+            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Delete, L("DeleteNewEditGeoHerd"));
         }
 
         private static ILocalizableString L(string name)
