@@ -16,7 +16,7 @@ namespace Akh.Breed.Web.Startup
         {
             return new WebHostBuilder()
                 .UseKestrel(opt => opt.AddServerHeader = false)
-                .UseUrls("http://0.0.0.0:5000") 
+                .UseUrls() 
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIIS()
                 .UseIISIntegration()

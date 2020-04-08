@@ -7,7 +7,7 @@ import { Table } from 'primeng/components/table/table';
 import { ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { finalize } from 'rxjs/operators';
-import { CreateOrEditSexInfoModalComponent } from "./CreateOrEditSexInfoModalComponent";
+import { CreateOrEditSexInfoModalComponent } from "./create-or-edit-sexInfo-modal.component";
 
 @Component({
     templateUrl: './sexInfo.component.html',

@@ -18,7 +18,7 @@ import { CreateOrEditUnionInfoModalComponent } from "./unionInfo/create-or-edit-
 import { ActivityInfoComponent } from "./activityInfo/activityInfo.component";
 import { CreateOrEditActivityInfoModalComponent } from "./activityInfo/create-or-edit-activityInfo-modal.component";
 import { SexInfoComponent } from "./sexInfo/sexInfo.component";
-import { CreateOrEditSexInfoModalComponent } from "./sexInfo/create-or-edit-SexInfo-modal.component";
+import { CreateOrEditSexInfoModalComponent } from "./sexInfo/create-or-edit-sexInfo-modal.component";
 import { SpeciesInfoComponent } from "./speciesInfo/speciesInfo.component";
 import { CreateOrEditSpeciesInfoModalComponent } from "./speciesInfo/create-or-edit-speciesInfo-modal.component";
 import { AcademicDegreeComponent } from "./academicDegree/academicDegree.component";
