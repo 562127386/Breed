@@ -1655,6 +1655,234 @@ export class AuditLogServiceProxy {
 }
 
 @Injectable()
+export class BreedRoleServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param permissions (optional) 
+     * @return Success
+     */
+    getBreedRoles(permissions: string[] | undefined): Observable<ListResultDtoOfBreedRoleListDto> {
+        let url_ = this.baseUrl + "/api/services/app/BreedRole/GetBreedRoles?";
+        if (permissions === null)
+            throw new Error("The parameter 'permissions' cannot be null.");
+        else if (permissions !== undefined)
+            permissions && permissions.forEach(item => { url_ += "Permissions=" + encodeURIComponent("" + item) + "&"; });
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBreedRoles(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBreedRoles(<any>response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfBreedRoleListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfBreedRoleListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBreedRoles(response: HttpResponseBase): Observable<ListResultDtoOfBreedRoleListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ListResultDtoOfBreedRoleListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ListResultDtoOfBreedRoleListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getBreedRoleForEdit(id: number | undefined): Observable<GetBreedRoleForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/BreedRole/GetBreedRoleForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBreedRoleForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBreedRoleForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetBreedRoleForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetBreedRoleForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBreedRoleForEdit(response: HttpResponseBase): Observable<GetBreedRoleForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetBreedRoleForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetBreedRoleForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateBreedRole(body: CreateOrUpdateBreedRoleInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BreedRole/CreateOrUpdateBreedRole";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateBreedRole(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateBreedRole(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateBreedRole(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteBreedRole(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BreedRole/DeleteBreedRole?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteBreedRole(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteBreedRole(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteBreedRole(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class CachingServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -18681,6 +18909,313 @@ export interface IEntityPropertyChangeDto {
     id: number;
 }
 
+export class BreedRoleListDto implements IBreedRoleListDto {
+    name!: string | undefined;
+    displayName!: string | undefined;
+    isStatic!: boolean;
+    isDefault!: boolean;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: IBreedRoleListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.displayName = data["displayName"];
+            this.isStatic = data["isStatic"];
+            this.isDefault = data["isDefault"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BreedRoleListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BreedRoleListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["displayName"] = this.displayName;
+        data["isStatic"] = this.isStatic;
+        data["isDefault"] = this.isDefault;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBreedRoleListDto {
+    name: string | undefined;
+    displayName: string | undefined;
+    isStatic: boolean;
+    isDefault: boolean;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class ListResultDtoOfBreedRoleListDto implements IListResultDtoOfBreedRoleListDto {
+    items!: BreedRoleListDto[] | undefined;
+
+    constructor(data?: IListResultDtoOfBreedRoleListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(BreedRoleListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfBreedRoleListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ListResultDtoOfBreedRoleListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfBreedRoleListDto {
+    items: BreedRoleListDto[] | undefined;
+}
+
+export class BreedRoleEditDto implements IBreedRoleEditDto {
+    id!: number | undefined;
+    displayName!: string | undefined;
+    isDefault!: boolean;
+
+    constructor(data?: IBreedRoleEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+            this.isDefault = data["isDefault"];
+        }
+    }
+
+    static fromJS(data: any): BreedRoleEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BreedRoleEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        data["isDefault"] = this.isDefault;
+        return data; 
+    }
+}
+
+export interface IBreedRoleEditDto {
+    id: number | undefined;
+    displayName: string | undefined;
+    isDefault: boolean;
+}
+
+export class FlatPermissionDto implements IFlatPermissionDto {
+    parentName!: string | undefined;
+    name!: string | undefined;
+    displayName!: string | undefined;
+    description!: string | undefined;
+    isGrantedByDefault!: boolean;
+
+    constructor(data?: IFlatPermissionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.parentName = data["parentName"];
+            this.name = data["name"];
+            this.displayName = data["displayName"];
+            this.description = data["description"];
+            this.isGrantedByDefault = data["isGrantedByDefault"];
+        }
+    }
+
+    static fromJS(data: any): FlatPermissionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new FlatPermissionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["parentName"] = this.parentName;
+        data["name"] = this.name;
+        data["displayName"] = this.displayName;
+        data["description"] = this.description;
+        data["isGrantedByDefault"] = this.isGrantedByDefault;
+        return data; 
+    }
+}
+
+export interface IFlatPermissionDto {
+    parentName: string | undefined;
+    name: string | undefined;
+    displayName: string | undefined;
+    description: string | undefined;
+    isGrantedByDefault: boolean;
+}
+
+export class GetBreedRoleForEditOutput implements IGetBreedRoleForEditOutput {
+    breedRole!: BreedRoleEditDto;
+    permissions!: FlatPermissionDto[] | undefined;
+    grantedPermissionNames!: string[] | undefined;
+
+    constructor(data?: IGetBreedRoleForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.breedRole = data["breedRole"] ? BreedRoleEditDto.fromJS(data["breedRole"]) : <any>undefined;
+            if (Array.isArray(data["permissions"])) {
+                this.permissions = [] as any;
+                for (let item of data["permissions"])
+                    this.permissions!.push(FlatPermissionDto.fromJS(item));
+            }
+            if (Array.isArray(data["grantedPermissionNames"])) {
+                this.grantedPermissionNames = [] as any;
+                for (let item of data["grantedPermissionNames"])
+                    this.grantedPermissionNames!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): GetBreedRoleForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetBreedRoleForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["breedRole"] = this.breedRole ? this.breedRole.toJSON() : <any>undefined;
+        if (Array.isArray(this.permissions)) {
+            data["permissions"] = [];
+            for (let item of this.permissions)
+                data["permissions"].push(item.toJSON());
+        }
+        if (Array.isArray(this.grantedPermissionNames)) {
+            data["grantedPermissionNames"] = [];
+            for (let item of this.grantedPermissionNames)
+                data["grantedPermissionNames"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IGetBreedRoleForEditOutput {
+    breedRole: BreedRoleEditDto;
+    permissions: FlatPermissionDto[] | undefined;
+    grantedPermissionNames: string[] | undefined;
+}
+
+export class CreateOrUpdateBreedRoleInput implements ICreateOrUpdateBreedRoleInput {
+    breedRole!: BreedRoleEditDto;
+    grantedPermissionNames!: string[] | undefined;
+
+    constructor(data?: ICreateOrUpdateBreedRoleInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.breedRole = new BreedRoleEditDto();
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.breedRole = data["breedRole"] ? BreedRoleEditDto.fromJS(data["breedRole"]) : new BreedRoleEditDto();
+            if (Array.isArray(data["grantedPermissionNames"])) {
+                this.grantedPermissionNames = [] as any;
+                for (let item of data["grantedPermissionNames"])
+                    this.grantedPermissionNames!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): CreateOrUpdateBreedRoleInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrUpdateBreedRoleInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["breedRole"] = this.breedRole ? this.breedRole.toJSON() : <any>undefined;
+        if (Array.isArray(this.grantedPermissionNames)) {
+            data["grantedPermissionNames"] = [];
+            for (let item of this.grantedPermissionNames)
+                data["grantedPermissionNames"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface ICreateOrUpdateBreedRoleInput {
+    breedRole: BreedRoleEditDto;
+    grantedPermissionNames: string[] | undefined;
+}
+
 export class CacheDto implements ICacheDto {
     name!: string | undefined;
 
@@ -28581,58 +29116,6 @@ export interface IRoleEditDto {
     id: number | undefined;
     displayName: string | undefined;
     isDefault: boolean;
-}
-
-export class FlatPermissionDto implements IFlatPermissionDto {
-    parentName!: string | undefined;
-    name!: string | undefined;
-    displayName!: string | undefined;
-    description!: string | undefined;
-    isGrantedByDefault!: boolean;
-
-    constructor(data?: IFlatPermissionDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.parentName = data["parentName"];
-            this.name = data["name"];
-            this.displayName = data["displayName"];
-            this.description = data["description"];
-            this.isGrantedByDefault = data["isGrantedByDefault"];
-        }
-    }
-
-    static fromJS(data: any): FlatPermissionDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new FlatPermissionDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["parentName"] = this.parentName;
-        data["name"] = this.name;
-        data["displayName"] = this.displayName;
-        data["description"] = this.description;
-        data["isGrantedByDefault"] = this.isGrantedByDefault;
-        return data; 
-    }
-}
-
-export interface IFlatPermissionDto {
-    parentName: string | undefined;
-    name: string | undefined;
-    displayName: string | undefined;
-    description: string | undefined;
-    isGrantedByDefault: boolean;
 }
 
 export class GetRoleForEditOutput implements IGetRoleForEditOutput {

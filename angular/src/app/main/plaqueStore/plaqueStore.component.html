@@ -18,7 +18,7 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <div (click)="createPlaqueStore()" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                                <div (click)="createPlaqueStore()" *ngIf="'Pages.IdentityInfo.PlaqueStore.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
                                     data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                     <i class="flaticon2-add-1"></i>
                                 </div>
@@ -88,7 +88,6 @@
                                                 <p-sortIcon field="plaqueAllocated"></p-sortIcon>
                                             </th>
                                             <th style="width: 130px">
-                                                    <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
                                                     {{'Actions' | localize}}
                                             </th>                                                                             
                                         </tr>
@@ -137,10 +136,11 @@
                                             <td style="width: 130px">
                                                 <div class="kt-section__content kt-section__content--solid">
                                                     <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditPlaqueStoreModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
-                                                    <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditPlaqueStoreModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button> -->
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deletePlaqueStore(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button>
+                                                    <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditPlaqueStoreModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.IdentityInfo.PlaqueStore.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button> -->
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deletePlaqueStore(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.IdentityInfo.PlaqueStore.Delete' | permission"><i class="flaticon-delete"></i></button>
                                                 </div>                                            
-                                                <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->                                    
                                             </td>                                     
                                         </tr>
                                     </ng-template>
@@ -170,7 +170,7 @@
                                 
                             </div>
                             <div class="col-lg-6 kt-align-right">
-                                <button (click)="createPlaqueStore()" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewPlaqueStore" | localize}}</button>
+                                <button (click)="createPlaqueStore()" *ngIf="'Pages.IdentityInfo.PlaqueStore.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewPlaqueStore" | localize}}</button>
                             </div>
                         </div>
                     </div>

@@ -35,7 +35,25 @@ namespace Akh.Breed.Migrations.Seed.Host
             var adminRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
             if (adminRoleForHost == null)
             {
-                adminRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin) { IsStatic = true, IsDefault = true }).Entity;
+                adminRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin) { IsStatic = true }).Entity;
+                _context.SaveChanges();
+            }
+            
+            //Admin role for host
+
+            var adminMgnSysRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.AdminMgnSys);
+            if (adminMgnSysRoleForHost == null)
+            {
+                adminMgnSysRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.AdminMgnSys, StaticRoleNames.Host.AdminMgnSys) { IsStatic = true }).Entity;
+                _context.SaveChanges();
+            }
+            
+            //Admin role for host
+
+            var officerRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Officer);
+            if (officerRoleForHost == null)
+            {
+                officerRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.Officer, StaticRoleNames.Host.Officer) { IsStatic = true, IsDefault = true }).Entity;
                 _context.SaveChanges();
             }
 

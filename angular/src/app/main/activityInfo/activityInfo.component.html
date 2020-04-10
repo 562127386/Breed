@@ -18,7 +18,7 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <div (click)="createActivityInfo()" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                                <div (click)="createActivityInfo()" *ngIf="'Pages.BaseInfo.ActivityInfo.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
                                     data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                     <i class="flaticon2-add-1"></i>
                                 </div>
@@ -67,7 +67,6 @@
                                                 <p-sortIcon field="name"></p-sortIcon>
                                             </th>
                                             <th style="width: 100px">
-                                                    <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->
                                                     {{'Actions' | localize}}
                                             </th>                                                                             
                                         </tr>
@@ -85,10 +84,11 @@
                                             <td style="width: 100px">
                                                 <div class="kt-section__content kt-section__content--solid">
                                                     <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditActivityInfoModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditActivityInfoModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-cogwheel-1"></i></button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteActivityInfo(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditActivityInfoModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.BaseInfo.ActivityInfo.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteActivityInfo(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.BaseInfo.ActivityInfo.Delete' | permission"><i class="flaticon-delete"></i></button>
                                                 </div>                                            
-                                                <!-- [hidden]="!(['Pages.Administration.Users.Impersonation', 'Pages.Administration.Users.Edit', 'Pages.Administration.Users.ChangePermissions', 'Pages.Administration.Users.Delete'] | permissionAny)"> -->                                    
                                             </td>                                     
                                         </tr>
                                     </ng-template>
@@ -118,7 +118,7 @@
                                 
                             </div>
                             <div class="col-lg-6 kt-align-right">
-                                <button (click)="createActivityInfo()" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewActivityInfo" | localize}}</button>
+                                <button (click)="createActivityInfo()" *ngIf="'Pages.BaseInfo.ActivityInfo.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewActivityInfo" | localize}}</button>
                             </div>
                         </div>
                     </div>

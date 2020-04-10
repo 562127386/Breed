@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,7 @@ namespace Akh.Breed.BaseInfos
             _providerInfoRepository = providerInfoRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ProviderInfo)]
         public async Task<PagedResultDto<ProviderInfoListDto>> GetProviderInfo(GetProviderInfoInput input)
         {
             var query = GetFilteredQuery(input);
@@ -38,6 +41,7 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ProviderInfo_Create, AppPermissions.Pages_BaseInfo_ProviderInfo_Edit)]
         public async Task<ProviderInfoCreateOrUpdateInput> GetProviderInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
@@ -54,6 +58,7 @@ namespace Akh.Breed.BaseInfos
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ProviderInfo_Create, AppPermissions.Pages_BaseInfo_ProviderInfo_Edit)]
         public async Task CreateOrUpdateProviderInfo(ProviderInfoCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -68,6 +73,7 @@ namespace Akh.Breed.BaseInfos
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ProviderInfo_Delete)]
         public async Task DeleteProviderInfo(EntityDto input)
         {
             try
@@ -81,12 +87,14 @@ namespace Akh.Breed.BaseInfos
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ProviderInfo_Edit)]
         private async Task UpdateProviderInfoAsync(ProviderInfoCreateOrUpdateInput input)
         {
             var providerInfo = ObjectMapper.Map<ProviderInfo>(input);
             await _providerInfoRepository.UpdateAsync(providerInfo);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ProviderInfo_Create)]
         private async Task CreateProviderInfoAsync(ProviderInfoCreateOrUpdateInput input)
         {
             var providerInfo = ObjectMapper.Map<ProviderInfo>(input);

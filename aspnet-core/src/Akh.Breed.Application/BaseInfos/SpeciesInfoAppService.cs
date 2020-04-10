@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,7 @@ namespace Akh.Breed.BaseInfos
             _speciesInfoRepository = speciesInfoRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SpeciesInfo)]
         public async Task<PagedResultDto<SpeciesInfoListDto>> GetSpeciesInfo(GetSpeciesInfoInput input)
         {
             var query = GetFilteredQuery(input);
@@ -40,6 +43,7 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SpeciesInfo_Create, AppPermissions.Pages_BaseInfo_SpeciesInfo_Edit)]
         public async Task<SpeciesInfoCreateOrUpdateInput> GetSpeciesInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
@@ -56,6 +60,7 @@ namespace Akh.Breed.BaseInfos
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SpeciesInfo_Create, AppPermissions.Pages_BaseInfo_SpeciesInfo_Edit)]
         public async Task CreateOrUpdateSpeciesInfo(SpeciesInfoCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -70,6 +75,7 @@ namespace Akh.Breed.BaseInfos
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SpeciesInfo_Delete)]
         public async Task DeleteSpeciesInfo(EntityDto input)
         {
             try
@@ -88,12 +94,15 @@ namespace Akh.Breed.BaseInfos
             var species = await _speciesInfoRepository.GetAsync(input.Id);
             return species != null ? species.ToCodeStr : "0";
         }
+        
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SpeciesInfo_Edit)]
         private async Task UpdateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
         {
             var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);
             await _speciesInfoRepository.UpdateAsync(speciesInfo);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SpeciesInfo_Create)]
         private async Task CreateSpeciesInfoAsync(SpeciesInfoCreateOrUpdateInput input)
         {
             var speciesInfo = ObjectMapper.Map<SpeciesInfo>(input);

@@ -80,7 +80,7 @@
     <text name="DeletingRole">حذف نقش</text>
     <text name="CreationTime">زمان ایجاد</text>
     <text name="SearchWithThreeDot">جستجو...</text>
-    <text name="ResetSpecialPermissions">تنشیم مجدد دسترسی ها</text>
+    <text name="ResetSpecialPermissions">تنظیم مجدد دسترسی ها</text>
     <text name="SavingWithThreeDot">ذخیره...</text>
     <text name="Settings">تنظیمات</text>
     <text name="SaveAll">ذخیره همه</text>
@@ -428,8 +428,8 @@
     <text name="TenantToHostChatFeatureIsNotEnabledForReceiver">Chat with host is not enabled for tenant.</text>
     <text name="TenantToTenantChatFeature">Chat with other tenants</text>
     <text name="TenantToHostChatFeature">Chat with host</text>
-    <text name="FilterByPermission">Filter by permission</text>
-    <text name="FilterByRole">Filter by role</text>
+    <text name="FilterByPermission">فیلتر شده بر اساس دسترسی</text>
+    <text name="FilterByRole">فیلتر شده بر اساس قانون</text>
     <text name="FilterOrAddUser">Filter/Add user</text>
     <text name="HangfireDashboard">Hangfire dashboard</text>
     <text name="CouldNotCompleteLoginOperation">Could not complete the login operation.</text>
@@ -447,7 +447,7 @@
     <text name="RememberThisBrowser">Remember this browser</text>
     <text name="InvalidSecurityCode">Invalid security code!</text>
     <text name="PhoneNumber">Phone number</text>
-    <text name="Unlock">Unlock</text>
+    <text name="Unlock">بازگشایی</text>
     <text name="UnlockedTheUser">Unlocked the user {0}</text>
     <text name="UserLockOut">User Lock Out</text>
     <text name="EnableUserAccountLockingOnFailedLoginAttemts">Enable user account locking on failed login attempts</text>
@@ -795,7 +795,7 @@
     <text name="Collapse">Collapse</text>
     <text name="AllOfThesePermissionsMustBeGranted">Required permissions are not granted. All of these permissions must be granted: {0}</text>
     <text name="AtLeastOneOfThesePermissionsMustBeGranted">Required permissions are not granted. At least one of these permissions must be granted: {0}</text>
-    <text name="OnlyLockedUsers">Only locked users</text>
+    <text name="OnlyLockedUsers">کاربران قفل شده</text>
     <text name="DefaultFromSenderEmailAddress">Default from (فرستنده) email address</text>
     <text name="DefaultFromSenderDisplayName">Default from (فرستنده) display name</text>
     <text name="DefaultLanguage">زبان پیش فرض</text>
@@ -915,7 +915,7 @@
     <text name="Disable">غیرفعال</text>
     <text name="UseCaptchaOnLogin">Use security image question (captcha) on login.</text>
     <text name="XCountPermissionFiltered">{0} permission filtered.</text>
-    <text name="SelectPermissions">Select Permissions</text>
+    <text name="SelectPermissions">انتخاب دسترسی ها</text>
     <text name="DailyPrice">Daily Price</text>
     <text name="WeeklyPrice">Weekly Price</text>
     <text name="PerDay">Per day</text>

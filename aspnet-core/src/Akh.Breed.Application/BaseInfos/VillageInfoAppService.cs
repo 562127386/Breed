@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +31,7 @@ namespace Akh.Breed.BaseInfos
             _cityInfoRepository = cityInfoRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_VillageInfo)]
         public async Task<PagedResultDto<VillageInfoListDto>> GetVillageInfo(GetVillageInfoInput input)
         {
             var query = GetFilteredQuery(input);
@@ -44,6 +47,7 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_VillageInfo_Create, AppPermissions.Pages_BaseInfo_VillageInfo_Edit)]
         public async Task<VillageInfoGetForEditOutput> GetVillageInfoForEdit(NullableIdDto<int> input)
         {
             VillageInfo villageInfo = null;
@@ -89,6 +93,7 @@ namespace Akh.Breed.BaseInfos
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_VillageInfo_Create, AppPermissions.Pages_BaseInfo_VillageInfo_Edit)]
         public async Task CreateOrUpdateVillageInfo(VillageInfoCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -103,6 +108,7 @@ namespace Akh.Breed.BaseInfos
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_VillageInfo_Delete)]
         public async Task DeleteVillageInfo(EntityDto input)
         {
             try
@@ -116,12 +122,14 @@ namespace Akh.Breed.BaseInfos
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_VillageInfo_Edit)]
         private async Task UpdateVillageInfoAsync(VillageInfoCreateOrUpdateInput input)
         {
             var villageInfo = ObjectMapper.Map<VillageInfo>(input);
             await _villageInfoRepository.UpdateAsync(villageInfo);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_VillageInfo_Create)]
         private async Task CreateVillageInfoAsync(VillageInfoCreateOrUpdateInput input)
         {
             var villageInfo = ObjectMapper.Map<VillageInfo>(input);

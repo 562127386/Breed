@@ -3,12 +3,14 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Localization.Sources;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,7 @@ namespace Akh.Breed.BaseInfos
             _stateImportAppService = stateImportAppService;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_StateInfo)]
         public async Task<PagedResultDto<StateInfoListDto>> GetStateInfo(GetStateInfoInput input)
         {
             _stateImportAppService.InitialData();
@@ -42,6 +45,7 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_StateInfo_Create, AppPermissions.Pages_BaseInfo_StateInfo_Edit)]
         public async Task<StateInfoCreateOrUpdateInput> GetStateInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
@@ -58,6 +62,7 @@ namespace Akh.Breed.BaseInfos
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_StateInfo_Create, AppPermissions.Pages_BaseInfo_StateInfo_Edit)]
         public async Task CreateOrUpdateStateInfo(StateInfoCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -72,6 +77,7 @@ namespace Akh.Breed.BaseInfos
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_StateInfo_Delete)]
         public async Task DeleteStateInfo(EntityDto input)
         {
             try
@@ -85,12 +91,14 @@ namespace Akh.Breed.BaseInfos
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_StateInfo_Edit)]
         private async Task UpdateStateInfoAsync(StateInfoCreateOrUpdateInput input)
         {
             var stateInfo = ObjectMapper.Map<StateInfo>(input);
             await _stateInfoRepository.UpdateAsync(stateInfo);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_StateInfo_Create)]
         private async Task CreateStateInfoAsync(StateInfoCreateOrUpdateInput input)
         {
             var stateInfo = ObjectMapper.Map<StateInfo>(input);

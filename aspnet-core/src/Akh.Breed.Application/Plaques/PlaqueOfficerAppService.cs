@@ -5,11 +5,13 @@ using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques.Dto;
@@ -32,6 +34,7 @@ namespace Akh.Breed.Plaques
             _speciesInfoRepository = speciesInfoRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueOfficer)]
         public async Task<PagedResultDto<PlaqueOfficerListDto>> GetPlaqueOfficer(GetPlaqueOfficerInput input)
         {
             var query = GetFilteredQuery(input);
@@ -47,6 +50,7 @@ namespace Akh.Breed.Plaques
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Create, AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Edit)]
         public async Task<PlaqueOfficerGetForEditOutput> GetPlaqueOfficerForEdit(NullableIdDto<int> input)
         {
             PlaqueOfficer plaqueOfficer = null;
@@ -80,6 +84,7 @@ namespace Akh.Breed.Plaques
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Create, AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Edit)]
         public async Task CreateOrUpdatePlaqueOfficer(PlaqueOfficerCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -94,18 +99,21 @@ namespace Akh.Breed.Plaques
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Delete)]
         public async Task DeletePlaqueOfficer(EntityDto input)
         {
             throw new UserFriendlyException(L("AreYouSureToDeleteThePlaqueState"));
             //await _plaqueOfficerRepository.DeleteAsync(input.Id);
         }
 
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Edit)]
         private async Task UpdatePlaqueOfficerAsync(PlaqueOfficerCreateOrUpdateInput input)
         {
             var plaqueOfficer = ObjectMapper.Map<PlaqueOfficer>(input);
             await _plaqueOfficerRepository.UpdateAsync(plaqueOfficer);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Create)]
         private async Task CreatePlaqueOfficerAsync(PlaqueOfficerCreateOrUpdateInput input)
         {
             var plaqueStore = _plaqueStoreRepository.Get(input.PlaqueStoreId.Value);

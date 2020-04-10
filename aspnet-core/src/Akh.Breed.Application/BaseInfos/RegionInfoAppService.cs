@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +30,7 @@ namespace Akh.Breed.BaseInfos
             _cityInfoRepository = cityInfoRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_RegionInfo)]
         public async Task<PagedResultDto<RegionInfoListDto>> GetRegionInfo(GetRegionInfoInput input)
         {
             var query = GetFilteredQuery(input);
@@ -43,6 +46,7 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_RegionInfo_Create, AppPermissions.Pages_BaseInfo_RegionInfo_Edit)]
         public async Task<RegionInfoGetForEditOutput> GetRegionInfoForEdit(NullableIdDto<int> input)
         {
             RegionInfo regionInfo = null;
@@ -80,6 +84,7 @@ namespace Akh.Breed.BaseInfos
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_RegionInfo_Create, AppPermissions.Pages_BaseInfo_RegionInfo_Edit)]
         public async Task CreateOrUpdateRegionInfo(RegionInfoCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -94,6 +99,7 @@ namespace Akh.Breed.BaseInfos
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_RegionInfo_Delete)]
         public async Task DeleteRegionInfo(EntityDto input)
         {
             try
@@ -107,12 +113,14 @@ namespace Akh.Breed.BaseInfos
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_RegionInfo_Edit)]
         private async Task UpdateRegionInfoAsync(RegionInfoCreateOrUpdateInput input)
         {
             var regionInfo = ObjectMapper.Map<RegionInfo>(input);
             await _regionInfoRepository.UpdateAsync(regionInfo);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_RegionInfo_Create)]
         private async Task CreateRegionInfoAsync(RegionInfoCreateOrUpdateInput input)
         {
             var regionInfo = ObjectMapper.Map<RegionInfo>(input);

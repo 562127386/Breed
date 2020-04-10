@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
+using Abp.Runtime.Session;
 using Abp.Zero.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Akh.Breed.Authorization.Permissions;
@@ -32,7 +33,14 @@ namespace Akh.Breed.Authorization.Roles
         public async Task<ListResultDto<RoleListDto>> GetRoles(GetRolesInput input)
         {
             var query = _roleManager.Roles;
-
+            
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            if (!isAdmin)
+            {
+                query = query.Where(x => x.Name != StaticRoleNames.Host.Admin);
+            }
+            
             if (input.Permissions != null && input.Permissions.Any(p => !string.IsNullOrEmpty(p)))
             {
                 input.Permissions = input.Permissions.Where(p => !string.IsNullOrEmpty(p)).ToList();
@@ -60,10 +68,30 @@ namespace Akh.Breed.Authorization.Roles
         [AbpAuthorize(AppPermissions.Pages_Administration_Roles_Create, AppPermissions.Pages_Administration_Roles_Edit)]
         public async Task<GetRoleForEditOutput> GetRoleForEdit(NullableIdDto input)
         {
-            var permissions = PermissionManager.GetAllPermissions();
+            var permissions = PermissionManager.GetAllPermissions().AsQueryable();
             var grantedPermissions = new Permission[0];
             RoleEditDto roleEditDto;
 
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            if (!isAdmin)
+            {
+                permissions = permissions.Where(x => (x.Name != AppPermissions.Pages_DemoUiComponents) && 
+                                                     (x.Name != AppPermissions.Pages_Administration_Languages) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_AuditLogs) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_OrganizationUnits) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_UiCustomization) &&
+                                                     (x.Name != AppPermissions.Pages_Tenant_Dashboard) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Tenant_Settings) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Tenant_SubscriptionManagement) &&
+                                                     (x.Name != AppPermissions.Pages_Editions) &&
+                                                     (x.Name != AppPermissions.Pages_Tenants) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Host_Settings) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Host_Maintenance) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_HangfireDashboard) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Host_Dashboard) );
+            }
+            
             if (input.Id.HasValue) //Editing existing role?
             {
                 var role = await _roleManager.GetRoleByIdAsync(input.Id.Value);

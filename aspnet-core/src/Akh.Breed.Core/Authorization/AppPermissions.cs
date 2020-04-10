@@ -191,7 +191,7 @@
         public const string Pages_Activities_EditStatePlaque_Edit = "Pages.Activities.EditStatePlaque.Edit";
         public const string Pages_Activities_EditStatePlaque_Delete = "Pages.Activities.EditStatePlaque.Delete";
         
-        //Breed-app IdentityInfo
+        //Breed-app Reports
         
         public const string Pages_Reports = "Pages.Reports";
         

@@ -35,36 +35,36 @@ export class AppNavigationService {
             ]),
             new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
 
-            new AppMenuItem('BaseInfo', null, 'flaticon-folder-1', '',[
-                new AppMenuItem('StateInfo', null, 'flaticon-placeholder-1', '/app/main/stateInfo'),
-                new AppMenuItem('CityInfo', null, 'flaticon-placeholder', '/app/main/cityInfo'),
-                new AppMenuItem('RegionInfo', null, 'flaticon-placeholder', '/app/main/regionInfo'),
-                new AppMenuItem('VillageInfo', null, 'flaticon-placeholder-2', '/app/main/villageInfo'),
-                new AppMenuItem('ProviderInfo', null, 'flaticon-truck', '/app/main/providerInfo'),
-                new AppMenuItem('UnionInfo', null, 'flaticon-truck', '/app/main/unionInfo'),
-                new AppMenuItem('ActivityInfo', null, 'flaticon-truck', '/app/main/activityInfo'),
-                new AppMenuItem('AcademicDegree', null, 'flaticon-lock', '/app/main/academicDegree'),
-                new AppMenuItem('SexInfo', null, 'flaticon-technology-1', '/app/main/sexInfo'),
-                new AppMenuItem('SpeciesInfo', null, 'flaticon-interface-6', '/app/main/speciesInfo'),
-                new AppMenuItem('FirmType', null, 'flaticon-line-chart-1', '/app/main/firmType'),
-                new AppMenuItem('PlaqueState', null, 'flaticon-technology-2', '/app/main/plaqueState'),
-                new AppMenuItem('Notice', null, 'flaticon-technology-2', '/app/main/notice')
+            new AppMenuItem('BaseInfo', 'Pages.BaseInfo', 'flaticon-folder-1', '',[
+                new AppMenuItem('StateInfo', 'Pages.BaseInfo.StateInfo', 'flaticon-placeholder-1', '/app/main/stateInfo'),
+                new AppMenuItem('CityInfo', 'Pages.BaseInfo.CityInfo', 'flaticon-placeholder', '/app/main/cityInfo'),
+                new AppMenuItem('RegionInfo', 'Pages.BaseInfo.RegionInfo', 'flaticon-placeholder', '/app/main/regionInfo'),
+                new AppMenuItem('VillageInfo', 'Pages.BaseInfo.VillageInfo', 'flaticon-placeholder-2', '/app/main/villageInfo'),
+                new AppMenuItem('ProviderInfo', 'Pages.BaseInfo.ProviderInfo', 'flaticon-truck', '/app/main/providerInfo'),
+                new AppMenuItem('UnionInfo', 'Pages.BaseInfo.UnionInfo', 'flaticon-truck', '/app/main/unionInfo'),
+                new AppMenuItem('ActivityInfo', 'Pages.BaseInfo.ActivityInfo', 'flaticon-truck', '/app/main/activityInfo'),
+                new AppMenuItem('AcademicDegree', 'Pages.BaseInfo.AcademicDegree', 'flaticon-lock', '/app/main/academicDegree'),
+                new AppMenuItem('SexInfo', 'Pages.BaseInfo.SexInfo', 'flaticon-technology-1', '/app/main/sexInfo'),
+                new AppMenuItem('SpeciesInfo', 'Pages.BaseInfo.SpeciesInfo', 'flaticon-interface-6', '/app/main/speciesInfo'),
+                new AppMenuItem('FirmType', 'Pages.BaseInfo.FirmType', 'flaticon-line-chart-1', '/app/main/firmType'),
+                new AppMenuItem('PlaqueState', 'Pages.BaseInfo.PlaqueState', 'flaticon-technology-2', '/app/main/plaqueState'),
+                new AppMenuItem('Notice', 'Pages.BaseInfo.Notice', 'flaticon-technology-2', '/app/main/notice')
             ]),
-            new AppMenuItem('BaseIntro', null, 'flaticon-folder-1', '',[
-                new AppMenuItem('Contractor', null, 'flaticon-diagram', '/app/main/contractor'),
-                new AppMenuItem('Officer', null, 'flaticon-diagram', '/app/main/officer'),                
-                new AppMenuItem('Herd', null, 'flaticon2-box', '/app/main/herd')
+            new AppMenuItem('BaseIntro', 'Pages.BaseIntro', 'flaticon-folder-1', '',[
+                new AppMenuItem('Contractor', 'Pages.BaseIntro.Contractor', 'flaticon-diagram', '/app/main/contractor'),
+                new AppMenuItem('Officer', 'Pages.BaseIntro.Officer', 'flaticon-diagram', '/app/main/officer'),                
+                new AppMenuItem('Herd', 'Pages.BaseIntro.Herd', 'flaticon2-box', '/app/main/herd')
             ]),
-            new AppMenuItem('IdentityInfo', null, 'flaticon-folder-1', '',[                
-                new AppMenuItem('PlaqueStore', null, 'flaticon2-box', '/app/main/plaqueStore'),
-                new AppMenuItem('PlaqueOfficer', null, 'flaticon2-box', '/app/main/plaqueOfficer'),
-                new AppMenuItem('Identification', null, 'flaticon2-box', '/app/main/livestock')
+            new AppMenuItem('IdentityInfo', 'Pages.IdentityInfo', 'flaticon-folder-1', '',[                
+                new AppMenuItem('PlaqueStore', 'Pages.IdentityInfo.PlaqueStore', 'flaticon2-box', '/app/main/plaqueStore'),
+                new AppMenuItem('PlaqueOfficer', 'Pages.IdentityInfo.PlaqueOfficer', 'flaticon2-box', '/app/main/plaqueOfficer'),
+                new AppMenuItem('Identification', 'Pages.IdentityInfo.Identification', 'flaticon2-box', '/app/main/livestock')
             ]),            
-            new AppMenuItem('Activities', null, 'flaticon2-box', '',[                
-                new AppMenuItem('EditGeoHerd', null, 'flaticon2-box', '/app/main/herdGeoLog'),
-                new AppMenuItem('EditStatePlaque', null, 'flaticon2-box', '/app/main/plaqueChange')
+            new AppMenuItem('Activities', 'Pages.Activities', 'flaticon2-box', '',[                
+                new AppMenuItem('EditGeoHerd', 'Pages.Activities.EditGeoHerd', 'flaticon2-box', '/app/main/herdGeoLog'),
+                new AppMenuItem('EditStatePlaque', 'Pages.Activities.EditStatePlaque', 'flaticon2-box', '/app/main/plaqueChange')
             ]),
-            new AppMenuItem('Reports', null, 'flaticon2-box', '')
+            new AppMenuItem('Reports', 'Pages.Reports', 'flaticon2-box', '')
 
 
         ]);

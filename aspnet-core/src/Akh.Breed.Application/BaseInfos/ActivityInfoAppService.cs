@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,7 @@ namespace Akh.Breed.BaseInfos
             _activityInfoRepository = activityInfoRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ActivityInfo)]
         public async Task<PagedResultDto<ActivityInfoListDto>> GetActivityInfo(GetActivityInfoInput input)
         {
             var query = GetFilteredQuery(input);
@@ -38,6 +41,7 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ActivityInfo_Create, AppPermissions.Pages_BaseInfo_ActivityInfo_Edit)]
         public async Task<ActivityInfoCreateOrUpdateInput> GetActivityInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
@@ -54,6 +58,7 @@ namespace Akh.Breed.BaseInfos
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ActivityInfo_Create, AppPermissions.Pages_BaseInfo_ActivityInfo_Edit)]
         public async Task CreateOrUpdateActivityInfo(ActivityInfoCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -68,6 +73,7 @@ namespace Akh.Breed.BaseInfos
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ActivityInfo_Delete)]
         public async Task DeleteActivityInfo(EntityDto input)
         {
             try
@@ -81,12 +87,14 @@ namespace Akh.Breed.BaseInfos
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ActivityInfo_Edit)]
         private async Task UpdateActivityInfoAsync(ActivityInfoCreateOrUpdateInput input)
         {
             var activityInfo = ObjectMapper.Map<ActivityInfo>(input);
             await _activityInfoRepository.UpdateAsync(activityInfo);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_ActivityInfo_Create)]
         private async Task CreateActivityInfoAsync(ActivityInfoCreateOrUpdateInput input)
         {
             var activityInfo = ObjectMapper.Map<ActivityInfo>(input);

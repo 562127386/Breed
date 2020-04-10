@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
@@ -40,6 +42,8 @@ namespace Akh.Breed.Herds
             _activityInfoRepository = activityInfoRepository;
             _contractorRepository = contractorRepository;
         }
+        
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
         public async Task<PagedResultDto<HerdListDto>> GetHerd(GetHerdInput input)
         {
             var query = GetFilteredQuery(input);
@@ -55,6 +59,7 @@ namespace Akh.Breed.Herds
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd_Create, AppPermissions.Pages_BaseIntro_Herd_Edit)]
         public async Task<GetHerdForEditOutput> GetHerdForEdit(NullableIdDto<int> input)
         {
             Herd herd = null;
@@ -123,6 +128,7 @@ namespace Akh.Breed.Herds
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd_Create, AppPermissions.Pages_BaseIntro_Herd_Edit)]
         public async Task CreateOrUpdateHerd(HerdCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
@@ -135,6 +141,7 @@ namespace Akh.Breed.Herds
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd_Delete)]
         public async Task DeleteHerd(EntityDto input)
         {
             try
@@ -148,12 +155,14 @@ namespace Akh.Breed.Herds
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd_Edit)]
         private async Task UpdateHerdAsync(HerdCreateOrUpdateInput input)
         {
             var herd = ObjectMapper.Map<Herd>(input);
             await _herdRepository.UpdateAsync(herd);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd_Create)]
         private async Task CreateHerdAsync(HerdCreateOrUpdateInput input)
         {
             var herd = ObjectMapper.Map<Herd>(input);

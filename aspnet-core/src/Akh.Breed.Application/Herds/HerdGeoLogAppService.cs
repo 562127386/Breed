@@ -3,12 +3,14 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Timing;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
@@ -27,6 +29,8 @@ namespace Akh.Breed.Herds
             _herdGeoLogRepository = herdGeoLogRepository;
             _herdRepository = herdRepository;
         }
+        
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditGeoHerd)]
         public async Task<PagedResultDto<HerdGeoLogListDto>> GetHerdGeoLog(GetHerdGeoLogInput input)
         {
             var query = GetFilteredQuery(input);
@@ -42,6 +46,7 @@ namespace Akh.Breed.Herds
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditGeoHerd_Create, AppPermissions.Pages_Activities_EditGeoHerd_Edit)]
         public async Task<GetHerdGeoLogForEditOutput> GetHerdGeoLogForEdit(NullableIdDto<int> input)
         {
             HerdGeoLog herdGeoLog = null;
@@ -67,6 +72,7 @@ namespace Akh.Breed.Herds
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditGeoHerd_Create, AppPermissions.Pages_Activities_EditGeoHerd_Edit)]
         public async Task CreateOrUpdateHerdGeoLog(HerdGeoLogCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
@@ -79,6 +85,7 @@ namespace Akh.Breed.Herds
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditGeoHerd_Delete)]
         public async Task DeleteHerdGeoLog(EntityDto input)
         {
             try
@@ -92,12 +99,14 @@ namespace Akh.Breed.Herds
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditGeoHerd_Edit)]
         private async Task UpdateHerdGeoLogAsync(HerdGeoLogCreateOrUpdateInput input)
         {
             var herdGeoLog = ObjectMapper.Map<HerdGeoLog>(input);
             await _herdGeoLogRepository.UpdateAsync(herdGeoLog);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditGeoHerd_Create)]
         private async Task CreateHerdGeoLogAsync(HerdGeoLogCreateOrUpdateInput input)
         {
             var herd = _herdRepository.Get(input.HerdId.Value);

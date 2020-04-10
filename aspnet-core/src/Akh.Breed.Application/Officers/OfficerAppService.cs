@@ -3,12 +3,14 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
 using Abp.Zero.Configuration;
+using Akh.Breed.Authorization;
 using Akh.Breed.Authorization.Users;
 using Akh.Breed.Authorization.Users.Dto;
 using Akh.Breed.BaseInfo;
@@ -36,6 +38,8 @@ namespace Akh.Breed.Officers
             _contractorRepository = contractorRepository;
             _passwordHasher = passwordHasher;
         }
+        
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer)]
         public async Task<PagedResultDto<OfficerListDto>> GetOfficer(GetOfficerInput input)
         {
             var query = GetFilteredQuery(input);
@@ -51,6 +55,7 @@ namespace Akh.Breed.Officers
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer_Create, AppPermissions.Pages_BaseIntro_Officer_Edit)]
         public async Task<GetOfficerForEditOutput> GetOfficerForEdit(NullableIdDto<int> input)
         {
             Officer officer = null;
@@ -87,6 +92,7 @@ namespace Akh.Breed.Officers
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer_Create, AppPermissions.Pages_BaseIntro_Officer_Edit)]
         public async Task CreateOrUpdateOfficer(OfficerCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
@@ -99,6 +105,7 @@ namespace Akh.Breed.Officers
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer_Delete)]
         public async Task DeleteOfficer(EntityDto input)
         {
             try
@@ -112,12 +119,14 @@ namespace Akh.Breed.Officers
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer_Edit)]
         private async Task UpdateOfficerAsync(OfficerCreateOrUpdateInput input)
         {
             var officer = ObjectMapper.Map<Officer>(input);
             await _officerRepository.UpdateAsync(officer);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer_Create)]
         private async Task CreateOfficerAsync(OfficerCreateOrUpdateInput input)
         {
             var nationalCode = input.NationalCode.Replace("-", "");

@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors.Dto;
@@ -35,6 +37,8 @@ namespace Akh.Breed.Contractors
             _villageInfoRepository = villageInfoRepository;
             _unionInfoRepository = unionInfoRepository;
         }
+        
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor)]
         public async Task<PagedResultDto<ContractorListDto>> GetContractor(GetContractorInput input)
         {
             var query = GetFilteredQuery(input);
@@ -50,6 +54,7 @@ namespace Akh.Breed.Contractors
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor_Create, AppPermissions.Pages_BaseIntro_Contractor_Edit)]
         public async Task<GetContractorForEditOutput> GetContractorForEdit(NullableIdDto<int> input)
         {
             Contractor contractor = null;
@@ -114,6 +119,7 @@ namespace Akh.Breed.Contractors
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor_Create, AppPermissions.Pages_BaseIntro_Contractor_Edit)]
         public async Task CreateOrUpdateContractor(ContractorCreateOrUpdateInput input)
         {
             if (input.Id.HasValue)
@@ -126,6 +132,7 @@ namespace Akh.Breed.Contractors
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor_Delete)]
         public async Task DeleteContractor(EntityDto input)
         {
             try
@@ -139,12 +146,14 @@ namespace Akh.Breed.Contractors
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor_Edit)]
         private async Task UpdateContractorAsync(ContractorCreateOrUpdateInput input)
         {
             var contractor = ObjectMapper.Map<Contractor>(input);
             await _contractorRepository.UpdateAsync(contractor);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor_Create)]
         private async Task CreateContractorAsync(ContractorCreateOrUpdateInput input)
         {
             var contractor = ObjectMapper.Map<Contractor>(input);

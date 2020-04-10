@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,7 @@ namespace Akh.Breed.BaseInfos
             _sexInfoRepository = sexInfoRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SexInfo)]
         public async Task<PagedResultDto<SexInfoListDto>> GetSexInfo(GetSexInfoInput input)
         {
             var query = GetFilteredQuery(input);
@@ -38,6 +41,7 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SexInfo_Create, AppPermissions.Pages_BaseInfo_SexInfo_Edit)]
         public async Task<SexInfoCreateOrUpdateInput> GetSexInfoForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
@@ -54,6 +58,7 @@ namespace Akh.Breed.BaseInfos
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SexInfo_Create, AppPermissions.Pages_BaseInfo_SexInfo_Edit)]
         public async Task CreateOrUpdateSexInfo(SexInfoCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -68,6 +73,7 @@ namespace Akh.Breed.BaseInfos
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SexInfo_Delete)]
         public async Task DeleteSexInfo(EntityDto input)
         {
             try
@@ -81,12 +87,14 @@ namespace Akh.Breed.BaseInfos
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SexInfo_Edit)]
         private async Task UpdateSexInfoAsync(SexInfoCreateOrUpdateInput input)
         {
             var sexInfo = ObjectMapper.Map<SexInfo>(input);
             await _sexInfoRepository.UpdateAsync(sexInfo);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_BaseInfo_SexInfo_Create)]
         private async Task CreateSexInfoAsync(SexInfoCreateOrUpdateInput input)
         {
             var sexInfo = ObjectMapper.Map<SexInfo>(input);

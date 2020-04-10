@@ -132,8 +132,17 @@ namespace Akh.Breed.Authorization.Users
         [AbpAuthorize(AppPermissions.Pages_Administration_Users_Create, AppPermissions.Pages_Administration_Users_Edit)]
         public async Task<GetUserForEditOutput> GetUserForEdit(NullableIdDto<long> input)
         {
+            var roles = _roleManager.Roles;
+            
+            var tUser = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Admin);
+            if (!isAdmin)
+            {
+                roles = roles.Where(x => x.Name != StaticRoleNames.Host.Admin);
+            }
+            
             //Getting all available roles
-            var userRoleDtos = await _roleManager.Roles
+            var userRoleDtos = await roles
                 .OrderBy(r => r.DisplayName)
                 .Select(r => new UserRoleDto
                 {
@@ -209,7 +218,27 @@ namespace Akh.Breed.Authorization.Users
         public async Task<GetUserPermissionsForEditOutput> GetUserPermissionsForEdit(EntityDto<long> input)
         {
             var user = await UserManager.GetUserByIdAsync(input.Id);
-            var permissions = PermissionManager.GetAllPermissions();
+            var permissions = PermissionManager.GetAllPermissions().AsQueryable();
+            
+            var tUser = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Admin);
+            if (!isAdmin)
+            {
+                permissions = permissions.Where(x => (x.Name != AppPermissions.Pages_DemoUiComponents) && 
+                                                     (x.Name != AppPermissions.Pages_Administration_Languages) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_AuditLogs) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_OrganizationUnits) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_UiCustomization) &&
+                                                     (x.Name != AppPermissions.Pages_Tenant_Dashboard) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Tenant_Settings) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Tenant_SubscriptionManagement) &&
+                                                     (x.Name != AppPermissions.Pages_Editions) &&
+                                                     (x.Name != AppPermissions.Pages_Tenants) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Host_Settings) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Host_Maintenance) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_HangfireDashboard) &&
+                                                     (x.Name != AppPermissions.Pages_Administration_Host_Dashboard) );
+            }
             var grantedPermissions = await UserManager.GetGrantedPermissionsAsync(user);
 
             return new GetUserPermissionsForEditOutput
@@ -410,7 +439,11 @@ namespace Akh.Breed.Authorization.Users
 
         private IQueryable<User> GetUsersFilteredQuery(IGetUsersInput input)
         {
+            var tUser = UserManager.GetUserById(AbpSession.GetUserId());
+            var isAdmin = UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Admin).Result;
+            var tRoleId = _roleManager.GetRoleByName(StaticRoleNames.Host.Admin).Id;
             var query = UserManager.Users
+                .WhereIf(!isAdmin, u => u.Roles.All(r => r.RoleId != tRoleId))
                 .WhereIf(input.Role.HasValue, u => u.Roles.Any(r => r.RoleId == input.Role.Value))
                 .WhereIf(input.OnlyLockedUsers, u => u.LockoutEndDateUtc.HasValue && u.LockoutEndDateUtc.Value > DateTime.UtcNow)
                 .WhereIf(

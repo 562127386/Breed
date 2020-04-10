@@ -4,11 +4,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques.Dto;
@@ -33,6 +35,7 @@ namespace Akh.Breed.Plaques
             _officerRepository = officerRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditStatePlaque)]
         public async Task<PagedResultDto<PlaqueChangeListDto>> GetPlaqueChange(GetPlaqueChangeInput input)
         {
             var query = GetFilteredQuery(input);
@@ -48,6 +51,7 @@ namespace Akh.Breed.Plaques
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditStatePlaque_Create, AppPermissions.Pages_Activities_EditStatePlaque_Edit)]
         public async Task<PlaqueChangeGetForEditOutput> GetPlaqueChangeForEdit(NullableIdDto<int> input)
         {
             PlaqueChange plaqueChange = null;
@@ -76,6 +80,7 @@ namespace Akh.Breed.Plaques
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditStatePlaque_Create, AppPermissions.Pages_Activities_EditStatePlaque_Edit)]
         public async Task CreateOrUpdatePlaqueChange(PlaqueChangeCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -90,6 +95,7 @@ namespace Akh.Breed.Plaques
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditStatePlaque_Delete)]
         public async Task DeletePlaqueChange(EntityDto input)
         {
             try
@@ -108,12 +114,14 @@ namespace Akh.Breed.Plaques
             throw new NotImplementedException();
         }
 
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditStatePlaque_Edit)]
         private async Task UpdatePlaqueChangeAsync(PlaqueChangeCreateOrUpdateInput input)
         {
             var plaqueChange = ObjectMapper.Map<PlaqueChange>(input);
             await _plaqueChangeRepository.UpdateAsync(plaqueChange);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditStatePlaque_Create)]
         private async Task CreatePlaqueChangeAsync(PlaqueChangeCreateOrUpdateInput input)
         {
             if (input.PlaqueId.HasValue)

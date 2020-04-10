@@ -4,11 +4,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
@@ -42,6 +44,8 @@ namespace Akh.Breed.Livestocks
             _plaqueOfficerRepository = plaqueOfficerRepository;
             _plaqueInfoRepository = plaqueInfoRepository;
         }
+        
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification)]
         public async Task<PagedResultDto<LivestockListDto>> GetLivestock(GetLivestockInput input)
         {
             var query = GetFilteredQuery(input);
@@ -57,6 +61,7 @@ namespace Akh.Breed.Livestocks
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Create, AppPermissions.Pages_IdentityInfo_Identification_Edit)]
         public async Task<GetLivestockForEditOutput> GetLivestockForEdit(NullableIdDto<int> input)
         {
             Livestock livestock = null;
@@ -92,6 +97,7 @@ namespace Akh.Breed.Livestocks
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Create, AppPermissions.Pages_IdentityInfo_Identification_Edit)]
         public async Task CreateOrUpdateLivestock(LivestockCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -106,6 +112,7 @@ namespace Akh.Breed.Livestocks
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Delete)]
         public async Task DeleteLivestock(EntityDto input)
         {
             try
@@ -119,12 +126,14 @@ namespace Akh.Breed.Livestocks
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Edit)]
         private async Task UpdateLivestockAsync(LivestockCreateOrUpdateInput input)
         {
             var livestock = ObjectMapper.Map<Livestock>(input);
             await _livestockRepository.UpdateAsync(livestock);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Create)]
         private async Task CreateLivestockAsync(LivestockCreateOrUpdateInput input)
         {
             var livestock = ObjectMapper.Map<Livestock>(input);

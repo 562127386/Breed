@@ -4,11 +4,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.Plaques.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,7 @@ namespace Akh.Breed.Plaques
             _speciesInfoRepository = speciesInfoRepository;
         }
 
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueStore)]
         public async Task<PagedResultDto<PlaqueStoreListDto>> GetPlaqueStore(GetPlaqueStoreInput input)
         {
             var query = GetFilteredQuery(input);
@@ -41,6 +44,7 @@ namespace Akh.Breed.Plaques
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueStore_Create, AppPermissions.Pages_IdentityInfo_PlaqueStore_Edit)]
         public async Task<PlaqueStoreGetForEditOutput> GetPlaqueStoreForEdit(NullableIdDto<int> input)
         {
             PlaqueStore plaqueStore = null;
@@ -68,6 +72,7 @@ namespace Akh.Breed.Plaques
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueStore_Create, AppPermissions.Pages_IdentityInfo_PlaqueStore_Edit)]
         public async Task CreateOrUpdatePlaqueStore(PlaqueStoreCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -82,6 +87,7 @@ namespace Akh.Breed.Plaques
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueStore_Delete)]
         public async Task DeletePlaqueStore(EntityDto input)
         {
             try
@@ -95,12 +101,14 @@ namespace Akh.Breed.Plaques
             }
         }
 
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueStore_Edit)]
         private async Task UpdatePlaqueStoreAsync(PlaqueStoreCreateOrUpdateInput input)
         {
             var plaqueStore = ObjectMapper.Map<PlaqueStore>(input);
             await _plaqueStoreRepository.UpdateAsync(plaqueStore);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueStore_Create)]
         private async Task CreatePlaqueStoreAsync(PlaqueStoreCreateOrUpdateInput input)
         {
             var plaqueStore = ObjectMapper.Map<PlaqueStore>(input);
