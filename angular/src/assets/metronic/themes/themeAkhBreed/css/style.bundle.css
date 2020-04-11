@@ -33757,8 +33757,8 @@ body {
       -ms-flex-pack: justify;
       justify-content: space-between;
       padding: 0 15px;
-      height: 40px;
-      min-height: 40px;
+      height: 55px;
+      min-height: 55px;
       position: relative;
       z-index: 1;
       -webkit-box-shadow: 0px 4px 30px -4px rgba(0, 51, 90, 0.1);
