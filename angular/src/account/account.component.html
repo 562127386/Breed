@@ -4,7 +4,7 @@
         <div id="kt_header_mobile" class="kt-header-mobile">
             <div class="kt-header-mobile__logo">
                 <a routerLink="/" target="_blank">
-                    <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="" alt="logo" height="28" />
+                    <!-- <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="" alt="logo" height="28" /> -->
                     <img *ngIf="appSession.tenant && appSession.tenant.logoId" [src]="remoteServiceBaseUrl + '/TenantCustomization/GetTenantLogo?skin=' + currentTheme.baseSettings.menu.asideSkin + '&tenantId=' + appSession.tenant.id + '&id=' + appSession.tenant.logoId" alt="logo" height="38" />
                 </a>
             </div>
@@ -13,17 +13,17 @@
                 <div class="kt-header-mobile__toolbar">
                         <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#kt_widget4_tab11_content" role="tab">
+                                    <a class="nav-link" role="tab">
                                             
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#kt_widget4_tab12_content" role="tab">
+                                    <a class="nav-link" role="tab">
                                             
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#kt_widget4_tab13_content" role="tab">
+                                    <a class="nav-link" role="tab">
                                             
                                     </a>  
                                 </li>

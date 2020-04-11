@@ -13,6 +13,11 @@
         public const string Pages_DemoUiComponents= "Pages.DemoUiComponents";
         public const string Pages_Administration = "Pages.Administration";
 
+        public const string Pages_Administration_Notice = "Pages.Administration.Notice";
+        public const string Pages_Administration_Notice_Create = "Pages.Administration.Notice.Create";
+        public const string Pages_Administration_Notice_Edit = "Pages.Administration.Notice.Edit";
+        public const string Pages_Administration_Notice_Delete = "Pages.Administration.Notice.Delete";
+        
         public const string Pages_Administration_Roles = "Pages.Administration.Roles";
         public const string Pages_Administration_Roles_Create = "Pages.Administration.Roles.Create";
         public const string Pages_Administration_Roles_Edit = "Pages.Administration.Roles.Edit";
@@ -133,11 +138,6 @@
         public const string Pages_BaseInfo_PlaqueState_Create = "Pages.BaseInfo.PlaqueState.Create";
         public const string Pages_BaseInfo_PlaqueState_Edit = "Pages.BaseInfo.PlaqueState.Edit";
         public const string Pages_BaseInfo_PlaqueState_Delete = "Pages.BaseInfo.PlaqueState.Delete";
-        
-        public const string Pages_BaseInfo_Notice = "Pages.BaseInfo.Notice";
-        public const string Pages_BaseInfo_Notice_Create = "Pages.BaseInfo.Notice.Create";
-        public const string Pages_BaseInfo_Notice_Edit = "Pages.BaseInfo.Notice.Edit";
-        public const string Pages_BaseInfo_Notice_Delete = "Pages.BaseInfo.Notice.Delete";
         
         //Breed-app BaseIntro
         

@@ -3,11 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
+using Akh.Breed.Authorization;
 using Akh.Breed.Notices;
 using Akh.Breed.Notices.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +24,8 @@ namespace Akh.Breed.Notices
         {
             _noticeRepository = noticeRepository;
         }
-
+        
+        [AbpAuthorize(AppPermissions.Pages_Administration_Notice)]
         public async Task<PagedResultDto<NoticeListDto>> GetNotice(GetNoticeInput input)
         {
             var query = GetFilteredQuery(input);
@@ -37,6 +40,7 @@ namespace Akh.Breed.Notices
                 noticesListDto
             );
         }
+        
         public async Task<PagedResultDto<NoticeListDto>> GetNews()
         {
             var query = _noticeRepository.GetAll()
@@ -67,6 +71,7 @@ namespace Akh.Breed.Notices
             );
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Administration_Notice_Create, AppPermissions.Pages_Administration_Notice_Edit)]
         public async Task<NoticeCreateOrUpdateInput> GetNoticeForEdit(NullableIdDto<int> input)
         {
             //Getting all available roles
@@ -83,6 +88,7 @@ namespace Akh.Breed.Notices
             return output;
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Administration_Notice_Create, AppPermissions.Pages_Administration_Notice_Edit)]
         public async Task CreateOrUpdateNotice(NoticeCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -97,6 +103,7 @@ namespace Akh.Breed.Notices
             }
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Administration_Notice_Delete)]
         public async Task DeleteNotice(EntityDto input)
         {
             try
@@ -118,6 +125,7 @@ namespace Akh.Breed.Notices
             await _noticeRepository.UpdateAsync(notice);
         }
 
+        [AbpAuthorize(AppPermissions.Pages_Administration_Notice_Edit)]
         private async Task UpdateNoticeAsync(NoticeCreateOrUpdateInput input)
         {
             var notice = ObjectMapper.Map<Notice>(input);
@@ -125,6 +133,7 @@ namespace Akh.Breed.Notices
             await _noticeRepository.UpdateAsync(notice);
         }
         
+        [AbpAuthorize(AppPermissions.Pages_Administration_Notice_Create)]
         private async Task CreateNoticeAsync(NoticeCreateOrUpdateInput input)
         {
             var notice = ObjectMapper.Map<Notice>(input);

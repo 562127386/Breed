@@ -33,6 +33,11 @@ namespace Akh.Breed.Authorization
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 
+            var notice = administration.CreateChildPermission(AppPermissions.Pages_Administration_Notice, L("Notice"));
+            notice.CreateChildPermission(AppPermissions.Pages_Administration_Notice_Create, L("CreateNewNotice"));
+            notice.CreateChildPermission(AppPermissions.Pages_Administration_Notice_Edit, L("EditNewNotice"));
+            notice.CreateChildPermission(AppPermissions.Pages_Administration_Notice_Delete, L("DeleteNewNotice"));
+            
             var roles = administration.CreateChildPermission(AppPermissions.Pages_Administration_Roles, L("Roles"));
             roles.CreateChildPermission(AppPermissions.Pages_Administration_Roles_Create, L("CreatingNewRole"));
             roles.CreateChildPermission(AppPermissions.Pages_Administration_Roles_Edit, L("EditingRole"));
@@ -151,11 +156,6 @@ namespace Akh.Breed.Authorization
             plaqueState.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState_Create, L("CreateNewPlaqueState"));
             plaqueState.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState_Edit, L("EditNewPlaqueState"));
             plaqueState.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState_Delete, L("DeleteNewPlaqueState"));
-
-            var notice = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_Notice, L("Notice"));
-            notice.CreateChildPermission(AppPermissions.Pages_BaseInfo_Notice_Create, L("CreateNewNotice"));
-            notice.CreateChildPermission(AppPermissions.Pages_BaseInfo_Notice_Edit, L("EditNewNotice"));
-            notice.CreateChildPermission(AppPermissions.Pages_BaseInfo_Notice_Delete, L("DeleteNewNotice"));
             
             //Breed-app BaseInfo
 

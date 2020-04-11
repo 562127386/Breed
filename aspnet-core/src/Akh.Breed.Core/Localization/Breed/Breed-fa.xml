@@ -4,7 +4,7 @@
     <text name="HomePage">خانه</text>
     <text name="AboutUs">درباره ما</text>
     <text name="Administration">ادمین</text>
-    <text name="Roles">قوانین</text>
+    <text name="Roles">نقش ها</text>
     <text name="Users">کاربران</text>
     <text name="InvalidFormMessage">اطلاعات فرم معتبر نیست خواهشمند است بررسی کنید.</text>
     <text name="InvalidUserNameOrPassword">نام کاربری یا رمز اشتباه است.</text>
@@ -21,10 +21,10 @@
     <text name="DontYouHaveAnAccount">نام کاربری وجود ندارد؟</text>
     <text name="CreateAnAccount">ایجاد حساب</text>
     <text name="Pages">صفحات</text>
-    <text name="RoleName">نام قانون</text>
-    <text name="EditRole">ویرایش قانون</text>
-    <text name="CreateNewRole">ایجاد قانون</text>
-    <text name="RoleProperties">مشخصات قانون</text>
+    <text name="RoleName">نام نقش</text>
+    <text name="EditRole">ویرایش نقش</text>
+    <text name="CreateNewRole">ایجاد نقش</text>
+    <text name="RoleProperties">مشخصات نقش</text>
     <text name="Permissions">دسترسی ها</text>
     <text name="Save">ذخیره</text>
     <text name="Cancel">لغو</text>
@@ -141,7 +141,7 @@
     <text name="NewRegisteredUsersIsActiveByDefault_Hint">در صورت غیر فعال شدن حساب، تنها ادمین دسترسی فعال کردن مجدد را دارد..</text>
     <text name="Default">پیش فرض</text>
     <text name="DefaultRole_Description">به صورت پیش فرض اختصاص داده شود.</text>
-    <text name="StaticRole_Tooltip">قوانین پایه قابل حذف نیستند.</text>
+    <text name="StaticRole_Tooltip">نقش های پایه قابل حذف نیستند.</text>
     <text name="EmailConfirmationRequiredForLogin">تایید آدرس جهت ورود باید انجام شود.</text>
     <text name="{0}UserCannotBeDeleted">کاربر {0} نمی تواند حذف شود.</text>
     <text name="TenantNameCanNotBeEmpty">نام زیر سازمان نمیتواند خالی باشد</text>
@@ -429,7 +429,7 @@
     <text name="TenantToTenantChatFeature">Chat with other tenants</text>
     <text name="TenantToHostChatFeature">Chat with host</text>
     <text name="FilterByPermission">فیلتر شده بر اساس دسترسی</text>
-    <text name="FilterByRole">فیلتر شده بر اساس قانون</text>
+    <text name="FilterByRole">فیلتر شده بر اساس نقش</text>
     <text name="FilterOrAddUser">Filter/Add user</text>
     <text name="HangfireDashboard">Hangfire dashboard</text>
     <text name="CouldNotCompleteLoginOperation">Could not complete the login operation.</text>
@@ -686,7 +686,7 @@
     <text name="File">فایل</text>
     <text name="Link">لینک</text>
     <text name="Billing">صورتحساب</text>
-    <text name="LegalName">نام قانونی</text>
+    <text name="LegalName">نام نقش</text>
     <text name="Address">آدرس</text>
     <text name="Tax/VatNo">مالیات</text>
     <text name="Invoice">فاکتور</text>

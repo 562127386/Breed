@@ -29,12 +29,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" role="tab">پشتیبانی</a>  
-                    </li>                    
-                    <li class="nav-item">
-                        <a class="nav-link" role="tab">مدیریت کاریران</a>
-                    </li>                    
-                    <li class="nav-item">
-                        <a class="nav-link" role="tab">اخبار و اطلاعیه ها</a>
                     </li>
                     <li class="nav-item align-content-end" >
                         <label class="nav-link">{{ time | momentFormat:'YYYY/M/D HH:mm:ss' }}</label>
@@ -72,16 +66,6 @@
                                                 <a class="nav-link" role="tab">
                                                         پشتیبانی
                                                 </a>  
-                                            </li>
-                                            <li class="nav-item" *ngIf="'Pages.Administration.Users' | permission">
-                                                <a class="nav-link" href="app/admin/users" role="tab">
-                                                        مدیریت کاریران
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="app/main/dashboard2" role="tab">
-                                                        اخبار و اطلاعیه ها
-                                                </a>
                                             </li>
                                             <li class="nav-item align-content-end" >
                                             <label class="nav-link">{{ time | momentFormat:'YYYY/M/D HH:mm:ss' }}</label>
