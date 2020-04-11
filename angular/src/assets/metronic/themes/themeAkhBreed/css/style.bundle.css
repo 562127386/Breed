@@ -35409,3 +35409,7 @@ p-inputmask, p-inputmask>input {
   direction: ltr;
   text-align: left;
 }
+
+.ui-table-responsive .ui-table-tbody>tr>td {
+  text-align: right;
+}
