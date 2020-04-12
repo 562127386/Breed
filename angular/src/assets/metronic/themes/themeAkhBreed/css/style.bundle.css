@@ -33480,7 +33480,7 @@ body {
     display: flex;
     position: relative;
     z-index: 2;
-    height: 70px;
+    height: 60px;
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
@@ -33737,7 +33737,8 @@ body {
         margin-right: 0 !important; } }
 
 @media (min-width: 1025px) {
-  .kt-header-mobile {
+  .kt-header-mobile,
+  .kt-header-mobile-sub {
     display: none; } }
 
 @media (max-width: 1024px) {
