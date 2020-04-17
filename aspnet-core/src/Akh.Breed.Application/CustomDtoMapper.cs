@@ -156,8 +156,10 @@ namespace Akh.Breed
                 .ForMember(d => d.FirmTypeName, options => options.MapFrom(l => l.FirmType.Name))
                 .ForMember(d => d.SubInstitution, options => options.MapFrom(l => l.UnionInfo.Name))
                 .ForMember(d => d.Institution, options => options.MapFrom(l => l.Institution + " - " + l.StateInfo.Name + " - " + l.CityInfo.Name + (" - " + l.RegionInfo.Name) ?? "" + (" - " + l.VillageInfo.Name) ?? ""  ));
-            configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>();
-            configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>();
+            configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>()
+                .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()));
+            configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>()
+                .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
 
             configuration.CreateMap<Herd, HerdListDto>()
                 .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.FirmName + "(" + l.Contractor.Name + "," + l.Contractor.Family + ")"))
