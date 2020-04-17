@@ -106,10 +106,7 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
 
     setDate(input: string): moment.Moment {
         if( input !== undefined || input != ''){
-            let m = momentjalali(input,'jYYYY/jMM/jDD');
-            if(m && m.isValid()){
-                return moment(m.format('YYYY/MM/DD'));
-            }
+            return moment(input);
         }
         return undefined;
     }

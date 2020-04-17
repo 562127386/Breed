@@ -19,11 +19,6 @@ namespace Akh.Breed
         }
         public static DateTime GetShamsi(this DateTime data)
         {
-            if (CultureInfo.CurrentUICulture.Name == "fa")
-            {
-                return new DateTime(1000,10,10);
-            }
-            return new DateTime(3000,10,10);
             PersianCalendar persianCalendar = new PersianCalendar();
 
             int year = persianCalendar.GetYear(data);
