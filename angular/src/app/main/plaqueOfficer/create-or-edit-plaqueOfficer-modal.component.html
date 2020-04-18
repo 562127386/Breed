@@ -38,7 +38,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"SetDate" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                    <p-inputMask [style]="{'width':'100%'}" #setTimeTempInput="ngModel" mask="9999/99/99" [(ngModel)]="setTimeTemp" type="text" autocomplete="new-password" name="setTimeTemp" placeholder="1398/01/01" length="8" required></p-inputMask>
+                                    <input #setTimeTempInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="setTimeTemp" name="setTimeTemp" maxlength="10" autocomplete="new-password" placeholder="1398/01/01" pattern="^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$" required/>
                                     <validation-messages [formCtrl]="setTimeTempInput"></validation-messages>
                                 </div>
                             </div>                                

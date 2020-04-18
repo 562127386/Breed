@@ -168,7 +168,7 @@ namespace Akh.Breed
             configuration.CreateMap<HerdCreateOrUpdateInput, Herd>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()))
                 .ForMember(d => d.IssueDate, options => options.MapFrom(l => l.IssueDate.GetMiladi()))
-                .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()));
+                .ForMember(d => d.ValidityDate, options => options.MapFrom(l => l.ValidityDate.GetMiladi()));
             configuration.CreateMap<Herd, HerdCreateOrUpdateInput>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()))
                 .ForMember(d => d.IssueDate, options => options.MapFrom(l => l.IssueDate.GetShamsi()))
@@ -194,7 +194,8 @@ namespace Akh.Breed
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()));
             configuration.CreateMap<Officer, OfficerCreateOrUpdateInput>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
-            configuration.CreateMap<Officer, OfficerEditDto>();
+            configuration.CreateMap<Officer, OfficerEditDto>()
+                .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
 
             //BaseInfo
             configuration.CreateMap<ProviderInfo, ProviderInfoListDto>();

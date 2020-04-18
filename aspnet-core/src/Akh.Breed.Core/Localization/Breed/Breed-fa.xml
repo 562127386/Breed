@@ -896,7 +896,7 @@
     <text name="UiCustomization_HeaderMinimizeType_Topbar">Topbar</text>
     <text name="UiCustomization_HeaderMinimizeType_Menu">Menu</text>
     <text name="UiCustomization_HeaderMenuArrows">Menu arrows</text>
-    <text name="InvalidPattern">Invalid</text>
+    <text name="InvalidPattern">الگوی غیرمجاز</text>
     <text name="SwitchToTenant">Switch to tenant</text>
     <text name="TenancyNameRequired">Tenancy name is required!</text>
     <text name="EnterTenancyName">Enter tenancy name...</text>

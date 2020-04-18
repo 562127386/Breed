@@ -6,7 +6,6 @@ import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import * as momentjalali from 'jalali-moment';
 
 @Component({
     selector: 'createOrEditPlaqueOfficerModal',
