@@ -176,6 +176,7 @@ namespace Akh.Breed
 
             
             configuration.CreateMap<Livestock, LivestockListDto>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
                 .ForMember(d => d.SexInfoName, options => options.MapFrom(l => l.SexInfo.Name))
                 .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code))
@@ -184,6 +185,8 @@ namespace Akh.Breed
             configuration.CreateMap<LivestockCreateOrUpdateInput, Livestock>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()));
             configuration.CreateMap<Livestock, LivestockCreateOrUpdateInput>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
 
             //Officer
@@ -265,6 +268,7 @@ namespace Akh.Breed
                 .ForMember(d => d.CityInfoId, options => options.MapFrom(l => l.RegionInfo.CityInfoId));
 
             configuration.CreateMap<PlaqueStore, PlaqueStoreListDto>()
+                .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l => l.ToCode - l.FromCode + 1))
                 .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => l.LastCode == 0 ? 0 : Convert.ToInt32(l.LastCode - l.FromCode + 1)))
                 .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.Species.Name));
@@ -274,6 +278,7 @@ namespace Akh.Breed
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()));
 
             configuration.CreateMap<PlaqueChange, PlaqueChangeListDto>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCode, options => options.MapFrom(l => l.Plaque.Code))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
                 .ForMember(d => d.PlaqueHerdName, options => options.MapFrom(l => l.Plaque.Livestock.Herd.HerdName))
@@ -282,12 +287,14 @@ namespace Akh.Breed
             configuration.CreateMap<PlaqueChange, PlaqueChangeCreateOrUpdateInput>();
             
             configuration.CreateMap<HerdGeoLog, HerdGeoLogListDto>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.HerdName))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<HerdGeoLogCreateOrUpdateInput, HerdGeoLog>();
             configuration.CreateMap<HerdGeoLog, HerdGeoLogCreateOrUpdateInput>();
             
             configuration.CreateMap<PlaqueOfficer, PlaqueOfficerListDto>()
+                .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name))
                 .ForMember(d => d.OfficerFamily, options => options.MapFrom(l => l.Officer.Family))
@@ -296,6 +303,8 @@ namespace Akh.Breed
             configuration.CreateMap<PlaqueOfficerCreateOrUpdateInput, PlaqueOfficer>()
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetMiladi()));
             configuration.CreateMap<PlaqueOfficer, PlaqueOfficerCreateOrUpdateInput>()
+                .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
+                .ForMember(d => d.SpeciesInfoId, options => options.MapFrom(l =>  l.PlaqueStore.SpeciesId ))
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()));
 
         }

@@ -58,6 +58,7 @@ namespace Akh.Breed.Plaques
             {
                 plaqueOfficer = await _plaqueOfficerRepository
                     .GetAll()
+                    .Include(x => x.PlaqueStore)
                     .Where(x => x.Id == input.Id.Value)
                     .FirstOrDefaultAsync();
             }
@@ -65,9 +66,11 @@ namespace Akh.Breed.Plaques
             var output = new PlaqueOfficerGetForEditOutput();
             
             //plaqueOfficer
+            var newPlaqueOfficer = new PlaqueOfficerCreateOrUpdateInput();
+            newPlaqueOfficer.SetTime = newPlaqueOfficer.SetTime.GetShamsi();
             output.PlaqueOfficer = plaqueOfficer != null
                 ? ObjectMapper.Map<PlaqueOfficerCreateOrUpdateInput>(plaqueOfficer)
-                : new PlaqueOfficerCreateOrUpdateInput();
+                : newPlaqueOfficer;
             
             //StateInfos
             output.Officers = _officerRepository

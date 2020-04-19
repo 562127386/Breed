@@ -1184,13 +1184,15 @@
       <text name="Finished">تمام شده</text>
       <text name="FinishedCode">کد پایانی</text>
       <text name="FinishedDate">تاریخ اتمام</text>
-      <text name="CreateNewPlaqueStore">ایجاد انبار جدید</text>
+      <text name="CreateNewPlaqueStore">ایجاد انبار پلاک</text>
+      <text name="ViewNewPlaqueStore">نمایش انبار پلاک</text>
 
     <text name="PlaqueCount">تعداد پلاک</text>
     <text name="PlaqueUsed">پلاک نصب شده</text>
     <text name="AreYouSureToDeleteThePlaqueStore">آیا از حذف انبار {0} مطمئن هستید؟</text>
       <text name="PlaqueOfficer">تخصیص پلاک به مامور</text>
     <text name="CreateNewPlaqueOfficer">اختصاص پلاک به مامور</text>
+    <text name="ViewNewPlaqueOfficer">نمایش پلاک اختصاصی به مامور</text>
     <text name="AreYouSureToDeleteThePlaqueOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
     <text name="ّFatherName">نام پدر</text>
     

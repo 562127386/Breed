@@ -43,6 +43,8 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
             this.active = true;
         }
         this.editdisabled = true;
+        this.codeMask = '999-9-99-9-99999999';
+
         if (!editdisabled) {
             this.editdisabled = false;
         }

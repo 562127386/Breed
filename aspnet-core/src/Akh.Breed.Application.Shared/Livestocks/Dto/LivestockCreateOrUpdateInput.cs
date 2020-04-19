@@ -26,6 +26,10 @@ namespace Akh.Breed.Livestocks.Dto
         public int? ActivityInfoId { get; set; }
 
         public int? OfficerId { get; set; }
+        
+        public string OfficerName { get; set; }
+
+        public DateTime? CreationTime { get; set; }
 
     }
 }

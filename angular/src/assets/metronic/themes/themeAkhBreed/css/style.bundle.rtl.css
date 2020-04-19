@@ -8669,7 +8669,7 @@ button.btn {
   background: transparent;
   color: #93a2dd; }
   .btn.btn-clean i {
-    color: #93a2dd; }
+    color: #cccccc; }
   .show > .btn.btn-clean, .btn.btn-clean.active, .btn.btn-clean:active, .btn.btn-clean:hover {
     color: #5d78ff;
     background: #f0f3ff; }
@@ -10889,7 +10889,7 @@ code {
       color: #74788d; }
   .modal .modal-content .modal-header .close {
     outline: none !important;
-    color: #74788d;
+    color: #ffffff;
     font-family: "LineAwesome";
     text-decoration: inherit;
     text-rendering: optimizeLegibility;

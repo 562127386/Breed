@@ -59,9 +59,11 @@ namespace Akh.Breed.Plaques
             var output = new PlaqueStoreGetForEditOutput();
             
             //plaqueStore
+            var newPlaqueStore = new PlaqueStoreCreateOrUpdateInput();
+            newPlaqueStore.SetTime = newPlaqueStore.SetTime.GetShamsi();
             output.PlaqueStore = plaqueStore != null
                 ? ObjectMapper.Map<PlaqueStoreCreateOrUpdateInput>(plaqueStore)
-                : new PlaqueStoreCreateOrUpdateInput();
+                : newPlaqueStore;
             
             //speciesInfo
             output.SpecieInfos = _speciesInfoRepository

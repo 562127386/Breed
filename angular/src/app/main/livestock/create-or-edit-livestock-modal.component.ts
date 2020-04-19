@@ -97,6 +97,9 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
 
             if (livestockId) {
                 this.active = true;
+                this.liveStockOfficer = userResult.livestock.officerName;
+                this.liveStockNowDate = userResult.livestock.creationTime.format('jYYYY/jMM/jDD');
+                this.liveStockNowTime = userResult.livestock.creationTime.format('HH:mm');
             }
             this.getUserLocation();
             this.modal.show();
@@ -144,11 +147,11 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         this._livestockService.getActivityForCombo(Number(activityInfoId)).subscribe(userResult => {
             
             this.activityInfosSelectItems = _.map(userResult, function(activityInfo) {
+                this.livestock.activityInfoId = Number(activityInfo.value);
                 return {
                     label: activityInfo.displayText, value: Number(activityInfo.value)
                 };
             });
-
         });
         
     }

@@ -55,9 +55,9 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
                 };
             });
 
-            this.officersSelectItems = _.map(userResult.officers, function(stateInfo) {
+            this.officersSelectItems = _.map(userResult.officers, function(officer) {
                 return {
-                    label: stateInfo.displayText, value: Number(stateInfo.value)
+                    label: officer.displayText, value: Number(officer.value)
                 };
             });
 
