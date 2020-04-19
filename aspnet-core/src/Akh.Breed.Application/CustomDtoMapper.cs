@@ -183,7 +183,8 @@ namespace Akh.Breed
                 .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<LivestockCreateOrUpdateInput, Livestock>()
-                .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()));
+                .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()))
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetMiladi()));
             configuration.CreateMap<Livestock, LivestockCreateOrUpdateInput>()
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))

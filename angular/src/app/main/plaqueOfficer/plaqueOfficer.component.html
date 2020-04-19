@@ -58,9 +58,9 @@
                                     [resizableColumns]="primengTableHelper.resizableColumns">
                                     <ng-template pTemplate="header">
                                         <tr>                                        
-                                            <th style="width: 100px" >
+                                            <!-- <th style="width: 100px" >
                                                 {{'OfficerCode' | localize}}
-                                            </th>
+                                            </th> -->
                                             <th style="width: 100px" >
                                                 {{'OfficerName' | localize}}
                                             </th>
@@ -70,15 +70,15 @@
                                             <th style="width: 100px" >
                                                 {{'SpeciesName' | localize}}
                                             </th>
-                                            <th style="width: 100px" pSortableColumn="setTime">
+                                            <th style="width: 110px" pSortableColumn="setTime">
                                                 {{'SetTime' | localize}}
                                                 <p-sortIcon field="setTime"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" pSortableColumn="fromCode">
+                                            <th style="width: 110px" pSortableColumn="fromCode">
                                                 {{'FromCode' | localize}}
                                                 <p-sortIcon field="fromCode"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" pSortableColumn="toCode">
+                                            <th style="width: 110px" pSortableColumn="toCode">
                                                 {{'ToCode' | localize}}
                                                 <p-sortIcon field="toCode"></p-sortIcon>
                                             </th>
@@ -95,10 +95,10 @@
                                     </ng-template>
                                     <ng-template pTemplate="body" let-record="$implicit">
                                         <tr>                                        
-                                            <td style="width: 100px">
+                                            <!-- <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'OfficerCode' | localize}}</span>
                                                 {{record.officerCode}}
-                                            </td>
+                                            </td> -->
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'OfficerName' | localize}}</span>
                                                 {{record.officerName}}
@@ -111,15 +111,15 @@
                                                 <span class="ui-column-title"> {{'SpeciesName' | localize}}</span>
                                                 {{record.speciesName}}
                                             </td>
-                                            <td style="width: 100px">
+                                            <td style="width: 110px">
                                                 <span class="ui-column-title"> {{'SetTime' | localize}}</span>
                                                 {{record.setTime | momentFormat:'YYYY/MM/DD'}}
                                             </td>
-                                            <td style="width: 100px">
+                                            <td style="width: 110px">
                                                 <span class="ui-column-title"> {{'FromCode' | localize}}</span>
                                                 {{record.fromCode}}
                                             </td>
-                                            <td style="width: 100px">
+                                            <td style="width: 110px">
                                                 <span class="ui-column-title"> {{'toCode' | localize}}</span>
                                                 {{record.toCode}}
                                             </td>

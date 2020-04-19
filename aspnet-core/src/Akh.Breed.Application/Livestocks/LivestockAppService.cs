@@ -68,15 +68,18 @@ namespace Akh.Breed.Livestocks
             if (input.Id.HasValue)
             {
                 livestock = await _livestockRepository.GetAll()
+                    .Include(x => x.Officer)
                     .FirstOrDefaultAsync(x => x.Id == input.Id.Value);
             }
             
             var output = new GetLivestockForEditOutput();
             
             //livestock
+            var newLiveStock = new LivestockCreateOrUpdateInput();
+            newLiveStock.CreationTime = newLiveStock.CreationTime.GetShamsi();
             output.Livestock = livestock != null
                 ? ObjectMapper.Map<LivestockCreateOrUpdateInput>(livestock)
-                : new LivestockCreateOrUpdateInput();
+                : newLiveStock;
             
             //FirmTypes
             output.SpeciesInfos = _speciesInfoRepository
@@ -93,7 +96,16 @@ namespace Akh.Breed.Livestocks
                 .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " (" +c.Name+","+c.Family+")" ))
                 .ToList();
-            
+
+            if (output.Livestock.HerdId.HasValue)
+            {
+                output.ActivityInfos = _herdRepository.GetAll()
+                    .Include(x => x.ActivityInfo)
+                    .Where(x => x.Id == output.Livestock.HerdId)
+                    .Select(c => new ComboboxItemDto(c.ActivityInfo.Id.ToString(), c.ActivityInfo.Name))
+                    .ToList();
+            }
+
             return output;
         }
         

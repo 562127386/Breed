@@ -62,7 +62,9 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
             this.liveStockNowDate = '';
             this.liveStockNowTime = '';
         }
-        this.editdisabled = true;
+        this.editdisabled = true;        
+        this.codeMask = '999-9-99-9-99999999';
+
         if (!editdisabled) {
             this.editdisabled = false;
         }
@@ -98,7 +100,7 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
             if (livestockId) {
                 this.active = true;
                 this.liveStockOfficer = userResult.livestock.officerName;
-                this.liveStockNowDate = userResult.livestock.creationTime.format('jYYYY/jMM/jDD');
+                this.liveStockNowDate = userResult.livestock.creationTime.format('YYYY/MM/DD');
                 this.liveStockNowTime = userResult.livestock.creationTime.format('HH:mm');
             }
             this.getUserLocation();
@@ -142,16 +144,16 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         });
     }
 
-    getActivities(activityInfoId: string): void {  
+    getActivities(activityInfoId: string): void { 
 
         this._livestockService.getActivityForCombo(Number(activityInfoId)).subscribe(userResult => {
             
             this.activityInfosSelectItems = _.map(userResult, function(activityInfo) {
-                this.livestock.activityInfoId = Number(activityInfo.value);
                 return {
                     label: activityInfo.displayText, value: Number(activityInfo.value)
                 };
             });
+            this.livestock.activityInfoId = Number(userResult[0].value);
         });
         
     }

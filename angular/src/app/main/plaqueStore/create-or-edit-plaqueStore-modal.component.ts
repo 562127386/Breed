@@ -26,7 +26,7 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
     active: boolean = false;
     saving: boolean = false;
     editdisabled: boolean = false;
-    codeMask: string = '0';
+    codeMask = '999-9-99-9-99999999';    
     codePlaceHolder: string = '0';
     setTimeTemp: string;
 
