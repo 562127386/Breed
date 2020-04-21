@@ -4,48 +4,115 @@
         </div>
 
         <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
+            <div class="row">
+                <!-- desktop mode -->
+                <div class="kt-portlet kt-portlet--mobile d-none d-sm-none d-md-block d-lg-block d-xl-block">
 
-                <div class="kt-portlet__head kt-portlet--skin-solid kt-portlet-- kt-bg-brand">
-                    <div class="kt-portlet__head-label">
-                          
-                        <span class="kt-portlet__head-icon">
-                            <i class="flaticon2-graph"></i>
-                        </span>
-                        <h3 class="kt-portlet__head-title">
-                            <span>{{"Dashboard" | localize}}</span>
-                        </h3>                        
-                    </div>
-                    <div class="kt-portlet__head-toolbar">
-                        <div class="kt-portlet__head-actions">                            
+                    <div class="kt-portlet__head kt-portlet--skin-solid kt-portlet-- kt-bg-brand">
+                        <div class="kt-portlet__head-label">
+                            
+                            <span class="kt-portlet__head-icon">
+                                <i class="flaticon2-graph"></i>
+                            </span>
+                            <h3 class="kt-portlet__head-title">
+                                <span>{{"Dashboard" | localize}}</span>
+                            </h3>                        
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="kt-portlet__head-actions">                            
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="kt-portlet__body kt-padding-0">
+                    <div class="kt-portlet__body kt-padding-0">
 
-                    <div class="row align-items-center kt-margin-0">
-                        <p-fieldset class="col-sm-12" [legend]="l('Monitoring')" [toggleable]="true">                              
-                        </p-fieldset>
-                        <p-fieldset class="col-md-6 col-sm-12" [legend]="l('News')" [toggleable]="true">
-                            <div class="row" *ngFor="let record of news">
-                                <card class="col-sm-12" [title]="record.title" [message]="record.message"></card>
-                            </div> 
-                        </p-fieldset>
-                        <p-fieldset class="col-md-6 col-sm-12" [legend]="l('Information')" [toggleable]="true">
-                            <div class="row" *ngFor="let record of infos">
-                                <card class="col-sm-12" [title]="record.title" [message]="record.message"></card>
-                            </div> 
-                        </p-fieldset>
+                        <div class="row kt-margin-0">
+                            <p-fieldset class="col-sm-12" [legend]="l('Monitoring')" [toggleable]="true">                              
+                            </p-fieldset>
+                            <p-fieldset class="col-md-6 col-sm-12" [legend]="l('News')" [toggleable]="true">
+                                <div class="row" *ngFor="let record of news">
+                                    <card class="col-sm-12" [title]="record.title" [message]="record.message"></card>
+                                </div> 
+                            </p-fieldset>
+                            <p-fieldset class="col-md-6 col-sm-12" [legend]="l('Information')" [toggleable]="true">
+                                <div class="row" *ngFor="let record of infos">
+                                    <card class="col-sm-12" [title]="record.title" [message]="record.message"></card>
+                                </div> 
+                            </p-fieldset>
+                        </div>
                     </div>
+
+                    <div class="kt-portlet__foot">
+                        <div class="row align-items-center">
+                            
+                        </div>
+                    </div>
+                    
                 </div>
 
-                <div class="kt-portlet__foot">
-                    <div class="row align-items-center">
-                        
+                <!-- mobile mode -->
+                <div class="kt-portlet kt-portlet--mobile d-block d-sm-block d-md-none d-lg-none d-xl-none">
+
+
+                    <div class="kt-portlet__body kt-padding-0">
+
+                        <div class="justify-content-center kt-margin-0">
+                            <div class="row">
+                                <div class="col-6 col-sm-3">
+                                    <div class="mob-icon">
+                                        <div class="mob-icon-image">
+                                            <div class="mpb-icon-text"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm-3">
+                                    <div class="mob-icon">
+                                        <div class="mob-icon-image">
+                                            <div class="mpb-icon-text"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm-3">
+                                    <div class="mob-icon">
+                                        <div class="mob-icon-image">
+                                            <div class="mpb-icon-text"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm-3">
+                                    <div class="mob-icon">
+                                        <div class="mob-icon-image">
+                                            <div class="mpb-icon-text"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-6 col-sm-3">
+                                    <div class="mob-icon">
+                                        <div class="mob-icon-image">
+                                            <div class="mpb-icon-text"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm-3">
+                                    <div class="mob-icon">
+                                        <div class="mob-icon-image">
+                                            <div class="mpb-icon-text"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="kt-portlet__foot">
+                        <div class="row align-items-center">
+                            
+                        </div>
+                    </div>
+                    
                 </div>
-                
             </div>
         </div>
     </div>

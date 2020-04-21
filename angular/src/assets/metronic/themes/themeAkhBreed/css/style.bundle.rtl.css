@@ -35409,3 +35409,38 @@ p-inputmask, p-inputmask>input {
 .ui-table-responsive .ui-table-tbody>tr>td {
         text-align: right;
 }
+
+
+.mob-icon {  
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.mob-icon-image {
+  position: absolute;
+  
+  width: 150%;
+  height: 150%;
+
+  background: transparent url("url('/assets/common/images/item1.png')") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.mob-icon-image:active {
+  width: 90%;
+  height: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  -o-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+
+.mob-icon-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
