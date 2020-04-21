@@ -1266,7 +1266,12 @@
     <text name="PreStateName">وضعیت قدیم</text>
     <text name="NewStateName">وضعیت جدید</text>
 
-
+      <text name="MobHerd">معرفی گله</text>
+      <text name="MobPlaqueOfficer">تخصیص پلاک</text>
+      <text name="MobLivestock">نصب پلاک</text>
+      <text name="MobHerdGeoLog">موقعیت گله</text>
+      <text name="MobPlaqueChange">تغییر وضعیت</text>
+      <text name="MobHerdCertificate">گواهی گله</text>
   </texts>
 </localizationDictionary>
 

@@ -6502,6 +6502,13 @@ ngx-perfect-scrollbar@^8.0.0:
     perfect-scrollbar "^1.4.0"
     resize-observer-polyfill "^1.5.0"
 
+ngx-persian@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/ngx-persian/-/ngx-persian-1.3.1.tgz#633a3f8c937dfb28c22522cbb4fd8682e4e86273"
+  integrity sha512-MFy2Yh9/cpCWwSn8RS3RsCdwq4ymp122YsG5vs3Eu0H8PItrYsITw15M/HeaY8zSD3JQyOwMVsvzykZTrxyq5w==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-spinner@^8.0.3:
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/ngx-spinner/-/ngx-spinner-8.0.3.tgz#6f61075bdbe78896ec0d602eacc8694ffe78690b"
