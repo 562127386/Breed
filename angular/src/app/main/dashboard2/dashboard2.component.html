@@ -1,9 +1,9 @@
 <div [@routerTransition]>
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+    <div [ngStyle]="{'background-color': '#032f3f'}" class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
         <div class="kt-subheader kt-grid__item">
         </div>
 
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+        <div [ngStyle]="{'background-color': '#032f3f'}" [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
             <div class="row">
                 <!-- desktop mode -->
                 <div class="kt-portlet kt-portlet--mobile d-none d-sm-none d-md-block d-lg-block d-xl-block">
@@ -51,7 +51,7 @@
                 </div>
 
                 <!-- mobile mode -->
-                <div class="kt-portlet kt-portlet--mobile d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                <div [ngStyle]="{'background-color': '#032f3f'}" class="kt-portlet kt-portlet--mobile d-block d-sm-block d-md-none d-lg-none d-xl-none">
 
 
                     <div class="kt-portlet__body kt-padding-0">
