@@ -1,5 +1,5 @@
 <div [@routerTransition] >
-    <div class="kt-header-back"></div>
+    <div class="kt-header-back d-none d-sm-none d-md-block d-lg-block d-xl-block"></div>
     <div id="kt_header_mobile" class="kt-header-mobile">
         <div class="kt-header-mobile__logo">
             <a routerLink="/" target="_blank">
@@ -29,9 +29,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" role="tab">پشتیبانی</a>  
-                    </li>
-                    <li class="nav-item align-content-end" >
-                        <label class="nav-link">{{ time | momentFormat:'YYYY/M/D HH:mm:ss' }}</label>
                     </li>
                 </ul>                       
             </div>
