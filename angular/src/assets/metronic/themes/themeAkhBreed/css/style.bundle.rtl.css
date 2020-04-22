@@ -33758,7 +33758,7 @@ body {
       z-index: 2;
       -webkit-box-shadow: 0px 4px 30px -4px rgba(0, 51, 90, 0.1);
       box-shadow: 0px 4px 30px -4px rgba(0, 51, 90, 0.1);
-      background-color: #ddd294; }
+      background-color: #a59d16; }
     .kt-header__topbar--mobile-on .kt-header-mobile {
       -webkit-box-shadow: none;
       box-shadow: none; }
@@ -35423,7 +35423,7 @@ p-inputmask, p-inputmask>input {
   position: absolute;  
   width: 100%;
   height: 100%;
-  background: transparent url("/assets/common/images/item1.png") no-repeat center center;
+  background: transparent url("/assets/common/images/item-icon.png") no-repeat center center;
   background-size: 100% 100%;
 }
 
@@ -35447,4 +35447,15 @@ p-inputmask, p-inputmask>input {
   font-size: 2em;
   font-weight: 600;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .form-control {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 768px) {
+  .form-control {
+    font-size: 0.8rem;
+  }
 }
