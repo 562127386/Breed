@@ -7,7 +7,7 @@
 
     <meta property="og:title" content="Breed" />
     <meta property="og:image" content="" />
-    <meta property="og:description" content="Base solution for your next web application" />
+    <meta property="og:description" content="Breed" />
     <meta property="og:url" content="">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,28 @@
     <meta name="description" content="">
     <link rel="icon" type="image/x-icon" href="favicon.ico">    
 	<link rel="icon" sizes="192x192" href="../assets/common/images/item1.png">
-	<link rel="apple-touch-icon" sizes="128x128" href=".../assets/common/images/item1.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="../assets/common/images/item1.png">
+    <script type="text/javascript">
+        (function(document,navigator,standalone) {
+            // prevents links from apps from oppening in mobile safari
+            // this javascript must be the first script in your <head>
+            if ((standalone in navigator) && navigator[standalone]) {
+                var curnode, location=document.location, stop=/^(a|html)$/i;
+                document.addEventListener('click', function(e) {
+                    curnode=e.target;
+                    while (!(stop).test(curnode.nodeName)) {
+                        curnode=curnode.parentNode;
+                    }
+                    // Condidions to do this only on links to your own app
+                    // if you want all links, use if('href' in curnode) instead.
+                    if('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) ) {
+                        e.preventDefault();
+                        location.href = curnode.href;
+                    }
+                },false);
+            }
+        })(document,window.navigator,'standalone');
+    </script>
 </head>
 <body>
     <app-root></app-root>

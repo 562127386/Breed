@@ -32,7 +32,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
                         data: { preload: true },
                         canLoad: [AppRouteGuard]
                     }, {
-                        path: '**', redirectTo: 'notifications'
+                        path: '**', redirectTo: 'dashboard2'
                     }
                 ]
             }

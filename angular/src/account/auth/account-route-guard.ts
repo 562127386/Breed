@@ -27,14 +27,15 @@ export class AccountRouteGuard implements CanActivate {
 
     selectBestRoute(): string {
 
-        if (this._permissionChecker.isGranted('Pages.Administration.Host.Dashboard')) {
-            return '/app/admin/hostDashboard';
-        }
+        // if (this._permissionChecker.isGranted('Pages.Administration.Host.Dashboard')) {
+        //     return '/app/admin/hostDashboard';
+        // }
 
-        if (this._permissionChecker.isGranted('Pages.Tenant.Dashboard')) {
-            return '/app/main/dashboard2';
-        }
+        // if (this._permissionChecker.isGranted('Pages.Tenant.Dashboard')) {
+        //     return '/app/main/dashboard2';
+        // }
 
-        return '/app/notifications';
+        // return '/app/notifications';
+        return '/app/main/dashboard2';
     }
 }

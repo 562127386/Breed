@@ -41,7 +41,7 @@ import { UsersComponent } from './users/users.component';
                     { path: 'demo-ui-components', component: DemoUiComponentsComponent, data: { permission: 'Pages.DemoUiComponents' } },
                     { path: 'install', component: InstallComponent },
                     { path: 'ui-customization', component: UiCustomizationComponent },
-                    { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' }
+                    { path: '', redirectTo: 'dashboard2', pathMatch: 'full' }
                 ]
             }
         ])
