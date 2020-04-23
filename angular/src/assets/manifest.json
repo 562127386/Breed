@@ -1,0 +1,9 @@
+{
+    "name": "Breed",
+    "short_name": "Breed App",
+    "description": "This is a Breed app",
+    "lang": "en-GB",
+    "start_url": "/index.html",
+    "scope": "/",
+    "display": "standalone"
+}
