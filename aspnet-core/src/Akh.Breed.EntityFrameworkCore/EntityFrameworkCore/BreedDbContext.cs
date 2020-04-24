@@ -81,7 +81,11 @@ namespace Akh.Breed.EntityFrameworkCore
 
         public virtual DbSet<PlaqueStore> PlaqueStores { get; set; }
 
-        public virtual DbSet<PlaqueOfficer> PlaqueOfficers { get; set; }
+        public virtual DbSet<PlaqueToState> PlaqueToStates { get; set; }
+        
+        public virtual DbSet<PlaqueToCity> PlaqueToCities { get; set; }
+        
+        public virtual DbSet<PlaqueToOfficer> PlaqueToOfficers { get; set; }
 
         public virtual DbSet<PlaqueChange> PlaqueChanges { get; set; }
 
@@ -232,7 +236,19 @@ namespace Akh.Breed.EntityFrameworkCore
                 b.HasIndex(e => e.ToCode);
             });
             
-            modelBuilder.Entity<PlaqueOfficer>(b =>
+            modelBuilder.Entity<PlaqueToState>(b =>
+            {
+                b.HasIndex(e => e.FromCode);
+                b.HasIndex(e => e.ToCode);
+            });
+            
+            modelBuilder.Entity<PlaqueToCity>(b =>
+            {
+                b.HasIndex(e => e.FromCode);
+                b.HasIndex(e => e.ToCode);
+            });
+            
+            modelBuilder.Entity<PlaqueToOfficer>(b =>
             {
                 b.HasIndex(e => e.FromCode);
                 b.HasIndex(e => e.ToCode);

@@ -185,10 +185,20 @@ namespace Akh.Breed.Authorization
             plaqueStore.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueStore_Edit, L("EditNewPlaqueStore"));
             plaqueStore.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueStore_Delete, L("DeleteNewPlaqueStore"));
 
-            var plaqueOfficer = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueOfficer, L("PlaqueOfficer"));
-            plaqueOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Create, L("CreateNewPlaqueOfficer"));
-            plaqueOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Edit, L("EditNewPlaqueOfficer"));
-            plaqueOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueOfficer_Delete, L("DeleteNewPlaqueOfficer"));
+            var plaqueToState = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToState, L("PlaqueToState"));
+            plaqueToState.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToState_Create, L("CreateNewPlaqueToState"));
+            plaqueToState.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToState_Edit, L("EditNewPlaqueToState"));
+            plaqueToState.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToState_Delete, L("DeleteNewPlaqueToState"));
+            
+            var plaqueToCity = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToCity, L("PlaqueToCity"));
+            plaqueToCity.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToCity_Create, L("CreateNewPlaqueToCity"));
+            plaqueToCity.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToCity_Edit, L("EditNewPlaqueToCity"));
+            plaqueToCity.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToCity_Delete, L("DeleteNewPlaqueToCity"));
+            
+            var plaqueToOfficer = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer, L("PlaqueToOfficer"));
+            plaqueToOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer_Create, L("CreateNewPlaqueToOfficer"));
+            plaqueToOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer_Edit, L("EditNewPlaqueToOfficer"));
+            plaqueToOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer_Delete, L("DeleteNewPlaqueToOfficer"));
 
             var identification = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification, L("Identification"));
             identification.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification_Create, L("CreateNewIdentification"));

@@ -6,7 +6,7 @@ using Akh.Breed.Dto;
 
 namespace Akh.Breed.Plaques.Dto
 {
-    public class GetPlaqueOfficerInput : PagedAndSortedInputDto, IShouldNormalize
+    public class GetPlaqueToOfficerInput : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Filter { get; set; }
         
@@ -21,7 +21,7 @@ namespace Akh.Breed.Plaques.Dto
         }
     }
     
-    public class PlaqueOfficerListDto : EntityDto
+    public class PlaqueToOfficerListDto : EntityDto
     {
         public long FromCode { get; set; }
         
@@ -31,12 +31,17 @@ namespace Akh.Breed.Plaques.Dto
         public int PlaqueUsed { get; set; }
 
         public DateTime SetTime { get; set; }
-
-        public string OfficerCode { get; set; }
-        public string OfficerName { get; set; } 
+        
+        public string StateName { get; set; }
+        
+        public string CityName { get; set; }
+        
+        public string OfficerName { get; set; }
         
         public string OfficerFamily { get; set; }
         
+        public string OfficerCode { get; set; }
+
         public string SpeciesName { get; set; }
         
     }

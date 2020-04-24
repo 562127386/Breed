@@ -8,8 +8,8 @@ using Akh.Breed.Officers;
 
 namespace Akh.Breed.Plaques
 {
-    [Table("AkhPlaqueOfficers")]
-    public class PlaqueOfficer : Entity, IHasCreationTime, IMayHaveTenant
+    [Table("AkhPlaqueToOfficers")]
+    public class PlaqueToOfficer : Entity, IHasCreationTime, IMayHaveTenant
     {
         public const int CodeLength = 15; 
         
@@ -21,25 +21,23 @@ namespace Akh.Breed.Plaques
         [StringLength(CodeLength)]
         public long ToCode { get; set; }
 
+        [StringLength(CodeLength)]
+        public long LastCode { get; set; }
         public DateTime SetTime { get; set; }
         
         [ForeignKey("OfficerId")] 
         public virtual Officer Officer { get; set; }
-        public int? OfficerId { get; set; }        
+        public int? OfficerId { get; set; }
         
-        [ForeignKey("FinishedPlaqueId")]
-        public virtual PlaqueInfo FinishedPlaque { get; set; }
-        public long? FinishedPlaqueId { get; set; }
-        
-        [ForeignKey("PlaqueStoreId")]
-        public virtual PlaqueStore PlaqueStore { get; set; }
-        public int? PlaqueStoreId { get; set; }     
+        [ForeignKey("PlaqueToCityId")]
+        public virtual PlaqueToCity PlaqueToCity { get; set; }
+        public int? PlaqueToCityId { get; set; }     
 
         public DateTime CreationTime { get; set; }
         
         public int? TenantId { get; set; }
         
-        public PlaqueOfficer()
+        public PlaqueToOfficer()
         {
             CreationTime = Clock.Now;
             SetTime = Clock.Now;

@@ -9905,249 +9905,6 @@ export class PlaqueChangeServiceProxy {
 }
 
 @Injectable()
-export class PlaqueOfficerServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "";
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param maxResultCount (optional) 
-     * @param skipCount (optional) 
-     * @return Success
-     */
-    getPlaqueOfficer(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlaqueOfficerListDto> {
-        let url_ = this.baseUrl + "/api/services/app/PlaqueOfficer/GetPlaqueOfficer?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetPlaqueOfficer(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetPlaqueOfficer(<any>response_);
-                } catch (e) {
-                    return <Observable<PagedResultDtoOfPlaqueOfficerListDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<PagedResultDtoOfPlaqueOfficerListDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetPlaqueOfficer(response: HttpResponseBase): Observable<PagedResultDtoOfPlaqueOfficerListDto> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfPlaqueOfficerListDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<PagedResultDtoOfPlaqueOfficerListDto>(<any>null);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getPlaqueOfficerForEdit(id: number | undefined): Observable<PlaqueOfficerGetForEditOutput> {
-        let url_ = this.baseUrl + "/api/services/app/PlaqueOfficer/GetPlaqueOfficerForEdit?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetPlaqueOfficerForEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetPlaqueOfficerForEdit(<any>response_);
-                } catch (e) {
-                    return <Observable<PlaqueOfficerGetForEditOutput>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<PlaqueOfficerGetForEditOutput>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetPlaqueOfficerForEdit(response: HttpResponseBase): Observable<PlaqueOfficerGetForEditOutput> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PlaqueOfficerGetForEditOutput.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<PlaqueOfficerGetForEditOutput>(<any>null);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    createOrUpdatePlaqueOfficer(body: PlaqueOfficerCreateOrUpdateInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/PlaqueOfficer/CreateOrUpdatePlaqueOfficer";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json", 
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateOrUpdatePlaqueOfficer(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreateOrUpdatePlaqueOfficer(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processCreateOrUpdatePlaqueOfficer(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    deletePlaqueOfficer(id: number | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/PlaqueOfficer/DeletePlaqueOfficer?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeletePlaqueOfficer(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDeletePlaqueOfficer(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processDeletePlaqueOfficer(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-}
-
-@Injectable()
 export class PlaqueStateServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -10614,6 +10371,735 @@ export class PlaqueStoreServiceProxy {
     }
 
     protected processDeletePlaqueStore(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class PlaqueToCityServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getPlaqueToCity(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlaqueToCityListDto> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToCity/GetPlaqueToCity?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueToCity(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueToCity(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPlaqueToCityListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPlaqueToCityListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueToCity(response: HttpResponseBase): Observable<PagedResultDtoOfPlaqueToCityListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfPlaqueToCityListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfPlaqueToCityListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPlaqueToCityForEdit(id: number | undefined): Observable<PlaqueToCityGetForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToCity/GetPlaqueToCityForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueToCityForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueToCityForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<PlaqueToCityGetForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlaqueToCityGetForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueToCityForEdit(response: HttpResponseBase): Observable<PlaqueToCityGetForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PlaqueToCityGetForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlaqueToCityGetForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdatePlaqueToCity(body: PlaqueToCityCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToCity/CreateOrUpdatePlaqueToCity";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdatePlaqueToCity(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdatePlaqueToCity(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdatePlaqueToCity(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deletePlaqueToCity(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToCity/DeletePlaqueToCity?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeletePlaqueToCity(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeletePlaqueToCity(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeletePlaqueToCity(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class PlaqueToOfficerServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getPlaqueToOfficer(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlaqueToOfficerListDto> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToOfficer/GetPlaqueToOfficer?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueToOfficer(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueToOfficer(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPlaqueToOfficerListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPlaqueToOfficerListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueToOfficer(response: HttpResponseBase): Observable<PagedResultDtoOfPlaqueToOfficerListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfPlaqueToOfficerListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfPlaqueToOfficerListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPlaqueToOfficerForEdit(id: number | undefined): Observable<PlaqueToOfficerGetForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToOfficer/GetPlaqueToOfficerForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueToOfficerForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueToOfficerForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<PlaqueToOfficerGetForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlaqueToOfficerGetForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueToOfficerForEdit(response: HttpResponseBase): Observable<PlaqueToOfficerGetForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PlaqueToOfficerGetForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlaqueToOfficerGetForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdatePlaqueToOfficer(body: PlaqueToOfficerCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToOfficer/CreateOrUpdatePlaqueToOfficer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdatePlaqueToOfficer(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdatePlaqueToOfficer(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdatePlaqueToOfficer(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deletePlaqueToOfficer(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToOfficer/DeletePlaqueToOfficer?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeletePlaqueToOfficer(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeletePlaqueToOfficer(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeletePlaqueToOfficer(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class PlaqueToStateServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getPlaqueToState(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlaqueToStateListDto> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToState/GetPlaqueToState?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueToState(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueToState(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPlaqueToStateListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPlaqueToStateListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueToState(response: HttpResponseBase): Observable<PagedResultDtoOfPlaqueToStateListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfPlaqueToStateListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfPlaqueToStateListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPlaqueToStateForEdit(id: number | undefined): Observable<PlaqueToStateGetForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToState/GetPlaqueToStateForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueToStateForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueToStateForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<PlaqueToStateGetForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlaqueToStateGetForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueToStateForEdit(response: HttpResponseBase): Observable<PlaqueToStateGetForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PlaqueToStateGetForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlaqueToStateGetForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdatePlaqueToState(body: PlaqueToStateCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToState/CreateOrUpdatePlaqueToState";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdatePlaqueToState(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdatePlaqueToState(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdatePlaqueToState(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deletePlaqueToState(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToState/DeletePlaqueToState?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeletePlaqueToState(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeletePlaqueToState(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeletePlaqueToState(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -27111,254 +27597,6 @@ export interface IPlaqueChangeGetForEditOutput {
     plaqueStates: ComboboxItemDto[] | undefined;
 }
 
-export class PlaqueOfficerListDto implements IPlaqueOfficerListDto {
-    fromCode!: number;
-    toCode!: number;
-    plaqueCount!: number;
-    plaqueUsed!: number;
-    setTime!: moment.Moment;
-    officerCode!: string | undefined;
-    officerName!: string | undefined;
-    officerFamily!: string | undefined;
-    speciesName!: string | undefined;
-    id!: number;
-
-    constructor(data?: IPlaqueOfficerListDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.fromCode = data["fromCode"];
-            this.toCode = data["toCode"];
-            this.plaqueCount = data["plaqueCount"];
-            this.plaqueUsed = data["plaqueUsed"];
-            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
-            this.officerCode = data["officerCode"];
-            this.officerName = data["officerName"];
-            this.officerFamily = data["officerFamily"];
-            this.speciesName = data["speciesName"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): PlaqueOfficerListDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PlaqueOfficerListDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["fromCode"] = this.fromCode;
-        data["toCode"] = this.toCode;
-        data["plaqueCount"] = this.plaqueCount;
-        data["plaqueUsed"] = this.plaqueUsed;
-        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
-        data["officerCode"] = this.officerCode;
-        data["officerName"] = this.officerName;
-        data["officerFamily"] = this.officerFamily;
-        data["speciesName"] = this.speciesName;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IPlaqueOfficerListDto {
-    fromCode: number;
-    toCode: number;
-    plaqueCount: number;
-    plaqueUsed: number;
-    setTime: moment.Moment;
-    officerCode: string | undefined;
-    officerName: string | undefined;
-    officerFamily: string | undefined;
-    speciesName: string | undefined;
-    id: number;
-}
-
-export class PagedResultDtoOfPlaqueOfficerListDto implements IPagedResultDtoOfPlaqueOfficerListDto {
-    totalCount!: number;
-    items!: PlaqueOfficerListDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfPlaqueOfficerListDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.totalCount = data["totalCount"];
-            if (Array.isArray(data["items"])) {
-                this.items = [] as any;
-                for (let item of data["items"])
-                    this.items!.push(PlaqueOfficerListDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfPlaqueOfficerListDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfPlaqueOfficerListDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IPagedResultDtoOfPlaqueOfficerListDto {
-    totalCount: number;
-    items: PlaqueOfficerListDto[] | undefined;
-}
-
-export class PlaqueOfficerCreateOrUpdateInput implements IPlaqueOfficerCreateOrUpdateInput {
-    id!: number | undefined;
-    plaqueCount!: number;
-    fromCode!: number;
-    toCode!: number;
-    officerId!: number | undefined;
-    plaqueStoreId!: number | undefined;
-    speciesInfoId!: number | undefined;
-    finishedPlaqueId!: number | undefined;
-    setTime!: moment.Moment | undefined;
-
-    constructor(data?: IPlaqueOfficerCreateOrUpdateInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.id = data["id"];
-            this.plaqueCount = data["plaqueCount"];
-            this.fromCode = data["fromCode"];
-            this.toCode = data["toCode"];
-            this.officerId = data["officerId"];
-            this.plaqueStoreId = data["plaqueStoreId"];
-            this.speciesInfoId = data["speciesInfoId"];
-            this.finishedPlaqueId = data["finishedPlaqueId"];
-            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): PlaqueOfficerCreateOrUpdateInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new PlaqueOfficerCreateOrUpdateInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["plaqueCount"] = this.plaqueCount;
-        data["fromCode"] = this.fromCode;
-        data["toCode"] = this.toCode;
-        data["officerId"] = this.officerId;
-        data["plaqueStoreId"] = this.plaqueStoreId;
-        data["speciesInfoId"] = this.speciesInfoId;
-        data["finishedPlaqueId"] = this.finishedPlaqueId;
-        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
-        return data; 
-    }
-}
-
-export interface IPlaqueOfficerCreateOrUpdateInput {
-    id: number | undefined;
-    plaqueCount: number;
-    fromCode: number;
-    toCode: number;
-    officerId: number | undefined;
-    plaqueStoreId: number | undefined;
-    speciesInfoId: number | undefined;
-    finishedPlaqueId: number | undefined;
-    setTime: moment.Moment | undefined;
-}
-
-export class PlaqueOfficerGetForEditOutput implements IPlaqueOfficerGetForEditOutput {
-    plaqueOfficer!: PlaqueOfficerCreateOrUpdateInput;
-    officers!: ComboboxItemDto[] | undefined;
-    speciesInfos!: ComboboxItemDto[] | undefined;
-
-    constructor(data?: IPlaqueOfficerGetForEditOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.plaqueOfficer = data["plaqueOfficer"] ? PlaqueOfficerCreateOrUpdateInput.fromJS(data["plaqueOfficer"]) : <any>undefined;
-            if (Array.isArray(data["officers"])) {
-                this.officers = [] as any;
-                for (let item of data["officers"])
-                    this.officers!.push(ComboboxItemDto.fromJS(item));
-            }
-            if (Array.isArray(data["speciesInfos"])) {
-                this.speciesInfos = [] as any;
-                for (let item of data["speciesInfos"])
-                    this.speciesInfos!.push(ComboboxItemDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PlaqueOfficerGetForEditOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new PlaqueOfficerGetForEditOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["plaqueOfficer"] = this.plaqueOfficer ? this.plaqueOfficer.toJSON() : <any>undefined;
-        if (Array.isArray(this.officers)) {
-            data["officers"] = [];
-            for (let item of this.officers)
-                data["officers"].push(item.toJSON());
-        }
-        if (Array.isArray(this.speciesInfos)) {
-            data["speciesInfos"] = [];
-            for (let item of this.speciesInfos)
-                data["speciesInfos"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IPlaqueOfficerGetForEditOutput {
-    plaqueOfficer: PlaqueOfficerCreateOrUpdateInput;
-    officers: ComboboxItemDto[] | undefined;
-    speciesInfos: ComboboxItemDto[] | undefined;
-}
-
 export class PlaqueStateListDto implements IPlaqueStateListDto {
     name!: string | undefined;
     code!: string | undefined;
@@ -27713,6 +27951,794 @@ export class PlaqueStoreGetForEditOutput implements IPlaqueStoreGetForEditOutput
 export interface IPlaqueStoreGetForEditOutput {
     plaqueStore: PlaqueStoreCreateOrUpdateInput;
     specieInfos: ComboboxItemDto[] | undefined;
+}
+
+export class PlaqueToCityListDto implements IPlaqueToCityListDto {
+    fromCode!: number;
+    toCode!: number;
+    plaqueCount!: number;
+    plaqueUsed!: number;
+    setTime!: moment.Moment;
+    stateName!: string | undefined;
+    cityName!: string | undefined;
+    speciesName!: string | undefined;
+    id!: number;
+
+    constructor(data?: IPlaqueToCityListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fromCode = data["fromCode"];
+            this.toCode = data["toCode"];
+            this.plaqueCount = data["plaqueCount"];
+            this.plaqueUsed = data["plaqueUsed"];
+            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
+            this.stateName = data["stateName"];
+            this.cityName = data["cityName"];
+            this.speciesName = data["speciesName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PlaqueToCityListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToCityListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fromCode"] = this.fromCode;
+        data["toCode"] = this.toCode;
+        data["plaqueCount"] = this.plaqueCount;
+        data["plaqueUsed"] = this.plaqueUsed;
+        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
+        data["stateName"] = this.stateName;
+        data["cityName"] = this.cityName;
+        data["speciesName"] = this.speciesName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPlaqueToCityListDto {
+    fromCode: number;
+    toCode: number;
+    plaqueCount: number;
+    plaqueUsed: number;
+    setTime: moment.Moment;
+    stateName: string | undefined;
+    cityName: string | undefined;
+    speciesName: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfPlaqueToCityListDto implements IPagedResultDtoOfPlaqueToCityListDto {
+    totalCount!: number;
+    items!: PlaqueToCityListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfPlaqueToCityListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(PlaqueToCityListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPlaqueToCityListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfPlaqueToCityListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPlaqueToCityListDto {
+    totalCount: number;
+    items: PlaqueToCityListDto[] | undefined;
+}
+
+export class PlaqueToCityCreateOrUpdateInput implements IPlaqueToCityCreateOrUpdateInput {
+    id!: number | undefined;
+    plaqueCount!: number;
+    fromCode!: number;
+    toCode!: number;
+    stateInfoId!: number | undefined;
+    cityInfoId!: number | undefined;
+    speciesInfoId!: number | undefined;
+    plaqueToStateId!: number | undefined;
+    finishedPlaqueId!: number | undefined;
+    setTime!: moment.Moment | undefined;
+
+    constructor(data?: IPlaqueToCityCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.plaqueCount = data["plaqueCount"];
+            this.fromCode = data["fromCode"];
+            this.toCode = data["toCode"];
+            this.stateInfoId = data["stateInfoId"];
+            this.cityInfoId = data["cityInfoId"];
+            this.speciesInfoId = data["speciesInfoId"];
+            this.plaqueToStateId = data["plaqueToStateId"];
+            this.finishedPlaqueId = data["finishedPlaqueId"];
+            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): PlaqueToCityCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToCityCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["plaqueCount"] = this.plaqueCount;
+        data["fromCode"] = this.fromCode;
+        data["toCode"] = this.toCode;
+        data["stateInfoId"] = this.stateInfoId;
+        data["cityInfoId"] = this.cityInfoId;
+        data["speciesInfoId"] = this.speciesInfoId;
+        data["plaqueToStateId"] = this.plaqueToStateId;
+        data["finishedPlaqueId"] = this.finishedPlaqueId;
+        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IPlaqueToCityCreateOrUpdateInput {
+    id: number | undefined;
+    plaqueCount: number;
+    fromCode: number;
+    toCode: number;
+    stateInfoId: number | undefined;
+    cityInfoId: number | undefined;
+    speciesInfoId: number | undefined;
+    plaqueToStateId: number | undefined;
+    finishedPlaqueId: number | undefined;
+    setTime: moment.Moment | undefined;
+}
+
+export class PlaqueToCityGetForEditOutput implements IPlaqueToCityGetForEditOutput {
+    plaqueToCity!: PlaqueToCityCreateOrUpdateInput;
+    stateInfos!: ComboboxItemDto[] | undefined;
+    cityInfos!: ComboboxItemDto[] | undefined;
+    speciesInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IPlaqueToCityGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.plaqueToCity = data["plaqueToCity"] ? PlaqueToCityCreateOrUpdateInput.fromJS(data["plaqueToCity"]) : <any>undefined;
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["cityInfos"])) {
+                this.cityInfos = [] as any;
+                for (let item of data["cityInfos"])
+                    this.cityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["speciesInfos"])) {
+                this.speciesInfos = [] as any;
+                for (let item of data["speciesInfos"])
+                    this.speciesInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PlaqueToCityGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToCityGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plaqueToCity"] = this.plaqueToCity ? this.plaqueToCity.toJSON() : <any>undefined;
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.cityInfos)) {
+            data["cityInfos"] = [];
+            for (let item of this.cityInfos)
+                data["cityInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.speciesInfos)) {
+            data["speciesInfos"] = [];
+            for (let item of this.speciesInfos)
+                data["speciesInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPlaqueToCityGetForEditOutput {
+    plaqueToCity: PlaqueToCityCreateOrUpdateInput;
+    stateInfos: ComboboxItemDto[] | undefined;
+    cityInfos: ComboboxItemDto[] | undefined;
+    speciesInfos: ComboboxItemDto[] | undefined;
+}
+
+export class PlaqueToOfficerListDto implements IPlaqueToOfficerListDto {
+    fromCode!: number;
+    toCode!: number;
+    plaqueCount!: number;
+    plaqueUsed!: number;
+    setTime!: moment.Moment;
+    stateName!: string | undefined;
+    cityName!: string | undefined;
+    officerName!: string | undefined;
+    officerFamily!: string | undefined;
+    officerCode!: string | undefined;
+    speciesName!: string | undefined;
+    id!: number;
+
+    constructor(data?: IPlaqueToOfficerListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fromCode = data["fromCode"];
+            this.toCode = data["toCode"];
+            this.plaqueCount = data["plaqueCount"];
+            this.plaqueUsed = data["plaqueUsed"];
+            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
+            this.stateName = data["stateName"];
+            this.cityName = data["cityName"];
+            this.officerName = data["officerName"];
+            this.officerFamily = data["officerFamily"];
+            this.officerCode = data["officerCode"];
+            this.speciesName = data["speciesName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PlaqueToOfficerListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToOfficerListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fromCode"] = this.fromCode;
+        data["toCode"] = this.toCode;
+        data["plaqueCount"] = this.plaqueCount;
+        data["plaqueUsed"] = this.plaqueUsed;
+        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
+        data["stateName"] = this.stateName;
+        data["cityName"] = this.cityName;
+        data["officerName"] = this.officerName;
+        data["officerFamily"] = this.officerFamily;
+        data["officerCode"] = this.officerCode;
+        data["speciesName"] = this.speciesName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPlaqueToOfficerListDto {
+    fromCode: number;
+    toCode: number;
+    plaqueCount: number;
+    plaqueUsed: number;
+    setTime: moment.Moment;
+    stateName: string | undefined;
+    cityName: string | undefined;
+    officerName: string | undefined;
+    officerFamily: string | undefined;
+    officerCode: string | undefined;
+    speciesName: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfPlaqueToOfficerListDto implements IPagedResultDtoOfPlaqueToOfficerListDto {
+    totalCount!: number;
+    items!: PlaqueToOfficerListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfPlaqueToOfficerListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(PlaqueToOfficerListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPlaqueToOfficerListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfPlaqueToOfficerListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPlaqueToOfficerListDto {
+    totalCount: number;
+    items: PlaqueToOfficerListDto[] | undefined;
+}
+
+export class PlaqueToOfficerCreateOrUpdateInput implements IPlaqueToOfficerCreateOrUpdateInput {
+    id!: number | undefined;
+    plaqueCount!: number;
+    fromCode!: number;
+    toCode!: number;
+    stateInfoId!: number | undefined;
+    cityInfoId!: number | undefined;
+    officerId!: number | undefined;
+    speciesInfoId!: number | undefined;
+    plaqueToCityId!: number | undefined;
+    finishedPlaqueId!: number | undefined;
+    setTime!: moment.Moment | undefined;
+
+    constructor(data?: IPlaqueToOfficerCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.plaqueCount = data["plaqueCount"];
+            this.fromCode = data["fromCode"];
+            this.toCode = data["toCode"];
+            this.stateInfoId = data["stateInfoId"];
+            this.cityInfoId = data["cityInfoId"];
+            this.officerId = data["officerId"];
+            this.speciesInfoId = data["speciesInfoId"];
+            this.plaqueToCityId = data["plaqueToCityId"];
+            this.finishedPlaqueId = data["finishedPlaqueId"];
+            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): PlaqueToOfficerCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToOfficerCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["plaqueCount"] = this.plaqueCount;
+        data["fromCode"] = this.fromCode;
+        data["toCode"] = this.toCode;
+        data["stateInfoId"] = this.stateInfoId;
+        data["cityInfoId"] = this.cityInfoId;
+        data["officerId"] = this.officerId;
+        data["speciesInfoId"] = this.speciesInfoId;
+        data["plaqueToCityId"] = this.plaqueToCityId;
+        data["finishedPlaqueId"] = this.finishedPlaqueId;
+        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IPlaqueToOfficerCreateOrUpdateInput {
+    id: number | undefined;
+    plaqueCount: number;
+    fromCode: number;
+    toCode: number;
+    stateInfoId: number | undefined;
+    cityInfoId: number | undefined;
+    officerId: number | undefined;
+    speciesInfoId: number | undefined;
+    plaqueToCityId: number | undefined;
+    finishedPlaqueId: number | undefined;
+    setTime: moment.Moment | undefined;
+}
+
+export class PlaqueToOfficerGetForEditOutput implements IPlaqueToOfficerGetForEditOutput {
+    plaqueToOfficer!: PlaqueToOfficerCreateOrUpdateInput;
+    stateInfos!: ComboboxItemDto[] | undefined;
+    cityInfos!: ComboboxItemDto[] | undefined;
+    officerInfos!: ComboboxItemDto[] | undefined;
+    speciesInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IPlaqueToOfficerGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.plaqueToOfficer = data["plaqueToOfficer"] ? PlaqueToOfficerCreateOrUpdateInput.fromJS(data["plaqueToOfficer"]) : <any>undefined;
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["cityInfos"])) {
+                this.cityInfos = [] as any;
+                for (let item of data["cityInfos"])
+                    this.cityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["officerInfos"])) {
+                this.officerInfos = [] as any;
+                for (let item of data["officerInfos"])
+                    this.officerInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["speciesInfos"])) {
+                this.speciesInfos = [] as any;
+                for (let item of data["speciesInfos"])
+                    this.speciesInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PlaqueToOfficerGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToOfficerGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plaqueToOfficer"] = this.plaqueToOfficer ? this.plaqueToOfficer.toJSON() : <any>undefined;
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.cityInfos)) {
+            data["cityInfos"] = [];
+            for (let item of this.cityInfos)
+                data["cityInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.officerInfos)) {
+            data["officerInfos"] = [];
+            for (let item of this.officerInfos)
+                data["officerInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.speciesInfos)) {
+            data["speciesInfos"] = [];
+            for (let item of this.speciesInfos)
+                data["speciesInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPlaqueToOfficerGetForEditOutput {
+    plaqueToOfficer: PlaqueToOfficerCreateOrUpdateInput;
+    stateInfos: ComboboxItemDto[] | undefined;
+    cityInfos: ComboboxItemDto[] | undefined;
+    officerInfos: ComboboxItemDto[] | undefined;
+    speciesInfos: ComboboxItemDto[] | undefined;
+}
+
+export class PlaqueToStateListDto implements IPlaqueToStateListDto {
+    fromCode!: number;
+    toCode!: number;
+    plaqueCount!: number;
+    plaqueUsed!: number;
+    setTime!: moment.Moment;
+    stateName!: string | undefined;
+    speciesName!: string | undefined;
+    id!: number;
+
+    constructor(data?: IPlaqueToStateListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fromCode = data["fromCode"];
+            this.toCode = data["toCode"];
+            this.plaqueCount = data["plaqueCount"];
+            this.plaqueUsed = data["plaqueUsed"];
+            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
+            this.stateName = data["stateName"];
+            this.speciesName = data["speciesName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PlaqueToStateListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToStateListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fromCode"] = this.fromCode;
+        data["toCode"] = this.toCode;
+        data["plaqueCount"] = this.plaqueCount;
+        data["plaqueUsed"] = this.plaqueUsed;
+        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
+        data["stateName"] = this.stateName;
+        data["speciesName"] = this.speciesName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPlaqueToStateListDto {
+    fromCode: number;
+    toCode: number;
+    plaqueCount: number;
+    plaqueUsed: number;
+    setTime: moment.Moment;
+    stateName: string | undefined;
+    speciesName: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfPlaqueToStateListDto implements IPagedResultDtoOfPlaqueToStateListDto {
+    totalCount!: number;
+    items!: PlaqueToStateListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfPlaqueToStateListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(PlaqueToStateListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPlaqueToStateListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfPlaqueToStateListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPlaqueToStateListDto {
+    totalCount: number;
+    items: PlaqueToStateListDto[] | undefined;
+}
+
+export class PlaqueToStateCreateOrUpdateInput implements IPlaqueToStateCreateOrUpdateInput {
+    id!: number | undefined;
+    plaqueCount!: number;
+    fromCode!: number;
+    toCode!: number;
+    stateInfoId!: number | undefined;
+    plaqueStoreId!: number | undefined;
+    speciesInfoId!: number | undefined;
+    finishedPlaqueId!: number | undefined;
+    setTime!: moment.Moment | undefined;
+
+    constructor(data?: IPlaqueToStateCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.plaqueCount = data["plaqueCount"];
+            this.fromCode = data["fromCode"];
+            this.toCode = data["toCode"];
+            this.stateInfoId = data["stateInfoId"];
+            this.plaqueStoreId = data["plaqueStoreId"];
+            this.speciesInfoId = data["speciesInfoId"];
+            this.finishedPlaqueId = data["finishedPlaqueId"];
+            this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): PlaqueToStateCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToStateCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["plaqueCount"] = this.plaqueCount;
+        data["fromCode"] = this.fromCode;
+        data["toCode"] = this.toCode;
+        data["stateInfoId"] = this.stateInfoId;
+        data["plaqueStoreId"] = this.plaqueStoreId;
+        data["speciesInfoId"] = this.speciesInfoId;
+        data["finishedPlaqueId"] = this.finishedPlaqueId;
+        data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IPlaqueToStateCreateOrUpdateInput {
+    id: number | undefined;
+    plaqueCount: number;
+    fromCode: number;
+    toCode: number;
+    stateInfoId: number | undefined;
+    plaqueStoreId: number | undefined;
+    speciesInfoId: number | undefined;
+    finishedPlaqueId: number | undefined;
+    setTime: moment.Moment | undefined;
+}
+
+export class PlaqueToStateGetForEditOutput implements IPlaqueToStateGetForEditOutput {
+    plaqueToState!: PlaqueToStateCreateOrUpdateInput;
+    stateInfos!: ComboboxItemDto[] | undefined;
+    speciesInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IPlaqueToStateGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.plaqueToState = data["plaqueToState"] ? PlaqueToStateCreateOrUpdateInput.fromJS(data["plaqueToState"]) : <any>undefined;
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["speciesInfos"])) {
+                this.speciesInfos = [] as any;
+                for (let item of data["speciesInfos"])
+                    this.speciesInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PlaqueToStateGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToStateGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plaqueToState"] = this.plaqueToState ? this.plaqueToState.toJSON() : <any>undefined;
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.speciesInfos)) {
+            data["speciesInfos"] = [];
+            for (let item of this.speciesInfos)
+                data["speciesInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPlaqueToStateGetForEditOutput {
+    plaqueToState: PlaqueToStateCreateOrUpdateInput;
+    stateInfos: ComboboxItemDto[] | undefined;
+    speciesInfos: ComboboxItemDto[] | undefined;
 }
 
 export class CurrentUserProfileEditDto implements ICurrentUserProfileEditDto {

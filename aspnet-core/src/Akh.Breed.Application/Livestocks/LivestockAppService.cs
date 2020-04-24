@@ -30,10 +30,10 @@ namespace Akh.Breed.Livestocks
         private readonly IRepository<Herd> _herdRepository;
         private readonly IRepository<ActivityInfo> _activityInfoRepository;
         private readonly IRepository<Officer> _officerRepository;
-        private readonly IRepository<PlaqueOfficer> _plaqueOfficerRepository;
+        private readonly IRepository<PlaqueToOfficer> _plaqueToOfficerRepository;
         private readonly IRepository<PlaqueInfo, long> _plaqueInfoRepository;
         
-        public LivestockAppService(IRepository<Livestock> livestockRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Officer> officerRepository, IRepository<PlaqueOfficer> plaqueOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository)
+        public LivestockAppService(IRepository<Livestock> livestockRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository)
         {
             _livestockRepository = livestockRepository;
             _speciesInfoRepository = speciesInfoRepository;
@@ -41,7 +41,7 @@ namespace Akh.Breed.Livestocks
             _herdRepository = herdRepository;
             _activityInfoRepository = activityInfoRepository;
             _officerRepository = officerRepository;
-            _plaqueOfficerRepository = plaqueOfficerRepository;
+            _plaqueToOfficerRepository = plaqueToOfficerRepository;
             _plaqueInfoRepository = plaqueInfoRepository;
         }
         
@@ -208,8 +208,8 @@ namespace Akh.Breed.Livestocks
             else
             {
                 input.OfficerId = officer.Id;
-                var plaqueOfficer = _plaqueOfficerRepository.FirstOrDefault(x =>x.FromCode <= nationalCode && x.ToCode >= nationalCode);
-                if (plaqueOfficer == null)
+                var plaqueToOfficer = _plaqueToOfficerRepository.FirstOrDefault(x =>x.FromCode <= nationalCode && x.ToCode >= nationalCode);
+                if (plaqueToOfficer == null)
                 {
                     throw new UserFriendlyException(L("ThisStoreIsNotAllocatedTo", nationalCode));
                 }

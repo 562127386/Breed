@@ -167,10 +167,20 @@
         public const string Pages_IdentityInfo_PlaqueStore_Edit = "Pages.IdentityInfo.PlaqueStore.Edit";
         public const string Pages_IdentityInfo_PlaqueStore_Delete = "Pages.IdentityInfo.PlaqueStore.Delete";
         
-        public const string Pages_IdentityInfo_PlaqueOfficer = "Pages.IdentityInfo.PlaqueOfficer";
-        public const string Pages_IdentityInfo_PlaqueOfficer_Create = "Pages.IdentityInfo.PlaqueOfficer.Create";
-        public const string Pages_IdentityInfo_PlaqueOfficer_Edit = "Pages.IdentityInfo.PlaqueOfficer.Edit";
-        public const string Pages_IdentityInfo_PlaqueOfficer_Delete = "Pages.IdentityInfo.PlaqueOfficer.Delete";
+        public const string Pages_IdentityInfo_PlaqueToState = "Pages.IdentityInfo.PlaqueToState";
+        public const string Pages_IdentityInfo_PlaqueToState_Create = "Pages.IdentityInfo.PlaqueToState.Create";
+        public const string Pages_IdentityInfo_PlaqueToState_Edit = "Pages.IdentityInfo.PlaqueToState.Edit";
+        public const string Pages_IdentityInfo_PlaqueToState_Delete = "Pages.IdentityInfo.PlaqueToState.Delete";        
+                
+        public const string Pages_IdentityInfo_PlaqueToCity = "Pages.IdentityInfo.PlaqueToCity";
+        public const string Pages_IdentityInfo_PlaqueToCity_Create = "Pages.IdentityInfo.PlaqueToCity.Create";
+        public const string Pages_IdentityInfo_PlaqueToCity_Edit = "Pages.IdentityInfo.PlaqueToCity.Edit";
+        public const string Pages_IdentityInfo_PlaqueToCity_Delete = "Pages.IdentityInfo.PlaqueToCity.Delete";
+                
+        public const string Pages_IdentityInfo_PlaqueToOfficer = "Pages.IdentityInfo.PlaqueToOfficer";
+        public const string Pages_IdentityInfo_PlaqueToOfficer_Create = "Pages.IdentityInfo.PlaqueToOfficer.Create";
+        public const string Pages_IdentityInfo_PlaqueToOfficer_Edit = "Pages.IdentityInfo.PlaqueToOfficer.Edit";
+        public const string Pages_IdentityInfo_PlaqueToOfficer_Delete = "Pages.IdentityInfo.PlaqueToOfficer.Delete";
         
         public const string Pages_IdentityInfo_Identification = "Pages.IdentityInfo.Identification";
         public const string Pages_IdentityInfo_Identification_Create = "Pages.IdentityInfo.Identification.Create";

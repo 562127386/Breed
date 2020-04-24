@@ -5,7 +5,7 @@ using Abp.Timing;
 
 namespace Akh.Breed.Plaques.Dto
 {
-    public class PlaqueOfficerCreateOrUpdateInput
+    public class PlaqueToStateCreateOrUpdateInput
     {
         public const int CodeLength = 15; 
         
@@ -17,7 +17,7 @@ namespace Akh.Breed.Plaques.Dto
         
         public long ToCode { get; set; }
         
-        public int? OfficerId { get; set; }
+        public int? StateInfoId { get; set; }
         
         public int? PlaqueStoreId { get; set; }
         public int? SpeciesInfoId { get; set; }
@@ -26,7 +26,7 @@ namespace Akh.Breed.Plaques.Dto
         
         public DateTime? SetTime { get; set; }
 
-        public PlaqueOfficerCreateOrUpdateInput()
+        public PlaqueToStateCreateOrUpdateInput()
         {
             SetTime = Clock.Now;
         } 
