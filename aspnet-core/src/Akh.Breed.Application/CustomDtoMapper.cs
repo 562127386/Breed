@@ -316,6 +316,8 @@ namespace Akh.Breed
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetMiladi()));
             configuration.CreateMap<PlaqueToCity, PlaqueToCityCreateOrUpdateInput>()
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
+                .ForMember(d => d.StateInfoId, options => options.MapFrom(l =>  l.CityInfo.StateInfoId ))
+                .ForMember(d => d.SpeciesInfoId, options => options.MapFrom(l =>  l.PlaqueToState.PlaqueStore.SpeciesId ))
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()));
             
             configuration.CreateMap<PlaqueToOfficer, PlaqueToOfficerListDto>()
@@ -331,7 +333,9 @@ namespace Akh.Breed
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetMiladi()));
             configuration.CreateMap<PlaqueToOfficer, PlaqueToOfficerCreateOrUpdateInput>()
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
-                .ForMember(d => d.StateInfoId, options => options.MapFrom(l =>  l.PlaqueToCity.CityInfoId ))
+                .ForMember(d => d.StateInfoId, options => options.MapFrom(l =>  l.PlaqueToCity.CityInfo.StateInfoId ))
+                .ForMember(d => d.CityInfoId, options => options.MapFrom(l =>  l.PlaqueToCity.CityInfoId ))
+                .ForMember(d => d.SpeciesInfoId, options => options.MapFrom(l =>  l.PlaqueToCity.PlaqueToState.PlaqueStore.SpeciesId ))
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()));
 
         }

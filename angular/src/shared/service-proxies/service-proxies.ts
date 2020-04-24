@@ -28421,7 +28421,7 @@ export class PlaqueToOfficerGetForEditOutput implements IPlaqueToOfficerGetForEd
     plaqueToOfficer!: PlaqueToOfficerCreateOrUpdateInput;
     stateInfos!: ComboboxItemDto[] | undefined;
     cityInfos!: ComboboxItemDto[] | undefined;
-    officerInfos!: ComboboxItemDto[] | undefined;
+    officers!: ComboboxItemDto[] | undefined;
     speciesInfos!: ComboboxItemDto[] | undefined;
 
     constructor(data?: IPlaqueToOfficerGetForEditOutput) {
@@ -28446,10 +28446,10 @@ export class PlaqueToOfficerGetForEditOutput implements IPlaqueToOfficerGetForEd
                 for (let item of data["cityInfos"])
                     this.cityInfos!.push(ComboboxItemDto.fromJS(item));
             }
-            if (Array.isArray(data["officerInfos"])) {
-                this.officerInfos = [] as any;
-                for (let item of data["officerInfos"])
-                    this.officerInfos!.push(ComboboxItemDto.fromJS(item));
+            if (Array.isArray(data["officers"])) {
+                this.officers = [] as any;
+                for (let item of data["officers"])
+                    this.officers!.push(ComboboxItemDto.fromJS(item));
             }
             if (Array.isArray(data["speciesInfos"])) {
                 this.speciesInfos = [] as any;
@@ -28479,10 +28479,10 @@ export class PlaqueToOfficerGetForEditOutput implements IPlaqueToOfficerGetForEd
             for (let item of this.cityInfos)
                 data["cityInfos"].push(item.toJSON());
         }
-        if (Array.isArray(this.officerInfos)) {
-            data["officerInfos"] = [];
-            for (let item of this.officerInfos)
-                data["officerInfos"].push(item.toJSON());
+        if (Array.isArray(this.officers)) {
+            data["officers"] = [];
+            for (let item of this.officers)
+                data["officers"].push(item.toJSON());
         }
         if (Array.isArray(this.speciesInfos)) {
             data["speciesInfos"] = [];
@@ -28497,7 +28497,7 @@ export interface IPlaqueToOfficerGetForEditOutput {
     plaqueToOfficer: PlaqueToOfficerCreateOrUpdateInput;
     stateInfos: ComboboxItemDto[] | undefined;
     cityInfos: ComboboxItemDto[] | undefined;
-    officerInfos: ComboboxItemDto[] | undefined;
+    officers: ComboboxItemDto[] | undefined;
     speciesInfos: ComboboxItemDto[] | undefined;
 }
 

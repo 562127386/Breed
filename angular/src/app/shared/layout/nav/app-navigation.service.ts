@@ -38,7 +38,9 @@ export class AppNavigationService {
             ]),
             new AppMenuItem('IdentityInfo', 'Pages.IdentityInfo', 'flaticon-folder-1', '',[                
                 new AppMenuItem('PlaqueStore', 'Pages.IdentityInfo.PlaqueStore', 'flaticon2-box', '/app/main/plaqueStore'),
-                new AppMenuItem('PlaqueOfficer', 'Pages.IdentityInfo.PlaqueOfficer', 'flaticon2-box', '/app/main/plaqueOfficer'),
+                new AppMenuItem('PlaqueToState', 'Pages.IdentityInfo.PlaqueToState', 'flaticon2-box', '/app/main/plaqueToState'),
+                new AppMenuItem('PlaqueToCity', 'Pages.IdentityInfo.PlaqueToCity', 'flaticon2-box', '/app/main/plaqueToCity'),
+                new AppMenuItem('PlaqueToOfficer', 'Pages.IdentityInfo.PlaqueToOfficer', 'flaticon2-box', '/app/main/plaqueToOfficer'),
                 new AppMenuItem('Identification', 'Pages.IdentityInfo.Identification', 'flaticon2-box', '/app/main/livestock')
             ]),            
             new AppMenuItem('Activities', 'Pages.Activities', 'flaticon2-box', '',[                

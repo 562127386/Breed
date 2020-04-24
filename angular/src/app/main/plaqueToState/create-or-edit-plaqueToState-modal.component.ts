@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { PlaqueOfficerServiceProxy, PlaqueOfficerCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { PlaqueToStateServiceProxy, PlaqueToStateCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
@@ -8,21 +8,21 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'createOrEditPlaqueOfficerModal',
-    templateUrl: './create-or-edit-plaqueOfficer-modal.component.html'
+    selector: 'createOrEditPlaqueToStateModal',
+    templateUrl: './create-or-edit-plaqueToState-modal.component.html'
 })
-export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
+export class CreateOrEditPlaqueToStateModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;    
     @ViewChild('speciesInfoCombobox', { static: true }) speciesInfoCombobox: ElementRef;
-    @ViewChild('officerCombobox', { static: true }) officerCombobox: ElementRef;
+    @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
     
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    plaqueOfficer: PlaqueOfficerCreateOrUpdateInput = new PlaqueOfficerCreateOrUpdateInput();    
+    plaqueToState: PlaqueToStateCreateOrUpdateInput = new PlaqueToStateCreateOrUpdateInput();    
     speciesInfosSelectItems: SelectItem[] = [];
-    officersSelectItems: SelectItem[] = [];
+    stateInfosSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
@@ -31,23 +31,23 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _plaqueOfficerService: PlaqueOfficerServiceProxy
+        private _plaqueToStateService: PlaqueToStateServiceProxy
     ) {
         super(injector);
     }
 
-    show(plaqueOfficerId?: number,editdisabled?: boolean): void {  
-        if (!plaqueOfficerId) {
+    show(plaqueToStateId?: number,editdisabled?: boolean): void {  
+        if (!plaqueToStateId) {
             this.active = true;
         }
         this.editdisabled = true;
         if (!editdisabled) {
             this.editdisabled = false;
         }
-        this._plaqueOfficerService.getPlaqueOfficerForEdit(plaqueOfficerId).subscribe(userResult => {
-            this.plaqueOfficer = userResult.plaqueOfficer;
+        this._plaqueToStateService.getPlaqueToStateForEdit(plaqueToStateId).subscribe(userResult => {
+            this.plaqueToState = userResult.plaqueToState;
             
-            this.setTimeTemp = this.getDate(userResult.plaqueOfficer.setTime);
+            this.setTimeTemp = this.getDate(userResult.plaqueToState.setTime);
 
             this.speciesInfosSelectItems = _.map(userResult.speciesInfos, function(speciesInfo) {
                 return {
@@ -55,13 +55,13 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
                 };
             });
 
-            this.officersSelectItems = _.map(userResult.officers, function(officer) {
+            this.stateInfosSelectItems = _.map(userResult.stateInfos, function(stateInfo) {
                 return {
-                    label: officer.displayText, value: Number(officer.value)
+                    label: stateInfo.displayText, value: Number(stateInfo.value)
                 };
             });
 
-            if (plaqueOfficerId) {
+            if (plaqueToStateId) {
                 this.active = true;
             }
 
@@ -75,18 +75,18 @@ export class CreateOrEditPlaqueOfficerModalComponent extends AppComponentBase {
     }
 
     save(): void {
-        let input = new PlaqueOfficerCreateOrUpdateInput();
-        input = this.plaqueOfficer;
+        let input = new PlaqueToStateCreateOrUpdateInput();
+        input = this.plaqueToState;
         this.saving = true;        
         
         input.setTime = this.setDate(this.setTimeTemp);
         
-        this._plaqueOfficerService.createOrUpdatePlaqueOfficer(input)
+        this._plaqueToStateService.createOrUpdatePlaqueToState(input)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
-                this.modalSave.emit(this.plaqueOfficer);
+                this.modalSave.emit(this.plaqueToState);
             });
     }
 

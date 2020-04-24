@@ -1,32 +1,32 @@
 import { Component, Injector, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { PlaqueOfficerServiceProxy, PlaqueOfficerListDto } from '@shared/service-proxies/service-proxies';
+import { PlaqueToStateServiceProxy, PlaqueToStateListDto } from '@shared/service-proxies/service-proxies';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
 import { ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { finalize } from 'rxjs/operators';
-import { CreateOrEditPlaqueOfficerModalComponent } from './create-or-edit-plaqueOfficer-modal.component';
+import { CreateOrEditPlaqueToStateModalComponent } from './create-or-edit-plaqueToState-modal.component';
 
 @Component({
-    templateUrl: './plaqueOfficer.component.html',
+    templateUrl: './plaqueToState.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: [appModuleAnimation()],
-    styleUrls: ['./plaqueOfficer.component.less']
+    styleUrls: ['./plaqueToState.component.less']
 })
-export class PlaqueOfficerComponent extends AppComponentBase implements AfterViewInit {
+export class PlaqueToStateComponent extends AppComponentBase implements AfterViewInit {
 
-    @ViewChild('createOrEditPlaqueOfficerModal', { static: true }) createOrEditPlaqueOfficerModal: CreateOrEditPlaqueOfficerModalComponent;
+    @ViewChild('createOrEditPlaqueToStateModal', { static: true }) createOrEditPlaqueToStateModal: CreateOrEditPlaqueToStateModalComponent;
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
-    plaqueOfficers: PlaqueOfficerListDto[] = [];
+    plaqueToStates: PlaqueToStateListDto[] = [];
     filterText : string = '';
 
     constructor(
         injector: Injector,
-        private _plaqueOfficerService: PlaqueOfficerServiceProxy,
+        private _plaqueToStateService: PlaqueToStateServiceProxy,
         private _activatedRoute: ActivatedRoute
     ) {
         super(injector);
@@ -37,7 +37,7 @@ export class PlaqueOfficerComponent extends AppComponentBase implements AfterVie
         this.primengTableHelper.adjustScroll(this.dataTable);
     }
 
-    getPlaqueOfficer(event?: LazyLoadEvent) {
+    getPlaqueToState(event?: LazyLoadEvent) {
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
 
@@ -46,7 +46,7 @@ export class PlaqueOfficerComponent extends AppComponentBase implements AfterVie
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._plaqueOfficerService.getPlaqueOfficer(
+        this._plaqueToStateService.getPlaqueToState(
             this.filterText,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -62,17 +62,17 @@ export class PlaqueOfficerComponent extends AppComponentBase implements AfterVie
         this.paginator.changePage(this.paginator.getPage());
     }
 
-    createPlaqueOfficer(): void {
-        this.createOrEditPlaqueOfficerModal.show();
+    createPlaqueToState(): void {
+        this.createOrEditPlaqueToStateModal.show();
     }
 
-    deletePlaqueOfficer(plaqueOfficer: PlaqueOfficerListDto): void {
+    deletePlaqueToState(plaqueToState: PlaqueToStateListDto): void {
         this.message.confirm(
-            this.l('AreYouSureToDeleteThePlaqueOfficer', plaqueOfficer.fromCode +'-'+ plaqueOfficer.toCode),            
+            this.l('AreYouSureToDeleteThePlaqueToState', plaqueToState.fromCode +'-'+ plaqueToState.toCode),            
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {
-                    this._plaqueOfficerService.deletePlaqueOfficer(plaqueOfficer.id).subscribe(() => {
+                    this._plaqueToStateService.deletePlaqueToState(plaqueToState.id).subscribe(() => {
                         this.reloadPage();
                         this.notify.info(this.l('SuccessfullyDeleted'));
                     });

@@ -65,6 +65,9 @@ namespace Akh.Breed.Plaques
                     .Include(x => x.PlaqueToCity)
                     .ThenInclude(x => x.PlaqueToState)
                     .ThenInclude(x => x.PlaqueStore)
+                    .Include(x => x.PlaqueToCity)
+                    .ThenInclude(x => x.CityInfo)
+                    .ThenInclude(x => x.StateInfo)
                     .Where(x => x.Id == input.Id.Value)
                     .FirstOrDefaultAsync();
             }
@@ -79,7 +82,7 @@ namespace Akh.Breed.Plaques
                 : newPlaqueToOfficer;
             
             //OfficerInfos
-            output.OfficerInfos = _officerRepository
+            output.Officers = _officerRepository
                 .GetAll().Include(x => x.Contractor)
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Contractor.FirmName+" "+c.NationalCode+" ("+c.Name+","+c.Family+")"))
                 .ToList();
@@ -157,7 +160,10 @@ namespace Akh.Breed.Plaques
                     .Include(x => x.PlaqueToCity)
                     .ThenInclude(x => x.PlaqueToState)
                     .ThenInclude(x => x.PlaqueStore)
-                    .ThenInclude(x => x.Species),
+                    .ThenInclude(x => x.Species)
+                    .Include(x => x.PlaqueToCity)
+                    .ThenInclude(x => x.CityInfo)
+                    .ThenInclude(x => x.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.FromCode <= tempSearch &&
                     u.ToCode >= tempSearch);
@@ -170,7 +176,7 @@ namespace Akh.Breed.Plaques
             var plaqueToCityQuery = _plaqueToCityRepository.GetAll().AsNoTracking()
                 .Include(x => x.PlaqueToState)
                 .ThenInclude(x => x.PlaqueStore)
-                .Where(x => x.PlaqueToState.PlaqueStore.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);
+                .Where(x => x.CityInfoId == input.CityInfoId && x.PlaqueToState.PlaqueStore.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);
             var plaqueToCity = await plaqueToCityQuery.FirstOrDefaultAsync(x => (x.LastCode != 0 && x.ToCode - x.LastCode >= input.PlaqueCount) || (x.LastCode == 0 && x.ToCode - x.FromCode + 1 >= input.PlaqueCount));
             if (plaqueToCity != null)
             {

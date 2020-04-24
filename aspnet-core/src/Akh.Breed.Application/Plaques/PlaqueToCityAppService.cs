@@ -62,6 +62,7 @@ namespace Akh.Breed.Plaques
                     .GetAll()
                     .Include(x => x.PlaqueToState)
                     .ThenInclude(x => x.PlaqueStore)
+                    .Include(x => x.CityInfo)
                     .Where(x => x.Id == input.Id.Value)
                     .FirstOrDefaultAsync();
             }
@@ -159,7 +160,7 @@ namespace Akh.Breed.Plaques
         {
             var plaqueToStateQuery = _plaqueToStateRepository.GetAll().AsNoTracking()
                 .Include(x => x.PlaqueStore)
-                .Where(x => x.PlaqueStore.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);
+                .Where(x => x.StateInfoId == input.StateInfoId &&x.PlaqueStore.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);
             var plaqueToState = await plaqueToStateQuery.FirstOrDefaultAsync(x => (x.LastCode != 0 && x.ToCode - x.LastCode >= input.PlaqueCount) || (x.LastCode == 0 && x.ToCode - x.FromCode + 1 >= input.PlaqueCount));
             if (plaqueToState != null)
             {

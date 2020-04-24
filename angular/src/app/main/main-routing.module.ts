@@ -19,7 +19,9 @@ import { AcademicDegreeComponent } from './academicDegree/academicDegree.compone
 import { NoticeComponent } from './notice/notice.component';
 import { EpidemiologicInfoComponent } from './epidemiologicInfo/epidemiologicInfo.component';
 import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
-import { PlaqueOfficerComponent } from './plaqueOfficer/plaqueOfficer.component';
+import { PlaqueToStateComponent } from './plaqueToState/plaqueToState.component';
+import { PlaqueToCityComponent } from './plaqueToCity/plaqueToCity.component';
+import { PlaqueToOfficerComponent } from './plaqueToOfficer/plaqueToOfficer.component';
 import { HerdComponent } from './herd/herd.component';
 import { LivestockComponent } from './livestock/livestock.component';
 import { PlaqueChangeComponent } from './plaqueChange/plaqueChange.component';
@@ -51,7 +53,9 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
                     { path: 'notice', component: NoticeComponent },
                     { path: 'epidemiologicInfo', component: EpidemiologicInfoComponent },
                     { path: 'plaqueStore', component: PlaqueStoreComponent },
-                    { path: 'plaqueOfficer', component: PlaqueOfficerComponent },
+                    { path: 'plaqueToState', component: PlaqueToStateComponent },
+                    { path: 'plaqueToCity', component: PlaqueToCityComponent },
+                    { path: 'plaqueToOfficer', component: PlaqueToOfficerComponent },
                     { path: 'herd', component: HerdComponent },
                     { path: 'livestock', component: LivestockComponent },
                     { path: 'plaqueChange', component: PlaqueChangeComponent },

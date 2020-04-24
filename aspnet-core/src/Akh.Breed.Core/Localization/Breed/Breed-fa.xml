@@ -1177,23 +1177,35 @@
     <text name="OfficerInfo">اطلاعات شناسایی مامور</text>
     <text name="OfficerInfoAddress">اطلاعات محل کار</text>
 
-      <text name="SpeciesName">گونه دام</text>
-      <text name="SetTime">تاریخ اختصاص</text>
-      <text name="FromCode">از شماره</text>
-      <text name="ToCode">تا شماره</text>
-      <text name="Finished">تمام شده</text>
-      <text name="FinishedCode">کد پایانی</text>
-      <text name="FinishedDate">تاریخ اتمام</text>
-      <text name="CreateNewPlaqueStore">ایجاد انبار پلاک</text>
-      <text name="ViewNewPlaqueStore">نمایش انبار پلاک</text>
+    <text name="SpeciesName">گونه دام</text>
+    <text name="SetTime">تاریخ اختصاص</text>
+    <text name="FromCode">از شماره</text>
+    <text name="ToCode">تا شماره</text>
+    <text name="Finished">تمام شده</text>
+    <text name="FinishedCode">کد پایانی</text>
+    <text name="FinishedDate">تاریخ اتمام</text>
+    <text name="CreateNewPlaqueStore">ایجاد انبار پلاک</text>
+    <text name="ViewNewPlaqueStore">نمایش انبار پلاک</text>
 
     <text name="PlaqueCount">تعداد پلاک</text>
     <text name="PlaqueUsed">پلاک نصب شده</text>
     <text name="AreYouSureToDeleteThePlaqueStore">آیا از حذف انبار {0} مطمئن هستید؟</text>
-      <text name="PlaqueOfficer">تخصیص پلاک به مامور</text>
-    <text name="CreateNewPlaqueOfficer">اختصاص پلاک به مامور</text>
-    <text name="ViewNewPlaqueOfficer">نمایش پلاک اختصاصی به مامور</text>
-    <text name="AreYouSureToDeleteThePlaqueOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
+    
+    <text name="PlaqueToState">تخصیص پلاک به استان</text>
+    <text name="CreateNewPlaqueToState">اختصاص پلاک به استان</text>
+    <text name="ViewNewPlaqueToState">نمایش پلاک اختصاصی به استان</text>
+    <text name="AreYouSureToDeleteThePlaqueToState">آیا از حذف پلاک از استان {0} مطمئن هستید؟</text>
+
+    <text name="PlaqueToCity">تخصیص پلاک به شهر</text>
+    <text name="CreateNewPlaqueToCity">اختصاص پلاک به شهر</text>
+    <text name="ViewNewPlaqueToCity">نمایش پلاک اختصاصی به شهر</text>
+    <text name="AreYouSureToDeleteThePlaqueToCity">آیا از حذف پلاک از ش {0} مطمئن هستید؟</text>
+
+    <text name="PlaqueToOfficer">تخصیص پلاک به مامور</text>
+    <text name="CreateNewPlaqueToOfficer">اختصاص پلاک به مامور</text>
+    <text name="ViewNewPlaqueToOfficer">نمایش پلاک اختصاصی به مامور</text>
+    <text name="AreYouSureToDeleteThePlaqueToOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
+
     <text name="ّFatherName">نام پدر</text>
     
     <text name="UnionInfo">اتحادیه</text>
@@ -1266,12 +1278,12 @@
     <text name="PreStateName">وضعیت قدیم</text>
     <text name="NewStateName">وضعیت جدید</text>
 
-      <text name="MobHerd">معرفی گله</text>
-      <text name="MobPlaqueOfficer">تخصیص پلاک</text>
-      <text name="MobLivestock">نصب پلاک</text>
-      <text name="MobHerdGeoLog">موقعیت گله</text>
-      <text name="MobPlaqueChange">تغییر وضعیت</text>
-      <text name="MobHerdCertificate">گواهی گله</text>
+    <text name="MobHerd">معرفی گله</text>
+    <text name="MobPlaqueOfficer">تخصیص پلاک</text>
+    <text name="MobLivestock">نصب پلاک</text>
+    <text name="MobHerdGeoLog">موقعیت گله</text>
+    <text name="MobPlaqueChange">تغییر وضعیت</text>
+    <text name="MobHerdCertificate">گواهی گله</text>
   </texts>
 </localizationDictionary>
 

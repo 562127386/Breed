@@ -13,12 +13,12 @@
                                 <i class="flaticon2-graph"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                <span>{{"PlaqueOfficer" | localize}}</span>
+                                <span>{{"PlaqueToState" | localize}}</span>
                             </h3>                        
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <div (click)="createPlaqueOfficer()" *ngIf="'Pages.IdentityInfo.PlaqueOfficer.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                                <div (click)="createPlaqueToState()" *ngIf="'Pages.IdentityInfo.PlaqueToState.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
                                     data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                     <i class="flaticon2-add-1"></i>
                                 </div>
@@ -37,7 +37,7 @@
                                                     class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
                                                     type="text">
                                                 <span class="input-group-btn">
-                                                    <button (click)="getPlaqueOfficer()" class="btn btn-brand" type="submit"><i
+                                                    <button (click)="getPlaqueToState()" class="btn btn-brand" type="submit"><i
                                                             class="flaticon-search-1"
                                                             [attr.aria-label]="l('Search')"></i></button>
                                                 </span>
@@ -51,7 +51,7 @@
                         <div class="row align-items-center kt-margin-0">
                             <!--<Primeng-TurboTable-Start>-->
                             <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                                <p-table #dataTable (onLazyLoad)="getPlaqueOfficer($event)" [value]="primengTableHelper.records"
+                                <p-table #dataTable (onLazyLoad)="getPlaqueToState($event)" [value]="primengTableHelper.records"
                                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false"
                                     [lazy]="true" [scrollable]="true" ScrollWidth="100%"
                                     [responsive]="primengTableHelper.isResponsive"
@@ -62,10 +62,7 @@
                                                 {{'OfficerCode' | localize}}
                                             </th> -->
                                             <th style="width: 100px" >
-                                                {{'OfficerName' | localize}}
-                                            </th>
-                                            <th style="width: 100px" >
-                                                {{'OfficerFamily' | localize}}
+                                                {{'StateInfo' | localize}}
                                             </th>
                                             <th style="width: 100px" >
                                                 {{'SpeciesName' | localize}}
@@ -100,12 +97,8 @@
                                                 {{record.officerCode}}
                                             </td> -->
                                             <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'OfficerName' | localize}}</span>
-                                                {{record.officerName}}
-                                            </td>
-                                            <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'OfficerFamily' | localize}}</span>
-                                                {{record.officerFamily}}
+                                                <span class="ui-column-title"> {{'StateInfo' | localize}}</span>
+                                                {{record.stateName}}
                                             </td>
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'SpeciesName' | localize}}</span>
@@ -133,11 +126,11 @@
                                             </td>
                                             <td style="width: 130px">
                                                 <div class="kt-section__content kt-section__content--solid">
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditPlaqueOfficerModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
-                                                    <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditPlaqueOfficerModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
-                                                        *ngIf="'Pages.IdentityInfo.PlaqueOfficer.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button> -->
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deletePlaqueOfficer(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
-                                                        *ngIf="'Pages.IdentityInfo.PlaqueOfficer.Delete' | permission"><i class="flaticon-delete"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditPlaqueToStateModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                    <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditPlaqueToStateModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.IdentityInfo.PlaqueToState.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button> -->
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deletePlaqueToState(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.IdentityInfo.PlaqueToState.Delete' | permission"><i class="flaticon-delete"></i></button>
                                                 </div>                                            
                                             </td>                                     
                                         </tr>
@@ -148,7 +141,7 @@
                                 </div>
                                 <div class="primeng-paging-container">
                                     <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                                        (onPageChange)="getPlaqueOfficer($event)"
+                                        (onPageChange)="getPlaqueToState($event)"
                                         [totalRecords]="primengTableHelper.totalRecordsCount"
                                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
     
@@ -168,7 +161,7 @@
                                 
                             </div>
                             <div class="col-lg-6 kt-align-right">
-                                <button (click)="createPlaqueOfficer()" *ngIf="'Pages.IdentityInfo.PlaqueOfficer.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewPlaqueOfficer" | localize}}</button>
+                                <button (click)="createPlaqueToState()" *ngIf="'Pages.IdentityInfo.PlaqueToState.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewPlaqueToState" | localize}}</button>
                             </div>
                         </div>
                     </div>
@@ -176,6 +169,6 @@
                 </div>
             </div>
     
-            <createOrEditPlaqueOfficerModal #createOrEditPlaqueOfficerModal (modalSave)="getPlaqueOfficer()"></createOrEditPlaqueOfficerModal>
+            <createOrEditPlaqueToStateModal #createOrEditPlaqueToStateModal (modalSave)="getPlaqueToState()"></createOrEditPlaqueToStateModal>
         </div>
     </div>

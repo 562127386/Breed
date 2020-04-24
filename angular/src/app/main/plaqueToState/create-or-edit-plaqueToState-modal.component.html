@@ -1,0 +1,67 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #plaqueToStateForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header kt-bg-brand">
+                    <h4 class="modal-title">
+                        <span *ngIf="plaqueToState.id && editdisabled">{{"ViewNewPlaqueToState" | localize}}: {{plaqueToState.name}}</span>
+                        <span *ngIf="plaqueToState.id && !editdisabled">{{"EditNewPlaqueToState" | localize}}: {{plaqueToState.name}}</span>
+                        <span *ngIf="!plaqueToState.id">{{"CreateNewPlaqueToState" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">                        
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"StateInfo" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                        <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        name="stateInfoId" [(ngModel)]="plaqueToState.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesInfo" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                        <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        name="speciesInfoId" [(ngModel)]="plaqueToState.speciesInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"SetDate" | localize}} *</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input #setTimeTempInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="setTimeTemp" name="setTimeTemp" maxlength="10" autocomplete="new-password" placeholder="1398/01/01" pattern="^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$" required/>
+                                    <validation-messages [formCtrl]="setTimeTempInput"></validation-messages>
+                                </div>
+                            </div>                                
+                        </div> 
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-3 col-sm-12">{{"PlaqueCount" | localize}}</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input #plaqueCountInput="ngModel" [(ngModel)]="plaqueToState.plaqueCount" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'PlaqueCount' | localize}} *" name="plaqueCount" required maxlength="15"/>
+                                <validation-messages [formCtrl]="plaqueCountInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>                   
+                    </div>                                                
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!plaqueToStateForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    

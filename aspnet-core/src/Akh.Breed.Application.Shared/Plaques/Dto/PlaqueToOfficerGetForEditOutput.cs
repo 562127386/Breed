@@ -11,14 +11,14 @@ namespace Akh.Breed.Plaques.Dto
         
         public List<ComboboxItemDto> CityInfos { get; set; }
         
-        public List<ComboboxItemDto> OfficerInfos { get; set; }
+        public List<ComboboxItemDto> Officers { get; set; }
         public List<ComboboxItemDto> SpeciesInfos { get; set; }
 
         public PlaqueToOfficerGetForEditOutput()
         {
             StateInfos = new List<ComboboxItemDto>();
             CityInfos = new List<ComboboxItemDto>();
-            OfficerInfos = new List<ComboboxItemDto>();
+            Officers = new List<ComboboxItemDto>();
             SpeciesInfos = new List<ComboboxItemDto>();
         }
     }

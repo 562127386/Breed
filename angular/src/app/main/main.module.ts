@@ -41,8 +41,12 @@ import { RegionInfoComponent } from "./regionInfo/regionInfo.component";
 import { CreateOrEditRegionInfoModalComponent } from "./regionInfo/create-or-edit-regionInfo-modal.component";
 import { PlaqueStoreComponent } from "./plaqueStore/plaqueStore.component";
 import { CreateOrEditPlaqueStoreModalComponent } from "./plaqueStore/create-or-edit-plaqueStore-modal.component";
-import { PlaqueOfficerComponent } from "./plaqueOfficer/plaqueOfficer.component";
-import { CreateOrEditPlaqueOfficerModalComponent } from "./plaqueOfficer/create-or-edit-plaqueOfficer-modal.component";
+import { PlaqueToStateComponent } from "./plaqueToState/plaqueToState.component";
+import { CreateOrEditPlaqueToStateModalComponent } from "./plaqueToState/create-or-edit-plaqueToState-modal.component";
+import { PlaqueToCityComponent } from "./plaqueToCity/plaqueToCity.component";
+import { CreateOrEditPlaqueToCityModalComponent } from "./plaqueToCity/create-or-edit-plaqueToCity-modal.component";
+import { PlaqueToOfficerComponent } from "./plaqueToOfficer/plaqueToOfficer.component";
+import { CreateOrEditPlaqueToOfficerModalComponent } from "./plaqueToOfficer/create-or-edit-plaqueToOfficer-modal.component";
 import { HerdComponent } from "./herd/herd.component";
 import { CreateOrEditHerdModalComponent } from "./herd/create-or-edit-herd-modal.component";
 import { PlaqueChangeComponent } from "./plaqueChange/plaqueChange.component";
@@ -139,8 +143,12 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CreateOrEditRegionInfoModalComponent,
         PlaqueStoreComponent,
         CreateOrEditPlaqueStoreModalComponent,
-        PlaqueOfficerComponent,
-        CreateOrEditPlaqueOfficerModalComponent,
+        PlaqueToStateComponent,
+        CreateOrEditPlaqueToStateModalComponent,
+        PlaqueToCityComponent,
+        CreateOrEditPlaqueToCityModalComponent,
+        PlaqueToOfficerComponent,
+        CreateOrEditPlaqueToOfficerModalComponent,
         HerdComponent,
         CreateOrEditHerdModalComponent,
         LivestockComponent,
