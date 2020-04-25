@@ -35445,7 +35445,7 @@ p-inputmask, p-inputmask>input {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #0e4a63 ;
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: 600;
   text-align: center;
 }
@@ -35453,6 +35453,7 @@ p-inputmask, p-inputmask>input {
 @media (max-width: 768px) {
   .form-control {
     font-size: 1.1rem;
+    font-weight: 600;
   }
 }
 @media (min-width: 768px) {
