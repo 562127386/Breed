@@ -50,6 +50,8 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<Officer> Officers { get; set; }
 
         public virtual DbSet<AcademicDegree> AcademicDegrees { get; set; }
+
+        public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         
         public virtual DbSet<Notice> Notices { get; set; }
 
@@ -167,6 +169,12 @@ namespace Akh.Breed.EntityFrameworkCore
             });
             
             modelBuilder.Entity<AcademicDegree>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+
+            modelBuilder.Entity<Manufacturer>(b =>
             {
                 b.HasIndex(e => e.Code).IsUnique();
                 b.HasIndex(e => e.Name).IsUnique();

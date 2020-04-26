@@ -247,7 +247,7 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
     }
 
     setDate(input: string): moment.Moment {
-        if( input !== undefined || input != ''){
+        if( input !== undefined && input != ''){
             return moment(input);
         }
         return undefined;

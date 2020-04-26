@@ -137,6 +137,11 @@ namespace Akh.Breed.Authorization
             academicDegree.CreateChildPermission(AppPermissions.Pages_BaseInfo_AcademicDegree_Edit, L("EditNewAcademicDegree"));
             academicDegree.CreateChildPermission(AppPermissions.Pages_BaseInfo_AcademicDegree_Delete, L("DeleteNewAcademicDegree"));
 
+            var manufacturer = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_Manufacturer, L("Manufacturer"));
+            manufacturer.CreateChildPermission(AppPermissions.Pages_BaseInfo_Manufacturer_Create, L("CreateNewManufacturer"));
+            manufacturer.CreateChildPermission(AppPermissions.Pages_BaseInfo_Manufacturer_Edit, L("EditNewManufacturer"));
+            manufacturer.CreateChildPermission(AppPermissions.Pages_BaseInfo_Manufacturer_Delete, L("DeleteNewManufacturer"));
+
             var sexInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SexInfo, L("SexInfo"));
             sexInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SexInfo_Create, L("CreateNewSexInfo"));
             sexInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_SexInfo_Edit, L("EditNewSexInfo"));

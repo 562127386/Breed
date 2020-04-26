@@ -16,6 +16,7 @@ import { PlaqueStateComponent } from './plaqueState/plaqueState.component';
 import { StateInfoComponent } from './stateInfo/stateInfo.component';
 import { VillageInfoComponent } from './villageInfo/villageInfo.component';
 import { AcademicDegreeComponent } from './academicDegree/academicDegree.component';
+import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 import { NoticeComponent } from './notice/notice.component';
 import { EpidemiologicInfoComponent } from './epidemiologicInfo/epidemiologicInfo.component';
 import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
@@ -50,6 +51,7 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
                     { path: 'stateInfo', component: StateInfoComponent },
                     { path: 'villageInfo', component: VillageInfoComponent },
                     { path: 'academicDegree', component: AcademicDegreeComponent },
+                    { path: 'manufacturer', component: ManufacturerComponent },
                     { path: 'notice', component: NoticeComponent },
                     { path: 'epidemiologicInfo', component: EpidemiologicInfoComponent },
                     { path: 'plaqueStore', component: PlaqueStoreComponent },

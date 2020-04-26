@@ -1,8 +1,8 @@
 {
-    "name": "Breed",
-    "short_name": "Breed App",
+    "name": "سامانه دامیار",
+    "short_name": "سامانه دامیار",
     "description": "This is a Breed app",
-    "lang": "en-GB",
+    "lang": "fa",
     "start_url": "/index.html",
     "scope": "/",
     "display": "standalone"

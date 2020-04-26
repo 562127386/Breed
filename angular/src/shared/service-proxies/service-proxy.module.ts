@@ -51,6 +51,7 @@ import { ZeroRefreshTokenService } from '@account/auth/zero-refresh-token.servic
         ApiServiceProxies.SpeciesInfoServiceProxy,
         ApiServiceProxies.SexInfoServiceProxy,
         ApiServiceProxies.AcademicDegreeServiceProxy,
+        ApiServiceProxies.ManufacturerServiceProxy,
         ApiServiceProxies.FirmTypeServiceProxy,
         ApiServiceProxies.PlaqueStateServiceProxy,
         ApiServiceProxies.StateInfoServiceProxy,

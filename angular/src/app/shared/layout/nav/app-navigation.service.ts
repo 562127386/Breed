@@ -29,7 +29,8 @@ export class AppNavigationService {
                 new AppMenuItem('SexInfo', 'Pages.BaseInfo.SexInfo', 'flaticon-technology-1', '/app/main/sexInfo'),
                 new AppMenuItem('SpeciesInfo', 'Pages.BaseInfo.SpeciesInfo', 'flaticon-interface-6', '/app/main/speciesInfo'),
                 new AppMenuItem('FirmType', 'Pages.BaseInfo.FirmType', 'flaticon-line-chart-1', '/app/main/firmType'),
-                new AppMenuItem('PlaqueState', 'Pages.BaseInfo.PlaqueState', 'flaticon-technology-2', '/app/main/plaqueState')
+                new AppMenuItem('PlaqueState', 'Pages.BaseInfo.PlaqueState', 'flaticon-technology-2', '/app/main/plaqueState'),
+                new AppMenuItem('Manufacturer', 'Pages.BaseInfo.Manufacturer', 'flaticon-technology-2', '/app/main/manufacturer')
             ]),
             new AppMenuItem('BaseIntro', 'Pages.BaseIntro', 'flaticon-folder-1', '',[
                 new AppMenuItem('Contractor', 'Pages.BaseIntro.Contractor', 'flaticon-diagram', '/app/main/contractor'),

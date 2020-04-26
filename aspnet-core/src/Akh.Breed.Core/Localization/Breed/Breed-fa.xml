@@ -989,6 +989,7 @@
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
+    <text name="Manufacturer">شرکت سازنده</text>
     <text name="HerdGeoLog">موقیعت گله</text>
     <text name="PlaqueChange">تغییر وضعیت پلاک</text>
     <text name="Notice">اعلانات</text>
@@ -1025,6 +1026,13 @@
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
     <text name="DeleteNewAcademicDegree">حذف مقطع تحصیلی</text>
+
+    <text name="CreateNewManufacturer">ایجاد وارد کننده</text>
+    <text name="AreYouSureToDeleteTheManufacturer">آیا از حذف وارد کننده {0} مطمئن هستید؟</text>
+    <text name="ManufacturerHeaderInfo">مدیریت وارد کننده</text>
+    <text name="ViewNewManufacturer">نمایش وارد کننده</text>
+    <text name="EditNewManufacturer">ویرایش وارد کننده</text>
+    <text name="DeleteNewManufacturer">حذف وارد کننده</text>
 
     <text name="CreateNewHerdGeoLog">اصلاح موقیعت گله</text>
     <text name="HerdGeoLogHeaderInfo">مدیریت موقیعت گله</text>
@@ -1279,11 +1287,13 @@
     <text name="NewStateName">وضعیت جدید</text>
 
     <text name="MobHerd">معرفی گله</text>
-    <text name="MobPlaqueOfficer">تخصیص پلاک</text>
+    <text name="MobPlaqueOfficer">پلاک نزد دامیار</text>
     <text name="MobLivestock">نصب پلاک</text>
     <text name="MobHerdGeoLog">موقعیت گله</text>
     <text name="MobPlaqueChange">تغییر وضعیت</text>
-    <text name="MobHerdCertificate">گواهی گله</text>
+    <text name="MobHerdCertificate">گواهی نصب</text>
+    
+    <text name="IsImporter">واردکننده</text>
   </texts>
 </localizationDictionary>
 

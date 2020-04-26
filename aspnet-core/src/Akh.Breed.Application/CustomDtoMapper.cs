@@ -217,6 +217,10 @@ namespace Akh.Breed
             configuration.CreateMap<AcademicDegree, AcademicDegreeListDto>();
             configuration.CreateMap<AcademicDegreeCreateOrUpdateInput, AcademicDegree>();
             configuration.CreateMap<AcademicDegree, AcademicDegreeCreateOrUpdateInput>();
+            
+            configuration.CreateMap<Manufacturer, ManufacturerListDto>();
+            configuration.CreateMap<ManufacturerCreateOrUpdateInput, Manufacturer>();
+            configuration.CreateMap<Manufacturer, ManufacturerCreateOrUpdateInput>();
 
             configuration.CreateMap<Notice, NoticeListDto>()
                 .ForMember(d => d.UserName, options => options.MapFrom(l => l.User.Name + " " + l.User.Surname));

@@ -23,6 +23,8 @@ import { SpeciesInfoComponent } from "./speciesInfo/speciesInfo.component";
 import { CreateOrEditSpeciesInfoModalComponent } from "./speciesInfo/create-or-edit-speciesInfo-modal.component";
 import { AcademicDegreeComponent } from "./academicDegree/academicDegree.component";
 import { CreateOrEditAcademicDegreeModalComponent } from "./academicDegree/create-or-edit-academicDegree-modal.component";
+import { ManufacturerComponent } from "./manufacturer/manufacturer.component";
+import { CreateOrEditManufacturerModalComponent } from "./manufacturer/create-or-edit-manufacturer-modal.component";
 import { NoticeComponent } from "./notice/notice.component";
 import { CreateOrEditNoticeModalComponent } from "./notice/create-or-edit-notice-modal.component";
 import { EpidemiologicInfoComponent } from "./epidemiologicInfo/epidemiologicInfo.component";
@@ -125,6 +127,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CreateOrEditSpeciesInfoModalComponent,
         AcademicDegreeComponent,
         CreateOrEditAcademicDegreeModalComponent,
+        ManufacturerComponent,
+        CreateOrEditManufacturerModalComponent,
         NoticeComponent,
         CreateOrEditNoticeModalComponent,
         EpidemiologicInfoComponent,

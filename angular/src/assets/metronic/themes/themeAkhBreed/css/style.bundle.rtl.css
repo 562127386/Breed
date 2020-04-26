@@ -35461,3 +35461,7 @@ p-inputmask, p-inputmask>input {
     font-size: 0.8rem;
   }
 }
+
+.ui-widget-header .ui-inputtext, .ui-widget-content .ui-inputtext {
+  font-weight: 600;
+}

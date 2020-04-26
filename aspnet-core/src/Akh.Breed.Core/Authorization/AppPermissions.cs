@@ -119,6 +119,11 @@
         public const string Pages_BaseInfo_AcademicDegree_Edit = "Pages.BaseInfo.AcademicDegree.Edit";
         public const string Pages_BaseInfo_AcademicDegree_Delete = "Pages.BaseInfo.AcademicDegree.Delete";
         
+        public const string Pages_BaseInfo_Manufacturer = "Pages.BaseInfo.Manufacturer";
+        public const string Pages_BaseInfo_Manufacturer_Create = "Pages.BaseInfo.Manufacturer.Create";
+        public const string Pages_BaseInfo_Manufacturer_Edit = "Pages.BaseInfo.Manufacturer.Edit";
+        public const string Pages_BaseInfo_Manufacturer_Delete = "Pages.BaseInfo.Manufacturer.Delete";
+        
         public const string Pages_BaseInfo_SexInfo = "Pages.BaseInfo.SexInfo";
         public const string Pages_BaseInfo_SexInfo_Create = "Pages.BaseInfo.SexInfo.Create";
         public const string Pages_BaseInfo_SexInfo_Edit = "Pages.BaseInfo.SexInfo.Edit";
