@@ -34321,8 +34321,8 @@ body {
       min-height: 35px; }
       .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text,
       .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
-        font-weight: 500;
-        font-size: 0.8rem;
+        font-weight: 900;
+        font-size: 1.1rem;
         text-transform: initial; }
       .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-icon,
       .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-icon {
@@ -34387,8 +34387,8 @@ body {
         min-height: 28px; }
         .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__heading .kt-menu__link-text,
         .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__link .kt-menu__link-text {
-          font-weight: 400;
-          font-size: 0.75rem;
+          font-weight: 800;
+          font-size: 1rem;
           text-transform: initial; }
         .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__heading .kt-menu__link-icon,
         .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__link .kt-menu__link-icon {
@@ -34616,7 +34616,7 @@ body {
             .kt-aside--minimize .kt-aside-menu .kt-menu__nav .kt-menu__item:not([data-ktmenu-submenu-mode=accordion]).kt-menu__item--hover > .kt-menu__submenu .kt-menu__subnav > .kt-menu__item > .kt-menu__link .kt-menu__link-text,
             .kt-aside-menu.kt-aside-menu--dropdown .kt-menu__nav .kt-menu__item:not([data-ktmenu-submenu-mode=accordion]).kt-menu__item--hover > .kt-menu__submenu .kt-menu__subnav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text,
             .kt-aside-menu.kt-aside-menu--dropdown .kt-menu__nav .kt-menu__item:not([data-ktmenu-submenu-mode=accordion]).kt-menu__item--hover > .kt-menu__submenu .kt-menu__subnav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
-              font-weight: 400;
+              font-weight: 800;
               font-size: 1rem;
               text-transform: initial; }
             .kt-aside--minimize .kt-aside-menu .kt-menu__nav .kt-menu__item:not([data-ktmenu-submenu-mode=accordion]).kt-menu__item--hover > .kt-menu__submenu .kt-menu__subnav > .kt-menu__item > .kt-menu__heading .kt-menu__link-icon,
@@ -35379,7 +35379,7 @@ body {
 */
 body .ui-widget {
   font-family: IRANSans-web;
-  font-size: 11px;
+  font-size: 13px;
   text-decoration: none;
 }
 

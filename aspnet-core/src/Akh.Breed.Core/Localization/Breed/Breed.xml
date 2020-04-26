@@ -4,7 +4,7 @@
     <text name="HomePage">خانه</text>
     <text name="AboutUs">درباره ما</text>
     <text name="Administration">ادمین</text>
-    <text name="Roles">قوانین</text>
+    <text name="Roles">نقش ها</text>
     <text name="Users">کاربران</text>
     <text name="InvalidFormMessage">اطلاعات فرم معتبر نیست خواهشمند است بررسی کنید.</text>
     <text name="InvalidUserNameOrPassword">نام کاربری یا رمز اشتباه است.</text>
@@ -21,10 +21,10 @@
     <text name="DontYouHaveAnAccount">نام کاربری وجود ندارد؟</text>
     <text name="CreateAnAccount">ایجاد حساب</text>
     <text name="Pages">صفحات</text>
-    <text name="RoleName">نام قانون</text>
-    <text name="EditRole">ویرایش قانون</text>
-    <text name="CreateNewRole">ایجاد قانون</text>
-    <text name="RoleProperties">مشخصات قانون</text>
+    <text name="RoleName">نام نقش</text>
+    <text name="EditRole">ویرایش نقش</text>
+    <text name="CreateNewRole">ایجاد نقش</text>
+    <text name="RoleProperties">مشخصات نقش</text>
     <text name="Permissions">دسترسی ها</text>
     <text name="Save">ذخیره</text>
     <text name="Cancel">لغو</text>
@@ -80,7 +80,7 @@
     <text name="DeletingRole">حذف نقش</text>
     <text name="CreationTime">زمان ایجاد</text>
     <text name="SearchWithThreeDot">جستجو...</text>
-    <text name="ResetSpecialPermissions">تنشیم مجدد دسترسی ها</text>
+    <text name="ResetSpecialPermissions">تنظیم مجدد دسترسی ها</text>
     <text name="SavingWithThreeDot">ذخیره...</text>
     <text name="Settings">تنظیمات</text>
     <text name="SaveAll">ذخیره همه</text>
@@ -109,7 +109,7 @@
     <text name="EmailActivation_Title">خوش آمدید.</text>
     <text name="EmailActivation_SubTitle">پیام برای تایید آدرس الکترونیک برای شما ارسال شد.</text>
     <text name="EmailActivation_ClickTheLinkBelowToVerifyYourEmail">خواهشمند است جهت تایید آدرس الکترونیک بر روی لینک کلیک کنید:</text>
-    <text name="InvalidEmailAddress">آدرس الکترونبک معتبر نیست</text>
+    <text name="InvalidEmailAddressThisNameAlreadyExists">آدرس الکترونبک معتبر نیست</text>
     <text name="InvalidPasswordResetCode">کد بازیابی کلمه عبور معتبر نیست</text>
     <text name="InvalidPasswordResetCode_Detail">خواهمند است از طریق لینک ارسال شده به این صفحه وارد شوید. در صورت ناموفق بود خواهشمند است دوباره تلاش کنید.</text>
     <text name="PleaseEnterYourNewPassword">خواهشمند است کلمه عبور جدید را وارد کنید.</text>
@@ -141,7 +141,7 @@
     <text name="NewRegisteredUsersIsActiveByDefault_Hint">در صورت غیر فعال شدن حساب، تنها ادمین دسترسی فعال کردن مجدد را دارد..</text>
     <text name="Default">پیش فرض</text>
     <text name="DefaultRole_Description">به صورت پیش فرض اختصاص داده شود.</text>
-    <text name="StaticRole_Tooltip">قوانین پایه قابل حذف نیستند.</text>
+    <text name="StaticRole_Tooltip">نقش های پایه قابل حذف نیستند.</text>
     <text name="EmailConfirmationRequiredForLogin">تایید آدرس جهت ورود باید انجام شود.</text>
     <text name="{0}UserCannotBeDeleted">کاربر {0} نمی تواند حذف شود.</text>
     <text name="TenantNameCanNotBeEmpty">نام زیر سازمان نمیتواند خالی باشد</text>
@@ -341,16 +341,16 @@
     <text name="ReceiveNotifications_DisableInfo">You completely disabled receiving notifications. You can enable it and select notification types you want to receive.</text>
     <text name="Notifications">Notifications</text>
     <text name="ThereIsNoNotification">There is no notification.</text>
-    <text name="Unread">Unread</text>
+    <text name="Unread">خوانده نشده</text>
     <text name="YouCanNotDeleteOwnAccount">You can not delete own user account!</text>
-    <text name="On">On</text>
-    <text name="Off">Off</text>
-    <text name="Maintenance">Maintenance</text>
+    <text name="On">روشن</text>
+    <text name="Off">خاموش</text>
+    <text name="Maintenance">نگهداری</text>
     <text name="Caches">Caches</text>
     <text name="CacheSuccessfullyCleared">Cache successfully cleared.</text>
     <text name="AllCachesSuccessfullyCleared">All caches successfully cleared.</text>
-    <text name="ClearAll">Clear all</text>
-    <text name="Clear">Clear</text>
+    <text name="ClearAll">پاک کردن همه</text>
+    <text name="Clear">پاک کردن</text>
     <text name="CachesHeaderInfo">You can clear caches in application on this page.</text>
     <text name="TestEmailSettingsHeader">Test Email Settings</text>
     <text name="SendTestEmail">Send Test Email</text>
@@ -379,7 +379,7 @@
     <text name="Timezone">Timezone</text>
     <text name="HasOwnDatabase">Has own database</text>
     <text name="TimeZoneSettingChangedRefreshPageNotification">Timezone setting changed. Click OK button to refresh page and changes to take effect.</text>
-    <text name="Ok">Ok</text>
+    <text name="Ok">تایید</text>
     <text name="Permission">Permission</text>
     <text name="Role">Role</text>
     <text name="Security">Security</text>
@@ -392,7 +392,6 @@
     <text name="NewChatMessageEmail_SubTitle"></text>
     <text name="NewChatMessageEmail_Subject">You have a new chat message</text>
     <text name="Sender">فرستنده</text>
-    <text name="Message">Message</text>
     <text name="UserBlocked">User blocked successfully.</text>
     <text name="UserUnblocked">Block removed from user successfully.</text>
     <text name="BlockUser">Block user</text>
@@ -429,8 +428,8 @@
     <text name="TenantToHostChatFeatureIsNotEnabledForReceiver">Chat with host is not enabled for tenant.</text>
     <text name="TenantToTenantChatFeature">Chat with other tenants</text>
     <text name="TenantToHostChatFeature">Chat with host</text>
-    <text name="FilterByPermission">Filter by permission</text>
-    <text name="FilterByRole">Filter by role</text>
+    <text name="FilterByPermission">فیلتر شده بر اساس دسترسی</text>
+    <text name="FilterByRole">فیلتر شده بر اساس نقش</text>
     <text name="FilterOrAddUser">Filter/Add user</text>
     <text name="HangfireDashboard">Hangfire dashboard</text>
     <text name="CouldNotCompleteLoginOperation">Could not complete the login operation.</text>
@@ -448,7 +447,7 @@
     <text name="RememberThisBrowser">Remember this browser</text>
     <text name="InvalidSecurityCode">Invalid security code!</text>
     <text name="PhoneNumber">Phone number</text>
-    <text name="Unlock">Unlock</text>
+    <text name="Unlock">بازگشایی</text>
     <text name="UnlockedTheUser">Unlocked the user {0}</text>
     <text name="UserLockOut">User Lock Out</text>
     <text name="EnableUserAccountLockingOnFailedLoginAttemts">Enable user account locking on failed login attempts</text>
@@ -618,7 +617,11 @@
     <text name="GoogleAuthenticatorReferrerLink">Not sure what this screen means? You may need to check this </text>
     <text name="ScanQrCodeWithYourMobileApp">Scan this QR code with your mobile app</text>
     <text name="Profile">Profile</text>
-    <text name="Enable">Enable</text>
+    <text name="Enable">فعال</text>
+    <text name="Title">عنوان</text>
+    <text name="Enabled">فعال/غیرفعال</text>
+    <text name="Message">پیام</text>
+    <text name="NoticeType">نوع اعلان</text>
     <text name="GoogleAuthenticatorIsNotEnabled">Google Authenticator is not enabled for your account. You must first enable it in your settings.</text>
     <text name="SubscriptionExpiringSoon_Email_Subject">Your Breed subscription expiration notice</text>
     <text name="SubscriptionExpiringSoon_Email_Body">Your Breed subscription will expire at {0}.</text>
@@ -660,39 +663,39 @@
     <text name="VerifyYourCode">Verify Your Code</text>
     <text name="YourPhoneNumberIsVerified">Your phone number is verified</text>
     <text name="YourPhoneNumberIsNotVerified">Your phone number is not verified</text>
-    <text name="WrongSmsVerificationCode">Wrong verification code!</text>
-    <text name="SelectUsers">Select users</text>
-    <text name="OrganizationUnits">Organization Units</text>
+    <text name="WrongSmsVerificationCode">کد تایید اشتباه است!</text>
+    <text name="SelectUsers">انتخاب کاربران</text>
+    <text name="OrganizationUnits">چارت سازمانی</text>
     <text name="YouCanManageUsersOrganizationUnitsFromOrganizationUnitsPage">You can manage User's organization units From Organization Units page.</text>
-    <text name="DemoUiComponents">Demo UI Components</text>
-    <text name="DateAndTimePickers">Date and Time Pickers</text>
-    <text name="FileUpload">File Upload</text>
-    <text name="PostedValue">Posted value</text>
-    <text name="SelectDate">Select date</text>
-    <text name="SelectFile">Select file</text>
-    <text name="UploadedFile">Uploaded file</text>
-    <text name="PostedData">Posted data</text>
-    <text name="Remove">Remove</text>
-    <text name="OrganizationUnitNotFoundForThisUser">There is no Organization Unit For this user.</text>
+    <text name="DemoUiComponents">پیش نمایش صفحات</text>
+    <text name="DateAndTimePickers">انتخابگر تاریخ</text>
+    <text name="FileUpload">بارگزاری فایل</text>
+    <text name="PostedValue">مقدار ارسال شده</text>
+    <text name="SelectDate">تاریخ انتخابی</text>
+    <text name="SelectFile">انتخاب فایل</text>
+    <text name="UploadedFile">بارگزاری فایل</text>
+    <text name="PostedData">ارسال داده</text>
+    <text name="Remove">حذف</text>
+    <text name="OrganizationUnitNotFoundForThisUser">برای این کاربر ارگان مشخض نشده است.</text>
     <text name="DemoUiComponents_Info">
       This page shows a few useful UI components those can be used in your application.
       Components in this page are implemented as full stack (includes the server side).
     </text>
     <text name="DemoUiComponents_Info_Metronic_Link_Text">Check Metronic theme for more UI components</text>
-    <text name="Image">Image</text>
-    <text name="File">File</text>
-    <text name="Link">Link</text>
-    <text name="Billing">Billing</text>
-    <text name="LegalName">Legal Name</text>
+    <text name="Image">تصویر</text>
+    <text name="File">فایل</text>
+    <text name="Link">لینک</text>
+    <text name="Billing">صورتحساب</text>
+    <text name="LegalName">نام نقش</text>
     <text name="Address">آدرس</text>
-    <text name="Tax/VatNo">Tax/VatNo</text>
-    <text name="Invoice">Invoice</text>
-    <text name="TotalAmount">Total Amount</text>
-    <text name="Print">Print</text>
-    <text name="ShowInvoice">Show Invoice</text>
-    <text name="InvoiceInformation">Invoice Information</text>
-    <text name="InvoiceNo">Invoice No</text>
-    <text name="Date">Date</text>
+    <text name="Tax/VatNo">مالیات</text>
+    <text name="Invoice">فاکتور</text>
+    <text name="TotalAmount">مقدار کل</text>
+    <text name="Print">چاپ</text>
+    <text name="ShowInvoice">نمایش فاکتور</text>
+    <text name="InvoiceInformation">اطلاعات فاکتور</text>
+    <text name="InvoiceNo">شماره فاکتور</text>
+    <text name="Date">تاریخ</text>
     <text name="ThisInvoiceIsNotYours">This invoice is not yours!</text>
     <text name="UiCustomizationHeaderInfo">Change the look of UI</text>
     <text name="UiCustomization_Layout">Layout</text>
@@ -728,18 +731,18 @@
     <text name="UiCustomization_FixedFooter">Fixed footer</text>
     <text name="UiCustomization_PushFooter">Push footer</text>
     <text name="UiCustomization_Header">Header bar</text>
-    <text name="UiCustomization_Theme">Theme</text>
-    <text name="VisualSettings">Visual Settings</text>
-    <text name="SaveAsSystemDefault">Save as system default</text>
+    <text name="UiCustomization_Theme">پوسته</text>
+    <text name="VisualSettings">تنظیمات بصری</text>
+    <text name="SaveAsSystemDefault">ذخیره به عنوان پیش فرض</text>
     <text name="UseSystemDefaults">Use system defaults</text>
     <text name="NewNotifications">New notifications</text>
     <text name="Subscriptions">Subscriptions</text>
     <text name="UiCustomization_DefaultHiddenAside">Default hidden aside</text>
-    <text name="LoadWithThreeDot">Loading...</text>
+    <text name="LoadWithThreeDot">بارگذاری...</text>
     <text name="NoInternetConnection">You are currently not connected to internet</text>
     <text name="Warning">Warning</text>
     <text name="RequestTimedOut">Your request timed out, please try again later.</text>
-    <text name="AnErrorOccurred">An error occurred, please try again later.</text>
+    <text name="AnErrorOccurred">خطایی در سیستم رخ داده است.</text>
     <text name="AnHttpErrorOccured">There was an error communicating with the server.</text>
     <text name="ChangePasswordToLogin">You must change your password before logging on!</text>
     <text name="NoPermission">You do not have any permission. Contact your administrator.</text>
@@ -758,9 +761,9 @@
     <text name="UiCustomization_Desktop">Desktop</text>
     <text name="TwoFactorLoginIsNotSupported">Two factor login is not currently supported!</text>
     <text name="LinkToCurrentPage">Link to current page</text>
-    <text name="ThisFieldIsRequired">This field is required.</text>
-    <text name="PleaseEnterAtLeastNCharacter">Please enter at least {0} characters.</text>
-    <text name="PleaseEnterNoMoreThanNCharacter">Please enter no more than {0} characters.</text>
+    <text name="ThisFieldIsRequired">وارد کردن این فیلد الزامی است.</text>
+    <text name="PleaseEnterAtLeastNCharacter">حداقل طول مجاز {0} کاراکتر می باشد.</text>
+    <text name="PleaseEnterNoMoreThanNCharacter">حداکثر طول مجاز {0} کاراکتر می باشد.</text>
     <text name="SelectTwoFactorProvider">Select two factor authentication provider</text>
     <text name="InvoiceInfoIsMissingOrNotCompleted">Invoice info is missing or not completed</text>
     <text name="InvoiceTo">Invoice to</text>
@@ -792,12 +795,12 @@
     <text name="Collapse">Collapse</text>
     <text name="AllOfThesePermissionsMustBeGranted">Required permissions are not granted. All of these permissions must be granted: {0}</text>
     <text name="AtLeastOneOfThesePermissionsMustBeGranted">Required permissions are not granted. At least one of these permissions must be granted: {0}</text>
-    <text name="OnlyLockedUsers">Only locked users</text>
+    <text name="OnlyLockedUsers">کاربران قفل شده</text>
     <text name="DefaultFromSenderEmailAddress">Default from (فرستنده) email address</text>
     <text name="DefaultFromSenderDisplayName">Default from (فرستنده) display name</text>
-    <text name="DefaultLanguage">Default language</text>
+    <text name="DefaultLanguage">زبان پیش فرض</text>
     <text name="CurrentUserDidNotLoginToTheApplication">Current user did not login to the application!</text>
-    <text name="MainMenu">Main menu</text>
+    <text name="MainMenu">منوی اصلی</text>
     <text name="IncorrectImageFormat">Incorrect image format!</text>
     <text name="NotificationDeleteWarningMessage">This notification will be deleted</text>
     <text name="ProcessingWithThreeDot">Processing...</text>
@@ -806,12 +809,12 @@
     <text name="DownloadCollectedData">Download collected data</text>
     <text name="GdprDataPrepareStartedNotification">We are preparing your data. You will be notified when your data is ready.</text>
     <text name="GdprDataPreparedNotificationMessage">Your data is prepared, click here to download.</text>
-    <text name="ChatMessage_From">From</text>
-    <text name="ChatMessage_To">To</text>
-    <text name="ReadState">Read state</text>
-    <text name="You">You</text>
-    <text name="Anonymous">Anonymous</text>
-    <text name="Messages">Messages</text>
+    <text name="ChatMessage_From">از شماره</text>
+    <text name="ChatMessage_To">تا شماره</text>
+    <text name="ReadState">وضعیت خوانده شده</text>
+    <text name="You">شما</text>
+    <text name="Anonymous">ناشناس</text>
+    <text name="Messages">پیام</text>
     <text name="ThisNotificationDoesntBelongToYou">This notification doesn't belong to you.</text>
     <text name="CookieConsent_Message">This website uses cookies to ensure you get the best experience on our website.</text>
     <text name="CookieConsent_Dismiss">Got it!</text>
@@ -893,7 +896,7 @@
     <text name="UiCustomization_HeaderMinimizeType_Topbar">Topbar</text>
     <text name="UiCustomization_HeaderMinimizeType_Menu">Menu</text>
     <text name="UiCustomization_HeaderMenuArrows">Menu arrows</text>
-    <text name="InvalidPattern">Invalid</text>
+    <text name="InvalidPattern">الگوی غیرمجاز</text>
     <text name="SwitchToTenant">Switch to tenant</text>
     <text name="TenancyNameRequired">Tenancy name is required!</text>
     <text name="EnterTenancyName">Enter tenancy name...</text>
@@ -909,10 +912,10 @@
     <text name="ShowTimeOutNotificationSecond">Countdown Modal Wait Time (Seconds)</text>
     <text name="OneConcurrentLoginPerUser">Only one concurrent login per user</text>
     <text name="OneConcurrentLoginPerUserActive">Disable concurrent login for a user. If a user logins with a second device, the first session is automatically closed.</text>
-    <text name="Disable">Disable</text>
+    <text name="Disable">غیرفعال</text>
     <text name="UseCaptchaOnLogin">Use security image question (captcha) on login.</text>
     <text name="XCountPermissionFiltered">{0} permission filtered.</text>
-    <text name="SelectPermissions">Select Permissions</text>
+    <text name="SelectPermissions">انتخاب دسترسی ها</text>
     <text name="DailyPrice">Daily Price</text>
     <text name="WeeklyPrice">Weekly Price</text>
     <text name="PerDay">Per day</text>
@@ -971,65 +974,148 @@
     <text name="Contractors">پیمانکاران</text>
     <text name="Contractor">پیمانکار</text>
     <text name="PlaqueStore">انبار پلاک</text>
-    <text name="BaseInfo">اطلاعات پایه</text>
+    <text name="BaseInfo">تعاریف پایه</text>
+    <text name="BaseIntro">معرفی</text>
+    <text name="IdentityInfo">هویت</text>
+    <text name="PlaqueAllocation">تخصیص پلاک به مامور</text>
+    <text name="Identification">نصب پلاک</text>
+    <text name="Activities">عملیات</text>
+    <text name="Reports">گزارش گیری</text>
     <text name="SpeciesInfo">گونه دام</text>
     <text name="PlaqueState">وضعیت پلاک</text>
     <text name="StateInfo">استان</text>
     <text name="CityInfo">شهر</text>
+    <text name="RegionInfo">بخش</text>
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
+    <text name="HerdGeoLog">موقیعت گله</text>
+    <text name="PlaqueChange">تغییر وضعیت پلاک</text>
+    <text name="Notice">اعلانات</text>
+    <text name="Livestock">اطلاعات دام</text>
+    <text name="Herd">گله</text>
+    <text name="EpidemiologicInfo">اپیدمولوژیک</text>
     <text name="SexInfo">جنسیت دام</text>
-    <text name="FirmType">انواع شرکت</text>
+    <text name="FirmType">نوع شرکت</text>
+    <text name="YouCanNotDeleteThisRecord">امکان حذف این رکورد وجود ندارد.</text>
     <text name="CreateNewProviderInfo">ایجاد تامین کننده</text>
     <text name="AreYouSureToDeleteTheProviderInfo">آیا از حذف تامین کننده {0} مطمئن هستید؟</text>
     <text name="ProviderInfoHeaderInfo">مدیریت تامین کنندگان</text>
+    <text name="ViewNewProviderInfo">نمایش تامین کننده</text>
     <text name="EditNewProviderInfo">ویرایش تامین کننده</text>
+    <text name="DeleteNewProviderInfo">حذف تامین کننده</text>
     
     <text name="CreateNewSexInfo">ایجاد جنسیت دام</text>
     <text name="AreYouSureToDeleteTheSexInfo">آیا از حذف جنسیت دام {0} مطمئن هستید؟</text>
     <text name="SexInfoHeaderInfo">مدیریت جنسیت دام</text>
+    <text name="ViewNewSexInfo">نمایش جنسیت دام</text>
     <text name="EditNewSexInfo">ویرایش جنسیت دام</text>
+    <text name="DeleteNewSexInfo">حذف جنسیت دام</text>
 
     <text name="CreateNewSpeciesInfo">ایجاد گونه دام</text>
     <text name="AreYouSureToDeleteTheSpeciesInfo">آیا از حذف گونه دام {0} مطمئن هستید؟</text>
     <text name="SpeciesInfoHeaderInfo">مدیریت گونه دام</text>
+    <text name="ViewNewSpeciesInfo">نمایش گونه دام</text>
     <text name="EditNewSpeciesInfo">ویرایش گونه دام</text>
+    <text name="DeleteNewSpeciesInfo">حذف گونه دام</text>
 
     <text name="CreateNewAcademicDegree">ایجاد مقطع تحصیلی</text>
     <text name="AreYouSureToDeleteTheAcademicDegree">آیا از حذف مقطع تحصیلی {0} مطمئن هستید؟</text>
     <text name="AcademicDegreeHeaderInfo">مدیریت مقطع تحصیلی</text>
+    <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
+    <text name="DeleteNewAcademicDegree">حذف مقطع تحصیلی</text>
 
+    <text name="CreateNewHerdGeoLog">اصلاح موقیعت گله</text>
+    <text name="HerdGeoLogHeaderInfo">مدیریت موقیعت گله</text>
+    <text name="ViewNewHerdGeoLog">نمایش موقیعت گله</text>
+    <text name="EditNewHerdGeoLog">ویرایش موقیعت گله</text>
+
+    <text name="CreateNewPlaqueChange">ایجاد تغییر وضعیت پلاک</text>
+    <text name="AreYouSureToDeleteThePlaqueChange">آیا از حذف تغییر وضعیت پلاک {0} مطمئن هستید؟</text>
+    <text name="PlaqueChangeHeaderInfo">مدیریت تغییر وضعیت پلاک</text>
+    <text name="ViewNewPlaqueChange">نمایش تغییر وضعیت پلاک</text>
+    <text name="EditNewPlaqueChange">ویرایش تغییر وضعیت پلاک</text>
+
+    <text name="CreateNewNotice">ایجاد اعلان</text>
+    <text name="AreYouSureToDeleteTheNotice">آیا از حذف اعلان {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToEnableTheNotice">آیا از فعال کردن اعلان {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToDisableTheNotice">آیا از غیرفعال کردن اعلان {0} مطمئن هستید؟</text>
+    <text name="NoticeHeaderInfo">مدیریت اعلان</text>
+    <text name="ViewNewNotice">نمایش اعلان</text>
+    <text name="EditNewNotice">ویرایش اعلان</text>
+    <text name="DeleteNewNotice">حذف اعلان</text>
+    <text name="EnableNotice">فعال کردن</text>
+    <text name="DisableNotice">غیرفعال کردن</text>
+
+    <text name="CreateNewLivestock">نصب پلاک</text>
+    <text name="AreYouSureToDeleteTheLivestock">آیا از حذف پلاک نصب شده {0} مطمئن هستید؟</text>
+    <text name="LivestockHeaderInfo">مدیریت دام</text>
+    <text name="ViewNewLivestock">نمایش پلاک نصب شده</text>
+    <text name="EditNewLivestock">اصلاح پلاک نصب شده</text>
+
+    <text name="CreateNewHerd">ایجاد گله</text>
+    <text name="AreYouSureToDeleteTheHerd">آیا از حذف گله {0} مطمئن هستید؟</text>
+    <text name="HerdHeaderInfo">مدیریت گله</text>
+    <text name="ViewNewHerd">نمایش گله</text>
+    <text name="EditNewHerd">ویرایش گله</text>
+    <text name="DeleteNewHerd">حذف گله</text>
+
+    <text name="CreateNewEpidemiologicInfo">ایجاد اپیدمولوژیک</text>
+    <text name="AreYouSureToDeleteTheEpidemiologicInfo">آیا از حذف اپیدمولوژیک {0} مطمئن هستید؟</text>
+    <text name="EpidemiologicInfoHeaderInfo">مدیریت اپیدمولوژیک</text>
+    <text name="ViewNewEpidemiologicInfo">نمایش اپیدمولوژیک</text>
+    <text name="EditNewEpidemiologicInfo">ویرایش اپیدمولوژیک</text>
+    
     <text name="CreateNewFirmType">ایجاد نوع شرکت</text>
     <text name="AreYouSureToDeleteTheFirmType">آیا از حذف نوع شرکت {0} مطمئن هستید؟</text>
     <text name="FirmTypeHeaderInfo">مدیریت انواع شرکت</text>
-    <text name="EditNewFirmType">ویرایش نوع شکت</text>
+    <text name="ViewNewFirmType">نمایش نوع شرکت</text>
+    <text name="EditNewFirmType">ویرایش نوع شرکت</text>
+    <text name="DeleteNewFirmType">حذف نوع شرکت</text>
 
     <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
-    <text name="AreYouSureToDeleteThePlaqueState">آیا از حذف وضعیت پلاک {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToDeleteThePlaqueState">امکان حذف وجود ندارد.</text>
     <text name="PlaqueStateHeaderInfo">مدیریت وضعیت پلاک</text>
+    <text name="ViewNewPlaqueState">نمایش وضعیت پلاک</text>
     <text name="EditNewPlaqueState">ویرایش وضعیت پلاک</text>
+    <text name="DeleteNewPlaqueState">حذف وضعیت پلاک</text>
     
     <text name="CreateNewStateInfo">ایجاد استان</text>
     <text name="AreYouSureToDeleteTheStateInfo">آیا از حذف استان {0} مطمئن هستید؟</text>
     <text name="StateInfoHeaderInfo">مدیریت استان</text>
+    <text name="ViewNewStateInfo">نمایش استان</text>
     <text name="EditNewStateInfo">ویرایش استان</text>
+    <text name="DeleteNewStateInfo">حذف استان</text>
 
     <text name="CreateNewCityInfo">ایجاد شهر</text>
     <text name="AreYouSureToDeleteTheCityInfo">آیا از حذف شهر {0} مطمئن هستید؟</text>
     <text name="CityInfoHeaderInfo">مدیریت شهر</text>
+    <text name="ViewNewCityInfo">نمایش شهر</text>
     <text name="EditNewCityInfo">ویرایش شهر</text>
+    <text name="DeleteNewCityInfo">حذف شهر</text>
+
+    <text name="CreateNewRegionInfo">ایجاد بخش</text>
+    <text name="AreYouSureToDeleteTheRegionInfo">آیا از حذف بخش {0} مطمئن هستید؟</text>
+    <text name="RegionInfoHeaderInfo">مدیریت بخش</text>
+    <text name="ViewNewRegionInfo">نمایش بخش</text>
+    <text name="EditNewRegionInfo">ویرایش بخش</text>
+    <text name="DeleteNewRegionInfo">حذف بخش</text>
 
     <text name="CreateNewVillageInfo">ایجاد دهستان</text>
     <text name="AreYouSureToDeleteTheVillageInfo">آیا از حذف دهستان {0} مطمئن هستید؟</text>
     <text name="VillageInfoHeaderInfo">مدیریت دهستان</text>
+    <text name="ViewNewVillageInfo">نمایش دهستان</text>
     <text name="EditNewVillageInfo">ویرایش دهستان</text>
-
+    <text name="DeleteNewVillageInfo">حذف دهستان</text>
+    
     <text name="CreateNewContractor">ایجاد پیمانکار</text>
     <text name="AreYouSureToDeleteTheContractor">آیا از حذف پیمانکار {0} مطمئن هستید؟</text>
     <text name="ContractorHeaderInfo">مدیریت پیمانکاران</text>
+    <text name="ViewNewContractor">نمایش پیمانکار</text>
     <text name="EditNewContractor">ویرایش پیمانکار</text>
+    <text name="DeleteNewContractor">حذف پیمانکار</text>
+    
     <text name="Institution">نهاد</text>
     <text name="SubInstitution">اتحادیه</text>
     <text name="PostalCode">کد پستی</text>
@@ -1040,25 +1126,164 @@
     <text name="FirmName">نام شرکت</text>
     <text name="FirmRegNumber">شماره ثبت شرکت</text>
     <text name="FirmEstablishmentYear">سال تاسیس شرکت</text>
-    <text name="FullTimeStaffDiploma">تعداد دیپلم تمام وقت</text>
-    <text name="FullTimeStaffAssociateDegree">تعداد فوق دیپلم تمام وقت</text>
-    <text name="FullTimeStaffBachelorAndUpper">تعداد لیسانس و بالاتر تمام وقت</text>
-    <text name="PartialTimeStaffDiploma">تعداد دیپلم پاره وقت</text>
-    <text name="PartialTimeStaffAssociateDegree">تعداد فوق دیپلم پاره وقت</text>
-    <text name="PartialTimeStaffBachelorAndUpper">تعداد لیسانس و بالاتر پاره وقت</text>
+    <text name="FullTimeStaffDiploma">دیپلم</text>
+    <text name="FullTimeStaffAssociateDegree">فوق دیپلم</text>
+    <text name="FullTimeStaffBachelorAndUpper">لیسانس و بالاتر</text>
+    <text name="PartialTimeStaffDiploma">دیپلم</text>
+    <text name="PartialTimeStaffAssociateDegree">فوق دیپلم</text>
+    <text name="PartialTimeStaffBachelorAndUpper">لیسانس و بالاتر</text>
 
+    <text name="Officer">مامور</text>
     <text name="CreateNewOfficer">ایجاد مامور</text>
     <text name="AreYouSureToDeleteTheOfficer">آیا از حذف مامور {0} مطمئن هستید؟</text>
     <text name="OfficerHeaderInfo">مدیریت مامورین</text>
+    <text name="ViewNewOfficer">نمایش مامور</text>
     <text name="EditNewOfficer">ویرایش مامور</text>
+    <text name="DeleteNewOfficer">حذف مامور</text>
+    
     <text name="FatherName">نام پدر</text>
     <text name="IdNo">شماره شناسنامه</text>
     <text name="WorkNumber">تلفن محل کار</text>
     <text name="MobileNumber">تلفن همراه</text>
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
+    <text name="LivestockName">اطلاعات دام</text>
+    <text name="LivestockCode">کد ملی دام</text>
+    <text name="HerdName">کد گله</text>
+    <text name="EpidemiologicInfoName">اپیدمولوژیک</text>
     <text name="StateInfoName">استان</text>
+    <text name="CityInfoName">شهر</text>
+    <text name="RegionInfoName">بخش</text>
     <text name="ContractorName">پیمانکار</text>
+      
+    <text name="AddItem">ثبت جدید</text>
+    <text name="ViewItem">نمایش</text>
+    <text name="DeleteItem">حذف</text>
+    <text name="EditItem">ویرایش</text>
+
+    <text name="ContractorInfo">اطلاعات پیمانکار</text>
+    <text name="FirmInfo">اطلاعت شرکت</text>
+    <text name="FullTimeStaff">تعداد کارکنان تمام وقت</text>
+    <text name="PartialTimeStaff">تعداد کارکنان پاره وقت</text>
+
+    <text name="ThisNameAlreadyExists">این نام قبلا ثبت شده است.</text>
+    <text name="ThisCodeAlreadyExists">این کد قبلا ثبت شده است.</text>
+    <text name="ThisCodeRangeHasOverlap">محدوده وارد شده با {0} تا {1} همپوشانی دارد.</text>
+    <text name="ThisCodeRangeShouldBe">برای گونه {0} محدوده {1} تا {2} مجاز است.</text>
+    <text name="RemainInCodeRange">سریال برای تخصیص وجود ندارد.</text>
+
+    <text name="News">اخبار</text>
+      
+    <text name="ContractorCode">کد پیمانکار</text>
+    <text name="OfficerInfo">اطلاعات شناسایی مامور</text>
+    <text name="OfficerInfoAddress">اطلاعات محل کار</text>
+
+    <text name="SpeciesName">گونه دام</text>
+    <text name="SetTime">تاریخ اختصاص</text>
+    <text name="FromCode">از شماره</text>
+    <text name="ToCode">تا شماره</text>
+    <text name="Finished">تمام شده</text>
+    <text name="FinishedCode">کد پایانی</text>
+    <text name="FinishedDate">تاریخ اتمام</text>
+    <text name="CreateNewPlaqueStore">ایجاد انبار پلاک</text>
+    <text name="ViewNewPlaqueStore">نمایش انبار پلاک</text>
+
+    <text name="PlaqueCount">تعداد پلاک</text>
+    <text name="PlaqueUsed">پلاک نصب شده</text>
+    <text name="AreYouSureToDeleteThePlaqueStore">آیا از حذف انبار {0} مطمئن هستید؟</text>
     
+    <text name="PlaqueToState">تخصیص پلاک به استان</text>
+    <text name="CreateNewPlaqueToState">اختصاص پلاک به استان</text>
+    <text name="ViewNewPlaqueToState">نمایش پلاک اختصاصی به استان</text>
+    <text name="AreYouSureToDeleteThePlaqueToState">آیا از حذف پلاک از استان {0} مطمئن هستید؟</text>
+
+    <text name="PlaqueToCity">تخصیص پلاک به شهر</text>
+    <text name="CreateNewPlaqueToCity">اختصاص پلاک به شهر</text>
+    <text name="ViewNewPlaqueToCity">نمایش پلاک اختصاصی به شهر</text>
+    <text name="AreYouSureToDeleteThePlaqueToCity">آیا از حذف پلاک از ش {0} مطمئن هستید؟</text>
+
+    <text name="PlaqueToOfficer">تخصیص پلاک به مامور</text>
+    <text name="CreateNewPlaqueToOfficer">اختصاص پلاک به مامور</text>
+    <text name="ViewNewPlaqueToOfficer">نمایش پلاک اختصاصی به مامور</text>
+    <text name="AreYouSureToDeleteThePlaqueToOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
+
+    <text name="ّFatherName">نام پدر</text>
+    
+    <text name="UnionInfo">اتحادیه</text>
+    <text name="ActivityInfo">فعالیت</text>
+    <text name="CreateNewUnionInfo">ایجاد اتحادیه</text>
+    <text name="CreateNewActivityInfo">ایجاد فعالیت</text>
+    <text name="AreYouSureToDeleteTheUnionInfo">آیا از حذف اتحادیه {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToDeleteTheActivityInfo">آیا از حذف فعالیت {0} مطمئن هستید؟</text>
+    <text name="ViewNewUnionInfo">نمایش اتحادیه</text>
+    <text name="EditNewUnionInfo">ویرایش اتحادیه</text>
+    <text name="DeleteNewUnionInfo">حذف اتحادیه</text>
+    
+    <text name="ViewNewActivityInfo">نمایش فعالیت</text>
+    <text name="EditNewActivityInfo">ویرایش فعالیت</text>
+    <text name="DeleteNewActivityInfo">حذف فعالیت</text>
+    
+    <text name="SetDate">تاریخ تخصیص</text>
+    <text name="VillageInfoName">دهستان</text>
+    <text name="OfficerCode">کد مامور</text>
+    <text name="OfficerName">نام مامور</text>
+    <text name="OfficerFamily">نام خانوادگی</text>
+
+    <text name="HerdInfo">اطلاعات گله</text>
+    <text name="Latitude">عرض جغرافیایی</text>
+    <text name="Longitude">طول جغرافیایی</text>
+    <text name="SubHerdInfo">اطلاعات زیر واحد</text>
+    <text name="AgriculturalId">شناسه یکتا واحد کشاورزی</text>
+    <text name="ActivityStatus">وضعیت فعالیت</text>
+    <text name="LicenseStatus">وضعیت پروانه بهره برداری</text>    
+    <text name="Have">دارد</text>
+    <text name="HaveNot">ندارد</text>
+    <text name="IssueDate">تاریخ صدور</text>
+    <text name="ValidityDate">تاریخ اعتبار</text>
+    <text name="LiveStockOwnerInfo">اطلاعات دامدار</text>
+    <text name="Nationality">ملیت</text>
+    <text name="Iranian">ایرانی</text>
+    <text name="NoneIranian">خارجی</text>
+    <text name="RealityOrNone">حقوقی / حقیقی</text>
+    <text name="Reality">حقیقی</text>
+    <text name="NoneReality">حقوقی</text>
+    <text name="Capacity">ظرفیت</text>
+    <text name="FirmCode">شناسه ملی شرکت</text>
+    <text name="Mobile">تلفن همراه</text>
+    <text name="EpidemiologicCode">کد اپیدومیولوژیک</text>
+    <text name="ActivityInfoName">نوع فعالیت</text>
+    <text name="LicenseNum">شماره پروانه</text>
+    <text name="SpeciesInfoName">گونه</text>
+    <text name="ThisCodeIsAllocated">این کد قبلا استفاده شده است.</text>
+    <text name="ThisStoreIsNotAllocatedTo">پلاک {0} به این مامور اختصاص داده نشده است.</text>
+    <text name="TheOfficerDoesNotExists">این کاربر به عنوان مامور تعریف نشده است.</text>
+    <text name="ThePlaqueStoreDoesNotExists">برای این کد انبار تعریف نشده است.</text>
+    <text name="ThisCodeChanged">برای این کد تغییر وضعیت ثبت شده است.</text>
+    <text name="Information">اطلاعات</text>
+    <text name="Monitoring">عملیات</text>
+    <text name="EditLivestockCode">ویرایش شماره ملی دام</text>
+    <text name="EditGeoHerd">اصلاح موقعیت گله</text>
+    <text name="EditStatePlaque">تغییر وضعیت پلاک</text>
+    <text name="PlaqueAllocated">تعداد پلاک اختصاص داده شده</text>
+    <text name="SexInfoName">جنیست دام</text>
+    <text name="UniqueCode">شناسه یکتا</text>
+    <text name="UniqueCodeContractor">شناسه یکتا پیمانکار</text>
+    <text name="UniqueCodeOfficer">شناسه یکتا مامور</text>
+    <text name="UniqueCodeHerd">شناسه یکتا گله</text>
+    <text name="LiveStockOfficer">نام مامور نصب</text>
+    <text name="LiveStockNowDate">تاریخ نصب</text>
+    <text name="LiveStockNowTime">ساعت نصب</text>
+    <text name="PlaqueCode">شماره پلاک</text>
+    <text name="PlaqueHerdName">نام گله پلاک</text>
+    <text name="ChangeReason">دلیل تعویض</text>
+    <text name="PreStateName">وضعیت قدیم</text>
+    <text name="NewStateName">وضعیت جدید</text>
+
+    <text name="MobHerd">معرفی گله</text>
+    <text name="MobPlaqueOfficer">تخصیص پلاک</text>
+    <text name="MobLivestock">نصب پلاک</text>
+    <text name="MobHerdGeoLog">موقعیت گله</text>
+    <text name="MobPlaqueChange">تغییر وضعیت</text>
+    <text name="MobHerdCertificate">گواهی گله</text>
   </texts>
 </localizationDictionary>
 
