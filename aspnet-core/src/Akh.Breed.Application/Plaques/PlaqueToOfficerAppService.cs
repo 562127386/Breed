@@ -173,6 +173,10 @@ namespace Akh.Breed.Plaques
 
         private async Task CheckValidation(PlaqueToOfficerCreateOrUpdateInput input)
         {
+            if (input.PlaqueCount <= 0)
+            {
+                throw new UserFriendlyException(L("ThisCodeRangeHasOverlap"));
+            }
             var plaqueToCityQuery = _plaqueToCityRepository.GetAll().AsNoTracking()
                 .Include(x => x.PlaqueToState)
                 .ThenInclude(x => x.PlaqueStore)

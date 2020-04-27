@@ -158,6 +158,10 @@ namespace Akh.Breed.Plaques
 
         private async Task CheckValidation(PlaqueToCityCreateOrUpdateInput input)
         {
+            if (input.PlaqueCount <= 0)
+            {
+                throw new UserFriendlyException(L("ThisCodeRangeHasOverlap"));
+            }
             var plaqueToStateQuery = _plaqueToStateRepository.GetAll().AsNoTracking()
                 .Include(x => x.PlaqueStore)
                 .Where(x => x.StateInfoId == input.StateInfoId &&x.PlaqueStore.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);

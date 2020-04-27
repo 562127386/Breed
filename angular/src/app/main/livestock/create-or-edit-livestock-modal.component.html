@@ -42,6 +42,28 @@
                     <div class="row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"HerdInfo" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-dropdown #herdCombobox [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getActivities($event.value)"
+                                        name="herdId" [(ngModel)]="livestock.herdId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="herdCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"ActivityInfo" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-dropdown #activityInfoCombobox [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                        name="activityInfoId" [(ngModel)]="livestock.activityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="activityInfoCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"SpeciesInfo" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
                                     <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
@@ -80,29 +102,7 @@
                                 </div>
                             </div>                                
                         </div> 
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <label class="col-form-label col-md-4 col-sm-12">{{"HerdInfo" | localize}} *</label>
-                                <div class="col-md-8 col-sm-12">
-                                    <p-dropdown #herdCombobox [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getActivities($event.value)"
-                                        name="herdId" [(ngModel)]="livestock.herdId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
-                                    <validation-messages [formCtrl]="herdCombobox"></validation-messages>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <label class="col-form-label col-md-4 col-sm-12">{{"ActivityInfo" | localize}} *</label>
-                                <div class="col-md-8 col-sm-12">
-                                    <p-dropdown #activityInfoCombobox [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
-                                        name="activityInfoId" [(ngModel)]="livestock.activityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
-                                    <validation-messages [formCtrl]="activityInfoCombobox"></validation-messages>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>                    
                     <div class="row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
@@ -133,6 +133,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="button" (click)="save(1)" class="btn btn-primary" [disabled]="!livestockForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"SaveAndContinue" | localize}}</span></button>
                         <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!livestockForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
                         <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
                     </div>

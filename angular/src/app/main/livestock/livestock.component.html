@@ -58,7 +58,7 @@
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
                                     <tr>     
-                                        <th style="width: 110px" pSortableColumn="nationalCode">
+                                        <th style="width: 130px" pSortableColumn="nationalCode">
                                             {{'NationalCode' | localize}}
                                             <p-sortIcon field="nationalCode"></p-sortIcon>
                                         </th>
@@ -97,7 +97,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
                                     <tr>      
-                                        <td style="width: 110px">
+                                        <td style="width: 130px">
                                             <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
                                             {{record.nationalCode}}
                                         </td>

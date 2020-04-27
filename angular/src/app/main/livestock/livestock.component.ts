@@ -1,4 +1,4 @@
-import { Component, Injector, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, Injector, ViewChild, ViewEncapsulation, OnInit, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LivestockServiceProxy, LivestockListDto } from '@shared/service-proxies/service-proxies';
@@ -15,7 +15,7 @@ import { CreateOrEditLivestockModalComponent } from './create-or-edit-livestock-
     animations: [appModuleAnimation()],
     styleUrls: ['./livestock.component.less']
 })
-export class LivestockComponent extends AppComponentBase implements AfterViewInit {
+export class LivestockComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
     @ViewChild('createOrEditLivestockModal', { static: true }) createOrEditLivestockModal: CreateOrEditLivestockModalComponent;
     @ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -23,6 +23,7 @@ export class LivestockComponent extends AppComponentBase implements AfterViewIni
 
     livestocks: LivestockListDto[] = [];
     filterText : string = '';
+    isCreateForm : number = 0;
 
     constructor(
         injector: Injector,
@@ -32,6 +33,16 @@ export class LivestockComponent extends AppComponentBase implements AfterViewIni
         super(injector);
         this.filterText = this._activatedRoute.snapshot.queryParams['filterText'] || '';
     }
+ 
+    ngOnInit() {
+        // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
+        this._activatedRoute.queryParams.subscribe(params => {
+            this.isCreateForm = params['isCreateForm'];
+            if(this.isCreateForm !== undefined && this.isCreateForm == 1){                
+                this.createOrEditLivestockModal.show();
+            }
+          });
+      }
     
     ngAfterViewInit(): void {
         this.primengTableHelper.adjustScroll(this.dataTable);

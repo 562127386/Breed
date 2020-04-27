@@ -143,6 +143,10 @@ namespace Akh.Breed.Plaques
 
         private async Task CheckValidation(PlaqueToStateCreateOrUpdateInput input)
         {
+            if (input.PlaqueCount <= 0)
+            {
+                throw new UserFriendlyException(L("ThisCodeRangeHasOverlap"));
+            }
             var plaqueStoreQuery = _plaqueStoreRepository.GetAll().AsNoTracking()
                 .Where(x => x.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);
             var plaqueStore = await plaqueStoreQuery.FirstOrDefaultAsync(x => (x.LastCode != 0 && x.ToCode - x.LastCode >= input.PlaqueCount) || (x.LastCode == 0 && x.ToCode - x.FromCode + 1 >= input.PlaqueCount));

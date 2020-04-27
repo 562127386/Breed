@@ -1287,11 +1287,13 @@
     <text name="NewStateName">وضعیت جدید</text>
 
     <text name="MobHerd">معرفی گله</text>
-    <text name="MobPlaqueOfficer">پلاک نزد دامیار</text>
+    <text name="MobPlaqueOfficer">پلاک نزددامدار</text>
     <text name="MobLivestock">نصب پلاک</text>
     <text name="MobHerdGeoLog">موقعیت گله</text>
     <text name="MobPlaqueChange">تغییر وضعیت</text>
     <text name="MobHerdCertificate">گواهی نصب</text>
+      
+      <text name="SaveAndContinue">ذخیره - بعدی</text>
     
     <text name="IsImporter">واردکننده</text>
   </texts>

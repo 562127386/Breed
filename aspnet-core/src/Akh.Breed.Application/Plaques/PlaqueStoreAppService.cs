@@ -133,6 +133,10 @@ namespace Akh.Breed.Plaques
         
         private async Task CheckValidation(PlaqueStoreCreateOrUpdateInput input)
         {
+            if (input.FromCode >= input.ToCode)
+            {
+                throw new UserFriendlyException(L("ThisCodeRangeHasOverlap"));
+            }
             var species = _speciesInfoRepository.Get(input.SpeciesId.Value);
             if ( input.FromCode < species.FromCode)
             {

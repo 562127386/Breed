@@ -112,7 +112,7 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
     onShown(): void {        
     }
 
-    save(): void {
+    save(shouldCountinue? : number): void {
         let input = new LivestockCreateOrUpdateInput();
         input = this.livestock;
         
@@ -125,6 +125,9 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
                 this.modalSave.emit(this.livestock);
+                if(shouldCountinue !== undefined && shouldCountinue == 1){                
+                    this.show();
+                }
             });
     }
 
