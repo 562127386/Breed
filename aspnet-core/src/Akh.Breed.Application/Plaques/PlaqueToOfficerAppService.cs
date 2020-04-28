@@ -80,14 +80,7 @@ namespace Akh.Breed.Plaques
             output.PlaqueToOfficer = plaqueToOfficer != null
                 ? ObjectMapper.Map<PlaqueToOfficerCreateOrUpdateInput>(plaqueToOfficer)
                 : newPlaqueToOfficer;
-            
-            //OfficerInfos
-            output.Officers = _officerRepository
-                .GetAll().Include(x => x.Contractor)
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Contractor.FirmName+" "+c.NationalCode+" ("+c.Name+","+c.Family+")"))
-                .ToList();
-            
-            
+
             //StateInfos
             output.StateInfos = _stateInfoRepository
                 .GetAll()
@@ -103,7 +96,18 @@ namespace Akh.Breed.Plaques
                     .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                     .ToList(); 
             }
-            
+
+            if (output.PlaqueToOfficer.CityInfoId.HasValue)
+            {
+                //OfficerInfos
+                output.Officers = _officerRepository
+                    .GetAll().Include(x => x.Contractor)
+                    .Where(x => x.Contractor.CityInfoId == output.PlaqueToOfficer.CityInfoId.Value)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(),
+                        c.Contractor.FirmName + " " + c.NationalCode + " (" + c.Name + "," + c.Family + ")"))
+                    .ToList();
+            }
+
             output.SpeciesInfos = _speciesInfoRepository
                 .GetAll()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
@@ -149,6 +153,20 @@ namespace Akh.Breed.Plaques
             var plaqueToOfficer = ObjectMapper.Map<PlaqueToOfficer>(input);
             await _plaqueToCityRepository.UpdateAsync(plaqueToCity);
             await _plaqueToOfficerRepository.InsertAsync(plaqueToOfficer);
+        }
+        
+        public List<ComboboxItemDto> GetOfficerForCombo(NullableIdDto<int> input)
+        {
+            var query = _officerRepository
+                .GetAll().Include(x => x.Contractor).AsQueryable();
+            if (input.Id.HasValue)
+            {
+                query = query.Where(x => x.Contractor.CityInfoId == input.Id);
+            }
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(),
+                    c.Contractor.FirmName + " " + c.NationalCode + " (" + c.Name + "," + c.Family + ")"))
+                .ToList();
         }
         
         private IQueryable<PlaqueToOfficer> GetFilteredQuery(GetPlaqueToOfficerInput input)

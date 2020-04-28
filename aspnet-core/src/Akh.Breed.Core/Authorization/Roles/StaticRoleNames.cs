@@ -5,7 +5,9 @@
         public static class Host
         {
             public const string Admin = "Admin";
-            public const string AdminMgnSys = "AdminMgnSys";
+            public const string SysAdmin = "SysAdmin";
+            public const string StateAdmin = "StateAdmin";
+            public const string CityAdmin = "CityAdmin";
             public const string Officer = "Officer";
         }
 

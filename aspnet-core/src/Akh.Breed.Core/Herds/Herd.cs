@@ -13,7 +13,7 @@ using Akh.Breed.Contractors;
 namespace Akh.Breed.Herds
 {
     [Table("AkhHerds")]
-    public class Herd : Entity, IHasCreationTime, IMayHaveTenant
+    public class Herd : Entity, IHasCreationTime, IMayHaveTenant, ICreationAudited
     {
         public string HerdName { get; set; }
         
@@ -105,5 +105,7 @@ namespace Akh.Breed.Herds
         {
             CreationTime = Clock.Now;
         }
+
+        public long? CreatorUserId { get; set; }
     }
 }

@@ -8,8 +8,10 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using Abp.UI;
 using Akh.Breed.Authorization;
+using Akh.Breed.Authorization.Roles;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
@@ -120,10 +122,15 @@ namespace Akh.Breed.Herds
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
             
-            output.Contractors = _contractorRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" +c.Name+","+c.Family+")" ))
-                .ToList();
+            if (output.Herd.CityInfoId.HasValue)
+            {
+                output.Contractors = _contractorRepository
+                    .GetAllList()
+                    .Where(x => x.CityInfoId == output.Herd.CityInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" +c.Name+","+c.Family+")" ))
+                    .ToList();
+            }
+
             
             return output;
         }
@@ -180,8 +187,24 @@ namespace Akh.Breed.Herds
             await _herdGeoLogInfoRepository.InsertAsync(herdGeoLog);
         }
         
+        public List<ComboboxItemDto> GetContractorForCombo(NullableIdDto<int> input)
+        {
+            var query = _contractorRepository
+                .GetAll();
+            if (input.Id.HasValue)
+            {
+                query = query.Where(x => x.CityInfoId == input.Id);
+            }
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" +c.Name+","+c.Family+")" ))
+                .ToList();
+        }
+        
         private IQueryable<Herd> GetFilteredQuery(GetHerdInput input)
         {
+            var tUser = UserManager.GetUserById(AbpSession.GetUserId());
+            var isOfficer = UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Officer).Result;
+            
             var query = QueryableExtensions.WhereIf(
                 _herdRepository.GetAll()
                 .Include(x => x.Contractor)
@@ -206,6 +229,11 @@ namespace Akh.Breed.Herds
                     u.CityInfo.Name.Contains(input.Filter) ||
                     u.RegionInfo.Name.Contains(input.Filter) ||
                     u.VillageInfo.Name.Contains(input.Filter));
+
+            if (isOfficer)
+            {
+                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
+            }
 
             return query;
         }        

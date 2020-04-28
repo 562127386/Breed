@@ -15,12 +15,20 @@ namespace Akh.Breed.Authorization.Roles
                     MultiTenancySides.Host,
                     grantAllPermissionsByDefault: true)
             );
-            
-            //Static host roles
 
             roleManagementConfig.StaticRoles.Add(
                 new StaticRoleDefinition(
-                    StaticRoleNames.Host.AdminMgnSys,
+                    StaticRoleNames.Host.SysAdmin,
+                    MultiTenancySides.Host)
+            );
+            roleManagementConfig.StaticRoles.Add(
+                new StaticRoleDefinition(
+                    StaticRoleNames.Host.StateAdmin,
+                    MultiTenancySides.Host)
+            );
+            roleManagementConfig.StaticRoles.Add(
+                new StaticRoleDefinition(
+                    StaticRoleNames.Host.CityAdmin,
                     MultiTenancySides.Host)
             );
             roleManagementConfig.StaticRoles.Add(

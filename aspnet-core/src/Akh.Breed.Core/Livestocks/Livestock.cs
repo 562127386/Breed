@@ -15,7 +15,7 @@ using Akh.Breed.Officers;
 namespace Akh.Breed.Livestocks
 {
     [Table("AkhLivestocks")]
-    public class Livestock : Entity, IHasCreationTime, IMayHaveTenant
+    public class Livestock : Entity, IHasCreationTime, IMayHaveTenant, ICreationAudited
     {
         [Required]
         public string NationalCode { get; set; }
@@ -57,5 +57,7 @@ namespace Akh.Breed.Livestocks
         {
             CreationTime = Clock.Now;
         }
+
+        public long? CreatorUserId { get; set; }
     }
 }

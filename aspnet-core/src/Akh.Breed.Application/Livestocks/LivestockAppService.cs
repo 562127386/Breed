@@ -9,8 +9,10 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using Abp.UI;
 using Akh.Breed.Authorization;
+using Akh.Breed.Authorization.Roles;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
@@ -94,6 +96,7 @@ namespace Akh.Breed.Livestocks
            
             output.Herds = _herdRepository
                 .GetAllList()
+                .Where(x => x.CreatorUserId ==  AbpSession.UserId)
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " (" +c.Name+","+c.Family+")" ))
                 .ToList();
 
@@ -168,6 +171,9 @@ namespace Akh.Breed.Livestocks
         
         private IQueryable<Livestock> GetFilteredQuery(GetLivestockInput input)
         {
+            var tUser = UserManager.GetUserById(AbpSession.GetUserId());
+            var isOfficer = UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Officer).Result;
+            
             var query = QueryableExtensions.WhereIf(
                 _livestockRepository.GetAll()
                 .Include(x => x.SpeciesInfo)
@@ -178,6 +184,11 @@ namespace Akh.Breed.Livestocks
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.NationalCode.Contains(input.Filter));
 
+            if (isOfficer)
+            {
+                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
+            }
+            
             return query;
         }        
         

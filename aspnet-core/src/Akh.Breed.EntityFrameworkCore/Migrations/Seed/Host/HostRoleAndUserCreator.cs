@@ -38,17 +38,27 @@ namespace Akh.Breed.Migrations.Seed.Host
                 adminRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin) { IsStatic = true }).Entity;
                 _context.SaveChanges();
             }
-            
-            //Admin role for host
 
-            var adminMgnSysRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.AdminMgnSys);
-            if (adminMgnSysRoleForHost == null)
+            var SysAdminRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.SysAdmin);
+            if (SysAdminRoleForHost == null)
             {
-                adminMgnSysRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.AdminMgnSys, StaticRoleNames.Host.AdminMgnSys) { IsStatic = true }).Entity;
+                SysAdminRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.SysAdmin, StaticRoleNames.Host.SysAdmin) { IsStatic = true }).Entity;
                 _context.SaveChanges();
             }
             
-            //Admin role for host
+            var StateAdminRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.StateAdmin);
+            if (StateAdminRoleForHost == null)
+            {
+                StateAdminRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.StateAdmin, StaticRoleNames.Host.StateAdmin) { IsStatic = true }).Entity;
+                _context.SaveChanges();
+            }
+            
+            var CityAdminRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.CityAdmin);
+            if (CityAdminRoleForHost == null)
+            {
+                CityAdminRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.CityAdmin, StaticRoleNames.Host.CityAdmin) { IsStatic = true }).Entity;
+                _context.SaveChanges();
+            }
 
             var officerRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Officer);
             if (officerRoleForHost == null)

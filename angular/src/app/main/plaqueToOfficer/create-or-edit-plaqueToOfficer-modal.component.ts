@@ -124,6 +124,21 @@ export class CreateOrEditPlaqueToOfficerModalComponent extends AppComponentBase 
             });
 
         });
+        this.officersSelectItems = [];
+        
+    }
+    
+    getOfficers(cityInfoId: string): void {  
+
+        this._plaqueToOfficerService.getOfficerForCombo(Number(cityInfoId)).subscribe(userResult => {
+            
+            this.officersSelectItems = _.map(userResult, function(officer) {
+                return {
+                    label: officer.displayText, value: Number(officer.value)
+                };
+            });
+
+        });
         
     }
 

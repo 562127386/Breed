@@ -162,7 +162,8 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
 
         });
         this.regionInfosSelectItems = [];
-        this.villageInfosSelectItems = [];
+        this.villageInfosSelectItems = [];        
+        this.contractorsSelectItems = [];
         this.herd.institution = '';        
     }
 
@@ -178,6 +179,16 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
 
         });
         
+        this._herdService.getContractorForCombo(Number(cityInfoId)).subscribe(userResult => {
+            
+            this.contractorsSelectItems = _.map(userResult, function(contractor) {
+                return {
+                    label: contractor.displayText, value: Number(contractor.value)
+                };
+            });
+
+        });
+
         this.villageInfosSelectItems = [];
         this._cityInfoService.getCode(Number(cityInfoId)).subscribe(userResult => {            
             this.herd.institution = userResult;

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Akh.Breed.Plaques.Dto;
@@ -11,5 +12,6 @@ namespace Akh.Breed.Plaques
         Task<PlaqueToOfficerGetForEditOutput> GetPlaqueToOfficerForEdit(NullableIdDto<int> input);
         Task CreateOrUpdatePlaqueToOfficer(PlaqueToOfficerCreateOrUpdateInput input);
         Task DeletePlaqueToOfficer(EntityDto input);
+        List<ComboboxItemDto> GetOfficerForCombo(NullableIdDto<int> input);
     }
 }

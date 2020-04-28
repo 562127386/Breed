@@ -28,7 +28,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"CityInfo" | localize}}</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getOfficers($event.value)"
                                         name="cityInfoId" [(ngModel)]="plaqueToOfficer.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="cityInfoCombobox"></validation-messages>
                                 </div>

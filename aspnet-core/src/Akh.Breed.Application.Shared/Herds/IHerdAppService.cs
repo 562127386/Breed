@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Akh.Breed.Herds.Dto;
@@ -11,5 +12,7 @@ namespace Akh.Breed.Herds
         Task<GetHerdForEditOutput> GetHerdForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateHerd(HerdCreateOrUpdateInput input);
         Task DeleteHerd(EntityDto input);
+
+        List<ComboboxItemDto> GetContractorForCombo(NullableIdDto<int> input);
     }
 }
