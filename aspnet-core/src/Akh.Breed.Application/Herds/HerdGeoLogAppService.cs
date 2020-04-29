@@ -66,7 +66,7 @@ namespace Akh.Breed.Herds
            //StateInfos
             output.Herds = _herdRepository
                 .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " - " + c.HerdName + "(" +c.Name+","+c.Family+")" ))
                 .ToList();
             
             return output;

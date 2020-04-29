@@ -49,6 +49,8 @@ import { PlaqueToCityComponent } from "./plaqueToCity/plaqueToCity.component";
 import { CreateOrEditPlaqueToCityModalComponent } from "./plaqueToCity/create-or-edit-plaqueToCity-modal.component";
 import { PlaqueToOfficerComponent } from "./plaqueToOfficer/plaqueToOfficer.component";
 import { CreateOrEditPlaqueToOfficerModalComponent } from "./plaqueToOfficer/create-or-edit-plaqueToOfficer-modal.component";
+import { PlaqueToHerdComponent } from "./plaqueToHerd/plaqueToHerd.component";
+import { CreateOrEditPlaqueToHerdModalComponent } from "./plaqueToHerd/create-or-edit-plaqueToHerd-modal.component";
 import { HerdComponent } from "./herd/herd.component";
 import { CreateOrEditHerdModalComponent } from "./herd/create-or-edit-herd-modal.component";
 import { PlaqueChangeComponent } from "./plaqueChange/plaqueChange.component";
@@ -153,6 +155,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CreateOrEditPlaqueToCityModalComponent,
         PlaqueToOfficerComponent,
         CreateOrEditPlaqueToOfficerModalComponent,
+        PlaqueToHerdComponent,
+        CreateOrEditPlaqueToHerdModalComponent,
         HerdComponent,
         CreateOrEditHerdModalComponent,
         LivestockComponent,

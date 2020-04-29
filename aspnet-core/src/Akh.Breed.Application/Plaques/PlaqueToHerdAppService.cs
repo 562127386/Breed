@@ -17,122 +17,97 @@ using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
 using Akh.Breed.Herds;
-using Akh.Breed.Livestocks.Dto;
+using Akh.Breed.Plaques.Dto;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques;
 using Microsoft.EntityFrameworkCore;
 
-namespace Akh.Breed.Livestocks
+namespace Akh.Breed.Plaques
 {
-    public class LivestockAppService : BreedAppServiceBase, ILivestockAppService
+    public class PlaqueToHerdAppService : BreedAppServiceBase, IPlaqueToHerdAppService
     {
-        private readonly IRepository<Livestock> _livestockRepository;
-        private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
-        private readonly IRepository<SexInfo> _sexInfoRepository;
+        private readonly IRepository<PlaqueToHerd> _plaqueToHerdRepository;
         private readonly IRepository<Herd> _herdRepository;
-        private readonly IRepository<ActivityInfo> _activityInfoRepository;
-        private readonly IRepository<Officer> _officerRepository;
         private readonly IRepository<PlaqueToOfficer> _plaqueToOfficerRepository;
         private readonly IRepository<PlaqueInfo, long> _plaqueInfoRepository;
+        private readonly IRepository<Officer> _officerRepository;
+       
         
-        public LivestockAppService(IRepository<Livestock> livestockRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository)
+        public PlaqueToHerdAppService(IRepository<PlaqueToHerd> plaqueToHerdRepository, IRepository<Herd> herdRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<Officer> officerRepository)
         {
-            _livestockRepository = livestockRepository;
-            _speciesInfoRepository = speciesInfoRepository;
-            _sexInfoRepository = sexInfoRepository;
+            _plaqueToHerdRepository = plaqueToHerdRepository;
             _herdRepository = herdRepository;
-            _activityInfoRepository = activityInfoRepository;
-            _officerRepository = officerRepository;
             _plaqueToOfficerRepository = plaqueToOfficerRepository;
             _plaqueInfoRepository = plaqueInfoRepository;
+            _officerRepository = officerRepository;
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification)]
-        public async Task<PagedResultDto<LivestockListDto>> GetLivestock(GetLivestockInput input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd)]
+        public async Task<PagedResultDto<PlaqueToHerdListDto>> GetPlaqueToHerd(GetPlaqueToHerdInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var livestocks = await query
+            var plaqueToHerds = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var livestocksListDto = ObjectMapper.Map<List<LivestockListDto>>(livestocks);
-            return new PagedResultDto<LivestockListDto>(
+            var plaqueToHerdsListDto = ObjectMapper.Map<List<PlaqueToHerdListDto>>(plaqueToHerds);
+            return new PagedResultDto<PlaqueToHerdListDto>(
                 userCount,
-                livestocksListDto
+                plaqueToHerdsListDto
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Create, AppPermissions.Pages_IdentityInfo_Identification_Edit)]
-        public async Task<GetLivestockForEditOutput> GetLivestockForEdit(NullableIdDto<int> input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Create, AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Edit)]
+        public async Task<PlaqueToHerdGetForEditOutput> GetPlaqueToHerdForEdit(NullableIdDto<int> input)
         {
-            Livestock livestock = null;
+            PlaqueToHerd plaqueToHerd = null;
             if (input.Id.HasValue)
             {
-                livestock = await _livestockRepository.GetAll()
+                plaqueToHerd = await _plaqueToHerdRepository.GetAll()
                     .Include(x => x.Officer)
                     .FirstOrDefaultAsync(x => x.Id == input.Id.Value);
             }
             
-            var output = new GetLivestockForEditOutput();
+            var output = new PlaqueToHerdGetForEditOutput();
             
-            //livestock
-            var newLiveStock = new LivestockCreateOrUpdateInput();
+            //plaqueToHerd
+            var newLiveStock = new PlaqueToHerdCreateOrUpdateInput();
             newLiveStock.CreationTime = newLiveStock.CreationTime.GetShamsi();
-            output.Livestock = livestock != null
-                ? ObjectMapper.Map<LivestockCreateOrUpdateInput>(livestock)
+            output.PlaqueToHerd = plaqueToHerd != null
+                ? ObjectMapper.Map<PlaqueToHerdCreateOrUpdateInput>(plaqueToHerd)
                 : newLiveStock;
             
-            //FirmTypes
-            output.SpeciesInfos = _speciesInfoRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " - " + c.Name ))
-                .ToList();
-
-           output.SexInfos = _sexInfoRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
-                .ToList();
-           
             output.Herds = _herdRepository
                 .GetAllList()
                 .Where(x => x.CreatorUserId ==  AbpSession.UserId)
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " - " + c.HerdName + "(" +c.Name+","+c.Family+")" ))
                 .ToList();
 
-            if (output.Livestock.HerdId.HasValue)
-            {
-                output.ActivityInfos = _herdRepository.GetAll()
-                    .Include(x => x.ActivityInfo)
-                    .Where(x => x.Id == output.Livestock.HerdId)
-                    .Select(c => new ComboboxItemDto(c.ActivityInfo.Id.ToString(), c.ActivityInfo.Name))
-                    .ToList();
-            }
-
             return output;
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Create, AppPermissions.Pages_IdentityInfo_Identification_Edit)]
-        public async Task CreateOrUpdateLivestock(LivestockCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Create, AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Edit)]
+        public async Task CreateOrUpdatePlaqueToHerd(PlaqueToHerdCreateOrUpdateInput input)
         {
             await CheckValidation(input);
             
             if (input.Id.HasValue)
             {
-                await UpdateLivestockAsync(input);
+                await UpdatePlaqueToHerdAsync(input);
             }
             else
             {
-                await CreateLivestockAsync(input);
+                await CreatePlaqueToHerdAsync(input);
             }
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Delete)]
-        public async Task DeleteLivestock(EntityDto input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Delete)]
+        public async Task DeletePlaqueToHerd(EntityDto input)
         {
             try
             {
-                await _livestockRepository.DeleteAsync(input.Id);
+                await _plaqueToHerdRepository.DeleteAsync(input.Id);
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
             catch
@@ -141,45 +116,41 @@ namespace Akh.Breed.Livestocks
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Edit)]
-        private async Task UpdateLivestockAsync(LivestockCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Edit)]
+        private async Task UpdatePlaqueToHerdAsync(PlaqueToHerdCreateOrUpdateInput input)
         {
-            var livestock = ObjectMapper.Map<Livestock>(input);
-            await _livestockRepository.UpdateAsync(livestock);
+            var plaqueToHerd = ObjectMapper.Map<PlaqueToHerd>(input);
+            await _plaqueToHerdRepository.UpdateAsync(plaqueToHerd);
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Create)]
-        private async Task CreateLivestockAsync(LivestockCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Create)]
+        private async Task CreatePlaqueToHerdAsync(PlaqueToHerdCreateOrUpdateInput input)
         {
-            var livestock = ObjectMapper.Map<Livestock>(input);
-            await _livestockRepository.InsertAsync(livestock);
+            var plaqueToHerd = ObjectMapper.Map<PlaqueToHerd>(input);
+            await _plaqueToHerdRepository.InsertAsync(plaqueToHerd);
             
             await CurrentUnitOfWork.SaveChangesAsync();
             
             var plaqueInfo = new PlaqueInfo
             {
-                Code =  Convert.ToInt64(livestock.NationalCode),
-                SetTime = livestock.CreationTime,
-                Latitude = livestock.Latitude,
-                Longitude = livestock.Longitude,
-                OfficerId = livestock.OfficerId,
-                StateId = 1,
-                LivestockId = livestock.Id
+                Code =  Convert.ToInt64(plaqueToHerd.NationalCode),
+                SetTime = plaqueToHerd.CreationTime,
+                Latitude = plaqueToHerd.Latitude,
+                Longitude = plaqueToHerd.Longitude,
+                OfficerId = plaqueToHerd.OfficerId,
+                StateId = 5
             };
             await _plaqueInfoRepository.InsertAsync(plaqueInfo);
         }
         
-        private IQueryable<Livestock> GetFilteredQuery(GetLivestockInput input)
+        private IQueryable<PlaqueToHerd> GetFilteredQuery(GetPlaqueToHerdInput input)
         {
             var tUser = UserManager.GetUserById(AbpSession.GetUserId());
             var isOfficer = UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Officer).Result;
             
             var query = QueryableExtensions.WhereIf(
-                _livestockRepository.GetAll()
-                .Include(x => x.SpeciesInfo)
-                .Include(x => x.SexInfo)
+                _plaqueToHerdRepository.GetAll()
                 .Include(x => x.Herd)
-                .Include(x => x.ActivityInfo)
                 .Include(x => x.Officer),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.NationalCode.Contains(input.Filter));
@@ -192,17 +163,18 @@ namespace Akh.Breed.Livestocks
             return query;
         }        
         
-        public async Task<LivestockCreateOrUpdateInput> CheckValidation(LivestockCreateOrUpdateInput input)
+        public async Task<PlaqueToHerdCreateOrUpdateInput> CheckValidation(PlaqueToHerdCreateOrUpdateInput input)
         {
-            var species = await _speciesInfoRepository.GetAsync(input.SpeciesInfoId.Value);
+            long FromCode = 364052000000000;
+            long ToCode = 364052999999999;
             long nationalCode = Convert.ToInt64(input.NationalCode);
-            if ( nationalCode < species.FromCode)
+            if ( nationalCode < FromCode)
             {
-                nationalCode += species.FromCode;
+                nationalCode += FromCode;
             }
-            if ( nationalCode < species.FromCode || nationalCode > species.ToCode)
+            if ( nationalCode < FromCode || nationalCode > ToCode)
             {
-                throw new UserFriendlyException(L("ThisCodeRangeShouldBe", species.Name,species.FromCode, species.ToCode));
+                throw new UserFriendlyException(L("ThisCodeRangeShouldBe"));
             }
 
             var plaqueInfo = _plaqueInfoRepository.FirstOrDefault(x => x.Code == nationalCode);
@@ -230,16 +202,6 @@ namespace Akh.Breed.Livestocks
 
             input.NationalCode = nationalCode.ToString();
             return input;
-        }
-        
-        public List<ComboboxItemDto> GetActivityForCombo(NullableIdDto<int> input)
-        {
-            var query = _herdRepository.GetAll()
-                .Include(x => x.ActivityInfo)
-                .Where(x => x.Id == input.Id);
-
-            return query.Select(c => new ComboboxItemDto(c.ActivityInfo.Id.ToString(), c.ActivityInfo.Name))
-                .ToList();
         }
     }
 }

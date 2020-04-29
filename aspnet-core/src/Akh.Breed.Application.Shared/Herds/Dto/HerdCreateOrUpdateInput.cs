@@ -69,5 +69,11 @@ namespace Akh.Breed.Herds.Dto
         public int? CityInfoId { get; set; }
         public int? RegionInfoId { get; set; }
         public int? VillageInfoId { get; set; }
+
+        public HerdCreateOrUpdateInput()
+        {
+            Iranian = true;
+            Reality = true;
+        }
     }
 }

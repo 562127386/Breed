@@ -205,6 +205,11 @@ namespace Akh.Breed.Authorization
             plaqueToOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer_Edit, L("EditNewPlaqueToOfficer"));
             plaqueToOfficer.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer_Delete, L("DeleteNewPlaqueToOfficer"));
 
+            var plaqueToHerd = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToHerd, L("PlaqueToHerd"));
+            plaqueToHerd.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Create, L("CreateNewPlaqueToHerd"));
+            plaqueToHerd.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Edit, L("EditNewPlaqueToHerd"));
+            plaqueToHerd.CreateChildPermission(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Delete, L("DeleteNewPlaqueToHerd"));
+            
             var identification = identityInfo.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification, L("Identification"));
             identification.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification_Create, L("CreateNewIdentification"));
             identification.CreateChildPermission(AppPermissions.Pages_IdentityInfo_Identification_Edit, L("EditNewIdentification"));
@@ -215,23 +220,23 @@ namespace Akh.Breed.Authorization
             var activities = pages.CreateChildPermission(AppPermissions.Pages_Activities, L("Activities"));
 
             var editGeoHerd = activities.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd, L("EditGeoHerd"));
-            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Create, L("CreateNewEditGeoHerd"));
-            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Edit, L("EditNewEditGeoHerd"));
-            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Delete, L("DeleteNewEditGeoHerd"));
+            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Create, L("CreateNewGeoHerd"));
+            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Edit, L("EditNewGeoHerd"));
+            editGeoHerd.CreateChildPermission(AppPermissions.Pages_Activities_EditGeoHerd_Delete, L("DeleteNewGeoHerd"));
 
             var editStatePlaque = activities.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque, L("EditStatePlaque"));
-            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Create, L("CreateNewEditStatePlaque"));
-            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Edit, L("EditNewEditStatePlaque"));
-            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Delete, L("DeleteNewEditStatePlaque"));
+            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Create, L("CreateNewStatePlaque"));
+            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Edit, L("EditNewStatePlaque"));
+            editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Delete, L("DeleteNewStatePlaque"));
             
             //Breed-app BaseInfo
 
             var reports = pages.CreateChildPermission(AppPermissions.Pages_Reports, L("Reports"));
 
             var editGeoHerd2 = reports.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd, L("EditGeoHerd"));
-            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Create, L("CreateNewEditGeoHerd"));
-            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Edit, L("EditNewEditGeoHerd"));
-            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Delete, L("DeleteNewEditGeoHerd"));
+            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Create, L("CreateNewGeoHerd"));
+            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Edit, L("EditNewGeoHerd"));
+            editGeoHerd2.CreateChildPermission(AppPermissions.Pages_Reports_EditGeoHerd_Delete, L("DeleteNewGeoHerd"));
         }
 
         private static ILocalizableString L(string name)

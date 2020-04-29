@@ -305,7 +305,7 @@
     <text name="SuccessfullyMoved">با موفیت انتقال داده شد.</text>
     <text name="AddedTime">زمان اضافه شدن</text>
     <text name="ManagingMembers">مدیریت اعضا</text>
-    <text name="ManagingOrganizationTree">Mمدیریت چارت ارگان</text>
+    <text name="ManagingOrganizationTree">مدیریت چارت ارگان</text>
     <text name="LoginForUsers">ورود کاربران</text>
     <text name="LoginAsThisUser">ورود به عنوان</text>
     <text name="BackToMyAccount">بازگشت به حساب من</text>
@@ -431,7 +431,7 @@
     <text name="FilterByPermission">فیلتر شده بر اساس دسترسی</text>
     <text name="FilterByRole">فیلتر شده بر اساس نقش</text>
     <text name="FilterOrAddUser">Filter/Add user</text>
-    <text name="HangfireDashboard">Hangfire dashboard</text>
+    <text name="HangfireDashboard">داشبورد هنگیفایرد</text>
     <text name="CouldNotCompleteLoginOperation">Could not complete the login operation.</text>
     <text name="UnAuthorizedOperation">Unauthorized Operation</text>
     <text name="YouAreNotAuthorizedToPerformThisOperation">You are not authorized to perform this operation.</text>
@@ -831,7 +831,7 @@
     <text name="ExpiringEdition">Expiring edition</text>
     <text name="Price">Price</text>
     <text name="ThereAreTenantsSubscribedToThisEdition">There are tenants subscribed to this edition. Please assign a different edition to them and then delete this edition.</text>
-    <text name="MoveTenantsToAnotherEdition">Move tenants to another edition</text>
+    <text name="MoveTenantsToAnotherEdition">تغییر نسخه زیر سازمان</text>
     <text name="TenantsMovedToEditionNotificationMessage">All tenants of {sourceEditionName} edition moved to {targetEditionName} edition.</text>
     <text name="MoveTenantsOfEdition">Move Tenants to Another Edition</text>
     <text name="MoveTenantsOfEditionDescription">{0} tenants will be moved</text>
@@ -862,7 +862,7 @@
     <text name="SelectRoles">Select roles</text>
     <text name="SelectAnOrganizationUnitToSeeRoles">Select an organization unit to see roles</text>
     <text name="RemoveRoleFromOuWarningMessage">Are you sure to remove role {0} from organization unit {1}?</text>
-    <text name="ManagingRoles">Managing roles</text>
+    <text name="ManagingRoles">مدیریت نقش ها</text>
     <text name="UiCustomization_LayoutFixedContent">Fixed content (Desktop)</text>
     <text name="UiCustomization_LayoutMobileFixedContent">Fixed content (Mobile)</text>
     <text name="ExcelOperations">Excel operations</text>
@@ -1012,6 +1012,11 @@
     <text name="ViewNewSexInfo">نمایش جنسیت دام</text>
     <text name="EditNewSexInfo">ویرایش جنسیت دام</text>
     <text name="DeleteNewSexInfo">حذف جنسیت دام</text>
+    
+    <text name="ViewNewIdentification">نمایش پلاک های نصب شده</text>
+    <text name="CreateNewIdentification">ایجاد پلاک های نصب شده</text>
+    <text name="EditNewIdentification">ویرایش پلاک های نصب شده</text>
+    <text name="DeleteNewIdentification">حذف پلاک های نصب شده</text>
 
     <text name="CreateNewSpeciesInfo">ایجاد گونه دام</text>
     <text name="AreYouSureToDeleteTheSpeciesInfo">آیا از حذف گونه دام {0} مطمئن هستید؟</text>
@@ -1085,6 +1090,7 @@
     <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
     <text name="AreYouSureToDeleteThePlaqueState">امکان حذف وجود ندارد.</text>
     <text name="PlaqueStateHeaderInfo">مدیریت وضعیت پلاک</text>
+    <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
     <text name="ViewNewPlaqueState">نمایش وضعیت پلاک</text>
     <text name="EditNewPlaqueState">ویرایش وضعیت پلاک</text>
     <text name="DeleteNewPlaqueState">حذف وضعیت پلاک</text>
@@ -1156,7 +1162,7 @@
     <text name="AcademicDegreeName">مدرک تحصیلی</text>
     <text name="LivestockName">اطلاعات دام</text>
     <text name="LivestockCode">کد ملی دام</text>
-    <text name="HerdName">کد گله</text>
+    <text name="HerdName">نام گله</text>
     <text name="EpidemiologicInfoName">اپیدمولوژیک</text>
     <text name="StateInfoName">استان</text>
     <text name="CityInfoName">شهر</text>
@@ -1194,6 +1200,7 @@
     <text name="FinishedDate">تاریخ اتمام</text>
     <text name="CreateNewPlaqueStore">ایجاد انبار پلاک</text>
     <text name="ViewNewPlaqueStore">نمایش انبار پلاک</text>
+    <text name="DeleteNewPlaqueStore">حذف انبار پلاک</text>
 
     <text name="PlaqueCount">تعداد پلاک</text>
     <text name="PlaqueUsed">پلاک نصب شده</text>
@@ -1202,16 +1209,23 @@
     <text name="PlaqueToState">تخصیص پلاک به استان</text>
     <text name="CreateNewPlaqueToState">اختصاص پلاک به استان</text>
     <text name="ViewNewPlaqueToState">نمایش پلاک اختصاصی به استان</text>
+    <text name="CreateNewPlaqueToState">ایجاد پلاک اختصاصی به استان</text>
+    <text name="DeleteNewPlaqueToState">حذف پلاک اختصاصی به استان</text>
     <text name="AreYouSureToDeleteThePlaqueToState">آیا از حذف پلاک از استان {0} مطمئن هستید؟</text>
 
     <text name="PlaqueToCity">تخصیص پلاک به شهر</text>
     <text name="CreateNewPlaqueToCity">اختصاص پلاک به شهر</text>
     <text name="ViewNewPlaqueToCity">نمایش پلاک اختصاصی به شهر</text>
+    <text name="CreateNewPlaqueToCity">ایجاد پلاک اختصاصی به شهر</text>
+    <text name="DeleteNewPlaqueToCity">حذف پلاک اختصاصی به شهر</text>
     <text name="AreYouSureToDeleteThePlaqueToCity">آیا از حذف پلاک از ش {0} مطمئن هستید؟</text>
 
     <text name="PlaqueToOfficer">تخصیص پلاک به مامور</text>
     <text name="CreateNewPlaqueToOfficer">اختصاص پلاک به مامور</text>
     <text name="ViewNewPlaqueToOfficer">نمایش پلاک اختصاصی به مامور</text>
+    <text name="CreateNewPlaqueToOfficer">ایجاد پلاک اختصاصی به مامور</text>
+    <text name="EditNewPlaqueToOfficer">ویرایش پلاک اختصاصی به مامور</text>
+    <text name="DeleteNewPlaqueToOfficer">حذف پلاک اختصاصی به مامور</text>
     <text name="AreYouSureToDeleteThePlaqueToOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
 
     <text name="ّFatherName">نام پدر</text>
@@ -1270,7 +1284,15 @@
     <text name="Monitoring">عملیات</text>
     <text name="EditLivestockCode">ویرایش شماره ملی دام</text>
     <text name="EditGeoHerd">اصلاح موقعیت گله</text>
+    <text name="ViewNewGeoHerd">نمایش تغییرات موقعیت گله</text>
+    <text name="CreateNewGeoHerd">ایجاد تغییرات موقعیت گله</text>
+    <text name="EditNewGeoHerd">ویرایش تغییرات موقعیت گله</text>
+    <text name="DeleteNewGeoHerd">حذف تغییرات موقعیت گله</text>
     <text name="EditStatePlaque">تغییر وضعیت پلاک</text>
+    <text name="ViewNewStatePlaque">نمایش تغییرات وضعیت پلاک</text>
+    <text name="CreateNewStatePlaque">ایجاد تغییرات وضعیت پلاک</text>
+    <text name="EditNewStatePlaque">ویرایش تغییرات وضعیت پلاک</text>
+    <text name="DeleteNewStatePlaque">حذف تغییرات وضعیت پلاک</text>
     <text name="PlaqueAllocated">تعداد پلاک اختصاص داده شده</text>
     <text name="SexInfoName">جنیست دام</text>
     <text name="UniqueCode">شناسه یکتا</text>
@@ -1296,6 +1318,14 @@
       <text name="SaveAndContinue">ذخیره - بعدی</text>
     
     <text name="IsImporter">واردکننده</text>
+    <text name="PlaqueToHerd">پلاک نزد دامدار</text>
+    <text name="PlaqueToHerdCode">شماره پلاک</text>
+
+    <text name="CreateNewPlaqueToHerd">ثبت پلاک امانی</text>
+    <text name="AreYouSureToDeleteThePlaqueToHerd">آیا از حذف پلاک امانی {0} مطمئن هستید؟</text>
+    <text name="PlaqueToHerdHeaderInfo">مدیریت پلاک های امانی</text>
+    <text name="ViewNewPlaqueToHerd">نمایش پلاک امانی</text>
+    <text name="EditNewPlaqueToHerd">اصلاح پلاک امانی</text>
   </texts>
 </localizationDictionary>
 

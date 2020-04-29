@@ -97,7 +97,7 @@ namespace Akh.Breed.Livestocks
             output.Herds = _herdRepository
                 .GetAllList()
                 .Where(x => x.CreatorUserId ==  AbpSession.UserId)
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " (" +c.Name+","+c.Family+")" ))
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Code + " - " + c.HerdName + "(" +c.Name+","+c.Family+")" ))
                 .ToList();
 
             if (output.Livestock.HerdId.HasValue)

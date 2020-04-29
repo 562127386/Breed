@@ -274,6 +274,8 @@ namespace Akh.Breed.Migrations.Seed.Host
                 _context.PlaqueStates.Add(defaultPlaqueState);
                 defaultPlaqueState = new PlaqueState() {Code = "4" ,Name = "غیرمجاز"};
                 _context.PlaqueStates.Add(defaultPlaqueState);
+                defaultPlaqueState = new PlaqueState() {Code = "5" ,Name = "نزد دامدار"};
+                _context.PlaqueStates.Add(defaultPlaqueState);
 
                 _context.SaveChanges();
 

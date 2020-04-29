@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"StateInfo" | localize}}</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"StateInfo" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                         <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
                                         name="stateInfoId" [(ngModel)]="plaqueToOfficer.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"CityInfo" | localize}}</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"CityInfo" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                         <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getOfficers($event.value)"
                                         name="cityInfoId" [(ngModel)]="plaqueToOfficer.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
@@ -36,7 +36,7 @@
                         </div>              
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"Officer" | localize}}</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"Officer" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                         <p-dropdown #officerCombobox [options]="officersSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                         name="officerId" [(ngModel)]="plaqueToOfficer.officerId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesInfo" | localize}}</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesInfo" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                         <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                         name="speciesInfoId" [(ngModel)]="plaqueToOfficer.speciesInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
@@ -65,7 +65,7 @@
                         </div> 
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"PlaqueCount" | localize}}</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"PlaqueCount" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                     <input #plaqueCountInput="ngModel" [(ngModel)]="plaqueToOfficer.plaqueCount" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'PlaqueCount' | localize}} *" name="plaqueCount" required maxlength="15"/>
                                 <validation-messages [formCtrl]="plaqueCountInput"></validation-messages>

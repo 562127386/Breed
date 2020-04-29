@@ -153,7 +153,7 @@ namespace Akh.Breed.Plaques
             if (plaqueStore != null)
             {
                 input.FromCode = plaqueStore.LastCode != 0 ? + plaqueStore.LastCode + 1 : plaqueStore.FromCode;
-                input.ToCode = input.FromCode + input.PlaqueCount - 1;
+                input.ToCode = input.FromCode + input.PlaqueCount.Value - 1;
                 input.PlaqueStoreId = plaqueStore.Id;
             }
             else

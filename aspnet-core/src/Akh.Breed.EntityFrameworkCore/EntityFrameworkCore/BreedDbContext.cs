@@ -88,6 +88,8 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<PlaqueToCity> PlaqueToCities { get; set; }
         
         public virtual DbSet<PlaqueToOfficer> PlaqueToOfficers { get; set; }
+        
+        public virtual DbSet<PlaqueToHerd> PlaqueToHerds { get; set; }
 
         public virtual DbSet<PlaqueChange> PlaqueChanges { get; set; }
 
@@ -260,6 +262,11 @@ namespace Akh.Breed.EntityFrameworkCore
             {
                 b.HasIndex(e => e.FromCode);
                 b.HasIndex(e => e.ToCode);
+            });
+            
+            modelBuilder.Entity<PlaqueToHerd>(b =>
+            {
+                b.HasIndex(e => e.NationalCode);
             });
 
             modelBuilder.ConfigurePersistedGrantEntity();

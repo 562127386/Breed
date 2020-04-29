@@ -10937,6 +10937,305 @@ export class PlaqueToCityServiceProxy {
 }
 
 @Injectable()
+export class PlaqueToHerdServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getPlaqueToHerd(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlaqueToHerdListDto> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToHerd/GetPlaqueToHerd?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueToHerd(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueToHerd(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPlaqueToHerdListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPlaqueToHerdListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueToHerd(response: HttpResponseBase): Observable<PagedResultDtoOfPlaqueToHerdListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfPlaqueToHerdListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfPlaqueToHerdListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPlaqueToHerdForEdit(id: number | undefined): Observable<PlaqueToHerdGetForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToHerd/GetPlaqueToHerdForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlaqueToHerdForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlaqueToHerdForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<PlaqueToHerdGetForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlaqueToHerdGetForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPlaqueToHerdForEdit(response: HttpResponseBase): Observable<PlaqueToHerdGetForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PlaqueToHerdGetForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlaqueToHerdGetForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdatePlaqueToHerd(body: PlaqueToHerdCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToHerd/CreateOrUpdatePlaqueToHerd";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdatePlaqueToHerd(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdatePlaqueToHerd(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdatePlaqueToHerd(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deletePlaqueToHerd(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToHerd/DeletePlaqueToHerd?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeletePlaqueToHerd(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeletePlaqueToHerd(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeletePlaqueToHerd(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    checkValidation(body: PlaqueToHerdCreateOrUpdateInput | undefined): Observable<PlaqueToHerdCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToHerd/CheckValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckValidation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckValidation(<any>response_);
+                } catch (e) {
+                    return <Observable<PlaqueToHerdCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlaqueToHerdCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckValidation(response: HttpResponseBase): Observable<PlaqueToHerdCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PlaqueToHerdCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlaqueToHerdCreateOrUpdateInput>(<any>null);
+    }
+}
+
+@Injectable()
 export class PlaqueToOfficerServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -28578,7 +28877,7 @@ export interface IPagedResultDtoOfPlaqueToCityListDto {
 
 export class PlaqueToCityCreateOrUpdateInput implements IPlaqueToCityCreateOrUpdateInput {
     id!: number | undefined;
-    plaqueCount!: number;
+    plaqueCount!: number | undefined;
     fromCode!: number;
     toCode!: number;
     stateInfoId!: number | undefined;
@@ -28637,7 +28936,7 @@ export class PlaqueToCityCreateOrUpdateInput implements IPlaqueToCityCreateOrUpd
 
 export interface IPlaqueToCityCreateOrUpdateInput {
     id: number | undefined;
-    plaqueCount: number;
+    plaqueCount: number | undefined;
     fromCode: number;
     toCode: number;
     stateInfoId: number | undefined;
@@ -28718,6 +29017,222 @@ export interface IPlaqueToCityGetForEditOutput {
     stateInfos: ComboboxItemDto[] | undefined;
     cityInfos: ComboboxItemDto[] | undefined;
     speciesInfos: ComboboxItemDto[] | undefined;
+}
+
+export class PlaqueToHerdListDto implements IPlaqueToHerdListDto {
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    herdName!: string | undefined;
+    officerName!: string | undefined;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: IPlaqueToHerdListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.herdName = data["herdName"];
+            this.officerName = data["officerName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PlaqueToHerdListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToHerdListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["herdName"] = this.herdName;
+        data["officerName"] = this.officerName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPlaqueToHerdListDto {
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    herdName: string | undefined;
+    officerName: string | undefined;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class PagedResultDtoOfPlaqueToHerdListDto implements IPagedResultDtoOfPlaqueToHerdListDto {
+    totalCount!: number;
+    items!: PlaqueToHerdListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfPlaqueToHerdListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(PlaqueToHerdListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPlaqueToHerdListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfPlaqueToHerdListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPlaqueToHerdListDto {
+    totalCount: number;
+    items: PlaqueToHerdListDto[] | undefined;
+}
+
+export class PlaqueToHerdCreateOrUpdateInput implements IPlaqueToHerdCreateOrUpdateInput {
+    id!: number | undefined;
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    officerName!: string | undefined;
+    officerId!: number | undefined;
+    creationTime!: moment.Moment | undefined;
+
+    constructor(data?: IPlaqueToHerdCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.officerName = data["officerName"];
+            this.officerId = data["officerId"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): PlaqueToHerdCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToHerdCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["officerName"] = this.officerName;
+        data["officerId"] = this.officerId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IPlaqueToHerdCreateOrUpdateInput {
+    id: number | undefined;
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    officerName: string | undefined;
+    officerId: number | undefined;
+    creationTime: moment.Moment | undefined;
+}
+
+export class PlaqueToHerdGetForEditOutput implements IPlaqueToHerdGetForEditOutput {
+    plaqueToHerd!: PlaqueToHerdCreateOrUpdateInput;
+    herds!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IPlaqueToHerdGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.plaqueToHerd = data["plaqueToHerd"] ? PlaqueToHerdCreateOrUpdateInput.fromJS(data["plaqueToHerd"]) : <any>undefined;
+            if (Array.isArray(data["herds"])) {
+                this.herds = [] as any;
+                for (let item of data["herds"])
+                    this.herds!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PlaqueToHerdGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlaqueToHerdGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plaqueToHerd"] = this.plaqueToHerd ? this.plaqueToHerd.toJSON() : <any>undefined;
+        if (Array.isArray(this.herds)) {
+            data["herds"] = [];
+            for (let item of this.herds)
+                data["herds"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPlaqueToHerdGetForEditOutput {
+    plaqueToHerd: PlaqueToHerdCreateOrUpdateInput;
+    herds: ComboboxItemDto[] | undefined;
 }
 
 export class PlaqueToOfficerListDto implements IPlaqueToOfficerListDto {
@@ -28850,7 +29365,7 @@ export interface IPagedResultDtoOfPlaqueToOfficerListDto {
 
 export class PlaqueToOfficerCreateOrUpdateInput implements IPlaqueToOfficerCreateOrUpdateInput {
     id!: number | undefined;
-    plaqueCount!: number;
+    plaqueCount!: number | undefined;
     fromCode!: number;
     toCode!: number;
     stateInfoId!: number | undefined;
@@ -28912,7 +29427,7 @@ export class PlaqueToOfficerCreateOrUpdateInput implements IPlaqueToOfficerCreat
 
 export interface IPlaqueToOfficerCreateOrUpdateInput {
     id: number | undefined;
-    plaqueCount: number;
+    plaqueCount: number | undefined;
     fromCode: number;
     toCode: number;
     stateInfoId: number | undefined;
@@ -29122,7 +29637,7 @@ export interface IPagedResultDtoOfPlaqueToStateListDto {
 
 export class PlaqueToStateCreateOrUpdateInput implements IPlaqueToStateCreateOrUpdateInput {
     id!: number | undefined;
-    plaqueCount!: number;
+    plaqueCount!: number | undefined;
     fromCode!: number;
     toCode!: number;
     stateInfoId!: number | undefined;
@@ -29178,7 +29693,7 @@ export class PlaqueToStateCreateOrUpdateInput implements IPlaqueToStateCreateOrU
 
 export interface IPlaqueToStateCreateOrUpdateInput {
     id: number | undefined;
-    plaqueCount: number;
+    plaqueCount: number | undefined;
     fromCode: number;
     toCode: number;
     stateInfoId: number | undefined;

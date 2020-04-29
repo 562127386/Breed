@@ -23,6 +23,7 @@ import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
 import { PlaqueToStateComponent } from './plaqueToState/plaqueToState.component';
 import { PlaqueToCityComponent } from './plaqueToCity/plaqueToCity.component';
 import { PlaqueToOfficerComponent } from './plaqueToOfficer/plaqueToOfficer.component';
+import { PlaqueToHerdComponent } from './plaqueToHerd/plaqueToHerd.component';
 import { HerdComponent } from './herd/herd.component';
 import { LivestockComponent } from './livestock/livestock.component';
 import { PlaqueChangeComponent } from './plaqueChange/plaqueChange.component';
@@ -58,6 +59,7 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
                     { path: 'plaqueToState', component: PlaqueToStateComponent },
                     { path: 'plaqueToCity', component: PlaqueToCityComponent },
                     { path: 'plaqueToOfficer', component: PlaqueToOfficerComponent },
+                    { path: 'plaqueToHerd', component: PlaqueToHerdComponent },
                     { path: 'herd', component: HerdComponent },
                     { path: 'livestock', component: LivestockComponent },
                     { path: 'plaqueChange', component: PlaqueChangeComponent },

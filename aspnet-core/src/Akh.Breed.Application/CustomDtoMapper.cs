@@ -190,6 +190,16 @@ namespace Akh.Breed
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
 
+            configuration.CreateMap<PlaqueToHerd, PlaqueToHerdListDto>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
+            configuration.CreateMap<PlaqueToHerdCreateOrUpdateInput, PlaqueToHerd>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetMiladi()));
+            configuration.CreateMap<PlaqueToHerd, PlaqueToHerdCreateOrUpdateInput>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
+
             //Officer
             configuration.CreateMap<Officer, OfficerListDto>()
                 .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.FirmName + "(" + l.Contractor.Family + "," + l.Contractor.Name + ")"))

@@ -169,7 +169,7 @@ namespace Akh.Breed.Plaques
             if (plaqueToState != null)
             {
                 input.FromCode = plaqueToState.LastCode != 0 ? + plaqueToState.LastCode + 1 : plaqueToState.FromCode;
-                input.ToCode = input.FromCode + input.PlaqueCount - 1;
+                input.ToCode = input.FromCode + input.PlaqueCount.Value - 1;
                 input.PlaqueToStateId = plaqueToState.Id;
             }
             else

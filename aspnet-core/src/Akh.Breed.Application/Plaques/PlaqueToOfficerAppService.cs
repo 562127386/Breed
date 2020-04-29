@@ -203,7 +203,7 @@ namespace Akh.Breed.Plaques
             if (plaqueToCity != null)
             {
                 input.FromCode = plaqueToCity.LastCode != 0 ? + plaqueToCity.LastCode + 1 : plaqueToCity.FromCode;
-                input.ToCode = input.FromCode + input.PlaqueCount - 1;
+                input.ToCode = input.FromCode + input.PlaqueCount.Value - 1;
                 input.PlaqueToCityId = plaqueToCity.Id;
             }
             else

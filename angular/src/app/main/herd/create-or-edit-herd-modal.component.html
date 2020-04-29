@@ -107,9 +107,7 @@
                                                 <validation-messages [formCtrl]="unionInfoCombobox"></validation-messages>
                                             </div>
                                         </div>
-                                    </div>                                                                
-                                </div>
-                                <div class="row">
+                                    </div>    
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Contractor" | localize}} *</label>
@@ -119,13 +117,24 @@
                                                 <validation-messages [formCtrl]="contractorCombobox"></validation-messages>
                                             </div>
                                         </div>
+                                    </div>                                                            
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"HerdName" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #herdNameInput="ngModel" [(ngModel)]="herd.herdName" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'HerdName' | localize}} *" name="herdName" required maxlength="64"/>
+                                            <validation-messages [formCtrl]="herdNameInput"></validation-messages>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <label class="col-form-label col-md-4 col-sm-12">{{"HerdName" | localize}} *</label>
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Code" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <input #herdNameInput="ngModel" [(ngModel)]="herd.herdName" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'HerdName' | localize}} *" name="herdName" required maxlength="10"/>
-                                                <validation-messages [formCtrl]="herdNameInput"></validation-messages>
+                                                <input #codeInput="ngModel" [(ngModel)]="herd.code" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="10"/>
+                                                <validation-messages [formCtrl]="codeInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>

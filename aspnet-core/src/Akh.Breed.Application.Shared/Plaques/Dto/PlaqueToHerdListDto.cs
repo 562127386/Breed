@@ -3,9 +3,9 @@ using Abp.Application.Services.Dto;
 using Abp.Runtime.Validation;
 using Akh.Breed.Dto;
 
-namespace Akh.Breed.Livestocks.Dto
+namespace Akh.Breed.Plaques.Dto
 {
-    public class GetLivestockInput : PagedAndSortedInputDto, IShouldNormalize
+    public class GetPlaqueToHerdInput : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Filter { get; set; }
         
@@ -19,7 +19,7 @@ namespace Akh.Breed.Livestocks.Dto
             Filter = Filter?.Trim();
         }
     }
-    public class LivestockListDto : EntityDto
+    public class PlaqueToHerdListDto : EntityDto
     {
         public string NationalCode { get; set; }
         
@@ -27,20 +27,8 @@ namespace Akh.Breed.Livestocks.Dto
         
         public string Longitude { get; set; }
 
-        public bool Imported { get; set; }
-
-        public DateTime? BirthDate { get; set; }
-        
-        public string SpeciesInfoName { get; set; }
-
-        public string SexInfoName { get; set; }
-
         public string HerdName { get; set; }
-
-        public string ActivityInfoName { get; set; }
-
         public string OfficerName { get; set; }
-        
         
         public DateTime CreationTime { get; set; }
         

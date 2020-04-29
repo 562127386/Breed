@@ -1,0 +1,163 @@
+<div [@routerTransition]>
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+        <div class="kt-subheader kt-grid__item">
+        </div>
+
+        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+            <div class="kt-portlet kt-portlet--mobile">
+
+                <div class="kt-portlet__head kt-portlet--skin-solid kt-portlet-- kt-bg-brand">
+                    <div class="kt-portlet__head-label">
+                          
+                        <span class="kt-portlet__head-icon">
+                            <i class="flaticon2-graph"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-title">
+                            <span>{{"PlaqueToHerd" | localize}}</span>
+                        </h3>                        
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="kt-portlet__head-actions">
+                            <div (click)="createPlaqueToHerd()" *ngIf="'Pages.IdentityInfo.PlaqueToHerd.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                                data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                                <i class="flaticon2-add-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body kt-padding-0">
+                    <form class="kt-form" autocomplete="new-password">
+                        <div>
+                            <div class="row align-items-center">
+                                <div class="col-xl-12">
+                                    <div class="form-group m-form__group align-items-center mb-0">
+                                        <div class="input-group">
+                                            <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
+                                                type="text">
+                                            <span class="input-group-btn">
+                                                <button (click)="getPlaqueToHerd()" class="btn btn-brand" type="submit"><i
+                                                        class="flaticon-search-1"
+                                                        [attr.aria-label]="l('Search')"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row align-items-center kt-margin-0">
+                        <!--<Primeng-TurboTable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <p-table #dataTable (onLazyLoad)="getPlaqueToHerd($event)" [value]="primengTableHelper.records"
+                                rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false"
+                                [lazy]="true" [scrollable]="true" ScrollWidth="100%"
+                                [responsive]="primengTableHelper.isResponsive"
+                                [resizableColumns]="primengTableHelper.resizableColumns">
+                                <ng-template pTemplate="header">
+                                    <tr>     
+                                        <th style="width: 130px" pSortableColumn="nationalCode">
+                                            {{'NationalCode' | localize}}
+                                            <p-sortIcon field="nationalCode"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 90px" pSortableColumn="latitude">
+                                            {{'Latitude' | localize}}
+                                            <p-sortIcon field="latitude"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 90px" pSortableColumn="longitude">
+                                            {{'Longitude' | localize}}
+                                            <p-sortIcon field="longitude"></p-sortIcon>
+                                        </th>                                     
+                                        <th style="width: 90px" pSortableColumn="herdName">
+                                            {{'HerdName' | localize}}
+                                            <p-sortIcon field="herdName"></p-sortIcon>
+                                        </th> 
+                                        <th style="width: 90px" pSortableColumn="officerName">
+                                            {{'OfficerName' | localize}}
+                                            <p-sortIcon field="officerName"></p-sortIcon>
+                                        </th> 
+                                        <th style="width: 90px" pSortableColumn="creationTime">
+                                            {{'CreationTime' | localize}}
+                                            <p-sortIcon field="creationTime"></p-sortIcon>
+                                        </th>
+                                        <th style="width: 130px">
+                                            {{'Actions' | localize}}
+                                        </th>                                                      
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record="$implicit">
+                                    <tr>      
+                                        <td style="width: 130px">
+                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
+                                            {{record.nationalCode}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'Latitude' | localize}}</span>
+                                            {{record.latitude}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'Longitude' | localize}}</span>
+                                            {{record.longitude}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'HerdName' | localize}}</span>
+                                            {{record.herdName}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'OfficerName' | localize}}</span>
+                                            {{record.officerName}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'CreationTime' | localize}}</span>
+                                            {{record.creationTime |  momentFormat:'YYYY/MM/DD HH:MM'}}
+                                        </td>
+                                        <td style="width: 130px">
+                                            <div class="kt-section__content kt-section__content--solid">
+                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditPlaqueToHerdModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditPlaqueToHerdModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                    *ngIf="'Pages.IdentityInfo.PlaqueToHerd.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button>
+                                                <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deletePlaqueToHerd(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                    *ngIf="'Pages.IdentityInfo.PlaqueToHerd.Delete' | permission"><i class="flaticon-delete"></i></button> -->
+                                            </div>                                            
+                                        </td>                                     
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                                {{'NoData' | localize}}
+                            </div>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getPlaqueToHerd($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{'TotalRecordsCount' | localize:primengTableHelper.totalRecordsCount}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-TurboTable-End>-->
+                    </div>
+                </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 m--valign-middle">
+                            
+                        </div>
+                        <div class="col-lg-6 kt-align-right">
+                            <button (click)="createPlaqueToHerd()" *ngIf="'Pages.IdentityInfo.PlaqueToHerd.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewPlaqueToHerd" | localize}}</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <createOrEditPlaqueToHerdModal #createOrEditPlaqueToHerdModal (modalSave)="getPlaqueToHerd()"></createOrEditPlaqueToHerdModal>
+    </div>
+</div>

@@ -11,7 +11,7 @@ namespace Akh.Breed.Plaques.Dto
         
         public int? Id { get; set; }
         
-        public int PlaqueCount { get; set; }
+        public int? PlaqueCount { get; set; }
 
         public long FromCode { get; set; }
         

@@ -187,6 +187,11 @@
         public const string Pages_IdentityInfo_PlaqueToOfficer_Edit = "Pages.IdentityInfo.PlaqueToOfficer.Edit";
         public const string Pages_IdentityInfo_PlaqueToOfficer_Delete = "Pages.IdentityInfo.PlaqueToOfficer.Delete";
         
+        public const string Pages_IdentityInfo_PlaqueToHerd = "Pages.IdentityInfo.PlaqueToHerd";
+        public const string Pages_IdentityInfo_PlaqueToHerd_Create = "Pages.IdentityInfo.PlaqueToHerd.Create";
+        public const string Pages_IdentityInfo_PlaqueToHerd_Edit = "Pages.IdentityInfo.PlaqueToHerd.Edit";
+        public const string Pages_IdentityInfo_PlaqueToHerd_Delete = "Pages.IdentityInfo.PlaqueToHerd.Delete";
+        
         public const string Pages_IdentityInfo_Identification = "Pages.IdentityInfo.Identification";
         public const string Pages_IdentityInfo_Identification_Create = "Pages.IdentityInfo.Identification.Create";
         public const string Pages_IdentityInfo_Identification_Edit = "Pages.IdentityInfo.Identification.Edit";
