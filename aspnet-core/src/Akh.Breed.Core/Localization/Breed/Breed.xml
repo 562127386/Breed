@@ -1090,7 +1090,6 @@
     <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
     <text name="AreYouSureToDeleteThePlaqueState">امکان حذف وجود ندارد.</text>
     <text name="PlaqueStateHeaderInfo">مدیریت وضعیت پلاک</text>
-    <text name="CreateNewPlaqueState">ایجاد وضعیت پلاک</text>
     <text name="ViewNewPlaqueState">نمایش وضعیت پلاک</text>
     <text name="EditNewPlaqueState">ویرایش وضعیت پلاک</text>
     <text name="DeleteNewPlaqueState">حذف وضعیت پلاک</text>
@@ -1209,21 +1208,18 @@
     <text name="PlaqueToState">تخصیص پلاک به استان</text>
     <text name="CreateNewPlaqueToState">اختصاص پلاک به استان</text>
     <text name="ViewNewPlaqueToState">نمایش پلاک اختصاصی به استان</text>
-    <text name="CreateNewPlaqueToState">ایجاد پلاک اختصاصی به استان</text>
     <text name="DeleteNewPlaqueToState">حذف پلاک اختصاصی به استان</text>
     <text name="AreYouSureToDeleteThePlaqueToState">آیا از حذف پلاک از استان {0} مطمئن هستید؟</text>
 
     <text name="PlaqueToCity">تخصیص پلاک به شهر</text>
     <text name="CreateNewPlaqueToCity">اختصاص پلاک به شهر</text>
     <text name="ViewNewPlaqueToCity">نمایش پلاک اختصاصی به شهر</text>
-    <text name="CreateNewPlaqueToCity">ایجاد پلاک اختصاصی به شهر</text>
     <text name="DeleteNewPlaqueToCity">حذف پلاک اختصاصی به شهر</text>
     <text name="AreYouSureToDeleteThePlaqueToCity">آیا از حذف پلاک از ش {0} مطمئن هستید؟</text>
 
     <text name="PlaqueToOfficer">تخصیص پلاک به مامور</text>
     <text name="CreateNewPlaqueToOfficer">اختصاص پلاک به مامور</text>
     <text name="ViewNewPlaqueToOfficer">نمایش پلاک اختصاصی به مامور</text>
-    <text name="CreateNewPlaqueToOfficer">ایجاد پلاک اختصاصی به مامور</text>
     <text name="EditNewPlaqueToOfficer">ویرایش پلاک اختصاصی به مامور</text>
     <text name="DeleteNewPlaqueToOfficer">حذف پلاک اختصاصی به مامور</text>
     <text name="AreYouSureToDeleteThePlaqueToOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
