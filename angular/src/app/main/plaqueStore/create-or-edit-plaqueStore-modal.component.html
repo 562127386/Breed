@@ -29,7 +29,7 @@
                                 <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesName" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
                                         <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
-                                        name="speciesId" [(ngModel)]="plaqueStore.anufacturerId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                        name="speciesId" [(ngModel)]="plaqueStore.speciesId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
                                 </div>
                             </div>

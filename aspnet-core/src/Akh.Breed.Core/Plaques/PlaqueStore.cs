@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
@@ -44,6 +45,10 @@ namespace Akh.Breed.Plaques
         public DateTime CreationTime { get; set; }
         
         public int? TenantId { get; set; }
+        
+        public long PlaqueAllocated => PlaqueToStates.Sum(x => Convert.ToInt64(x.ToCode) - Convert.ToInt64(x.FromCode) + 1);
+        
+        public virtual ICollection<PlaqueToState> PlaqueToStates { get; set; }
 
         public PlaqueStore()
         {

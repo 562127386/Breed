@@ -28782,6 +28782,7 @@ export interface IPlaqueStoreGetForEditOutput {
 export class PlaqueToCityListDto implements IPlaqueToCityListDto {
     fromCode!: number;
     toCode!: number;
+    plaqueAllocated!: number;
     plaqueCount!: number;
     plaqueUsed!: number;
     setTime!: moment.Moment;
@@ -28803,6 +28804,7 @@ export class PlaqueToCityListDto implements IPlaqueToCityListDto {
         if (data) {
             this.fromCode = data["fromCode"];
             this.toCode = data["toCode"];
+            this.plaqueAllocated = data["plaqueAllocated"];
             this.plaqueCount = data["plaqueCount"];
             this.plaqueUsed = data["plaqueUsed"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
@@ -28824,6 +28826,7 @@ export class PlaqueToCityListDto implements IPlaqueToCityListDto {
         data = typeof data === 'object' ? data : {};
         data["fromCode"] = this.fromCode;
         data["toCode"] = this.toCode;
+        data["plaqueAllocated"] = this.plaqueAllocated;
         data["plaqueCount"] = this.plaqueCount;
         data["plaqueUsed"] = this.plaqueUsed;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
@@ -28838,6 +28841,7 @@ export class PlaqueToCityListDto implements IPlaqueToCityListDto {
 export interface IPlaqueToCityListDto {
     fromCode: number;
     toCode: number;
+    plaqueAllocated: number;
     plaqueCount: number;
     plaqueUsed: number;
     setTime: moment.Moment;
@@ -29551,6 +29555,7 @@ export class PlaqueToStateListDto implements IPlaqueToStateListDto {
     fromCode!: number;
     toCode!: number;
     plaqueCount!: number;
+    plaqueAllocated!: number;
     plaqueUsed!: number;
     setTime!: moment.Moment;
     stateName!: string | undefined;
@@ -29571,6 +29576,7 @@ export class PlaqueToStateListDto implements IPlaqueToStateListDto {
             this.fromCode = data["fromCode"];
             this.toCode = data["toCode"];
             this.plaqueCount = data["plaqueCount"];
+            this.plaqueAllocated = data["plaqueAllocated"];
             this.plaqueUsed = data["plaqueUsed"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.stateName = data["stateName"];
@@ -29591,6 +29597,7 @@ export class PlaqueToStateListDto implements IPlaqueToStateListDto {
         data["fromCode"] = this.fromCode;
         data["toCode"] = this.toCode;
         data["plaqueCount"] = this.plaqueCount;
+        data["plaqueAllocated"] = this.plaqueAllocated;
         data["plaqueUsed"] = this.plaqueUsed;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["stateName"] = this.stateName;
@@ -29604,6 +29611,7 @@ export interface IPlaqueToStateListDto {
     fromCode: number;
     toCode: number;
     plaqueCount: number;
+    plaqueAllocated: number;
     plaqueUsed: number;
     setTime: moment.Moment;
     stateName: string | undefined;

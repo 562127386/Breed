@@ -29,7 +29,7 @@ namespace Akh.Breed.Plaques.Dto
 
         public int PlaqueCount { get; set; }
 
-        public int PlaqueAllocated { get; set; }
+        public long PlaqueAllocated { get; set; }
         
         public DateTime SetTime { get; set; }
 

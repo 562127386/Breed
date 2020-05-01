@@ -285,7 +285,7 @@ namespace Akh.Breed
             configuration.CreateMap<PlaqueStore, PlaqueStoreListDto>()
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l => l.ToCode - l.FromCode + 1))
-                .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => l.LastCode == 0 ? 0 : Convert.ToInt32(l.LastCode - l.FromCode + 1)))
+                .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => l.LastCode == 0 ? 0 : Convert.ToUInt64(l.LastCode - l.FromCode + 1)))
                 .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.Species.Name))
                 .ForMember(d => d.ManufacturerName, options => options.MapFrom(l => l.Manufacturer.Name));
             configuration.CreateMap<PlaqueStoreCreateOrUpdateInput, PlaqueStore>()
@@ -312,6 +312,7 @@ namespace Akh.Breed
             configuration.CreateMap<PlaqueToState, PlaqueToStateListDto>()
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
+                .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => l.LastCode == 0 ? 0 : Convert.ToUInt64(l.LastCode - l.FromCode + 1)))
                 .ForMember(d => d.StateName, options => options.MapFrom(l => l.StateInfo.Name))
                 .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.PlaqueStore.Species.Name));
             configuration.CreateMap<PlaqueToStateCreateOrUpdateInput, PlaqueToState>()
@@ -324,6 +325,7 @@ namespace Akh.Breed
             configuration.CreateMap<PlaqueToCity, PlaqueToCityListDto>()
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
+                .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => l.LastCode == 0 ? 0 : Convert.ToUInt64(l.LastCode - l.FromCode + 1)))
                 .ForMember(d => d.CityName, options => options.MapFrom(l => l.CityInfo.Name))
                 .ForMember(d => d.StateName, options => options.MapFrom(l => l.CityInfo.StateInfo.Name))
                 .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.PlaqueToState.PlaqueStore.Species.Name));
