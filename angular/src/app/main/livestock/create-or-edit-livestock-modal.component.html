@@ -76,7 +76,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"LivestockCode" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
-                                    <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="{{codeMask}}" unmask="true" [(ngModel)]="livestock.nationalCode" type="text" autocomplete="new-password" name="nationalCode" placeholder="{{codePlaceHolder}}" (onComplete)="checkValidation()" length="15" required></p-inputMask>
+                                    <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="{{codeMask}}" unmask="true" [(ngModel)]="livestock.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="{{codePlaceHolder}}" (onComplete)="checkValidation()" length="15" required></p-inputMask>
                                     <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
                                 </div>
                             </div>

@@ -9,9 +9,12 @@ namespace Akh.Breed.Plaques.Dto
         
         public List<ComboboxItemDto> SpecieInfos { get; set; }
 
+        
+        public List<ComboboxItemDto> Manufacturers { get; set; }
         public PlaqueStoreGetForEditOutput()
         {
             SpecieInfos = new List<ComboboxItemDto>();
+            Manufacturers = new List<ComboboxItemDto>();
         }
     }
 }

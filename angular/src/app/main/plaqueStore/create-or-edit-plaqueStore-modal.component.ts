@@ -16,12 +16,14 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;    
-    @ViewChild('speciesInfoCombobox', { static: true }) speciesInfoCombobox: ElementRef;
+    @ViewChild('speciesInfoCombobox', { static: true }) speciesInfoCombobox: ElementRef;    
+    @ViewChild('manufacturerCombobox', { static: true }) manufacturerCombobox: ElementRef;
     
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     plaqueStore: PlaqueStoreCreateOrUpdateInput = new PlaqueStoreCreateOrUpdateInput();    
-    speciesInfosSelectItems: SelectItem[] = [];
+    speciesInfosSelectItems: SelectItem[] = [];    
+    manufacturersSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
@@ -58,6 +60,12 @@ export class CreateOrEditPlaqueStoreModalComponent extends AppComponentBase {
             this.speciesInfosSelectItems = _.map(userResult.specieInfos, function(stateInfo) {
                 return {
                     label: stateInfo.displayText, value: Number(stateInfo.value)
+                };
+            });
+            
+            this.manufacturersSelectItems = _.map(userResult.manufacturers, function(manufacturer) {
+                return {
+                    label: manufacturer.displayText, value: Number(manufacturer.value)
                 };
             });
 

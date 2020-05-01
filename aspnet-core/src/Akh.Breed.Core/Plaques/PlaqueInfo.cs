@@ -22,10 +22,8 @@ namespace Akh.Breed.Plaques
 
         public DateTime SetTime { get; set; }
 
-        [Required]
         public string Longitude { get; set; }
-        
-        [Required]
+
         public string Latitude { get; set; }
 
         [ForeignKey("OfficerId")]

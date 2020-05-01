@@ -223,8 +223,8 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
         // get Users current position    
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
-            this.herd.latitude = position.coords.latitude.toString();
-            this.herd.longitude = position.coords.longitude.toString();
+            this.herd.latitude = position.coords.latitude.toPrecision(9).toString();
+            this.herd.longitude = position.coords.longitude.toPrecision(9).toString();
             console.log("position", position)
             }, error => {
               //Handle Errors

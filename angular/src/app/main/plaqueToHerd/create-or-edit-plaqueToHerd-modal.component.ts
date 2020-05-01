@@ -27,11 +27,13 @@ export class CreateOrEditPlaqueToHerdModalComponent extends AppComponentBase {
     active: boolean = false;
     saving: boolean = false;
     editdisabled: boolean = false;
-    codeMask: string = '0';
-    codePlaceHolder: string = '0';
+    codeMask: string = '364-0-52-9-99999999';
+    codePlaceHolder: string = '364-0-52-9-99999999';
     liveStockOfficer: string;
     liveStockNowDate: string;
     liveStockNowTime: string;
+    herdId: number = undefined;
+    nationalCode: string = '';
 
     constructor(
         injector: Injector,
@@ -53,7 +55,6 @@ export class CreateOrEditPlaqueToHerdModalComponent extends AppComponentBase {
             this.liveStockNowTime = '';
         }
         this.editdisabled = true;        
-        this.codeMask = '364-0-52-9-99999999';
 
         if (!editdisabled) {
             this.editdisabled = false;
@@ -71,9 +72,15 @@ export class CreateOrEditPlaqueToHerdModalComponent extends AppComponentBase {
                 this.active = true;
                 this.liveStockOfficer = userResult.plaqueToHerd.officerName;
                 this.liveStockNowDate = userResult.plaqueToHerd.creationTime.format('YYYY/MM/DD');
-                this.liveStockNowTime = userResult.plaqueToHerd.creationTime.format('HH:mm');
+                this.liveStockNowTime = userResult.plaqueToHerd.creationTime.format('HH:mm');                
+                this.modal.show();
             }
             this.getUserLocation();
+            if(this.herdId != undefined){
+                this.plaqueToHerd.herdId = this.herdId;
+                this.plaqueToHerd.nationalCode = this.nationalCode;
+                
+            }
             this.modal.show();
         });
         
@@ -93,7 +100,16 @@ export class CreateOrEditPlaqueToHerdModalComponent extends AppComponentBase {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
                 this.modalSave.emit(this.plaqueToHerd);
-                if(shouldCountinue !== undefined && shouldCountinue == 1){                
+                if(shouldCountinue !== undefined && shouldCountinue == 1){
+                    this.herdId = this.plaqueToHerd.herdId;
+                    let plaqueCode = Number(this.plaqueToHerd.nationalCode);
+                    if(plaqueCode < 1000000000){
+                        this.nationalCode = (364052000000000+plaqueCode+1).toString();
+                    }
+                    else{
+                        this.nationalCode = (plaqueCode+1).toString();
+                    }
+
                     this.show();
                 }
             });
@@ -109,8 +125,8 @@ export class CreateOrEditPlaqueToHerdModalComponent extends AppComponentBase {
         // get Users current position    
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
-            this.plaqueToHerd.latitude = position.coords.latitude.toString();
-            this.plaqueToHerd.longitude = position.coords.longitude.toString();
+            this.plaqueToHerd.latitude = position.coords.latitude.toPrecision(9).toString();
+            this.plaqueToHerd.longitude = position.coords.longitude.toPrecision(9).toString();
             console.log("position", position)
             }, error => {
               //Handle Errors

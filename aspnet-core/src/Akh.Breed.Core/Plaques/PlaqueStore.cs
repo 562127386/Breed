@@ -36,6 +36,10 @@ namespace Akh.Breed.Plaques
         [ForeignKey("FinishedPlaqueId")]
         public PlaqueInfo FinishedPlaque { get; set; }
         public long? FinishedPlaqueId { get; set; }
+
+        [ForeignKey("ManufacturerId")]
+        public Manufacturer Manufacturer { get; set; }
+        public int? ManufacturerId { get; set; }
         
         public DateTime CreationTime { get; set; }
         

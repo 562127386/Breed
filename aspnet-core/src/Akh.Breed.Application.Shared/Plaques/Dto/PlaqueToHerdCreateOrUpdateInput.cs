@@ -16,6 +16,8 @@ namespace Akh.Breed.Plaques.Dto
         public string OfficerName { get; set; }
         public int? OfficerId { get; set; }
         
+        public int? HerdId { get; set; }
+        
         public DateTime? CreationTime { get; set; }
 
     }

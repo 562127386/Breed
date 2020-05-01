@@ -179,7 +179,7 @@ namespace Akh.Breed
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
                 .ForMember(d => d.SexInfoName, options => options.MapFrom(l => l.SexInfo.Name))
-                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code))
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code + " - " + l.Herd.HerdName + "(" +l.Herd.Name+","+l.Herd.Family+")"))
                 .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<LivestockCreateOrUpdateInput, Livestock>()
@@ -192,7 +192,7 @@ namespace Akh.Breed
 
             configuration.CreateMap<PlaqueToHerd, PlaqueToHerdListDto>()
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
-                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code))
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code + " - " + l.Herd.HerdName + "(" +l.Herd.Name+","+l.Herd.Family+")"))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<PlaqueToHerdCreateOrUpdateInput, PlaqueToHerd>()
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetMiladi()));
@@ -286,7 +286,8 @@ namespace Akh.Breed
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l => l.ToCode - l.FromCode + 1))
                 .ForMember(d => d.PlaqueAllocated, options => options.MapFrom(l => l.LastCode == 0 ? 0 : Convert.ToInt32(l.LastCode - l.FromCode + 1)))
-                .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.Species.Name));
+                .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.Species.Name))
+                .ForMember(d => d.ManufacturerName, options => options.MapFrom(l => l.Manufacturer.Name));
             configuration.CreateMap<PlaqueStoreCreateOrUpdateInput, PlaqueStore>()
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetMiladi()));
             configuration.CreateMap<PlaqueStore, PlaqueStoreCreateOrUpdateInput>()
@@ -296,14 +297,14 @@ namespace Akh.Breed
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCode, options => options.MapFrom(l => l.Plaque.Code))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
-                .ForMember(d => d.PlaqueHerdName, options => options.MapFrom(l => l.Plaque.Livestock.Herd.HerdName))
+                .ForMember(d => d.PlaqueHerdName, options => options.MapFrom(l =>  l.Plaque.Livestock.Herd.Code + " - " + l.Plaque.Livestock.Herd.HerdName + "(" +l.Plaque.Livestock.Herd.Name+","+l.Plaque.Livestock.Herd.Family+")"))
                 .ForMember(d => d.PreStateName, options => options.MapFrom(l => l.PreState.Name));
             configuration.CreateMap<PlaqueChangeCreateOrUpdateInput, PlaqueChange>();
             configuration.CreateMap<PlaqueChange, PlaqueChangeCreateOrUpdateInput>();
             
             configuration.CreateMap<HerdGeoLog, HerdGeoLogListDto>()
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
-                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.HerdName))
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code + " - " + l.Herd.HerdName + "(" +l.Herd.Name+","+l.Herd.Family+")"))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<HerdGeoLogCreateOrUpdateInput, HerdGeoLog>();
             configuration.CreateMap<HerdGeoLog, HerdGeoLogCreateOrUpdateInput>();

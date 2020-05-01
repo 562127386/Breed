@@ -165,8 +165,8 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
         // get Users current position    
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
-            this.livestock.latitude = position.coords.latitude.toString();
-            this.livestock.longitude = position.coords.longitude.toString();
+            this.livestock.latitude = position.coords.latitude.toPrecision(9).toString();
+            this.livestock.longitude = position.coords.longitude.toPrecision(9).toString();
             console.log("position", position)
             }, error => {
               //Handle Errors

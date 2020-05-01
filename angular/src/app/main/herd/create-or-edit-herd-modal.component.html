@@ -32,7 +32,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="herd.postalCode" type="text" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10" required></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="herd.postalCode" type="num" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10" required></p-inputMask>
                                                 <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
                                             </div>
                                         </div>
@@ -281,7 +281,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="herd.nationalCode" type="text" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="herd.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
                                                 <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
                                             </div>
                                         </div>
@@ -341,7 +341,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #mobileInput="ngModel" mask="0-999-999-9999" [(ngModel)]="herd.mobile" type="text" autocomplete="new-password" name="mobile" placeholder="0-912-111-2233" length="11" required></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #mobileInput="ngModel" mask="0-999-999-9999" [(ngModel)]="herd.mobile" type="num" autocomplete="new-password" name="mobile" placeholder="0-912-111-2233" length="11" required></p-inputMask>
                                                 <validation-messages [formCtrl]="phoneInput"></validation-messages>
                                             </div>
                                         </div>
@@ -350,7 +350,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Phone" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-99-9999-9999" [(ngModel)]="herd.phone" type="text" autocomplete="new-password" name="phone" placeholder="0-21-2111-2233" length="11"></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-99-9999-9999" [(ngModel)]="herd.phone" type="num" autocomplete="new-password" name="phone" placeholder="0-21-2111-2233" length="11"></p-inputMask>
                                                 <validation-messages [formCtrl]="phoneInput"></validation-messages>
                                             </div>
                                         </div>

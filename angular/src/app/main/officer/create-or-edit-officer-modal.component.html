@@ -30,7 +30,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                        <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="officer.nationalCode" type="text" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
+                                        <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="officer.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
                                         <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"MobileNumber" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                        <p-inputMask [style]="{'width':'100%'}" #mobileNumberInput="ngModel" mask="0-999-999-9999" [(ngModel)]="officer.mobileNumber" type="text" autocomplete="new-password" name="mobileNumber" placeholder="0-912-111-2233" length="11" requred></p-inputMask>
+                                        <p-inputMask [style]="{'width':'100%'}" #mobileNumberInput="ngModel" mask="0-999-999-9999" [(ngModel)]="officer.mobileNumber" type="num" autocomplete="new-password" name="mobileNumber" placeholder="0-912-111-2233" length="11" requred></p-inputMask>
                                         <validation-messages [formCtrl]="mobileNumberInput"></validation-messages>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"WorkNumber" | localize}}</label>
                                     <div class="col-md-8 col-sm-12">
-                                        <p-inputMask [style]="{'width':'100%'}" #workNumberInput="ngModel" mask="0-999-999-9999" [(ngModel)]="officer.workNumber" type="text" autocomplete="new-password" name="workNumber" placeholder="0-912-111-2233" length="11"></p-inputMask>
+                                        <p-inputMask [style]="{'width':'100%'}" #workNumberInput="ngModel" mask="0-999-999-9999" [(ngModel)]="officer.workNumber" type="num" autocomplete="new-password" name="workNumber" placeholder="0-912-111-2233" length="11"></p-inputMask>
                                         <validation-messages [formCtrl]="workNumberInput"></validation-messages>
                                     </div>
                                 </div>
@@ -120,11 +120,11 @@
                             </div>
                         </div>
                         <div class="row">                                
-                            <div class="form-group col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <label class="col-form-label col-md-2 col-sm-12">{{"PostalCode" | localize}} *</label>
-                                    <div class="col-md-10 col-sm-12">
-                                        <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="officer.postalCode" type="text" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10" required></p-inputMask>
+                                    <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}} *</label>
+                                    <div class="col-md-8 col-sm-12">
+                                        <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="officer.postalCode" type="num" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10" required></p-inputMask>
                                         <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
                                     </div>
                                 </div>

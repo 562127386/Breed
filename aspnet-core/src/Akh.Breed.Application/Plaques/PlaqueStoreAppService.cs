@@ -21,11 +21,13 @@ namespace Akh.Breed.Plaques
     {
         private readonly IRepository<PlaqueStore> _plaqueStoreRepository;
         private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
+        private readonly IRepository<Manufacturer> _manufacturerRepository;
         
-        public PlaqueStoreAppService(IRepository<PlaqueStore> plaqueStoreRepository, IRepository<SpeciesInfo> speciesInfoRepository)
+        public PlaqueStoreAppService(IRepository<PlaqueStore> plaqueStoreRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<Manufacturer> manufacturerRepository)
         {
             _plaqueStoreRepository = plaqueStoreRepository;
             _speciesInfoRepository = speciesInfoRepository;
+            _manufacturerRepository = manufacturerRepository;
         }
 
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueStore)]
@@ -67,6 +69,11 @@ namespace Akh.Breed.Plaques
             
             //speciesInfo
             output.SpecieInfos = _speciesInfoRepository
+                .GetAllList()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
+            
+            output.Manufacturers = _manufacturerRepository
                 .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
@@ -123,6 +130,7 @@ namespace Akh.Breed.Plaques
             var query = QueryableExtensions.WhereIf(
                 _plaqueStoreRepository.GetAll()
                     .Include(x => x.Species)
+                    .Include(x => x.Manufacturer)
                     .Include(x => x.FinishedPlaque),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.FromCode <= tempSearch &&

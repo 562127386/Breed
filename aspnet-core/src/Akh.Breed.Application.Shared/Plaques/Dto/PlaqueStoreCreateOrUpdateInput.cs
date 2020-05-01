@@ -20,6 +20,8 @@ namespace Akh.Breed.Plaques.Dto
         public DateTime SetTime { get; set; }
         
         public int? SpeciesId { get; set; }
+        
+        public int? ManufacturerId { get; set; }
 
         public long? FinishedPlaqueId { get; set; }
 

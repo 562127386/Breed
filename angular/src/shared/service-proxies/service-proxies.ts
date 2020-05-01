@@ -28546,6 +28546,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
     plaqueAllocated!: number;
     setTime!: moment.Moment;
     speciesName!: string | undefined;
+    manufacturerName!: string | undefined;
     lastCode!: string | undefined;
     lastDate!: moment.Moment | undefined;
     id!: number;
@@ -28567,6 +28568,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
             this.plaqueAllocated = data["plaqueAllocated"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.speciesName = data["speciesName"];
+            this.manufacturerName = data["manufacturerName"];
             this.lastCode = data["lastCode"];
             this.lastDate = data["lastDate"] ? moment(data["lastDate"].toString()) : <any>undefined;
             this.id = data["id"];
@@ -28588,6 +28590,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
         data["plaqueAllocated"] = this.plaqueAllocated;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["speciesName"] = this.speciesName;
+        data["manufacturerName"] = this.manufacturerName;
         data["lastCode"] = this.lastCode;
         data["lastDate"] = this.lastDate ? this.lastDate.toISOString() : <any>undefined;
         data["id"] = this.id;
@@ -28602,6 +28605,7 @@ export interface IPlaqueStoreListDto {
     plaqueAllocated: number;
     setTime: moment.Moment;
     speciesName: string | undefined;
+    manufacturerName: string | undefined;
     lastCode: string | undefined;
     lastDate: moment.Moment | undefined;
     id: number;
@@ -28661,6 +28665,7 @@ export class PlaqueStoreCreateOrUpdateInput implements IPlaqueStoreCreateOrUpdat
     toCode!: number;
     setTime!: moment.Moment;
     speciesId!: number | undefined;
+    manufacturerId!: number | undefined;
     finishedPlaqueId!: number | undefined;
 
     constructor(data?: IPlaqueStoreCreateOrUpdateInput) {
@@ -28679,6 +28684,7 @@ export class PlaqueStoreCreateOrUpdateInput implements IPlaqueStoreCreateOrUpdat
             this.toCode = data["toCode"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.speciesId = data["speciesId"];
+            this.manufacturerId = data["manufacturerId"];
             this.finishedPlaqueId = data["finishedPlaqueId"];
         }
     }
@@ -28697,6 +28703,7 @@ export class PlaqueStoreCreateOrUpdateInput implements IPlaqueStoreCreateOrUpdat
         data["toCode"] = this.toCode;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["speciesId"] = this.speciesId;
+        data["manufacturerId"] = this.manufacturerId;
         data["finishedPlaqueId"] = this.finishedPlaqueId;
         return data; 
     }
@@ -28708,12 +28715,14 @@ export interface IPlaqueStoreCreateOrUpdateInput {
     toCode: number;
     setTime: moment.Moment;
     speciesId: number | undefined;
+    manufacturerId: number | undefined;
     finishedPlaqueId: number | undefined;
 }
 
 export class PlaqueStoreGetForEditOutput implements IPlaqueStoreGetForEditOutput {
     plaqueStore!: PlaqueStoreCreateOrUpdateInput;
     specieInfos!: ComboboxItemDto[] | undefined;
+    manufacturers!: ComboboxItemDto[] | undefined;
 
     constructor(data?: IPlaqueStoreGetForEditOutput) {
         if (data) {
@@ -28731,6 +28740,11 @@ export class PlaqueStoreGetForEditOutput implements IPlaqueStoreGetForEditOutput
                 this.specieInfos = [] as any;
                 for (let item of data["specieInfos"])
                     this.specieInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["manufacturers"])) {
+                this.manufacturers = [] as any;
+                for (let item of data["manufacturers"])
+                    this.manufacturers!.push(ComboboxItemDto.fromJS(item));
             }
         }
     }
@@ -28750,6 +28764,11 @@ export class PlaqueStoreGetForEditOutput implements IPlaqueStoreGetForEditOutput
             for (let item of this.specieInfos)
                 data["specieInfos"].push(item.toJSON());
         }
+        if (Array.isArray(this.manufacturers)) {
+            data["manufacturers"] = [];
+            for (let item of this.manufacturers)
+                data["manufacturers"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -28757,6 +28776,7 @@ export class PlaqueStoreGetForEditOutput implements IPlaqueStoreGetForEditOutput
 export interface IPlaqueStoreGetForEditOutput {
     plaqueStore: PlaqueStoreCreateOrUpdateInput;
     specieInfos: ComboboxItemDto[] | undefined;
+    manufacturers: ComboboxItemDto[] | undefined;
 }
 
 export class PlaqueToCityListDto implements IPlaqueToCityListDto {
@@ -29134,6 +29154,7 @@ export class PlaqueToHerdCreateOrUpdateInput implements IPlaqueToHerdCreateOrUpd
     longitude!: string | undefined;
     officerName!: string | undefined;
     officerId!: number | undefined;
+    herdId!: number | undefined;
     creationTime!: moment.Moment | undefined;
 
     constructor(data?: IPlaqueToHerdCreateOrUpdateInput) {
@@ -29153,6 +29174,7 @@ export class PlaqueToHerdCreateOrUpdateInput implements IPlaqueToHerdCreateOrUpd
             this.longitude = data["longitude"];
             this.officerName = data["officerName"];
             this.officerId = data["officerId"];
+            this.herdId = data["herdId"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
         }
     }
@@ -29172,6 +29194,7 @@ export class PlaqueToHerdCreateOrUpdateInput implements IPlaqueToHerdCreateOrUpd
         data["longitude"] = this.longitude;
         data["officerName"] = this.officerName;
         data["officerId"] = this.officerId;
+        data["herdId"] = this.herdId;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         return data; 
     }
@@ -29184,6 +29207,7 @@ export interface IPlaqueToHerdCreateOrUpdateInput {
     longitude: string | undefined;
     officerName: string | undefined;
     officerId: number | undefined;
+    herdId: number | undefined;
     creationTime: moment.Moment | undefined;
 }
 

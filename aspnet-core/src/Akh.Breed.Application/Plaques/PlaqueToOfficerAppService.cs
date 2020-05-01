@@ -27,8 +27,9 @@ namespace Akh.Breed.Plaques
         private readonly IRepository<CityInfo> _cityInfoRepository;
         private readonly IRepository<PlaqueToCity> _plaqueToCityRepository;
         private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
+        private readonly IRepository<PlaqueInfo,long> _plaqueInfoRepository;
         
-        public PlaqueToOfficerAppService(IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToCity> plaqueToCityRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository)
+        public PlaqueToOfficerAppService(IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToCity> plaqueToCityRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository)
         {
             _plaqueToOfficerRepository = plaqueToOfficerRepository;
             _officerRepository = officerRepository;
@@ -36,6 +37,7 @@ namespace Akh.Breed.Plaques
             _speciesInfoRepository = speciesInfoRepository;
             _stateInfoRepository = stateInfoRepository;
             _cityInfoRepository = cityInfoRepository;
+            _plaqueInfoRepository = plaqueInfoRepository;
         }
 
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer)]

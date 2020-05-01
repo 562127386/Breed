@@ -44,7 +44,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"PlaqueCode" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
-                                    <p-inputMask [style]="{'width':'100%'}" #plaqueCodeInput="ngModel" mask="364-0-52-9-99999999" unmask="true" [(ngModel)]="plaqueChange.plaqueCode" type="text" name="plaqueCode" placeholder="364-0-52-9-99999999" (onComplete)="checkValidation()" length="15" required></p-inputMask>
+                                    <p-inputMask [style]="{'width':'100%'}" #plaqueCodeInput="ngModel" mask="364-0-52-9-99999999" unmask="true" [(ngModel)]="plaqueChange.plaqueCode" type="num" name="plaqueCode" placeholder="364-0-52-9-99999999" (onComplete)="checkValidation()" length="15" required></p-inputMask>
                                     <validation-messages [formCtrl]="plaqueCodeInput"></validation-messages>
                                 </div>
                             </div>

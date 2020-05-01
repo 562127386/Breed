@@ -66,6 +66,11 @@ namespace Akh.Breed.Livestocks
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Create, AppPermissions.Pages_IdentityInfo_Identification_Edit)]
         public async Task<GetLivestockForEditOutput> GetLivestockForEdit(NullableIdDto<int> input)
         {
+            var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+            if (officer == null)
+            {
+                throw new UserFriendlyException(L("TheOfficerDoesNotExists"));
+            }
             Livestock livestock = null;
             if (input.Id.HasValue)
             {
@@ -205,7 +210,7 @@ namespace Akh.Breed.Livestocks
                 throw new UserFriendlyException(L("ThisCodeRangeShouldBe", species.Name,species.FromCode, species.ToCode));
             }
 
-            var plaqueInfo = _plaqueInfoRepository.FirstOrDefault(x => x.Code == nationalCode);
+            var plaqueInfo = _plaqueInfoRepository.FirstOrDefault(x => x.Code == nationalCode && x.StateId != 5);
             if ( plaqueInfo != null)
             {
                 throw new UserFriendlyException(L("ThisCodeIsAllocated",nationalCode));

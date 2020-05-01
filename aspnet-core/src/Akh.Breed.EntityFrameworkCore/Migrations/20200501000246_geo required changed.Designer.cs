@@ -4,14 +4,16 @@ using Akh.Breed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    partial class BreedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200501000246_geo required changed")]
+    partial class georequiredchanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2736,9 +2738,6 @@ namespace Akh.Breed.Migrations
                     b.Property<DateTime>("LastDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ManufacturerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("SetTime")
                         .HasColumnType("datetime2");
 
@@ -2757,8 +2756,6 @@ namespace Akh.Breed.Migrations
                     b.HasIndex("FinishedPlaqueId");
 
                     b.HasIndex("FromCode");
-
-                    b.HasIndex("ManufacturerId");
 
                     b.HasIndex("SpeciesId");
 
@@ -3390,10 +3387,6 @@ namespace Akh.Breed.Migrations
                     b.HasOne("Akh.Breed.Plaques.PlaqueInfo", "FinishedPlaque")
                         .WithMany()
                         .HasForeignKey("FinishedPlaqueId");
-
-                    b.HasOne("Akh.Breed.BaseInfo.Manufacturer", "Manufacturer")
-                        .WithMany()
-                        .HasForeignKey("ManufacturerId");
 
                     b.HasOne("Akh.Breed.BaseInfo.SpeciesInfo", "Species")
                         .WithMany()

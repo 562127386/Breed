@@ -10,6 +10,7 @@ using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Runtime.Session;
+using Abp.Timing;
 using Abp.UI;
 using Akh.Breed.Authorization;
 using Akh.Breed.Authorization.Roles;
@@ -61,6 +62,11 @@ namespace Akh.Breed.Plaques
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Create, AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Edit)]
         public async Task<PlaqueToHerdGetForEditOutput> GetPlaqueToHerdForEdit(NullableIdDto<int> input)
         {
+            var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+            if (officer == null)
+            {
+                throw new UserFriendlyException(L("TheOfficerDoesNotExists"));
+            }
             PlaqueToHerd plaqueToHerd = null;
             if (input.Id.HasValue)
             {
@@ -73,7 +79,7 @@ namespace Akh.Breed.Plaques
             
             //plaqueToHerd
             var newLiveStock = new PlaqueToHerdCreateOrUpdateInput();
-            newLiveStock.CreationTime = newLiveStock.CreationTime.GetShamsi();
+            //newLiveStock.CreationTime = newLiveStock.CreationTime.GetShamsi();
             output.PlaqueToHerd = plaqueToHerd != null
                 ? ObjectMapper.Map<PlaqueToHerdCreateOrUpdateInput>(plaqueToHerd)
                 : newLiveStock;
@@ -129,12 +135,9 @@ namespace Akh.Breed.Plaques
             var plaqueToHerd = ObjectMapper.Map<PlaqueToHerd>(input);
             await _plaqueToHerdRepository.InsertAsync(plaqueToHerd);
             
-            await CurrentUnitOfWork.SaveChangesAsync();
-            
             var plaqueInfo = new PlaqueInfo
             {
                 Code =  Convert.ToInt64(plaqueToHerd.NationalCode),
-                SetTime = plaqueToHerd.CreationTime,
                 Latitude = plaqueToHerd.Latitude,
                 Longitude = plaqueToHerd.Longitude,
                 OfficerId = plaqueToHerd.OfficerId,
