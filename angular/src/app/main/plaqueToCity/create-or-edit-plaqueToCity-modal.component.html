@@ -18,7 +18,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"StateInfo" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
+                                        <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
                                         name="stateInfoId" [(ngModel)]="plaqueToCity.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                 </div>
@@ -28,7 +28,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"CityInfo" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        <p-dropdown #cityInfoCombobox="ngModel" [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                         name="cityInfoId" [(ngModel)]="plaqueToCity.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="cityInfoCombobox"></validation-messages>
                                 </div>
@@ -38,7 +38,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesInfo" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        <p-dropdown #speciesInfoCombobox="ngModel" [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                         name="speciesInfoId" [(ngModel)]="plaqueToCity.speciesInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
                                 </div>

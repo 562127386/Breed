@@ -18,7 +18,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"Manufacturer" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #manufacturerCombobox [options]="manufacturersSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        <p-dropdown #manufacturerCombobox="ngModel" [options]="manufacturersSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                         name="manufacturerId" [(ngModel)]="plaqueStore.manufacturerId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="manufacturerCombobox"></validation-messages>
                                 </div>
@@ -28,7 +28,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"SpeciesName" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
+                                        <p-dropdown #speciesInfoCombobox="ngModel" [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
                                         name="speciesId" [(ngModel)]="plaqueStore.speciesId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
                                 </div>

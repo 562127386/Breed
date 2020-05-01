@@ -15,12 +15,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <p-dropdown #languageCombobox [options]="languageNamesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                        <p-dropdown #languageCombobox="ngModel" [options]="languageNamesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                             name="languageName" [(ngModel)]="language.name" [style]="{'width':'100%'}"></p-dropdown>
                         <validation-messages [formCtrl]="languageCombobox"></validation-messages>
                     </div>
                     <div class="form-group">
-                        <p-dropdown #iconCombobox name="languageIcon" [options]="flagsSelectItems"
+                        <p-dropdown #iconCombobox="ngModel" name="languageIcon" [options]="flagsSelectItems"
                             [(ngModel)]="language.icon" [filter]="true" [virtualScroll]="true" [itemSize]="30" [style]="{'width':'100%'}">
                             <ng-template let-item pTemplate="selectedItem">
                                 <i class="margin-right-5 d-inline-block" [ngClass]="item.value"></i>

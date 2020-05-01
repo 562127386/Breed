@@ -18,7 +18,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-3 col-sm-12">{{"StateInfoName" | localize}}</label>
                                     <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
+                                        <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
                                             name="stateInfoId" [(ngModel)]="regionInfo.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                         <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                     </div>
@@ -28,7 +28,7 @@
                                     <div class="row">
                                         <label class="col-form-label col-md-3 col-sm-12">{{"CityInfoName" | localize}}</label>
                                         <div class="col-md-9 col-sm-12">
-                                            <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                            <p-dropdown #cityInfoCombobox="ngModel" [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                                 name="cityInfoId" [(ngModel)]="regionInfo.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                             <validation-messages [formCtrl]="cityInfoCombobox"></validation-messages>
                                         </div>

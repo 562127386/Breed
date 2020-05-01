@@ -71,7 +71,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"NewStateName" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
-                                    <p-dropdown #newStateCombobox [options]="plaqueStatesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                    <p-dropdown #newStateCombobox="ngModel" [options]="plaqueStatesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
                                         name="newStateId" [(ngModel)]="plaqueChange.newStateId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="newStateCombobox"></validation-messages>
                                 </div>

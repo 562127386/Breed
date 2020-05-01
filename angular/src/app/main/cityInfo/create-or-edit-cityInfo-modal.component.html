@@ -18,7 +18,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"StateInfoName" | localize}}</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                        <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                         name="stateInfoId" [(ngModel)]="cityInfo.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                 </div>

@@ -22,7 +22,6 @@
                                             <label class="col-form-label col-md-3 col-sm-12">{{"UniqueCodeHerd" | localize}}</label>
                                             <div class="col-md-9 col-sm-12">
                                                 <input #codeInput="ngModel" [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="herd.code" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'UniqueCodeHerd' | localize}}" name="code" maxlength="16"/>
-                                            <validation-messages [formCtrl]="codeInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +51,7 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"StateInfoName" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                    <p-dropdown #stateInfoCombobox [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
+                                                    <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
                                                     name="stateInfoId" [(ngModel)]="herd.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                                 <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                             </div>
@@ -60,7 +59,7 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"CityInfoName" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-dropdown #cityInfoCombobox [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getRegions($event.value)"
+                                                <p-dropdown #cityInfoCombobox="ngModel" [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getRegions($event.value)"
                                                 name="cityInfoId" [(ngModel)]="herd.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                             <validation-messages [formCtrl]="cityInfoCombobox"></validation-messages>
                                             </div>
@@ -70,7 +69,7 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"RegionInfoName" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-dropdown #regionInfoCombobox [options]="regionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getVillages($event.value)"
+                                                <p-dropdown #regionInfoCombobox="ngModel" [options]="regionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getVillages($event.value)"
                                                     name="regionInfoId" [(ngModel)]="herd.regionInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')"></p-dropdown>
                                                 <validation-messages [formCtrl]="regionInfoCombobox"></validation-messages>
                                             </div>
@@ -78,7 +77,7 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"VillageInfoName" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-dropdown #villageInfoCombobox [options]="villageInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setInstitution($event.value)"
+                                                <p-dropdown #villageInfoCombobox="ngModel" [options]="villageInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setInstitution($event.value)"
                                                     name="villageInfoId" [(ngModel)]="herd.villageInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')"></p-dropdown>
                                                 <validation-messages [formCtrl]="villageInfoCombobox"></validation-messages>
                                             </div>
@@ -102,7 +101,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"SubInstitution" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-dropdown #unionInfoCombobox [options]="unionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                <p-dropdown #unionInfoCombobox="ngModel" [options]="unionInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                                     name="unionInfoId" [(ngModel)]="herd.unionInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                                 <validation-messages [formCtrl]="unionInfoCombobox"></validation-messages>
                                             </div>
@@ -112,7 +111,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Contractor" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-dropdown #contractorCombobox [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                                <p-dropdown #contractorCombobox="ngModel" [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
                                                     name="contractorId" [(ngModel)]="herd.contractorId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                                 <validation-messages [formCtrl]="contractorCombobox"></validation-messages>
                                             </div>
@@ -185,7 +184,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"ActivityInfo" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-dropdown #activityInfoCombobox [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                                <p-dropdown #activityInfoCombobox="ngModel" [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
                                                     name="activityInfoId" [(ngModel)]="herd.activityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                                 <validation-messages [formCtrl]="activityInfoCombobox"></validation-messages>
                                             </div>
@@ -281,8 +280,11 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="herd.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" (onBlur)="checkNationalCode()" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="herd.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
                                                 <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
+                                                <div class="form-control-feedback ng-star-inserted" *ngIf="!this.nationalCodeValid">
+                                                    کد ملی معتیر نیست
+                                               </div>
                                             </div>
                                         </div>
                                     </div>

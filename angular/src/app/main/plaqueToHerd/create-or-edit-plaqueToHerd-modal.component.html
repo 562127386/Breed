@@ -44,7 +44,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"HerdInfo" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
-                                    <p-dropdown #herdCombobox [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getActivities($event.value)"
+                                    <p-dropdown #herdCombobox="ngModel" [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getActivities($event.value)"
                                         name="herdId" [(ngModel)]="plaqueToHerd.herdId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="herdCombobox"></validation-messages>
                                 </div>

@@ -44,7 +44,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"HerdInfo" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
-                                    <p-dropdown #herdCombobox [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getActivities($event.value)"
+                                    <p-dropdown #herdCombobox="ngModel" [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getActivities($event.value)"
                                         name="herdId" [(ngModel)]="livestock.herdId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="herdCombobox"></validation-messages>
                                 </div>
@@ -54,7 +54,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"ActivityInfo" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
-                                    <p-dropdown #activityInfoCombobox [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                    <p-dropdown #activityInfoCombobox="ngModel" [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
                                         name="activityInfoId" [(ngModel)]="livestock.activityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="activityInfoCombobox"></validation-messages>
                                 </div>
@@ -66,7 +66,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"SpeciesInfo" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
-                                    <p-dropdown #speciesInfoCombobox [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
+                                    <p-dropdown #speciesInfoCombobox="ngModel" [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
                                         name="speciesInfoId" [(ngModel)]="livestock.speciesInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
                                 </div>
@@ -87,7 +87,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-4 col-sm-12">{{"SexInfo" | localize}} *</label>
                                 <div class="col-md-8 col-sm-12">
-                                    <p-dropdown #sexInfoCombobox [options]="sexInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                    <p-dropdown #sexInfoCombobox="ngModel" [options]="sexInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
                                         name="sexInfoId" [(ngModel)]="livestock.sexInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="sexInfoCombobox"></validation-messages>
                                 </div>
