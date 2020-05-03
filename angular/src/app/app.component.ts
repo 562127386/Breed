@@ -8,6 +8,7 @@ import { AppComponentBase } from 'shared/common/app-component-base';
 import { SignalRHelper } from 'shared/helpers/SignalRHelper';
 import { LinkedAccountsModalComponent } from '@app/shared/layout/linked-accounts-modal.component';
 import { LoginAttemptsModalComponent } from '@app/shared/layout/login-attempts-modal.component';
+import { MonitoringModalComponent } from '@app/shared/layout/monitoring-modal.component';
 import { ChangePasswordModalComponent } from '@app/shared/layout/profile/change-password-modal.component';
 import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
 import { MySettingsModalComponent } from '@app/shared/layout/profile/my-settings-modal.component';
@@ -25,6 +26,7 @@ export class AppComponent extends AppComponentBase implements OnInit {
     installationMode = true;
 
     @ViewChild('loginAttemptsModal', {static: true}) loginAttemptsModal: LoginAttemptsModalComponent;
+    @ViewChild('monitoringModal', {static: true}) monitoringModal: MonitoringModalComponent;
     @ViewChild('linkedAccountsModal', {static: false}) linkedAccountsModal: LinkedAccountsModalComponent;
     @ViewChild('changePasswordModal', {static: true}) changePasswordModal: ChangePasswordModalComponent;
     @ViewChild('changeProfilePictureModal', {static: true}) changeProfilePictureModal: ChangeProfilePictureModalComponent;
@@ -71,6 +73,10 @@ export class AppComponent extends AppComponentBase implements OnInit {
     registerModalOpenEvents(): void {
         abp.event.on('app.show.loginAttemptsModal', () => {
             this.loginAttemptsModal.show();
+        });
+
+        abp.event.on('app.show.monitoringModal', () => {
+            this.monitoringModal.show();
         });
 
         abp.event.on('app.show.linkedAccountsModal', () => {

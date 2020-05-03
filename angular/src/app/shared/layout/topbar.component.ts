@@ -130,6 +130,10 @@ export class TopBarComponent extends ThemesLayoutBaseComponent implements OnInit
         abp.event.trigger('app.show.loginAttemptsModal');
     }
 
+    showMonitoring(): void {
+        abp.event.trigger('app.show.monitoringModal');
+    }
+
     showLinkedAccounts(): void {
         abp.event.trigger('app.show.linkedAccountsModal');
     }

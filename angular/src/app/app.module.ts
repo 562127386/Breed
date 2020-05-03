@@ -7,6 +7,7 @@ import { ChatSignalrService } from '@app/shared/layout/chat/chat-signalr.service
 import { LinkAccountModalComponent } from '@app/shared/layout/link-account-modal.component';
 import { LinkedAccountsModalComponent } from '@app/shared/layout/linked-accounts-modal.component';
 import { LoginAttemptsModalComponent } from '@app/shared/layout/login-attempts-modal.component';
+import { MonitoringModalComponent } from '@app/shared/layout/monitoring-modal.component';
 import { ChangePasswordModalComponent } from '@app/shared/layout/profile/change-password-modal.component';
 import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
 import { MySettingsModalComponent } from '@app/shared/layout/profile/my-settings-modal.component';
@@ -104,6 +105,7 @@ import { ScrollTopComponent } from './shared/layout/scroll-top.component';
         ScrollTopComponent,
         StackedFooterComponent,
         LoginAttemptsModalComponent,
+        MonitoringModalComponent,
         LinkedAccountsModalComponent,
         LinkAccountModalComponent,
         ChangePasswordModalComponent,
