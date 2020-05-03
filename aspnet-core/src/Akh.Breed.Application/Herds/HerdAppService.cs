@@ -16,6 +16,8 @@ using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
 using Akh.Breed.Herds.Dto;
+using Akh.Breed.Net.Sms;
+using Akh.Breed.Officers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Herds
@@ -31,8 +33,10 @@ namespace Akh.Breed.Herds
         private readonly IRepository<UnionInfo> _unionInfoRepository;
         private readonly IRepository<ActivityInfo> _activityInfoRepository;
         private readonly IRepository<Contractor> _contractorRepository;
+        private readonly IRepository<Officer> _officerRepository;
+        private readonly ISms98Sender _sms98Sender;
         
-        public HerdAppService(IRepository<Herd> herdRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<HerdGeoLog> herdGeoLogInfoRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Contractor> contractorRepository)
+        public HerdAppService(IRepository<Herd> herdRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<HerdGeoLog> herdGeoLogInfoRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Contractor> contractorRepository, ISms98Sender sms98Sender, IRepository<Officer> officerRepository)
         {
             _herdRepository = herdRepository;
             _stateInfoRepository = stateInfoRepository;
@@ -43,6 +47,8 @@ namespace Akh.Breed.Herds
             _herdGeoLogInfoRepository = herdGeoLogInfoRepository;
             _activityInfoRepository = activityInfoRepository;
             _contractorRepository = contractorRepository;
+            _sms98Sender = sms98Sender;
+            _officerRepository = officerRepository;
         }
         
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
@@ -185,6 +191,12 @@ namespace Akh.Breed.Herds
                 CreationTime = herd.CreationTime
             };
             await _herdGeoLogInfoRepository.InsertAsync(herdGeoLog);
+            if (herd.Id > 0)
+            {
+                var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                var message = "گله شما با کد "+ herd.Code +" در سامانه دامیار توسط "+ officer?.Name + " " + officer?.Family +" ثبت شد.";
+                await _sms98Sender.SendAsync(herd.Mobile.Replace("-",""), message);
+            }
         }
         
         public List<ComboboxItemDto> GetContractorForCombo(NullableIdDto<int> input)
