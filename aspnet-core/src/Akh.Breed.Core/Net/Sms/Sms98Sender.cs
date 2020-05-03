@@ -34,7 +34,7 @@ namespace Akh.Breed.Net.Sms
                     { "TO", number },
                     { "TEXT", message },
                     { "USERNAME", "smsq2547" },
-                    { "PASSWORD", "hamgam410009" },
+                    { "PASSWORD", "" },
                     { "DOMAIN", "0098" },
                 };
 
