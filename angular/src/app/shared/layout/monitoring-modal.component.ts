@@ -40,7 +40,7 @@ export class MonitoringModalComponent extends AppComponentBase implements AfterV
     }
 
     ngAfterViewInit(): void {
-        //this.primengTableHelper.adjustScroll(this.dataTable);
+        this.primengTableHelper.adjustScroll(this.dataTable);
     }
 
     show(): void {  
