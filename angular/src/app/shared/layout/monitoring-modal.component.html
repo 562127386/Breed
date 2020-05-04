@@ -39,6 +39,14 @@
                                         {{'LivestockCode' | localize}}
                                         <p-sortIcon field="nationalCode"></p-sortIcon>
                                     </th>
+                                    <th style="width: 130px" pSortableColumn="latitude">
+                                        {{'Latitude' | localize}}
+                                        <p-sortIcon field="latitude"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 130px" pSortableColumn="longitude">
+                                        {{'Longitude' | localize}}
+                                        <p-sortIcon field="longitude"></p-sortIcon>
+                                    </th>
                                     <th style="width: 90px" pSortableColumn="speciesInfoName">
                                         {{'SpeciesInfoName' | localize}}
                                         <p-sortIcon field="speciesInfoName"></p-sortIcon>
@@ -51,21 +59,13 @@
                                         {{'HerdName' | localize}}
                                         <p-sortIcon field="herdName"></p-sortIcon>
                                     </th>
-                                    <th style="width: 90px" pSortableColumn="herdCode">
-                                        {{'Code' | localize}}
-                                        <p-sortIcon field="herdCode"></p-sortIcon>
-                                    </th>
                                     <th style="width: 160px" pSortableColumn="herdOwner">
-                                        {{'LiveStockOwnerInfo' | localize}}
+                                        {{'LiveStockOwner' | localize}}
                                         <p-sortIcon field="herdOwner"></p-sortIcon>
                                     </th>
                                     <th style="width: 90px" pSortableColumn="contractorName">
                                         {{'ContractorName' | localize}}
                                         <p-sortIcon field="contractorName"></p-sortIcon>
-                                    </th>
-                                    <th style="width: 90px" pSortableColumn="contractorCode">
-                                        {{'ContractorCode' | localize}}
-                                        <p-sortIcon field="contractorCode"></p-sortIcon>
                                     </th>
                                 </tr>
                             </ng-template>
@@ -83,6 +83,14 @@
                                         <span class="ui-column-title"> {{'LivestockCode' | localize}}</span>
                                         {{record.nationalCode}}
                                     </td>
+                                    <td style="width: 130px">
+                                        <span class="ui-column-title"> {{'Latitude' | localize}}</span>
+                                        {{record.latitude}}
+                                    </td>
+                                    <td style="width: 130px">
+                                        <span class="ui-column-title"> {{'Longitude' | localize}}</span>
+                                        {{record.longitude}}
+                                    </td>
                                     <td style="width: 90px">
                                         <span class="ui-column-title"> {{'SpeciesInfoName' | localize}}</span>
                                         {{record.speciesInfoName}}
@@ -95,10 +103,6 @@
                                         <span class="ui-column-title"> {{'HerdName' | localize}}</span>
                                         {{record.herdName}}
                                     </td>
-                                    <td style="width: 90px">
-                                        <span class="ui-column-title"> {{'Code' | localize}}</span>
-                                        {{record.herdCode}}
-                                    </td>
                                     <td style="width: 160px">
                                         <span class="ui-column-title"> {{'LiveStockOwnerInfo' | localize}}</span>
                                         {{record.herdOwner}}
@@ -106,10 +110,6 @@
                                     <td style="width: 90px">
                                         <span class="ui-column-title"> {{'ContractorName' | localize}}</span>
                                         {{record.contractorName}}
-                                    </td>
-                                    <td style="width: 90px">
-                                        <span class="ui-column-title"> {{'ContractorCode' | localize}}</span>
-                                        {{record.contractorCode}}
                                     </td>
                                 </tr>
                             </ng-template>

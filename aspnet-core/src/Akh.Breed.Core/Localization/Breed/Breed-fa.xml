@@ -1261,6 +1261,7 @@
     <text name="IssueDate">تاریخ صدور</text>
     <text name="ValidityDate">تاریخ اعتبار</text>
     <text name="LiveStockOwnerInfo">اطلاعات دامدار</text>
+    <text name="LiveStockOwner">دامدار</text>
     <text name="Nationality">ملیت</text>
     <text name="Iranian">ایرانی</text>
     <text name="NoneIranian">خارجی</text>

@@ -37,7 +37,7 @@ export class MonitoringModalComponent extends AppComponentBase implements AfterV
         private _activatedRoute: ActivatedRoute
     ) {
         super(injector);
-        this.filterText = moment().format('YYYY-MM-DD hh:mm:ss');  
+        this.filterText = moment().format('YYYY-MM-DD HH:mm:ss');  
         interval(5000).subscribe(x => {
             if(this.active){
                 this.getMonitorings();
@@ -50,7 +50,7 @@ export class MonitoringModalComponent extends AppComponentBase implements AfterV
     }
 
     show(): void {          
-        this.filterText = moment().format('YYYY-MM-DD hh:mm:ss');
+        this.filterText = moment().format('YYYY-MM-DD HH:mm:ss');
         this.active = true;
         this.modal.show();        
     }
