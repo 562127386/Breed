@@ -12,6 +12,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import * as momentjalali from 'jalali-moment';
 import { format } from 'path';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
     selector: 'monitoringModal',
@@ -36,21 +37,26 @@ export class MonitoringModalComponent extends AppComponentBase implements AfterV
         private _activatedRoute: ActivatedRoute
     ) {
         super(injector);
-        this.filterText = this._activatedRoute.snapshot.queryParams['filterText'] || '';
+        this.filterText = moment().format('YYYY-MM-DD hh:mm:ss');  
+        interval(5000).subscribe(x => {
+            if(this.active){
+                this.getMonitorings();
+            }
+        });
     }
 
     ngAfterViewInit(): void {
         this.primengTableHelper.adjustScroll(this.dataTable);
     }
 
-    show(): void {  
+    show(): void {          
+        this.filterText = moment().format('YYYY-MM-DD hh:mm:ss');
         this.active = true;
-        this.getMonitorings();
         this.modal.show();        
     }
 
     onShown(): void {        
-    }
+    ;}
 
     getMonitorings(event?: LazyLoadEvent) {
         // if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -59,7 +65,8 @@ export class MonitoringModalComponent extends AppComponentBase implements AfterV
         //     return;
         // }
 
-        this.primengTableHelper.showLoadingIndicator();
+        //this.primengTableHelper.showLoadingIndicator();
+        
 
         this._livestockService.getMonitoring(
             this.filterText,
@@ -69,8 +76,11 @@ export class MonitoringModalComponent extends AppComponentBase implements AfterV
         ).pipe(finalize(() => this.primengTableHelper.hideLoadingIndicator())).subscribe(result => {
             this.primengTableHelper.totalRecordsCount = result.totalCount;
             this.primengTableHelper.records = result.items;
-            this.primengTableHelper.hideLoadingIndicator();
+            //this.primengTableHelper.hideLoadingIndicator();
         });
+
+            
+
     }
 
     reloadPage(): void {

@@ -95,8 +95,10 @@ namespace Akh.Breed.Authorization
             
             //Breed-app BaseInfo
 
+            var monitoring = pages.CreateChildPermission(AppPermissions.Pages_Monitoring, L("Monitoring"));
+            
             var baseInfo = pages.CreateChildPermission(AppPermissions.Pages_BaseInfo, L("BaseInfo"));
-
+            
             var stateInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_StateInfo, L("StateInfo"));
             stateInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_StateInfo_Create, L("CreateNewStateInfo"));
             stateInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_StateInfo_Edit, L("EditNewStateInfo"));
@@ -228,6 +230,11 @@ namespace Akh.Breed.Authorization
             editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Create, L("CreateNewStatePlaque"));
             editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Edit, L("EditNewStatePlaque"));
             editStatePlaque.CreateChildPermission(AppPermissions.Pages_Activities_EditStatePlaque_Delete, L("DeleteNewStatePlaque"));
+
+            var herdCertificate = activities.CreateChildPermission(AppPermissions.Pages_Activities_HerdCertificate, L("HerdCertificate"));
+            herdCertificate.CreateChildPermission(AppPermissions.Pages_Activities_HerdCertificate_Create, L("CreateNewHerdCertificate"));
+            herdCertificate.CreateChildPermission(AppPermissions.Pages_Activities_HerdCertificate_Edit, L("EditNewHerdCertificate"));
+            herdCertificate.CreateChildPermission(AppPermissions.Pages_Activities_HerdCertificate_Delete, L("DeleteNewHerdCertificate"));
             
             //Breed-app BaseInfo
 

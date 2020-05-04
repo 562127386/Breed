@@ -10,8 +10,10 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using Abp.UI;
 using Akh.Breed.Authorization;
+using Akh.Breed.Authorization.Roles;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques.Dto;
@@ -173,6 +175,9 @@ namespace Akh.Breed.Plaques
         
         private IQueryable<PlaqueToOfficer> GetFilteredQuery(GetPlaqueToOfficerInput input)
         {
+            var tUser = UserManager.GetUserById(AbpSession.GetUserId());
+            var isOfficer = UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Officer).Result;
+            
             long tempSearch = Convert.ToInt64(input.Filter);
             var query = QueryableExtensions.WhereIf(
                 _plaqueToOfficerRepository.GetAll()
@@ -187,6 +192,11 @@ namespace Akh.Breed.Plaques
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.FromCode <= tempSearch &&
                     u.ToCode >= tempSearch);
+            
+            if (isOfficer)
+            {
+                query = query.Where(x => x.OfficerId == AbpSession.UserId);
+            }
 
             return query;
         }

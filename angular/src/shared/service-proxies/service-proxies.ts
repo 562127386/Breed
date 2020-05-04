@@ -25452,6 +25452,7 @@ export class MonitoringListDto implements IMonitoringListDto {
     speciesInfoName!: string | undefined;
     herdName!: string | undefined;
     herdCode!: string | undefined;
+    herdOwner!: string | undefined;
     officerName!: string | undefined;
     contractorName!: string | undefined;
     contractorCode!: string | undefined;
@@ -25475,6 +25476,7 @@ export class MonitoringListDto implements IMonitoringListDto {
             this.speciesInfoName = data["speciesInfoName"];
             this.herdName = data["herdName"];
             this.herdCode = data["herdCode"];
+            this.herdOwner = data["herdOwner"];
             this.officerName = data["officerName"];
             this.contractorName = data["contractorName"];
             this.contractorCode = data["contractorCode"];
@@ -25498,6 +25500,7 @@ export class MonitoringListDto implements IMonitoringListDto {
         data["speciesInfoName"] = this.speciesInfoName;
         data["herdName"] = this.herdName;
         data["herdCode"] = this.herdCode;
+        data["herdOwner"] = this.herdOwner;
         data["officerName"] = this.officerName;
         data["contractorName"] = this.contractorName;
         data["contractorCode"] = this.contractorCode;
@@ -25514,6 +25517,7 @@ export interface IMonitoringListDto {
     speciesInfoName: string | undefined;
     herdName: string | undefined;
     herdCode: string | undefined;
+    herdOwner: string | undefined;
     officerName: string | undefined;
     contractorName: string | undefined;
     contractorCode: string | undefined;

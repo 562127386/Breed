@@ -53,7 +53,7 @@
             </ul>
         </div>
     </div> -->
-    <div class="kt-header__topbar-item dropdown">
+    <div *ngIf="'Pages.Monitoring' | permission" class="kt-header__topbar-item dropdown">
         <a href="javascript:;" class="kt-header__topbar-wrapper" (click)="showMonitoring()">
             <div class="kt-header__topbar-wrapper">
                 <span class="kt-header__topbar-icon kt-header__topbar-icon--brand">

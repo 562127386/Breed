@@ -32,6 +32,8 @@ namespace Akh.Breed.Livestocks.Dto
         public string HerdName { get; set; }
         
         public string HerdCode { get; set; }
+        
+        public string HerdOwner { get; set; }
 
         public string OfficerName { get; set; }
         

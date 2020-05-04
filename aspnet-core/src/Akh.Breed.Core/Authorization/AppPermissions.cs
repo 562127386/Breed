@@ -77,6 +77,8 @@
         
         //Breed-app BaseInfo
         
+        public const string Pages_Monitoring = "Pages.Monitoring";
+
         public const string Pages_BaseInfo = "Pages.BaseInfo";
         
         public const string Pages_BaseInfo_StateInfo = "Pages.BaseInfo.StateInfo";
@@ -210,6 +212,11 @@
         public const string Pages_Activities_EditStatePlaque_Create = "Pages.Activities.EditStatePlaque.Create";
         public const string Pages_Activities_EditStatePlaque_Edit = "Pages.Activities.EditStatePlaque.Edit";
         public const string Pages_Activities_EditStatePlaque_Delete = "Pages.Activities.EditStatePlaque.Delete";
+        
+        public const string Pages_Activities_HerdCertificate = "Pages.Activities.HerdCertificate";
+        public const string Pages_Activities_HerdCertificate_Create = "Pages.Activities.HerdCertificate.Create";
+        public const string Pages_Activities_HerdCertificate_Edit = "Pages.Activities.HerdCertificate.Edit";
+        public const string Pages_Activities_HerdCertificate_Delete = "Pages.Activities.HerdCertificate.Delete";
         
         //Breed-app Reports
         

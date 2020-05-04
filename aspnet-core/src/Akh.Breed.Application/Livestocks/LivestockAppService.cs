@@ -57,7 +57,7 @@ namespace Akh.Breed.Livestocks
                     .ThenInclude(x => x.Contractor)
                     .Include(x => x.Officer),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
-                    u.NationalCode.Contains(input.Filter));
+                    u.CreationTime >= DateTime.Parse(input.Filter));
             var userCount = await query.CountAsync();
             var monitorings = await query
                 .OrderBy(input.Sorting)
