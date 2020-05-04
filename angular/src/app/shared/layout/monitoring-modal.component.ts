@@ -1,57 +1,84 @@
-import { Component, Injector, ViewChild } from '@angular/core';
-import { AppConsts } from '@shared/AppConsts';
-import { AppComponentBase } from '@shared/common/app-component-base';
-import { ProfileServiceProxy, UserLoginAttemptDto, UserLoginServiceProxy } from '@shared/service-proxies/service-proxies';
-import * as moment from 'moment';
+import { Component, ViewChild, Injector, ViewEncapsulation, OnInit, AfterViewInit  } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
+import { LivestockServiceProxy, MonitoringListDto } from '@shared/service-proxies/service-proxies';
+import { Paginator } from 'primeng/components/paginator/paginator';
+import { Table } from 'primeng/components/table/table';
+import { ActivatedRoute } from '@angular/router';
+import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
+import { AppComponentBase } from '@shared/common/app-component-base';
+import { appModuleAnimation } from '@shared/animations/routerTransition';
+import { finalize } from 'rxjs/operators';
+import * as _ from 'lodash';
+import * as moment from 'moment';
+import * as momentjalali from 'jalali-moment';
+import { format } from 'path';
 
 @Component({
     selector: 'monitoringModal',
-    templateUrl: './monitoring-modal.component.html'
+    templateUrl: './monitoring-modal.component.html',
+    encapsulation: ViewEncapsulation.None,
+    animations: [appModuleAnimation()]
 })
-export class MonitoringModalComponent extends AppComponentBase {
+export class MonitoringModalComponent extends AppComponentBase implements AfterViewInit  {
 
     @ViewChild('monitoringModal', {static: true}) modal: ModalDirective;
+    @ViewChild('dataTable', { static: true }) dataTable: Table;
+    @ViewChild('paginator', { static: true }) paginator: Paginator;
+    
+    monitorings: MonitoringListDto[] = [];
+    filterText : string = '';
 
-    userLoginAttempts: UserLoginAttemptDto[];
-    profilePicture = AppConsts.appBaseUrl + '/assets/common/images/default-profile-picture.png';
-    defaultProfilePicture = AppConsts.appBaseUrl + '/assets/common/images/default-profile-picture.png';
+    active: boolean = false;
 
     constructor(
         injector: Injector,
-        private _userLoginService: UserLoginServiceProxy,
-        private _profileService: ProfileServiceProxy
+        private _livestockService: LivestockServiceProxy,
+        private _activatedRoute: ActivatedRoute
     ) {
         super(injector);
+        this.filterText = this._activatedRoute.snapshot.queryParams['filterText'] || '';
     }
 
-    show(): void {
-        this._userLoginService.getRecentUserLoginAttempts().subscribe(result => {
-            this.userLoginAttempts = result.items;
-            this._profileService.getProfilePicture().subscribe(result => {
-                if (result && result.profilePicture) {
-                    this.profilePicture = 'data:image/jpeg;base64,' + result.profilePicture;
-                }
-                this.modal.show();
-            });
+    ngAfterViewInit(): void {
+        //this.primengTableHelper.adjustScroll(this.dataTable);
+    }
+
+    show(): void {  
+        this.active = true;
+        this.getMonitorings();
+        this.modal.show();        
+    }
+
+    onShown(): void {        
+    }
+
+    getMonitorings(event?: LazyLoadEvent) {
+        // if (this.primengTableHelper.shouldResetPaging(event)) {
+        //     this.paginator.changePage(0);
+
+        //     return;
+        // }
+
+        this.primengTableHelper.showLoadingIndicator();
+
+        this._livestockService.getMonitoring(
+            this.filterText,
+            this.primengTableHelper.getSorting(this.dataTable),
+            this.primengTableHelper.getMaxResultCount(this.paginator, event),
+            this.primengTableHelper.getSkipCount(this.paginator, event)
+        ).pipe(finalize(() => this.primengTableHelper.hideLoadingIndicator())).subscribe(result => {
+            this.primengTableHelper.totalRecordsCount = result.totalCount;
+            this.primengTableHelper.records = result.items;
+            this.primengTableHelper.hideLoadingIndicator();
         });
     }
 
+    reloadPage(): void {
+        this.paginator.changePage(this.paginator.getPage());
+    }
+
     close(): void {
+        this.active = false;
         this.modal.hide();
-    }
-
-    setProfilePictureClass(userLoginAttemptResult: string): any {
-        const classes = {
-            label: true,
-            'label-success': userLoginAttemptResult === 'Success',
-            'label-danger': userLoginAttemptResult !== 'Success'
-        };
-
-        return classes;
-    }
-
-    getLoginAttemptTime(userLoginAttempt: UserLoginAttemptDto): string {
-        return moment(userLoginAttempt.creationTime).fromNow() + ' (' + moment(userLoginAttempt.creationTime).format('YYYY-MM-DD hh:mm:ss') + ')';
     }
 }

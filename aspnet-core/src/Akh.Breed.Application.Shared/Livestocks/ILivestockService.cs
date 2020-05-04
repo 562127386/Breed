@@ -8,6 +8,7 @@ namespace Akh.Breed.Livestocks
 {
     public interface ILivestockAppService : IApplicationService
     {
+        Task<PagedResultDto<MonitoringListDto>> GetMonitoring(GetMonitoringInput input);
         Task<PagedResultDto<LivestockListDto>> GetLivestock(GetLivestockInput input);
         Task<GetLivestockForEditOutput> GetLivestockForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateLivestock(LivestockCreateOrUpdateInput input);

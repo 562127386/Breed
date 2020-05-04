@@ -27,7 +27,7 @@ namespace Akh.Breed.Net.Sms
             using (var httpClient = new HttpClient())
             {
 
-                const string url = "http://www.0098sms.com/sendsmslink.aspx";
+                const string url = "https://www.0098sms.com/sendsmslink.aspx";
                 var param = new Dictionary<string, string>()
                 {
                     { "FROM", "50002201430" },

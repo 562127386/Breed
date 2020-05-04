@@ -6621,6 +6621,77 @@ export class LivestockServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
+    getMonitoring(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfMonitoringListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Livestock/GetMonitoring?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMonitoring(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMonitoring(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMonitoringListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMonitoringListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMonitoring(response: HttpResponseBase): Observable<PagedResultDtoOfMonitoringListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMonitoringListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMonitoringListDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
     getLivestock(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfLivestockListDto> {
         let url_ = this.baseUrl + "/api/services/app/Livestock/GetLivestock?";
         if (filter === null)
@@ -25372,6 +25443,130 @@ export interface IUpdateLanguageTextInput {
     sourceName: string | undefined;
     key: string | undefined;
     value: string | undefined;
+}
+
+export class MonitoringListDto implements IMonitoringListDto {
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    speciesInfoName!: string | undefined;
+    herdName!: string | undefined;
+    herdCode!: string | undefined;
+    officerName!: string | undefined;
+    contractorName!: string | undefined;
+    contractorCode!: string | undefined;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: IMonitoringListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.speciesInfoName = data["speciesInfoName"];
+            this.herdName = data["herdName"];
+            this.herdCode = data["herdCode"];
+            this.officerName = data["officerName"];
+            this.contractorName = data["contractorName"];
+            this.contractorCode = data["contractorCode"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): MonitoringListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MonitoringListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["speciesInfoName"] = this.speciesInfoName;
+        data["herdName"] = this.herdName;
+        data["herdCode"] = this.herdCode;
+        data["officerName"] = this.officerName;
+        data["contractorName"] = this.contractorName;
+        data["contractorCode"] = this.contractorCode;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IMonitoringListDto {
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    speciesInfoName: string | undefined;
+    herdName: string | undefined;
+    herdCode: string | undefined;
+    officerName: string | undefined;
+    contractorName: string | undefined;
+    contractorCode: string | undefined;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class PagedResultDtoOfMonitoringListDto implements IPagedResultDtoOfMonitoringListDto {
+    totalCount!: number;
+    items!: MonitoringListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfMonitoringListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(MonitoringListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMonitoringListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMonitoringListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfMonitoringListDto {
+    totalCount: number;
+    items: MonitoringListDto[] | undefined;
 }
 
 export class LivestockListDto implements ILivestockListDto {

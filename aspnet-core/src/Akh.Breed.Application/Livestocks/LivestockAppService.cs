@@ -48,6 +48,29 @@ namespace Akh.Breed.Livestocks
         }
         
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification)]
+        public async Task<PagedResultDto<MonitoringListDto>> GetMonitoring(GetMonitoringInput input)
+        {
+            var query =  QueryableExtensions.WhereIf(
+                _livestockRepository.GetAll()
+                    .Include(x => x.SpeciesInfo)
+                    .Include(x => x.Herd)
+                    .ThenInclude(x => x.Contractor)
+                    .Include(x => x.Officer),
+                !input.Filter.IsNullOrWhiteSpace(), u =>
+                    u.NationalCode.Contains(input.Filter));
+            var userCount = await query.CountAsync();
+            var monitorings = await query
+                .OrderBy(input.Sorting)
+                .PageBy(input)
+                .ToListAsync();
+            var monitoringsListDto = ObjectMapper.Map<List<MonitoringListDto>>(monitorings);
+            return new PagedResultDto<MonitoringListDto>(
+                userCount,
+                monitoringsListDto
+            );
+        }
+        
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification)]
         public async Task<PagedResultDto<LivestockListDto>> GetLivestock(GetLivestockInput input)
         {
             var query = GetFilteredQuery(input);

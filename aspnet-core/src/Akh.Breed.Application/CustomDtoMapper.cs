@@ -175,6 +175,14 @@ namespace Akh.Breed
                 .ForMember(d => d.ValidityDate, options => options.MapFrom(l => l.ValidityDate.GetShamsi()));
 
             
+            configuration.CreateMap<Livestock, MonitoringListDto>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
+                .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code + " - " + l.Herd.HerdName + "(" +l.Herd.Name+","+l.Herd.Family+")"))
+                .ForMember(d => d.HerdCode, options => options.MapFrom(l => l.Herd.Code ))
+                .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Herd.Contractor.Name + " " + l.Herd.Contractor.Family ))
+                .ForMember(d => d.ContractorCode, options => options.MapFrom(l => l.Herd.Contractor.Code ))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<Livestock, LivestockListDto>()
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
