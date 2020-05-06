@@ -19,10 +19,12 @@ namespace Akh.Breed.BaseInfos
     public class UnionInfoAppService :  BreedAppServiceBase, IUnionInfoAppService
     {
         private readonly IRepository<UnionInfo> _unionInfoRepository;
+        private readonly IRepository<StateInfo> _stateInfoRepository;
 
-        public UnionInfoAppService(IRepository<UnionInfo> unionInfoRepository)
+        public UnionInfoAppService(IRepository<UnionInfo> unionInfoRepository, IRepository<StateInfo> stateInfoRepository)
         {
             _unionInfoRepository = unionInfoRepository;
+            _stateInfoRepository = stateInfoRepository;
         }
 
         [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo)]
@@ -42,18 +44,26 @@ namespace Akh.Breed.BaseInfos
         }
         
         [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Create, AppPermissions.Pages_BaseInfo_UnionInfo_Edit)]
-        public async Task<UnionInfoCreateOrUpdateInput> GetUnionInfoForEdit(NullableIdDto<int> input)
+        public async Task<UnionInfoGetForEditOutput> GetUnionInfoForEdit(NullableIdDto<int> input)
         {
-            //Getting all available roles
-            var output = new UnionInfoCreateOrUpdateInput();
-            
+            UnionInfo unionInfo = null;
             if (input.Id.HasValue)
             {
-                //Editing an existing user
-                var unionInfo = await _unionInfoRepository.GetAsync(input.Id.Value);
-                if (unionInfo != null)
-                    ObjectMapper.Map<UnionInfo,UnionInfoCreateOrUpdateInput>(unionInfo,output);
+                unionInfo = await _unionInfoRepository.GetAsync(input.Id.Value);
             }
+            //Getting all available roles
+            var output = new UnionInfoGetForEditOutput();
+            
+            output.UnionInfo = unionInfo != null
+                ? ObjectMapper.Map<UnionInfoCreateOrUpdateInput>(unionInfo)
+                : new UnionInfoCreateOrUpdateInput();
+            
+            //StateInfos
+            output.StateInfos = _stateInfoRepository
+                .GetAllList()
+                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name)
+                    {IsSelected = output.UnionInfo.StateInfoId.Equals(c.Id)})
+                .ToList();
 
             return output;
         }
@@ -103,7 +113,7 @@ namespace Akh.Breed.BaseInfos
         
         private IQueryable<UnionInfo> GetFilteredQuery(GetUnionInfoInput input)
         {
-            var query = QueryableExtensions.WhereIf(_unionInfoRepository.GetAll(),
+            var query = QueryableExtensions.WhereIf(_unionInfoRepository.GetAllIncluding(p => p.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.Name.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

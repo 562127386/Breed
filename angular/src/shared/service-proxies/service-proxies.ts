@@ -17168,7 +17168,7 @@ export class UnionInfoServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getUnionInfoForEdit(id: number | undefined): Observable<UnionInfoCreateOrUpdateInput> {
+    getUnionInfoForEdit(id: number | undefined): Observable<UnionInfoGetForEditOutput> {
         let url_ = this.baseUrl + "/api/services/app/UnionInfo/GetUnionInfoForEdit?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -17191,14 +17191,14 @@ export class UnionInfoServiceProxy {
                 try {
                     return this.processGetUnionInfoForEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<UnionInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                    return <Observable<UnionInfoGetForEditOutput>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<UnionInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+                return <Observable<UnionInfoGetForEditOutput>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetUnionInfoForEdit(response: HttpResponseBase): Observable<UnionInfoCreateOrUpdateInput> {
+    protected processGetUnionInfoForEdit(response: HttpResponseBase): Observable<UnionInfoGetForEditOutput> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -17209,7 +17209,7 @@ export class UnionInfoServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = UnionInfoCreateOrUpdateInput.fromJS(resultData200);
+            result200 = UnionInfoGetForEditOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -17217,7 +17217,7 @@ export class UnionInfoServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<UnionInfoCreateOrUpdateInput>(<any>null);
+        return _observableOf<UnionInfoGetForEditOutput>(<any>null);
     }
 
     /**
@@ -34557,6 +34557,8 @@ export interface IExternalAuthenticateResultModel {
 export class UnionInfoListDto implements IUnionInfoListDto {
     name!: string | undefined;
     code!: string | undefined;
+    stateInfoId!: number;
+    stateInfoName!: string | undefined;
     id!: number;
 
     constructor(data?: IUnionInfoListDto) {
@@ -34572,6 +34574,8 @@ export class UnionInfoListDto implements IUnionInfoListDto {
         if (data) {
             this.name = data["name"];
             this.code = data["code"];
+            this.stateInfoId = data["stateInfoId"];
+            this.stateInfoName = data["stateInfoName"];
             this.id = data["id"];
         }
     }
@@ -34587,6 +34591,8 @@ export class UnionInfoListDto implements IUnionInfoListDto {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
         data["code"] = this.code;
+        data["stateInfoId"] = this.stateInfoId;
+        data["stateInfoName"] = this.stateInfoName;
         data["id"] = this.id;
         return data; 
     }
@@ -34595,6 +34601,8 @@ export class UnionInfoListDto implements IUnionInfoListDto {
 export interface IUnionInfoListDto {
     name: string | undefined;
     code: string | undefined;
+    stateInfoId: number;
+    stateInfoName: string | undefined;
     id: number;
 }
 
@@ -34650,6 +34658,7 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
     id!: number | undefined;
     name!: string | undefined;
     code!: string | undefined;
+    stateInfoId!: number;
 
     constructor(data?: IUnionInfoCreateOrUpdateInput) {
         if (data) {
@@ -34665,6 +34674,7 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
             this.id = data["id"];
             this.name = data["name"];
             this.code = data["code"];
+            this.stateInfoId = data["stateInfoId"];
         }
     }
 
@@ -34680,6 +34690,7 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
         data["id"] = this.id;
         data["name"] = this.name;
         data["code"] = this.code;
+        data["stateInfoId"] = this.stateInfoId;
         return data; 
     }
 }
@@ -34688,6 +34699,55 @@ export interface IUnionInfoCreateOrUpdateInput {
     id: number | undefined;
     name: string | undefined;
     code: string | undefined;
+    stateInfoId: number;
+}
+
+export class UnionInfoGetForEditOutput implements IUnionInfoGetForEditOutput {
+    unionInfo!: UnionInfoCreateOrUpdateInput;
+    stateInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IUnionInfoGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.unionInfo = data["unionInfo"] ? UnionInfoCreateOrUpdateInput.fromJS(data["unionInfo"]) : <any>undefined;
+            if (Array.isArray(data["stateInfos"])) {
+                this.stateInfos = [] as any;
+                for (let item of data["stateInfos"])
+                    this.stateInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): UnionInfoGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UnionInfoGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["unionInfo"] = this.unionInfo ? this.unionInfo.toJSON() : <any>undefined;
+        if (Array.isArray(this.stateInfos)) {
+            data["stateInfos"] = [];
+            for (let item of this.stateInfos)
+                data["stateInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IUnionInfoGetForEditOutput {
+    unionInfo: UnionInfoCreateOrUpdateInput;
+    stateInfos: ComboboxItemDto[] | undefined;
 }
 
 export class UserListRoleDto implements IUserListRoleDto {

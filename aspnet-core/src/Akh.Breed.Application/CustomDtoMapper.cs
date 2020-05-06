@@ -225,7 +225,8 @@ namespace Akh.Breed
             configuration.CreateMap<ProviderInfoCreateOrUpdateInput, ProviderInfo>();
             configuration.CreateMap<ProviderInfo, ProviderInfoCreateOrUpdateInput>();
 
-            configuration.CreateMap<UnionInfo, UnionInfoListDto>();
+            configuration.CreateMap<UnionInfo, UnionInfoListDto>()
+                .ForMember(d => d.StateInfoName, options => options.MapFrom(l => l.StateInfo.Name));
             configuration.CreateMap<UnionInfoCreateOrUpdateInput, UnionInfo>();
             configuration.CreateMap<UnionInfo, UnionInfoCreateOrUpdateInput>();
             

@@ -4,6 +4,7 @@ import { UnionInfoServiceProxy, UnionInfoCreateOrUpdateInput } from '@shared/ser
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
+import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'createOrEditUnionInfoModal',
@@ -13,9 +14,11 @@ export class CreateOrEditUnionInfoModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;
+    @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    unionInfo: UnionInfoCreateOrUpdateInput = new UnionInfoCreateOrUpdateInput();
+    unionInfo: UnionInfoCreateOrUpdateInput = new UnionInfoCreateOrUpdateInput();   
+    stateInfosSelectItems: SelectItem[] = [];
 
     active: boolean = false;
     saving: boolean = false;
@@ -36,10 +39,14 @@ export class CreateOrEditUnionInfoModalComponent extends AppComponentBase {
         if (!editdisabled) {
             this.editdisabled = false;
         }
-        this._unionInfoService.getUnionInfoForEdit(unionInfoId).subscribe(userResult => {
-            this.unionInfo.name = userResult.name;
-            this.unionInfo.code = userResult.code;
-            this.unionInfo.id =  unionInfoId;
+        this._unionInfoService.getUnionInfoForEdit(unionInfoId).subscribe(userResult => {            
+            this.unionInfo = userResult.unionInfo;
+
+            this.stateInfosSelectItems = _.map(userResult.stateInfos, function(stateInfo) {
+                return {
+                    label: stateInfo.displayText, value: Number(stateInfo.value)
+                };
+            });
 
             if (unionInfoId) {
                 this.active = true;

@@ -16,6 +16,10 @@ namespace Akh.Breed.BaseInfo
         [Required]
         public string Name { get; set; }
 
+        [ForeignKey("StateInfoId")]
+        public virtual StateInfo StateInfo { get; set; }
+        
+        public int? StateInfoId { get; set; }
         public DateTime CreationTime { get; set; }
 
         public int? TenantId { get; set; }

@@ -57,7 +57,10 @@
                                     [responsive]="primengTableHelper.isResponsive"
                                     [resizableColumns]="primengTableHelper.resizableColumns">
                                     <ng-template pTemplate="header">
-                                        <tr>                                        
+                                        <tr>                                             
+                                            <th style="width: 100px" >
+                                                {{'StateInfoName' | localize}}
+                                            </th>                                   
                                             <th style="width: 100px" pSortableColumn="code">
                                                 {{'Code' | localize}}
                                                 <p-sortIcon field="code"></p-sortIcon>
@@ -72,7 +75,11 @@
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-record="$implicit">
-                                        <tr>                                        
+                                        <tr>                                          
+                                            <td style="width: 100px">
+                                                <span class="ui-column-title"> {{'StateInfoName' | localize}}</span>
+                                                {{record.stateInfoName}}
+                                            </td>                                   
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'Code' | localize}}</span>
                                                 {{record.code}}

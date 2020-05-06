@@ -8,7 +8,7 @@ namespace Akh.Breed.BaseInfos
     public interface IUnionInfoAppService : IApplicationService
     {
         Task<PagedResultDto<UnionInfoListDto>> GetUnionInfo(GetUnionInfoInput input);
-        Task<UnionInfoCreateOrUpdateInput> GetUnionInfoForEdit(NullableIdDto<int> input);
+        Task<UnionInfoGetForEditOutput> GetUnionInfoForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateUnionInfo(UnionInfoCreateOrUpdateInput input);
         Task DeleteUnionInfo(EntityDto input);
     }

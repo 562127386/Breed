@@ -16,6 +16,16 @@
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <div class="row">
+                                    <label class="col-form-label col-md-3 col-sm-12">{{"StateInfoName" | localize}}</label>
+                                    <div class="col-md-9 col-sm-12">
+                                            <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                            name="stateInfoId" [(ngModel)]="unionInfo.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                        <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <div class="row">
                                     <label class="col-form-label col-md-3 col-sm-12">{{"Code" | localize}}</label>
                                     <div class="col-md-9 col-sm-12">
                                         <input #codeInput="ngModel" [readonly]="unionInfo.id" [(ngModel)]="unionInfo.code" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>

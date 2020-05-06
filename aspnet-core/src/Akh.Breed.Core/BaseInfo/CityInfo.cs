@@ -26,7 +26,7 @@ namespace Akh.Breed.BaseInfo
         [ForeignKey("StateInfoId")]
         public virtual StateInfo StateInfo { get; set; }
         
-        public virtual int StateInfoId { get; set; }
+        public int? StateInfoId { get; set; }
         
         public CityInfo()
         {
