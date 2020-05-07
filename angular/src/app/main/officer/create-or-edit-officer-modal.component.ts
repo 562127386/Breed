@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { OfficerServiceProxy, OfficerCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { ContractorServiceProxy, OfficerServiceProxy, OfficerCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
@@ -35,7 +35,8 @@ export class CreateOrEditOfficerModalComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _officerService: OfficerServiceProxy
+        private _officerService: OfficerServiceProxy,
+        private _contractorService: ContractorServiceProxy
     ) {
         super(injector);
     }
@@ -106,6 +107,18 @@ export class CreateOrEditOfficerModalComponent extends AppComponentBase {
         this.active = false;
         this.editdisabled = true;
         this.modal.hide();
+    }
+
+    getCities(stateInfoId: string): void {  
+        this._contractorService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
+            
+            this.contractorsSelectItems = _.map(userResult, function(contractor) {
+                return {
+                    label: contractor.displayText, value: Number(contractor.value)
+                };
+            });
+
+        });   
     }
 
     getDate(input: moment.Moment): string {

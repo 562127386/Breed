@@ -4,6 +4,7 @@ import { ContractorServiceProxy, ContractorCreateOrUpdateInput } from '@shared/s
 import { VillageInfoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CityInfoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { RegionInfoServiceProxy } from '@shared/service-proxies/service-proxies';
+import { UnionInfoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
@@ -45,7 +46,8 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
         private _contractorService: ContractorServiceProxy,
         private _villageInfoService: VillageInfoServiceProxy,
         private _cityInfoService : CityInfoServiceProxy,
-        private _regionInfoService : RegionInfoServiceProxy
+        private _regionInfoService : RegionInfoServiceProxy,
+        private _unionInfoService : UnionInfoServiceProxy
     ) {
         super(injector);
     }
@@ -137,7 +139,15 @@ export class CreateOrEditContractorModalComponent extends AppComponentBase {
     }
 
     getCities(stateInfoId: string): void {  
+        this._unionInfoService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
+            
+            this.unionInfosSelectItems = _.map(userResult, function(unionInfo) {
+                return {
+                    label: unionInfo.displayText, value: Number(unionInfo.value)
+                };
+            });
 
+        }); 
         this._cityInfoService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
             
             this.cityInfosSelectItems = _.map(userResult, function(cityInfo) {

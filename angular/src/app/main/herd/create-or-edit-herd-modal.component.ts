@@ -3,7 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { HerdServiceProxy, HerdCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
 import { VillageInfoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CityInfoServiceProxy } from '@shared/service-proxies/service-proxies';
-import { RegionInfoServiceProxy } from '@shared/service-proxies/service-proxies';
+import { RegionInfoServiceProxy, ContractorServiceProxy, UnionInfoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
@@ -51,7 +51,9 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
         private _herdService: HerdServiceProxy,
         private _villageInfoService: VillageInfoServiceProxy,
         private _cityInfoService : CityInfoServiceProxy,
-        private _regionInfoService : RegionInfoServiceProxy
+        private _regionInfoService : RegionInfoServiceProxy,
+        private _unionInfoService : UnionInfoServiceProxy,
+        private _contractorService : ContractorServiceProxy
     ) {
         super(injector);
     }
@@ -165,6 +167,24 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
             });
 
         });
+        this._unionInfoService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
+            
+            this.unionInfosSelectItems = _.map(userResult, function(unionInfo) {
+                return {
+                    label: unionInfo.displayText, value: Number(unionInfo.value)
+                };
+            });
+
+        });
+        this._contractorService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
+            
+            this.contractorsSelectItems = _.map(userResult, function(contractor) {
+                return {
+                    label: contractor.displayText, value: Number(contractor.value)
+                };
+            });
+
+        });   
         this.regionInfosSelectItems = [];
         this.villageInfosSelectItems = [];        
         this.contractorsSelectItems = [];
@@ -178,16 +198,6 @@ export class CreateOrEditHerdModalComponent extends AppComponentBase {
             this.regionInfosSelectItems = _.map(userResult, function(regionInfo) {
                 return {
                     label: regionInfo.displayText, value: Number(regionInfo.value)
-                };
-            });
-
-        });
-        
-        this._herdService.getContractorForCombo(Number(cityInfoId)).subscribe(userResult => {
-            
-            this.contractorsSelectItems = _.map(userResult, function(contractor) {
-                return {
-                    label: contractor.displayText, value: Number(contractor.value)
                 };
             });
 

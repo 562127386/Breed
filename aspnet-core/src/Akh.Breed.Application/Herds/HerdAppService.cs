@@ -55,6 +55,34 @@ namespace Akh.Breed.Herds
         public async Task<PagedResultDto<HerdListDto>> GetHerd(GetHerdInput input)
         {
             var query = GetFilteredQuery(input);
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            var isOfficer = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer);
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.Contractor.StateInfoId == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.ContractorId == contractor.Id);
+            }
+            else if (isOfficer)
+            {
+                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
             var userCount = await query.CountAsync();
             var herds = await query
                 .OrderBy(input.Sorting)
@@ -89,8 +117,38 @@ namespace Akh.Breed.Herds
                 : new HerdCreateOrUpdateInput();
             
            //StateInfos
-            output.StateInfos = _stateInfoRepository
-                .GetAllList()
+           var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+           var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+           var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+           var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+           var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+           var isOfficer = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer);
+           var stateInfoQuery = _stateInfoRepository.GetAll();
+           if (isAdmin || isSysAdmin)
+           {
+               stateInfoQuery = stateInfoQuery;
+           }
+           else if (isStateAdmin)
+           {
+               var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+               stateInfoQuery = stateInfoQuery.Where(x => x.Id == union.StateInfoId);
+           }
+           else if (isCityAdmin)
+           {
+               var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+               stateInfoQuery = stateInfoQuery.Where(x => x.Id == contractor.StateInfoId);
+           }
+           else if (isOfficer)
+           {
+               var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+               stateInfoQuery = stateInfoQuery.Where(x => x.Id == contractor.StateInfoId);
+           }
+           else
+           {
+               stateInfoQuery = stateInfoQuery.Where(x => false);
+           }
+            output.StateInfos = stateInfoQuery
+                .ToList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
 
@@ -99,6 +157,17 @@ namespace Akh.Breed.Herds
                 output.CityInfos = _cityInfoRepository.GetAll()
                     .Where(x => x.StateInfoId == output.Herd.StateInfoId)
                     .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
+                
+                output.UnionInfos = _unionInfoRepository.GetAll()
+                    .Where(x => x.StateInfoId == output.Herd.StateInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
+                
+                output.Contractors = _contractorRepository
+                    .GetAllList()
+                    .Where(x => x.StateInfoId == output.Herd.StateInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" +c.Name+","+c.Family+")" ))
                     .ToList();
             }
             
@@ -118,25 +187,10 @@ namespace Akh.Breed.Herds
                     .ToList();
             }
             
-            output.UnionInfos = _unionInfoRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
-                .ToList();
-            
             output.ActivityInfos = _activityInfoRepository
                 .GetAllList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
-            
-            if (output.Herd.CityInfoId.HasValue)
-            {
-                output.Contractors = _contractorRepository
-                    .GetAllList()
-                    .Where(x => x.CityInfoId == output.Herd.CityInfoId)
-                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" +c.Name+","+c.Family+")" ))
-                    .ToList();
-            }
-
             
             return output;
         }

@@ -7,6 +7,7 @@ using Abp.Authorization.Users;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
+using Akh.Breed.Authorization.Users;
 using Akh.Breed.BaseInfo;
 
 namespace Akh.Breed.Contractors
@@ -81,6 +82,10 @@ namespace Akh.Breed.Contractors
         public DateTime CreationTime { get; set; }
         
         public int? TenantId { get; set; }
+        
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
+        public long? UserId { get; set; }
         
         public Contractor()
         {

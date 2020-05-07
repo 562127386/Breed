@@ -4,15 +4,21 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
+using Abp.Authorization.Users;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using Abp.UI;
 using Akh.Breed.Authorization;
+using Akh.Breed.Authorization.Roles;
+using Akh.Breed.Authorization.Users;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors.Dto;
+using Akh.Breed.Officers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Contractors
@@ -26,8 +32,11 @@ namespace Akh.Breed.Contractors
         private readonly IRepository<RegionInfo> _regionInfoRepository;
         private readonly IRepository<VillageInfo> _villageInfoRepository;
         private readonly IRepository<UnionInfo> _unionInfoRepository;
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly RoleManager _roleManager;
 
-        public ContractorAppService(IRepository<Contractor> contractorRepository, IRepository<FirmType> firmTypeRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository)
+
+        public ContractorAppService(IRepository<Contractor> contractorRepository, IRepository<FirmType> firmTypeRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository, RoleManager roleManager, IPasswordHasher<User> passwordHasher)
         {
             _contractorRepository = contractorRepository;
             _firmTypeRepository = firmTypeRepository;
@@ -36,12 +45,31 @@ namespace Akh.Breed.Contractors
             _regionInfoRepository = regionInfoRepository;
             _villageInfoRepository = villageInfoRepository;
             _unionInfoRepository = unionInfoRepository;
+            _roleManager = roleManager;
+            _passwordHasher = passwordHasher;
         }
         
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor)]
         public async Task<PagedResultDto<ContractorListDto>> GetContractor(GetContractorInput input)
         {
             var query = GetFilteredQuery(input);
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.StateInfoId == union.StateInfoId);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
             var userCount = await query.CountAsync();
             var contractors = await query
                 .OrderBy(input.Sorting)
@@ -82,14 +110,38 @@ namespace Akh.Breed.Contractors
                 .ToList();
 
             //StateInfos
-            output.StateInfos = _stateInfoRepository
-                .GetAllList()
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var stateInfoQuery = _stateInfoRepository.GetAll();
+            if (isAdmin || isSysAdmin)
+            {
+                stateInfoQuery = stateInfoQuery;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                stateInfoQuery = stateInfoQuery.Where(x => x.Id == union.StateInfoId);
+            }
+            else
+            {
+                stateInfoQuery = stateInfoQuery.Where(x => false);
+            }
+            
+            output.StateInfos = stateInfoQuery
+                .ToList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
 
             if (output.Contractor.StateInfoId.HasValue)
             {
                 output.CityInfos = _cityInfoRepository.GetAll()
+                    .Where(x => x.StateInfoId == output.Contractor.StateInfoId)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .ToList();
+                
+                output.UnionInfos = _unionInfoRepository.GetAll()
                     .Where(x => x.StateInfoId == output.Contractor.StateInfoId)
                     .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                     .ToList();
@@ -110,12 +162,7 @@ namespace Akh.Breed.Contractors
                     .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                     .ToList();
             }
-            
-            output.UnionInfos = _unionInfoRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
-                .ToList();
-            
+
             return output;
         }
         
@@ -156,8 +203,48 @@ namespace Akh.Breed.Contractors
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor_Create)]
         private async Task CreateContractorAsync(ContractorCreateOrUpdateInput input)
         {
-            var contractor = ObjectMapper.Map<Contractor>(input);
-            await _contractorRepository.InsertAsync(contractor);
+            var nationalCode = input.NationalCode.Replace("-", "");
+            var user = new User
+            {
+                IsActive = true,
+                ShouldChangePasswordOnNextLogin = true,
+                UserName = nationalCode,
+                EmailAddress = nationalCode + "@mgnsys.ir",
+                Name = input.Name,
+                Surname = input.Family
+            };
+            
+            user.Password = _passwordHasher.HashPassword(user, nationalCode);
+            CheckErrors(await UserManager.CreateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+            var officerRole = _roleManager.GetRoleByName(StaticRoleNames.Host.CityAdmin);
+            long userId = user.ToUserIdentifier().UserId;
+            user.Roles = new List<UserRole>();
+            user.Roles.Add(new UserRole(null, user.Id, officerRole.Id));
+
+            if (userId > 0)
+            {
+                var contractor = ObjectMapper.Map<Contractor>(input);
+                contractor.UserId = userId;
+                await _contractorRepository.InsertAsync(contractor);;
+            }
+            else
+            {
+                throw new UserFriendlyException(L("AnErrorOccurred"));
+            }
+            
+        }
+        
+        public List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input)
+        {
+            var query = _contractorRepository.GetAll();
+            if (input.Id.HasValue)
+            {
+                query = query.Where(x => x.StateInfoId == input.Id);
+            }
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" + c.Name + "," + c.Family + ")"))
+                .ToList();
         }
         
         private IQueryable<Contractor> GetFilteredQuery(GetContractorInput input)

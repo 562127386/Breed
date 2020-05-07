@@ -147,7 +147,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"StateInfo" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                            <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="stateInfoId" [(ngModel)]="officer.stateInfoId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *"></p-dropdown>
+                                            <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="stateInfoId" [(ngModel)]="officer.stateInfoId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *" (onChange)="getCities($event.value)"></p-dropdown>
                                             <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                     </div>
                                 </div>                                

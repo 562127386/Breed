@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Akh.Breed.Officers.Dto;
@@ -11,5 +12,6 @@ namespace Akh.Breed.Officers
         Task<GetOfficerForEditOutput> GetOfficerForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateOfficer(OfficerCreateOrUpdateInput input);
         Task DeleteOfficer(EntityDto input);
+        List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input);
     }
 }

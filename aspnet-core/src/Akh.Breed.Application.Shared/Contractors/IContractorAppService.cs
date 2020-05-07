@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Akh.Breed.Contractors.Dto;
@@ -11,5 +12,6 @@ namespace Akh.Breed.Contractors
         Task<GetContractorForEditOutput> GetContractorForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateContractor(ContractorCreateOrUpdateInput input);
         Task DeleteContractor(EntityDto input);
+        List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input);
     }
 }

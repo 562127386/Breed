@@ -4,13 +4,16 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
+using Abp.Authorization.Users;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using Abp.UI;
 using Abp.Zero.Configuration;
 using Akh.Breed.Authorization;
+using Akh.Breed.Authorization.Roles;
 using Akh.Breed.Authorization.Users;
 using Akh.Breed.Authorization.Users.Dto;
 using Akh.Breed.BaseInfo;
@@ -28,21 +31,48 @@ namespace Akh.Breed.Officers
         private readonly IRepository<AcademicDegree> _academicDegreeRepository;
         private readonly IRepository<StateInfo> _stateInfoRepository;
         private readonly IRepository<Contractor> _contractorRepository;
+        private readonly IRepository<UnionInfo> _unionInfoRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly RoleManager _roleManager;
 
-        public OfficerAppService(IRepository<Officer> officerRepository, IRepository<AcademicDegree> academicDegreeRepository, IRepository<StateInfo> stateInfoRepository, IRepository<Contractor> contractorRepository, IPasswordHasher<User> passwordHasher)
+        public OfficerAppService(IRepository<Officer> officerRepository, IRepository<AcademicDegree> academicDegreeRepository, IRepository<StateInfo> stateInfoRepository, IRepository<Contractor> contractorRepository, IPasswordHasher<User> passwordHasher, RoleManager roleManager, IRepository<UnionInfo> unionInfoRepository)
         {
             _officerRepository = officerRepository;
             _academicDegreeRepository = academicDegreeRepository;
             _stateInfoRepository = stateInfoRepository;
             _contractorRepository = contractorRepository;
             _passwordHasher = passwordHasher;
+            _roleManager = roleManager;
+            _unionInfoRepository = unionInfoRepository;
         }
         
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer)]
         public async Task<PagedResultDto<OfficerListDto>> GetOfficer(GetOfficerInput input)
         {
             var query = GetFilteredQuery(input);
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.Contractor.StateInfoId == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.ContractorId == contractor.Id);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
             var userCount = await query.CountAsync();
             var officers = await query
                 .OrderBy(input.Sorting)
@@ -78,16 +108,45 @@ namespace Akh.Breed.Officers
                 .ToList();
             
             //StateInfos
-            output.StateInfos = _stateInfoRepository
-                .GetAllList()
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            var stateInfoQuery = _stateInfoRepository.GetAll();
+            if (isAdmin || isSysAdmin)
+            {
+                stateInfoQuery = stateInfoQuery;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                stateInfoQuery = stateInfoQuery.Where(x => x.Id == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                stateInfoQuery = stateInfoQuery.Where(x => x.Id == contractor.StateInfoId);
+            }
+            else
+            {
+                stateInfoQuery = stateInfoQuery.Where(x => false);
+            }
+            output.StateInfos = stateInfoQuery
+                .ToList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name ){ IsSelected = output.Officer.StateInfoId == c.Id })
                 .ToList();
             
             //Contractors
-            output.Contractors = _contractorRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" +c.Name+","+c.Family+")" ){ IsSelected = output.Officer.ContractorId == c.Id })
-                .ToList();
+            if (output.Officer.StateInfoId.HasValue)
+            {
+                output.Contractors = _contractorRepository
+                    .GetAllList()
+                    .Where(x => x.StateInfoId == output.Officer.StateInfoId.Value)
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" + c.Name + "," + c.Family + ")")
+                        {IsSelected = output.Officer.ContractorId == c.Id})
+                    .ToList();
+            }
 
             return output;
         }
@@ -139,11 +198,14 @@ namespace Akh.Breed.Officers
                 Name = input.Name,
                 Surname = input.Family
             };
+            
             user.Password = _passwordHasher.HashPassword(user, nationalCode);
             CheckErrors(await UserManager.CreateAsync(user));
             await CurrentUnitOfWork.SaveChangesAsync();
-
+            var officerRole = _roleManager.GetRoleByName(StaticRoleNames.Host.Officer);
             long userId = user.ToUserIdentifier().UserId;
+            user.Roles.Add(new UserRole(null, user.Id, officerRole.Id));
+
             if (userId > 0)
             {
                 var officer = ObjectMapper.Map<Officer>(input);
@@ -154,6 +216,18 @@ namespace Akh.Breed.Officers
             {
                 throw new UserFriendlyException(L("AnErrorOccurred"));
             }
+        }
+        
+        public List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input)
+        {
+           var query = _contractorRepository.GetAll();
+            if (input.Id.HasValue)
+            {
+                query = query.Where(x => x.StateInfoId == input.Id);
+            }
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" + c.Name + "," + c.Family + ")"))
+                .ToList();
         }
         
         private IQueryable<Officer> GetFilteredQuery(GetOfficerInput input)

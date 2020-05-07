@@ -121,6 +121,17 @@ namespace Akh.Breed.BaseInfos
             return query;
         }
         
+        public List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input)
+        {
+            var query = _unionInfoRepository.GetAll();
+            if (input.Id.HasValue)
+            {
+                query = query.Where(x => x.StateInfoId == input.Id);
+            }
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                .ToList();
+        }
         private async Task CheckValidation(UnionInfoCreateOrUpdateInput input)
         {
             var existingObj = (await _unionInfoRepository.GetAll().AsNoTracking()

@@ -34,7 +34,7 @@ namespace Akh.Breed.Officers.Dto
 
         public string StateInfoName { get; set; }
 
-        public int StateInfoId { get; set; }
+        public int? StateInfoId { get; set; }
 
         public string ContractorName { get; set; }
 

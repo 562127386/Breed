@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
+using Akh.Breed.Authorization.Users;
 
 namespace Akh.Breed.BaseInfo
 {
@@ -23,6 +24,10 @@ namespace Akh.Breed.BaseInfo
         public DateTime CreationTime { get; set; }
 
         public int? TenantId { get; set; }
+        
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
+        public long? UserId { get; set; }
 
         public UnionInfo()
         {
