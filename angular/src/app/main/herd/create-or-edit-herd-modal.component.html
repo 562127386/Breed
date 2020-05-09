@@ -344,7 +344,7 @@
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
                                                 <p-inputMask [style]="{'width':'100%'}" #mobileInput="ngModel" mask="0-999-999-9999" [(ngModel)]="herd.mobile" type="num" autocomplete="new-password" name="mobile" placeholder="0-912-111-2233" length="11" required></p-inputMask>
-                                                <validation-messages [formCtrl]="phoneInput"></validation-messages>
+                                                <validation-messages [formCtrl]="mobileInput"></validation-messages>
                                             </div>
                                         </div>
                                     </div>  

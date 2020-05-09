@@ -32,21 +32,54 @@ namespace Akh.Breed.Plaques
         private readonly IRepository<PlaqueToOfficer> _plaqueToOfficerRepository;
         private readonly IRepository<PlaqueInfo, long> _plaqueInfoRepository;
         private readonly IRepository<Officer> _officerRepository;
+        private readonly IRepository<UnionInfo> _unionInfoRepository;
+        private readonly IRepository<Contractor> _contractorRepository;
        
         
-        public PlaqueToHerdAppService(IRepository<PlaqueToHerd> plaqueToHerdRepository, IRepository<Herd> herdRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<Officer> officerRepository)
+        public PlaqueToHerdAppService(IRepository<PlaqueToHerd> plaqueToHerdRepository, IRepository<Herd> herdRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<Officer> officerRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository)
         {
             _plaqueToHerdRepository = plaqueToHerdRepository;
             _herdRepository = herdRepository;
             _plaqueToOfficerRepository = plaqueToOfficerRepository;
             _plaqueInfoRepository = plaqueInfoRepository;
             _officerRepository = officerRepository;
+            _unionInfoRepository = unionInfoRepository;
+            _contractorRepository = contractorRepository;
         }
         
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd)]
         public async Task<PagedResultDto<PlaqueToHerdListDto>> GetPlaqueToHerd(GetPlaqueToHerdInput input)
         {
             var query = GetFilteredQuery(input);
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            var isOfficer = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer);
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.Officer.Contractor.StateInfoId == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.Officer.Contractor.CityInfoId == contractor.CityInfoId);
+            }
+            else if (isOfficer)
+            {
+                query = query.Where(x => x.Officer.UserId == AbpSession.UserId);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
+            
             var userCount = await query.CountAsync();
             var plaqueToHerds = await query
                 .OrderBy(input.Sorting)
@@ -83,6 +116,7 @@ namespace Akh.Breed.Plaques
             output.PlaqueToHerd = plaqueToHerd != null
                 ? ObjectMapper.Map<PlaqueToHerdCreateOrUpdateInput>(plaqueToHerd)
                 : newLiveStock;
+            
             
             output.Herds = _herdRepository
                 .GetAllList()

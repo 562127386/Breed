@@ -34,8 +34,10 @@ namespace Akh.Breed.Livestocks
         private readonly IRepository<Officer> _officerRepository;
         private readonly IRepository<PlaqueToOfficer> _plaqueToOfficerRepository;
         private readonly IRepository<PlaqueInfo, long> _plaqueInfoRepository;
+        private readonly IRepository<UnionInfo> _unionInfoRepository;
+        private readonly IRepository<Contractor> _contractorRepository;
         
-        public LivestockAppService(IRepository<Livestock> livestockRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository)
+        public LivestockAppService(IRepository<Livestock> livestockRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository)
         {
             _livestockRepository = livestockRepository;
             _speciesInfoRepository = speciesInfoRepository;
@@ -45,6 +47,8 @@ namespace Akh.Breed.Livestocks
             _officerRepository = officerRepository;
             _plaqueToOfficerRepository = plaqueToOfficerRepository;
             _plaqueInfoRepository = plaqueInfoRepository;
+            _unionInfoRepository = unionInfoRepository;
+            _contractorRepository = contractorRepository;
         }
         
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification)]
@@ -74,6 +78,35 @@ namespace Akh.Breed.Livestocks
         public async Task<PagedResultDto<LivestockListDto>> GetLivestock(GetLivestockInput input)
         {
             var query = GetFilteredQuery(input);
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            var isOfficer = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer);
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.Herd.UnionInfo.StateInfoId == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.Herd.ContractorId == contractor.Id);
+            }
+            else if (isOfficer)
+            {
+                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
+            
             var userCount = await query.CountAsync();
             var livestocks = await query
                 .OrderBy(input.Sorting)
@@ -199,8 +232,6 @@ namespace Akh.Breed.Livestocks
         
         private IQueryable<Livestock> GetFilteredQuery(GetLivestockInput input)
         {
-            var tUser = UserManager.GetUserById(AbpSession.GetUserId());
-            var isOfficer = UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Officer).Result;
             
             var query = QueryableExtensions.WhereIf(
                 _livestockRepository.GetAll()
@@ -211,12 +242,7 @@ namespace Akh.Breed.Livestocks
                 .Include(x => x.Officer),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.NationalCode.Contains(input.Filter));
-
-            if (isOfficer)
-            {
-                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
-            }
-            
+                                
             return query;
         }        
         

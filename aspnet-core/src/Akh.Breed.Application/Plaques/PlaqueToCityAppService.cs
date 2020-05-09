@@ -10,9 +10,12 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using Abp.UI;
 using Akh.Breed.Authorization;
+using Akh.Breed.Authorization.Roles;
 using Akh.Breed.BaseInfo;
+using Akh.Breed.Contractors;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -26,20 +29,48 @@ namespace Akh.Breed.Plaques
         private readonly IRepository<CityInfo> _cityInfoRepository;
         private readonly IRepository<PlaqueToState> _plaqueToStateRepository;
         private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
+        private readonly IRepository<UnionInfo> _unionInfoRepository;
+        private readonly IRepository<Contractor> _contractorRepository;
         
-        public PlaqueToCityAppService(IRepository<PlaqueToCity> plaqueToCityRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueToState> plaqueToStateRepository, IRepository<SpeciesInfo> speciesInfoRepository)
+        public PlaqueToCityAppService(IRepository<PlaqueToCity> plaqueToCityRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueToState> plaqueToStateRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository)
         {
             _plaqueToCityRepository = plaqueToCityRepository;
             _stateInfoRepository = stateInfoRepository;
             _cityInfoRepository = cityInfoRepository;
             _plaqueToStateRepository = plaqueToStateRepository;
             _speciesInfoRepository = speciesInfoRepository;
+            _unionInfoRepository = unionInfoRepository;
+            _contractorRepository = contractorRepository;
         }
 
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToCity)]
         public async Task<PagedResultDto<PlaqueToCityListDto>> GetPlaqueToCity(GetPlaqueToCityInput input)
         {
             var query = GetFilteredQuery(input);
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            var isOfficer = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer);
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.CityInfo.StateInfoId == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.CityInfoId == contractor.CityInfoId);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
             var userCount = await query.CountAsync();
             var plaqueToCitys = await query
                 .OrderBy(input.Sorting)
@@ -77,8 +108,33 @@ namespace Akh.Breed.Plaques
                 : newPlaqueToCity;
             
             //StateInfos
-            output.StateInfos = _stateInfoRepository
-                .GetAll()
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            var isOfficer = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer);
+            var stateInfoQuery = _stateInfoRepository.GetAll();
+            if (isAdmin || isSysAdmin)
+            {
+                stateInfoQuery = stateInfoQuery;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                stateInfoQuery = stateInfoQuery.Where(x => x.Id == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                stateInfoQuery = stateInfoQuery.Where(x => x.Id == contractor.StateInfoId);
+            }
+            else
+            {
+                stateInfoQuery = stateInfoQuery.Where(x => false);
+            }
+            output.StateInfos = stateInfoQuery
+                .ToList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
             

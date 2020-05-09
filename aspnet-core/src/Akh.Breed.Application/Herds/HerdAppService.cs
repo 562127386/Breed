@@ -140,8 +140,8 @@ namespace Akh.Breed.Herds
            }
            else if (isOfficer)
            {
-               var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-               stateInfoQuery = stateInfoQuery.Where(x => x.Id == contractor.StateInfoId);
+               var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+               stateInfoQuery = stateInfoQuery.Where(x => x.Id == officer.StateInfoId);
            }
            else
            {

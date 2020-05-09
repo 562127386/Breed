@@ -204,6 +204,7 @@ namespace Akh.Breed.Officers
             await CurrentUnitOfWork.SaveChangesAsync();
             var officerRole = _roleManager.GetRoleByName(StaticRoleNames.Host.Officer);
             long userId = user.ToUserIdentifier().UserId;
+            user.Roles = new List<UserRole>();
             user.Roles.Add(new UserRole(null, user.Id, officerRole.Id));
 
             if (userId > 0)

@@ -18,7 +18,7 @@
                     </div>
                     <div class="kt-portlet__head-toolbar">
                         <div class="kt-portlet__head-actions">
-                            <div (click)="createNotice()" *ngIf="'Pages.BaseInfo.Notice.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                            <div (click)="createNotice()" *ngIf="'Pages.Administration.Notice.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
                                 data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                 <i class="flaticon2-add-1"></i>
                             </div>
@@ -115,9 +115,9 @@
                                             <div class="kt-section__content kt-section__content--solid">
                                                 <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditNoticeModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
                                                 <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditNoticeModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
-                                                    *ngIf="'Pages.BaseInfo.Notice.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button>
+                                                    *ngIf="'Pages.Administration.Notice.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button>
                                                 <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteNotice(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
-                                                    *ngIf="'Pages.BaseInfo.Notice.Delete' | permission"><i class="flaticon-delete"></i></button>
+                                                    *ngIf="'Pages.Administration.Notice.Delete' | permission"><i class="flaticon-delete"></i></button>
                                                 <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="toggleNotice(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon2-refresh-arrow"></i></button>
                                             </div>                                            
                                         </td>                                     
@@ -149,7 +149,7 @@
                             
                         </div>
                         <div class="col-lg-6 kt-align-right">
-                            <button (click)="createNotice()" *ngIf="'Pages.BaseInfo.Notice.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewNotice" | localize}}</button>
+                            <button (click)="createNotice()" *ngIf="'Pages.Administration.Notice.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewNotice" | localize}}</button>
                         </div>
                     </div>
                 </div>

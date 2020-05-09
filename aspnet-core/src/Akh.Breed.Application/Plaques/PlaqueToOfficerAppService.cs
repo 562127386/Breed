@@ -15,6 +15,7 @@ using Abp.UI;
 using Akh.Breed.Authorization;
 using Akh.Breed.Authorization.Roles;
 using Akh.Breed.BaseInfo;
+using Akh.Breed.Contractors;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -30,8 +31,10 @@ namespace Akh.Breed.Plaques
         private readonly IRepository<PlaqueToCity> _plaqueToCityRepository;
         private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
         private readonly IRepository<PlaqueInfo,long> _plaqueInfoRepository;
+        private readonly IRepository<UnionInfo> _unionInfoRepository;
+        private readonly IRepository<Contractor> _contractorRepository;
         
-        public PlaqueToOfficerAppService(IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToCity> plaqueToCityRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository)
+        public PlaqueToOfficerAppService(IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToCity> plaqueToCityRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository)
         {
             _plaqueToOfficerRepository = plaqueToOfficerRepository;
             _officerRepository = officerRepository;
@@ -40,12 +43,42 @@ namespace Akh.Breed.Plaques
             _stateInfoRepository = stateInfoRepository;
             _cityInfoRepository = cityInfoRepository;
             _plaqueInfoRepository = plaqueInfoRepository;
+            _unionInfoRepository = unionInfoRepository;
+            _contractorRepository = contractorRepository;
         }
 
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer)]
         public async Task<PagedResultDto<PlaqueToOfficerListDto>> GetPlaqueToOfficer(GetPlaqueToOfficerInput input)
         {
             var query = GetFilteredQuery(input);
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            var isOfficer = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer);
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.PlaqueToCity.PlaqueToState.StateInfoId == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.PlaqueToCity.CityInfoId == contractor.CityInfoId);
+            }
+            else if (isOfficer)
+            {
+                query = query.Where(x => x.Officer.UserId == AbpSession.UserId);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
             var userCount = await query.CountAsync();
             var plaqueToOfficers = await query
                 .OrderBy(input.Sorting)
@@ -86,8 +119,38 @@ namespace Akh.Breed.Plaques
                 : newPlaqueToOfficer;
 
             //StateInfos
-            output.StateInfos = _stateInfoRepository
-                .GetAll()
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            var isOfficer = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer);
+            var stateInfoQuery = _stateInfoRepository.GetAll();
+            if (isAdmin || isSysAdmin)
+            {
+                stateInfoQuery = stateInfoQuery;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                stateInfoQuery = stateInfoQuery.Where(x => x.Id == union.StateInfoId);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                stateInfoQuery = stateInfoQuery.Where(x => x.Id == contractor.StateInfoId);
+            }
+            else if (isOfficer)
+            {
+                var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                stateInfoQuery = stateInfoQuery.Where(x => x.Id == officer.StateInfoId);
+            }
+            else
+            {
+                stateInfoQuery = stateInfoQuery.Where(x => false);
+            }
+            output.StateInfos = stateInfoQuery
+                .ToList()
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
             
@@ -175,9 +238,6 @@ namespace Akh.Breed.Plaques
         
         private IQueryable<PlaqueToOfficer> GetFilteredQuery(GetPlaqueToOfficerInput input)
         {
-            var tUser = UserManager.GetUserById(AbpSession.GetUserId());
-            var isOfficer = UserManager.IsInRoleAsync(tUser,StaticRoleNames.Host.Officer).Result;
-            
             long tempSearch = Convert.ToInt64(input.Filter);
             var query = QueryableExtensions.WhereIf(
                 _plaqueToOfficerRepository.GetAll()
@@ -192,11 +252,6 @@ namespace Akh.Breed.Plaques
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.FromCode <= tempSearch &&
                     u.ToCode >= tempSearch);
-            
-            if (isOfficer)
-            {
-                query = query.Where(x => x.OfficerId == AbpSession.UserId);
-            }
 
             return query;
         }

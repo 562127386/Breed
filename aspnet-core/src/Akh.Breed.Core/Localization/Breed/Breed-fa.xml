@@ -3,7 +3,7 @@
   <texts>
     <text name="HomePage">خانه</text>
     <text name="AboutUs">درباره ما</text>
-    <text name="Administration">ادمین</text>
+    <text name="Administration">مدیریت</text>
     <text name="Roles">نقش ها</text>
     <text name="Users">کاربران</text>
     <text name="InvalidFormMessage">اطلاعات فرم معتبر نیست خواهشمند است بررسی کنید.</text>
