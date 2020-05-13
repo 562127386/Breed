@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Abp.Application.Services.Dto;
 
-namespace Akh.Breed.BaseInfos.Dto
+namespace Akh.Breed.Unions.Dto
 {
     public class UnionInfoGetForEditOutput
     {

@@ -11,10 +11,10 @@ using Abp.Linq.Extensions;
 using Abp.UI;
 using Akh.Breed.Authorization;
 using Akh.Breed.BaseInfo;
-using Akh.Breed.BaseInfos.Dto;
+using Akh.Breed.Unions.Dto;
 using Microsoft.EntityFrameworkCore;
 
-namespace Akh.Breed.BaseInfos
+namespace Akh.Breed.Unions
 {
     public class UnionInfoAppService :  BreedAppServiceBase, IUnionInfoAppService
     {
@@ -27,7 +27,7 @@ namespace Akh.Breed.BaseInfos
             _stateInfoRepository = stateInfoRepository;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo)]
         public async Task<PagedResultDto<UnionInfoListDto>> GetUnionInfo(GetUnionInfoInput input)
         {
             var query = GetFilteredQuery(input);
@@ -43,7 +43,7 @@ namespace Akh.Breed.BaseInfos
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Create, AppPermissions.Pages_BaseInfo_UnionInfo_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo_Create, AppPermissions.Pages_BaseIntro_UnionInfo_Edit)]
         public async Task<UnionInfoGetForEditOutput> GetUnionInfoForEdit(NullableIdDto<int> input)
         {
             UnionInfo unionInfo = null;
@@ -68,7 +68,7 @@ namespace Akh.Breed.BaseInfos
             return output;
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Create, AppPermissions.Pages_BaseInfo_UnionInfo_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo_Create, AppPermissions.Pages_BaseIntro_UnionInfo_Edit)]
         public async Task CreateOrUpdateUnionInfo(UnionInfoCreateOrUpdateInput input)
         {
             await CheckValidation(input);
@@ -83,7 +83,7 @@ namespace Akh.Breed.BaseInfos
             }
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo_Delete)]
         public async Task DeleteUnionInfo(EntityDto input)
         {
             try
@@ -97,17 +97,18 @@ namespace Akh.Breed.BaseInfos
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo_Edit)]
         private async Task UpdateUnionInfoAsync(UnionInfoCreateOrUpdateInput input)
         {
             var unionInfo = ObjectMapper.Map<UnionInfo>(input);
             await _unionInfoRepository.UpdateAsync(unionInfo);
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Create)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo_Create)]
         private async Task CreateUnionInfoAsync(UnionInfoCreateOrUpdateInput input)
         {
             var unionInfo = ObjectMapper.Map<UnionInfo>(input);
+            unionInfo.UserId = AbpSession.UserId;
             await _unionInfoRepository.InsertAsync(unionInfo);
         }
         
@@ -115,7 +116,7 @@ namespace Akh.Breed.BaseInfos
         {
             var query = QueryableExtensions.WhereIf(_unionInfoRepository.GetAllIncluding(p => p.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
-                    u.Name.Contains(input.Filter) ||
+                    u.UnionName.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));
 
             return query;
@@ -129,7 +130,7 @@ namespace Akh.Breed.BaseInfos
                 query = query.Where(x => x.StateInfoId == input.Id);
             }
             
-            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.UnionName))
                 .ToList();
         }
         private async Task CheckValidation(UnionInfoCreateOrUpdateInput input)
@@ -142,11 +143,12 @@ namespace Akh.Breed.BaseInfos
             }
             
             existingObj = (await _unionInfoRepository.GetAll().AsNoTracking()
-                .FirstOrDefaultAsync(l => l.Name == input.Name));
+                .FirstOrDefaultAsync(l => l.UnionName == input.UnionName));
             if (existingObj != null && existingObj.Id != input.Id)
             {
                 throw new UserFriendlyException(L("ThisNameAlreadyExists"));
             }
         }
+        
     }
 }

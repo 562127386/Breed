@@ -1,5 +1,5 @@
 <div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
-        <div class="modal-dialog modal-md">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form *ngIf="active" #unionInfoForm="ngForm" novalidate (ngSubmit)="save()">
                     <div class="modal-header kt-bg-brand">
@@ -14,35 +14,223 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="form-group col-sm-12">
-                                <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12">{{"StateInfoName" | localize}}</label>
-                                    <div class="col-md-9 col-sm-12">
-                                            <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
-                                            name="stateInfoId" [(ngModel)]="unionInfo.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
-                                        <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
+                            <div class="col-sm-12">
+                                <p-fieldset class="col-sm-12" [legend]="l('UnionInfoLable')" [toggleable]="true">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4 col-sm-12">{{"StateInfoName" | localize}} *</label>
+                                                <div class="col-md-8 col-sm-12">
+                                                        <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                        name="stateInfoId" [(ngModel)]="unionInfo.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                    <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12">{{"Code" | localize}}</label>
-                                    <div class="col-md-9 col-sm-12">
-                                        <input #codeInput="ngModel" [readonly]="unionInfo.id" [(ngModel)]="unionInfo.code" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
-                                    <validation-messages [formCtrl]="codeInput"></validation-messages>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="row">
+                                                <label class="col-form-label col-md-4 col-sm-12">{{"UnionName" | localize}} *</label>
+                                                <div class="col-md-8 col-sm-12">
+                                                    <input #unionNameInput="ngModel" [(ngModel)]="unionInfo.unionName" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'UnionName' | localize}} *" name="unionName" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="unionNameInput"></validation-messages>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="row">
+                                                <label class="col-form-label col-md-4 col-sm-12">{{"Code" | localize}} *</label>
+                                                <div class="col-md-8 col-sm-12">
+                                                    <input #codeInput="ngModel" [readonly]="unionInfo.id" [(ngModel)]="unionInfo.code" autoFocus class="kt-align-right form-control m-input" type="text" autocomplete="new-password"  pKeyFilter="num" placeholder="{{'Code' | localize}} *" name="code" required maxlength="16"/>
+                                                <validation-messages [formCtrl]="codeInput"></validation-messages>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>                   
+
+                                    <div class="row">
+                                        <div class="form-group col-sm-12">
+                                            <div class="row">
+                                                <label class="col-form-label col-md-2 col-sm-12">{{"Address" | localize}}</label>
+                                                <div class="col-md-10 col-sm-12">
+                                                    <textarea rows="2" #addressInput="ngModel" [(ngModel)]="unionInfo.address" pInputTextarea autoResize="autoResize" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Address' | localize}}" name="address" maxlength="512"></textarea>
+                                                    <validation-messages [formCtrl]="addressInput"></validation-messages>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <div class="row">
-                                    <label class="col-form-label col-md-3 col-sm-12">{{"Name" | localize}}</label>
-                                    <div class="col-md-9 col-sm-12">
-                                        <input #nameInput="ngModel" [(ngModel)]="unionInfo.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *" name="name" required maxlength="64"/>
-                                    <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                    <div class="row">                                
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <div class="row">
+                                                <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}} *</label>
+                                                <div class="col-md-8 col-sm-12">
+                                                    <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="unionInfo.postalCode" type="num" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10" required></p-inputMask>
+                                                    <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <div class="row">
+                                                <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}}</label>
+                                                <div class="col-md-8 col-sm-12">
+                                                    <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-999-999-9999" [(ngModel)]="unionInfo.phone" type="num" autocomplete="new-password" name="phone" placeholder="0-912-111-2233" length="11" required></p-inputMask>
+                                                    <validation-messages [formCtrl]="phoneInput"></validation-messages>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <label class="col-form-label col-md-4 col-sm-12">{{"Name" | localize}} *</label>
+                                                    <div class="col-md-8 col-sm-12">
+                                                        <input #nameInput="ngModel" [(ngModel)]="unionInfo.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *"  pattern="[^0-9]*" name="name" required maxlength="64"/>
+                                                        <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <label class="col-form-label col-md-4 col-sm-12">{{"Family" | localize}} *</label>
+                                                    <div class="col-md-8 col-sm-12">
+                                                        <input #familyInput="ngModel" [(ngModel)]="unionInfo.family" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Family' | localize}} *"  pattern="[^0-9]*" name="family" required maxlength="64"/>
+                                                        <validation-messages [formCtrl]="familyInput"></validation-messages>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
+                                                    <div class="col-md-8 col-sm-12">
+                                                        <p-inputMask [style]="{'width':'100%'}" (onBlur)="checkNationalCode()" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="unionInfo.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
+                                                        <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
+                                                        <div class="form-control-feedback ng-star-inserted" *ngIf="!this.nationalCodeValid">
+                                                            کد ملی معتیر نیست
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                </p-fieldset>
+                                <p-fieldset *ngIf="unionInfo.id>0" class="col-sm-12" [legend]="l('UnionEmployeeLable')" [toggleable]="true">  
+                                    <div class="row">
+                                            <form class="kt-form" autocomplete="new-password">
+                                                <div>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-xl-12">
+                                                            <div class="form-group m-form__group align-items-center mb-0">
+                                                                <div class="input-group">
+                                                                    <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                                        class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
+                                                                        type="text">
+                                                                    <span class="input-group-btn">
+                                                                        <button (click)="getUnionEmployee()" class="btn btn-brand" type="submit"><i
+                                                                                class="flaticon-search-1"
+                                                                                [attr.aria-label]="l('Search')"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                            
+                                            <div class="row align-items-center kt-margin-0">
+                                                <!--<Primeng-TurboTable-Start>-->
+                                                <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                                    <p-table #dataTable (onLazyLoad)="getUnionEmployee($event)" [value]="primengTableHelper.records"
+                                                        rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false"
+                                                        [lazy]="true" [scrollable]="true" ScrollWidth="100%"
+                                                        [responsive]="primengTableHelper.isResponsive"
+                                                        [resizableColumns]="primengTableHelper.resizableColumns">
+                                                        <ng-template pTemplate="header">
+                                                            <tr>                                        
+                                                                <th style="width: 100px" pSortableColumn="nationalCode">
+                                                                    {{'NationalCode' | localize}}
+                                                                    <p-sortIcon field="nationalCode"></p-sortIcon>
+                                                                </th>
+                                                                <th style="width: 100px" pSortableColumn="name">
+                                                                    {{'Name' | localize}}
+                                                                    <p-sortIcon field="name"></p-sortIcon>
+                                                                </th>
+                                                                <th style="width: 100px" pSortableColumn="family">
+                                                                    {{'Family' | localize}}
+                                                                    <p-sortIcon field="family"></p-sortIcon>
+                                                                </th>
+                                                                <th style="width: 100px" pSortableColumn="phone">
+                                                                    {{'Mobile' | localize}}
+                                                                    <p-sortIcon field="phone"></p-sortIcon>
+                                                                </th>
+                                                                <th style="width: 100px">
+                                                                        {{'Actions' | localize}}
+                                                                </th>                                                                             
+                                                            </tr>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="body" let-record="$implicit">
+                                                            <tr>                                        
+                                                                <td style="width: 100px">
+                                                                    <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
+                                                                    {{record.nationalCode}}
+                                                                </td>
+                                                                <td style="width: 100px">
+                                                                    <span class="ui-column-title"> {{'Name' | localize}}</span>
+                                                                    {{record.name}}
+                                                                </td>
+                                                                <td style="width: 100px">
+                                                                    <span class="ui-column-title"> {{'Family' | localize}}</span>
+                                                                    {{record.family}}
+                                                                </td>
+                                                                <td style="width: 100px">
+                                                                    <span class="ui-column-title"> {{'Mobile' | localize}}</span>
+                                                                    {{record.phone}}
+                                                                </td>
+                                                                <td style="width: 100px">
+                                                                    <div class="kt-section__content kt-section__content--solid">
+                                                                        <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditUnionEmployeeModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                                        <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditUnionEmployeeModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                                            *ngIf="'Pages.BaseIntro.UnionEmployee.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button>
+                                                                        <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteUnionEmployee(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                                            *ngIf="'Pages.BaseIntro.UnionEmployee.Delete' | permission"><i class="flaticon-delete"></i></button>
+                                                                    </div>                                            
+                                                                </td>                                     
+                                                            </tr>
+                                                        </ng-template>
+                                                    </p-table>
+                                                    <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                                                        {{'NoData' | localize}}
+                                                    </div>
+                                                    <div class="primeng-paging-container">
+                                                        <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                                            (onPageChange)="getUnionEmployee($event)"
+                                                            [totalRecords]="primengTableHelper.totalRecordsCount"
+                                                            [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                        
+                                                        </p-paginator>
+                                                        <span class="total-records-count">
+                                                            {{'TotalRecordsCount' | localize:primengTableHelper.totalRecordsCount}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!--<Primeng-TurboTable-End>-->
+                                            </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-6 m--valign-middle">
+                                                
+                                            </div>
+                                            <div class="col-lg-6 kt-align-right">
+                                                <button (click)="createUnionEmployee()" *ngIf="'Pages.BaseIntro.UnionEmployee.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewUnionEmployee" | localize}}</button>
+                                            </div>
+                                        </div>
+                                    </div>                                   
+                                </p-fieldset>
                             </div>
-                        </div>                                                
+                        </div>
+                                                     
                     </div>
                     <div class="modal-footer">
                         <div class="col-sm-12">

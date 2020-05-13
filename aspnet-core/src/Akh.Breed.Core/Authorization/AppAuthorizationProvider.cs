@@ -124,11 +124,6 @@ namespace Akh.Breed.Authorization
             providerInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ProviderInfo_Edit, L("EditNewProviderInfo"));
             providerInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ProviderInfo_Delete, L("DeleteNewProviderInfo"));
 
-            var unionInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_UnionInfo, L("UnionInfo"));
-            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_UnionInfo_Create, L("CreateNewUnionInfo"));
-            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_UnionInfo_Edit, L("EditNewUnionInfo"));
-            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_UnionInfo_Delete, L("DeleteNewUnionInfo"));
-
             var activityInfo = baseInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ActivityInfo, L("ActivityInfo"));
             activityInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ActivityInfo_Create, L("CreateNewActivityInfo"));
             activityInfo.CreateChildPermission(AppPermissions.Pages_BaseInfo_ActivityInfo_Edit, L("EditNewActivityInfo"));
@@ -164,9 +159,19 @@ namespace Akh.Breed.Authorization
             plaqueState.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState_Edit, L("EditNewPlaqueState"));
             plaqueState.CreateChildPermission(AppPermissions.Pages_BaseInfo_PlaqueState_Delete, L("DeleteNewPlaqueState"));
             
-            //Breed-app BaseInfo
+            //Breed-app baseIntro
 
             var baseIntro = pages.CreateChildPermission(AppPermissions.Pages_BaseIntro, L("BaseIntro"));
+            
+            var unionInfo = baseIntro.CreateChildPermission(AppPermissions.Pages_BaseIntro_UnionInfo, L("UnionInfo"));
+            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseIntro_UnionInfo_Create, L("CreateNewUnionInfo"));
+            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseIntro_UnionInfo_Edit, L("EditNewUnionInfo"));
+            unionInfo.CreateChildPermission(AppPermissions.Pages_BaseIntro_UnionInfo_Delete, L("DeleteNewUnionInfo"));
+
+            var unionEmployee = baseIntro.CreateChildPermission(AppPermissions.Pages_BaseIntro_UnionEmployee, L("UnionEmployee"));
+            unionEmployee.CreateChildPermission(AppPermissions.Pages_BaseIntro_UnionEmployee_Create, L("CreateNewUnionEmployee"));
+            unionEmployee.CreateChildPermission(AppPermissions.Pages_BaseIntro_UnionEmployee_Edit, L("EditNewUnionEmployee"));
+            unionEmployee.CreateChildPermission(AppPermissions.Pages_BaseIntro_UnionEmployee_Delete, L("DeleteNewUnionEmployee"));
 
             var contractor = baseIntro.CreateChildPermission(AppPermissions.Pages_BaseIntro_Contractor, L("Contractor"));
             contractor.CreateChildPermission(AppPermissions.Pages_BaseIntro_Contractor_Create, L("CreateNewContractor"));

@@ -4,91 +4,87 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
+using Abp.Authorization.Users;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
 using Akh.Breed.Authorization;
-using Akh.Breed.BaseInfo;
+using Akh.Breed.Authorization.Roles;
+using Akh.Breed.Authorization.Users;
+using Akh.Breed.Contractors;
 using Akh.Breed.Unions.Dto;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Unions
 {
-    public class UnionInfoAppService :  BreedAppServiceBase, IUnionInfoAppService
+    public class UnionEmployeeAppService :  BreedAppServiceBase, IUnionEmployeeAppService
     {
-        private readonly IRepository<UnionInfo> _unionInfoRepository;
-        private readonly IRepository<StateInfo> _stateInfoRepository;
+        private readonly IRepository<UnionEmployee> _unionEmployeeRepository;
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly RoleManager _roleManager;
 
-        public UnionInfoAppService(IRepository<UnionInfo> unionInfoRepository, IRepository<StateInfo> stateInfoRepository)
+        public UnionEmployeeAppService(IRepository<UnionEmployee> unionEmployeeRepository, IPasswordHasher<User> passwordHasher, RoleManager roleManager)
         {
-            _unionInfoRepository = unionInfoRepository;
-            _stateInfoRepository = stateInfoRepository;
+            _unionEmployeeRepository = unionEmployeeRepository;
+            _passwordHasher = passwordHasher;
+            _roleManager = roleManager;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo)]
-        public async Task<PagedResultDto<UnionInfoListDto>> GetUnionInfo(GetUnionInfoInput input)
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee)]
+        public async Task<PagedResultDto<UnionEmployeeListDto>> GetUnionEmployee(GetUnionEmployeeInput input)
         {
             var query = GetFilteredQuery(input);
             var userCount = await query.CountAsync();
-            var unionInfos = await query
+            var unionEmployees = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var unionInfosListDto = ObjectMapper.Map<List<UnionInfoListDto>>(unionInfos);
-            return new PagedResultDto<UnionInfoListDto>(
+            var unionEmployeesListDto = ObjectMapper.Map<List<UnionEmployeeListDto>>(unionEmployees);
+            return new PagedResultDto<UnionEmployeeListDto>(
                 userCount,
-                unionInfosListDto
+                unionEmployeesListDto
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Create, AppPermissions.Pages_BaseInfo_UnionInfo_Edit)]
-        public async Task<UnionInfoGetForEditOutput> GetUnionInfoForEdit(NullableIdDto<int> input)
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee_Create, AppPermissions.Pages_BaseIntro_UnionEmployee_Edit)]
+        public async Task<UnionEmployeeCreateOrUpdateInput> GetUnionEmployeeForEdit(NullableIdDto<int> input)
         {
-            UnionInfo unionInfo = null;
+            var output = new UnionEmployeeCreateOrUpdateInput();
+
             if (input.Id.HasValue)
             {
-                unionInfo = await _unionInfoRepository.GetAsync(input.Id.Value);
+                var unionEmployee = await _unionEmployeeRepository.GetAsync(input.Id.Value);
+                if (unionEmployee != null)
+                    ObjectMapper.Map<UnionEmployee,UnionEmployeeCreateOrUpdateInput>(unionEmployee,output);
             }
-            //Getting all available roles
-            var output = new UnionInfoGetForEditOutput();
-            
-            output.UnionInfo = unionInfo != null
-                ? ObjectMapper.Map<UnionInfoCreateOrUpdateInput>(unionInfo)
-                : new UnionInfoCreateOrUpdateInput();
-            
-            //StateInfos
-            output.StateInfos = _stateInfoRepository
-                .GetAllList()
-                .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name)
-                    {IsSelected = output.UnionInfo.StateInfoId.Equals(c.Id)})
-                .ToList();
 
             return output;
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Create, AppPermissions.Pages_BaseInfo_UnionInfo_Edit)]
-        public async Task CreateOrUpdateUnionInfo(UnionInfoCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee_Create, AppPermissions.Pages_BaseIntro_UnionEmployee_Edit)]
+        public async Task CreateOrUpdateUnionEmployee(UnionEmployeeCreateOrUpdateInput input)
         {
             await CheckValidation(input);
             
             if (input.Id.HasValue)
             {
-                await UpdateUnionInfoAsync(input);
+                await UpdateUnionEmployeeAsync(input);
             }
             else
             {
-                await CreateUnionInfoAsync(input);
+                await CreateUnionEmployeeAsync(input);
             }
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Delete)]
-        public async Task DeleteUnionInfo(EntityDto input)
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee_Delete)]
+        public async Task DeleteUnionEmployee(EntityDto input)
         {
             try
             {
-                await _unionInfoRepository.DeleteAsync(input.Id);
+                await _unionEmployeeRepository.DeleteAsync(input.Id);
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
             catch
@@ -97,57 +93,62 @@ namespace Akh.Breed.Unions
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Edit)]
-        private async Task UpdateUnionInfoAsync(UnionInfoCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee_Edit)]
+        private async Task UpdateUnionEmployeeAsync(UnionEmployeeCreateOrUpdateInput input)
         {
-            var unionInfo = ObjectMapper.Map<UnionInfo>(input);
-            unionInfo.UserId = AbpSession.UserId;
-            await _unionInfoRepository.UpdateAsync(unionInfo);
+            var unionEmployee = ObjectMapper.Map<UnionEmployee>(input);
+            await _unionEmployeeRepository.UpdateAsync(unionEmployee);
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseInfo_UnionInfo_Create)]
-        private async Task CreateUnionInfoAsync(UnionInfoCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee_Create)]
+        private async Task CreateUnionEmployeeAsync(UnionEmployeeCreateOrUpdateInput input)
         {
-            var unionInfo = ObjectMapper.Map<UnionInfo>(input);
-            await _unionInfoRepository.InsertAsync(unionInfo);
+            var nationalCode = input.NationalCode.Replace("-", "");
+            var user = new User
+            {
+                IsActive = true,
+                ShouldChangePasswordOnNextLogin = true,
+                UserName = nationalCode,
+                EmailAddress = nationalCode + "@mgnsys.ir",
+                Name = input.Name,
+                Surname = input.Family
+            };
+            
+            user.Password = _passwordHasher.HashPassword(user, nationalCode);
+            CheckErrors(await UserManager.CreateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+            var officerRole = _roleManager.GetRoleByName(StaticRoleNames.Host.StateAdmin);
+            long userId = user.ToUserIdentifier().UserId;
+            user.Roles = new List<UserRole>();
+            user.Roles.Add(new UserRole(null, user.Id, officerRole.Id));
+
+            if (userId > 0)
+            {
+                var unionEmployee = ObjectMapper.Map<UnionEmployee>(input);
+                unionEmployee.UserId = userId;
+                await _unionEmployeeRepository.InsertAsync(unionEmployee);
+            }
+            else
+            {
+                throw new UserFriendlyException(L("AnErrorOccurred"));
+            }
+            
         }
         
-        private IQueryable<UnionInfo> GetFilteredQuery(GetUnionInfoInput input)
+        private IQueryable<UnionEmployee> GetFilteredQuery(GetUnionEmployeeInput input)
         {
-            var query = QueryableExtensions.WhereIf(_unionInfoRepository.GetAllIncluding(p => p.StateInfo),
+            var query = QueryableExtensions.WhereIf(_unionEmployeeRepository.GetAll(),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
-                    u.UnionName.Contains(input.Filter) ||
-                    u.Code.Contains(input.Filter));
+                    u.Name.Contains(input.Filter) ||
+                    u.Family.Contains(input.Filter) ||
+                    u.NationalCode.Replace("-","").Contains(input.Filter));
 
             return query;
         }
         
-        public List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input)
+        private async Task CheckValidation(UnionEmployeeCreateOrUpdateInput input)
         {
-            var query = _unionInfoRepository.GetAll();
-            if (input.Id.HasValue)
-            {
-                query = query.Where(x => x.StateInfoId == input.Id);
-            }
-            
-            return query.Select(c => new ComboboxItemDto(c.Id.ToString(), c.UnionName))
-                .ToList();
-        }
-        private async Task CheckValidation(UnionInfoCreateOrUpdateInput input)
-        {
-            var existingObj = (await _unionInfoRepository.GetAll().AsNoTracking()
-                .FirstOrDefaultAsync(l => l.Code == input.Code));
-            if (existingObj != null && existingObj.Id != input.Id)
-            {
-                throw new UserFriendlyException(L("ThisCodeAlreadyExists"));
-            }
-            
-            existingObj = (await _unionInfoRepository.GetAll().AsNoTracking()
-                .FirstOrDefaultAsync(l => l.UnionName == input.UnionName));
-            if (existingObj != null && existingObj.Id != input.Id)
-            {
-                throw new UserFriendlyException(L("ThisNameAlreadyExists"));
-            }
+
         }
     }
 }

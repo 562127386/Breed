@@ -18,6 +18,7 @@ using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors.Dto;
 using Akh.Breed.Officers;
+using Akh.Breed.Unions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -143,7 +144,7 @@ namespace Akh.Breed.Contractors
                 
                 output.UnionInfos = _unionInfoRepository.GetAll()
                     .Where(x => x.StateInfoId == output.Contractor.StateInfoId)
-                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.UnionName))
                     .ToList();
             }
             
@@ -264,7 +265,7 @@ namespace Akh.Breed.Contractors
                     u.CityInfo.Name.Contains(input.Filter) ||
                     u.RegionInfo.Name.Contains(input.Filter) ||
                     u.VillageInfo.Name.Contains(input.Filter) ||
-                    u.UnionInfo.Name.Contains(input.Filter) ||
+                    u.UnionInfo.UnionName.Contains(input.Filter) ||
                     u.NationalCode.Replace("-","").Contains(input.Filter) ||
                     u.FirmName.Contains(input.Filter) ||
                     u.Code.Contains(input.Filter));

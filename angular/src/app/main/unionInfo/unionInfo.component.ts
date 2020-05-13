@@ -68,7 +68,7 @@ export class UnionInfoComponent extends AppComponentBase implements AfterViewIni
 
     deleteUnionInfo(unionInfo: UnionInfoListDto): void {
         this.message.confirm(
-            this.l('AreYouSureToDeleteTheUnionInfo', unionInfo.name),            
+            this.l('AreYouSureToDeleteTheUnionInfo', unionInfo.unionName),            
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {

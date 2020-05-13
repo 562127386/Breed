@@ -13,7 +13,7 @@ namespace Akh.Breed.Livestocks.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "CreationTime";
+                Sorting = "CreationTime Desc";
             }
 
             Filter = Filter?.Trim();

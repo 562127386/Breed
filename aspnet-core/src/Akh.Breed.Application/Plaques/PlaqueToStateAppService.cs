@@ -18,6 +18,7 @@ using Akh.Breed.BaseInfo;
 using Akh.Breed.Contractors;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques.Dto;
+using Akh.Breed.Unions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Plaques

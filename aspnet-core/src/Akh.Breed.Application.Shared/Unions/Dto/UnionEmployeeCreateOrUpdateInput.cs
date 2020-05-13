@@ -2,16 +2,10 @@
 
 namespace Akh.Breed.Unions.Dto
 {
-    public class UnionInfoCreateOrUpdateInput
+    public class UnionEmployeeCreateOrUpdateInput
     {
         public int? Id { get; set; }
         
-        [Required]
-        public string UnionName { get; set; }
-
-        [Required]
-        public string Code { get; set; }
-
         public string NationalCode { get; set; }
 
         public string Name { get; set; }
@@ -20,11 +14,9 @@ namespace Akh.Breed.Unions.Dto
 
         public string Phone { get; set; }
 
-        public string Address { get; set; }
-
-        public string PostalCode { get; set; }
+        public string Post { get; set; }
 
         [Required]
-        public int StateInfoId { get; set; }
+        public int UnionInfoId { get; set; }
     }
 }

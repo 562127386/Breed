@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
-using Akh.Breed.BaseInfos.Dto;
+using Akh.Breed.Unions.Dto;
 
-namespace Akh.Breed.BaseInfos
+namespace Akh.Breed.Unions
 {
     public interface IUnionInfoAppService : IApplicationService
     {

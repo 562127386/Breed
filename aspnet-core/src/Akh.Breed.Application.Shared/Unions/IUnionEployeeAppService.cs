@@ -6,12 +6,11 @@ using Akh.Breed.Unions.Dto;
 
 namespace Akh.Breed.Unions
 {
-    public interface IUnionInfoAppService : IApplicationService
+    public interface IUnionEmployeeAppService : IApplicationService
     {
-        Task<PagedResultDto<UnionInfoListDto>> GetUnionInfo(GetUnionInfoInput input);
-        Task<UnionInfoGetForEditOutput> GetUnionInfoForEdit(NullableIdDto<int> input);
-        Task CreateOrUpdateUnionInfo(UnionInfoCreateOrUpdateInput input);
-        Task DeleteUnionInfo(EntityDto input);
-        List<ComboboxItemDto> GetForCombo(NullableIdDto<int> input);
+        Task<PagedResultDto<UnionEmployeeListDto>> GetUnionEmployee(GetUnionEmployeeInput input);
+        Task<UnionEmployeeCreateOrUpdateInput> GetUnionEmployeeForEdit(NullableIdDto<int> input);
+        Task CreateOrUpdateUnionEmployee(UnionEmployeeCreateOrUpdateInput input);
+        Task DeleteUnionEmployee(EntityDto input);
     }
 }

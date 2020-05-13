@@ -23,7 +23,6 @@ export class AppNavigationService {
                 new AppMenuItem('RegionInfo', 'Pages.BaseInfo.RegionInfo', 'flaticon-placeholder', '/app/main/regionInfo'),
                 new AppMenuItem('VillageInfo', 'Pages.BaseInfo.VillageInfo', 'flaticon-placeholder-2', '/app/main/villageInfo'),
                 new AppMenuItem('ProviderInfo', 'Pages.BaseInfo.ProviderInfo', 'flaticon-truck', '/app/main/providerInfo'),
-                new AppMenuItem('UnionInfo', 'Pages.BaseInfo.UnionInfo', 'flaticon-truck', '/app/main/unionInfo'),
                 new AppMenuItem('ActivityInfo', 'Pages.BaseInfo.ActivityInfo', 'flaticon-truck', '/app/main/activityInfo'),
                 new AppMenuItem('AcademicDegree', 'Pages.BaseInfo.AcademicDegree', 'flaticon-lock', '/app/main/academicDegree'),
                 new AppMenuItem('SexInfo', 'Pages.BaseInfo.SexInfo', 'flaticon-technology-1', '/app/main/sexInfo'),
@@ -33,6 +32,7 @@ export class AppNavigationService {
                 new AppMenuItem('Manufacturer', 'Pages.BaseInfo.Manufacturer', 'flaticon-technology-2', '/app/main/manufacturer')
             ]),
             new AppMenuItem('BaseIntro', 'Pages.BaseIntro', 'flaticon-folder-1', '',[
+                new AppMenuItem('UnionInfo', 'Pages.BaseIntro.UnionInfo', 'flaticon-truck', '/app/main/unionInfo'),
                 new AppMenuItem('Contractor', 'Pages.BaseIntro.Contractor', 'flaticon-diagram', '/app/main/contractor'),
                 new AppMenuItem('Officer', 'Pages.BaseIntro.Officer', 'flaticon-diagram', '/app/main/officer'),                
                 new AppMenuItem('Herd', 'Pages.BaseIntro.Herd', 'flaticon2-box', '/app/main/herd')

@@ -4,9 +4,11 @@ using Akh.Breed.Dto;
 
 namespace Akh.Breed.Unions.Dto
 {
-    public class GetUnionInfoInput : PagedAndSortedInputDto, IShouldNormalize
+    public class GetUnionEmployeeInput : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Filter { get; set; }
+        
+        public int? UnionInfoId { get; set; }
         
         public void Normalize()
         {
@@ -19,11 +21,8 @@ namespace Akh.Breed.Unions.Dto
         }
     }
     
-    public class UnionInfoListDto : EntityDto
+    public class UnionEmployeeListDto : EntityDto
     {
-        public string UnionName { get; set; }
-
-        public string Code { get; set; }
 
         public string NationalCode { get; set; }
 
@@ -33,12 +32,7 @@ namespace Akh.Breed.Unions.Dto
 
         public string Phone { get; set; }
 
-        public string Address { get; set; }
+        public string Post { get; set; }
 
-        public string PostalCode { get; set; }
-
-        public int StateInfoId { get; set; }
-        
-        public string StateInfoName { get; set; }
     }
 }

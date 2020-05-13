@@ -17203,6 +17203,254 @@ export class UiCustomizationSettingsServiceProxy {
 }
 
 @Injectable()
+export class UnionEmployeeServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param unionInfoId (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getUnionEmployee(filter: string | undefined, unionInfoId: number | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfUnionEmployeeListDto> {
+        let url_ = this.baseUrl + "/api/services/app/UnionEmployee/GetUnionEmployee?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (unionInfoId === null)
+            throw new Error("The parameter 'unionInfoId' cannot be null.");
+        else if (unionInfoId !== undefined)
+            url_ += "UnionInfoId=" + encodeURIComponent("" + unionInfoId) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUnionEmployee(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUnionEmployee(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfUnionEmployeeListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfUnionEmployeeListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUnionEmployee(response: HttpResponseBase): Observable<PagedResultDtoOfUnionEmployeeListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfUnionEmployeeListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfUnionEmployeeListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getUnionEmployeeForEdit(id: number | undefined): Observable<UnionEmployeeCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/UnionEmployee/GetUnionEmployeeForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUnionEmployeeForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUnionEmployeeForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<UnionEmployeeCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<UnionEmployeeCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUnionEmployeeForEdit(response: HttpResponseBase): Observable<UnionEmployeeCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UnionEmployeeCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UnionEmployeeCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateUnionEmployee(body: UnionEmployeeCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/UnionEmployee/CreateOrUpdateUnionEmployee";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateUnionEmployee(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateUnionEmployee(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateUnionEmployee(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteUnionEmployee(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/UnionEmployee/DeleteUnionEmployee?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteUnionEmployee(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteUnionEmployee(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteUnionEmployee(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class UnionInfoServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -34734,9 +34982,179 @@ export interface IExternalAuthenticateResultModel {
     refreshTokenExpireInSeconds: number;
 }
 
-export class UnionInfoListDto implements IUnionInfoListDto {
+export class UnionEmployeeListDto implements IUnionEmployeeListDto {
+    nationalCode!: string | undefined;
     name!: string | undefined;
+    family!: string | undefined;
+    phone!: string | undefined;
+    post!: string | undefined;
+    id!: number;
+
+    constructor(data?: IUnionEmployeeListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nationalCode = data["nationalCode"];
+            this.name = data["name"];
+            this.family = data["family"];
+            this.phone = data["phone"];
+            this.post = data["post"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): UnionEmployeeListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UnionEmployeeListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nationalCode"] = this.nationalCode;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["phone"] = this.phone;
+        data["post"] = this.post;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IUnionEmployeeListDto {
+    nationalCode: string | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    phone: string | undefined;
+    post: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfUnionEmployeeListDto implements IPagedResultDtoOfUnionEmployeeListDto {
+    totalCount!: number;
+    items!: UnionEmployeeListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfUnionEmployeeListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(UnionEmployeeListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfUnionEmployeeListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfUnionEmployeeListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfUnionEmployeeListDto {
+    totalCount: number;
+    items: UnionEmployeeListDto[] | undefined;
+}
+
+export class UnionEmployeeCreateOrUpdateInput implements IUnionEmployeeCreateOrUpdateInput {
+    id!: number | undefined;
+    nationalCode!: string | undefined;
+    name!: string | undefined;
+    family!: string | undefined;
+    phone!: string | undefined;
+    post!: string | undefined;
+    unionInfoId!: number;
+
+    constructor(data?: IUnionEmployeeCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.nationalCode = data["nationalCode"];
+            this.name = data["name"];
+            this.family = data["family"];
+            this.phone = data["phone"];
+            this.post = data["post"];
+            this.unionInfoId = data["unionInfoId"];
+        }
+    }
+
+    static fromJS(data: any): UnionEmployeeCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UnionEmployeeCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nationalCode"] = this.nationalCode;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["phone"] = this.phone;
+        data["post"] = this.post;
+        data["unionInfoId"] = this.unionInfoId;
+        return data; 
+    }
+}
+
+export interface IUnionEmployeeCreateOrUpdateInput {
+    id: number | undefined;
+    nationalCode: string | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    phone: string | undefined;
+    post: string | undefined;
+    unionInfoId: number;
+}
+
+export class UnionInfoListDto implements IUnionInfoListDto {
+    unionName!: string | undefined;
     code!: string | undefined;
+    nationalCode!: string | undefined;
+    name!: string | undefined;
+    family!: string | undefined;
+    phone!: string | undefined;
+    address!: string | undefined;
+    postalCode!: string | undefined;
     stateInfoId!: number;
     stateInfoName!: string | undefined;
     id!: number;
@@ -34752,8 +35170,14 @@ export class UnionInfoListDto implements IUnionInfoListDto {
 
     init(data?: any) {
         if (data) {
-            this.name = data["name"];
+            this.unionName = data["unionName"];
             this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.name = data["name"];
+            this.family = data["family"];
+            this.phone = data["phone"];
+            this.address = data["address"];
+            this.postalCode = data["postalCode"];
             this.stateInfoId = data["stateInfoId"];
             this.stateInfoName = data["stateInfoName"];
             this.id = data["id"];
@@ -34769,8 +35193,14 @@ export class UnionInfoListDto implements IUnionInfoListDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
+        data["unionName"] = this.unionName;
         data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["phone"] = this.phone;
+        data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
         data["stateInfoId"] = this.stateInfoId;
         data["stateInfoName"] = this.stateInfoName;
         data["id"] = this.id;
@@ -34779,8 +35209,14 @@ export class UnionInfoListDto implements IUnionInfoListDto {
 }
 
 export interface IUnionInfoListDto {
-    name: string | undefined;
+    unionName: string | undefined;
     code: string | undefined;
+    nationalCode: string | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    phone: string | undefined;
+    address: string | undefined;
+    postalCode: string | undefined;
     stateInfoId: number;
     stateInfoName: string | undefined;
     id: number;
@@ -34836,8 +35272,14 @@ export interface IPagedResultDtoOfUnionInfoListDto {
 
 export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInput {
     id!: number | undefined;
-    name!: string | undefined;
+    unionName!: string | undefined;
     code!: string | undefined;
+    nationalCode!: string | undefined;
+    name!: string | undefined;
+    family!: string | undefined;
+    phone!: string | undefined;
+    address!: string | undefined;
+    postalCode!: string | undefined;
     stateInfoId!: number;
 
     constructor(data?: IUnionInfoCreateOrUpdateInput) {
@@ -34852,8 +35294,14 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
     init(data?: any) {
         if (data) {
             this.id = data["id"];
-            this.name = data["name"];
+            this.unionName = data["unionName"];
             this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.name = data["name"];
+            this.family = data["family"];
+            this.phone = data["phone"];
+            this.address = data["address"];
+            this.postalCode = data["postalCode"];
             this.stateInfoId = data["stateInfoId"];
         }
     }
@@ -34868,8 +35316,14 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["name"] = this.name;
+        data["unionName"] = this.unionName;
         data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["phone"] = this.phone;
+        data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
         data["stateInfoId"] = this.stateInfoId;
         return data; 
     }
@@ -34877,8 +35331,14 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
 
 export interface IUnionInfoCreateOrUpdateInput {
     id: number | undefined;
-    name: string | undefined;
+    unionName: string | undefined;
     code: string | undefined;
+    nationalCode: string | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    phone: string | undefined;
+    address: string | undefined;
+    postalCode: string | undefined;
     stateInfoId: number;
 }
 

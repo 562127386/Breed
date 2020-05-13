@@ -2,7 +2,7 @@
 using Abp.Runtime.Validation;
 using Akh.Breed.Dto;
 
-namespace Akh.Breed.BaseInfos.Dto
+namespace Akh.Breed.Unions.Dto
 {
     public class GetUnionInfoInput : PagedAndSortedInputDto, IShouldNormalize
     {
@@ -12,7 +12,7 @@ namespace Akh.Breed.BaseInfos.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "Name,Code";
+                Sorting = "CreationTime Desc";
             }
 
             Filter = Filter?.Trim();
@@ -21,9 +21,21 @@ namespace Akh.Breed.BaseInfos.Dto
     
     public class UnionInfoListDto : EntityDto
     {
-        public string Name { get; set; }
+        public string UnionName { get; set; }
 
         public string Code { get; set; }
+
+        public string NationalCode { get; set; }
+
+        public string Name { get; set; }
+
+        public string Family { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Address { get; set; }
+
+        public string PostalCode { get; set; }
 
         public int StateInfoId { get; set; }
         

@@ -9,14 +9,9 @@ using Akh.Breed.BaseInfo;
 
 namespace Akh.Breed.Unions
 {
-    [Table("AkhUnionInfo")]
-    public class UnionInfo : Entity, IHasCreationTime, IMayHaveTenant
+    [Table("AkhUnionEmployees")]
+    public class UnionEmployee : Entity, IHasCreationTime, IMayHaveTenant
     {
-        [Required]
-        public string Code { get; set; }
-
-        [Required]
-        public string UnionName { get; set; }
 
         public string NationalCode { get; set; }
 
@@ -26,14 +21,12 @@ namespace Akh.Breed.Unions
 
         public string Phone { get; set; }
 
-        public string Address { get; set; }
+        public string Post { get; set; }
 
-        public string PostalCode { get; set; }
-
-        [ForeignKey("StateInfoId")]
-        public virtual StateInfo StateInfo { get; set; }
+        [ForeignKey("UnionInfoId")]
+        public virtual UnionInfo UnionInfo { get; set; }
         
-        public int? StateInfoId { get; set; }
+        public int? UnionInfoId { get; set; }
         public DateTime CreationTime { get; set; }
 
         public int? TenantId { get; set; }
@@ -42,7 +35,7 @@ namespace Akh.Breed.Unions
         public virtual User User { get; set; }
         public long? UserId { get; set; }
 
-        public UnionInfo()
+        public UnionEmployee()
         {
             CreationTime = Clock.Now;
         }

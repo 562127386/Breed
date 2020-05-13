@@ -1213,12 +1213,12 @@
     <text name="DeleteNewPlaqueToState">حذف پلاک اختصاصی به استان</text>
     <text name="AreYouSureToDeleteThePlaqueToState">آیا از حذف پلاک از استان {0} مطمئن هستید؟</text>
 
-    <text name="PlaqueToCity">تخصیص پلاک به شهر</text>
-    <text name="CreateNewPlaqueToCity">اختصاص پلاک به شهر</text>
-    <text name="ViewNewPlaqueToCity">نمایش پلاک اختصاصی به شهر</text>
-    <text name="EditNewPlaqueToCity">ویرایش پلاک اختصاصی به شهر</text>
-    <text name="DeleteNewPlaqueToCity">حذف پلاک اختصاصی به شهر</text>
-    <text name="AreYouSureToDeleteThePlaqueToCity">آیا از حذف پلاک از ش {0} مطمئن هستید؟</text>
+    <text name="PlaqueToCity">تخصیص پلاک به پیمانکار</text>
+    <text name="CreateNewPlaqueToCity">اختصاص پلاک به پیمانکار</text>
+    <text name="ViewNewPlaqueToCity">نمایش پلاک اختصاصی به پیمانکار</text>
+    <text name="EditNewPlaqueToCity">ویرایش پلاک اختصاصی به پیمانکار</text>
+    <text name="DeleteNewPlaqueToCity">حذف پلاک اختصاصی به پیمانکار</text>
+    <text name="AreYouSureToDeleteThePlaqueToCity">آیا از حذف پلاک از پیمانکار {0} مطمئن هستید؟</text>
 
     <text name="PlaqueToOfficer">تخصیص پلاک به مامور</text>
     <text name="CreateNewPlaqueToOfficer">اختصاص پلاک به مامور</text>
@@ -1228,8 +1228,9 @@
     <text name="AreYouSureToDeleteThePlaqueToOfficer">آیا از حذف پلاک از مامور {0} مطمئن هستید؟</text>
 
     <text name="ّFatherName">نام پدر</text>
-    
+
     <text name="UnionInfo">اتحادیه</text>
+    <text name="UnionName">نام اتحادیه</text>
     <text name="ActivityInfo">فعالیت</text>
     <text name="CreateNewUnionInfo">ایجاد اتحادیه</text>
     <text name="CreateNewActivityInfo">ایجاد فعالیت</text>
@@ -1238,6 +1239,14 @@
     <text name="ViewNewUnionInfo">نمایش اتحادیه</text>
     <text name="EditNewUnionInfo">ویرایش اتحادیه</text>
     <text name="DeleteNewUnionInfo">حذف اتحادیه</text>
+
+
+    <text name="UnionEmployee">کارکنان اتحادیه</text>
+    <text name="CreateNewUnionInfo">ایجاد کارکنان اتحادیه</text>
+    <text name="ViewNewUnionEmployee">نمایش کارکنان اتحادیه</text>
+    <text name="EditNewUnionEmployee">ویرایش کارکنان اتحادیه</text>
+    <text name="DeleteNewUnionEmployee">حذف کارکنان اتحادیه</text>
+    <text name="AreYouSureToDeleteTheUnionInfo">آیا از حذف کارکنان اتحادیه {0} مطمئن هستید؟</text>
     
     <text name="ViewNewActivityInfo">نمایش فعالیت</text>
     <text name="EditNewActivityInfo">ویرایش فعالیت</text>
@@ -1333,6 +1342,9 @@
     <text name="ViewNewPlaqueToHerd">نمایش پلاک نزد دامدار</text>
     <text name="EditNewPlaqueToHerd">اصلاح پلاک نزد دامدار</text>
     <text name="DeleteNewPlaqueToHerd">حذف پلاک نزد دامدار</text>
+    
+    <text name="UnionInfoLable">اطلاعات اتحادیه</text>
+    <text name="UnionEmployeeLable">اطلاعات کارکنان</text>
   </texts>
 </localizationDictionary>
 

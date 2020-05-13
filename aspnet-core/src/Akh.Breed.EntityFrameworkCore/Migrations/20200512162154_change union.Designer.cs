@@ -4,14 +4,16 @@ using Akh.Breed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Akh.Breed.Migrations
 {
     [DbContext(typeof(BreedDbContext))]
-    partial class BreedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200512162154_change union")]
+    partial class changeunion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2946,49 +2948,6 @@ namespace Akh.Breed.Migrations
                     b.ToTable("AppBinaryObjects");
                 });
 
-            modelBuilder.Entity("Akh.Breed.Unions.UnionEmployee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Family")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NationalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Post")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UnionInfoId")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UnionInfoId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AkhUnionEmployees");
-                });
-
             modelBuilder.Entity("Akh.Breed.Unions.UnionInfo", b =>
                 {
                     b.Property<int>("Id")
@@ -3518,17 +3477,6 @@ namespace Akh.Breed.Migrations
                     b.HasOne("Akh.Breed.BaseInfo.StateInfo", "StateInfo")
                         .WithMany()
                         .HasForeignKey("StateInfoId");
-                });
-
-            modelBuilder.Entity("Akh.Breed.Unions.UnionEmployee", b =>
-                {
-                    b.HasOne("Akh.Breed.Unions.UnionInfo", "UnionInfo")
-                        .WithMany()
-                        .HasForeignKey("UnionInfoId");
-
-                    b.HasOne("Akh.Breed.Authorization.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Akh.Breed.Unions.UnionInfo", b =>

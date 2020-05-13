@@ -18,6 +18,7 @@ using Akh.Breed.Livestocks;
 using Akh.Breed.Notices;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques;
+using Akh.Breed.Unions;
 
 namespace Akh.Breed.EntityFrameworkCore
 {
@@ -64,6 +65,8 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<ProviderInfo> ProviderInfos { get; set; }
         
         public virtual DbSet<UnionInfo> UnionInfos { get; set; }
+        
+        public virtual DbSet<UnionEmployee> UnionEmployees { get; set; }
 
         public virtual DbSet<ActivityInfo> ActivityInfos { get; set; }
 
@@ -207,8 +210,7 @@ namespace Akh.Breed.EntityFrameworkCore
             
             modelBuilder.Entity<UnionInfo>(b =>
             {
-                b.HasIndex(e => e.Code).IsUnique();
-                b.HasIndex(e => e.Name).IsUnique();
+                b.HasIndex(e => e.StateInfoId).IsUnique();
             });
             
             modelBuilder.Entity<ActivityInfo>(b =>

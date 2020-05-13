@@ -20,6 +20,7 @@ using Akh.Breed.Herds;
 using Akh.Breed.Livestocks.Dto;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques;
+using Akh.Breed.Unions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Livestocks

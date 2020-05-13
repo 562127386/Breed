@@ -9,6 +9,7 @@ using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
 using Akh.Breed.Authorization.Users;
 using Akh.Breed.BaseInfo;
+using Akh.Breed.Unions;
 
 namespace Akh.Breed.Contractors
 {

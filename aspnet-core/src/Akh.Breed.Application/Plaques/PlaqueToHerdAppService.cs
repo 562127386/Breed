@@ -21,6 +21,7 @@ using Akh.Breed.Herds;
 using Akh.Breed.Plaques.Dto;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques;
+using Akh.Breed.Unions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Plaques

@@ -18,6 +18,7 @@ using Akh.Breed.Contractors;
 using Akh.Breed.Herds.Dto;
 using Akh.Breed.Net.Sms;
 using Akh.Breed.Officers;
+using Akh.Breed.Unions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Herds
@@ -161,7 +162,7 @@ namespace Akh.Breed.Herds
                 
                 output.UnionInfos = _unionInfoRepository.GetAll()
                     .Where(x => x.StateInfoId == output.Herd.StateInfoId)
-                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
+                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.UnionName))
                     .ToList();
                 
                 output.Contractors = _contractorRepository

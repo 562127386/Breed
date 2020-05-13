@@ -2,6 +2,7 @@
 using Akh.Breed.BaseInfo;
 using Akh.Breed.Contractors;
 using Akh.Breed.EntityFrameworkCore;
+using Akh.Breed.Unions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Migrations.Seed.Host
@@ -82,70 +83,64 @@ namespace Akh.Breed.Migrations.Seed.Host
         
         private void CreateUnionInfo()
         {
-            var defaultUnionInfo = _context.UnionInfos.IgnoreQueryFilters().FirstOrDefault(e => e.Name == "سازمان دامپزشکی");
+            var defaultUnionInfo = _context.UnionInfos.IgnoreQueryFilters().FirstOrDefault(e => e.UnionName == "اتحاديه صنعت  فارس");
             if (defaultUnionInfo == null)
             {
-                defaultUnionInfo = new UnionInfo() {Code = "50" ,Name = "سازمان دامپزشکی"};
+                defaultUnionInfo = new UnionInfo {Code = "5210" ,UnionName = "اتحاديه صنعت  فارس"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5210" ,Name = "اتحاديه صنعت  فارس"};
+                defaultUnionInfo = new UnionInfo {Code = "5217" ,UnionName = "اتحاديه صنعت اصفهان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5217" ,Name = "اتحاديه صنعت اصفهان"};
+                defaultUnionInfo = new UnionInfo {Code = "5223" ,UnionName = "اتحاديه صنعت کهگيلويه و بوير احمد"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5223" ,Name = "اتحاديه صنعت کهگيلويه و بوير احمد"};
+                defaultUnionInfo = new UnionInfo {Code = "5216" ,UnionName = "اتحاديه صنعت تهران"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5216" ,Name = "اتحاديه صنعت تهران"};
+                defaultUnionInfo = new UnionInfo {Code = "5214" ,UnionName = "اتحاديه صنعت ايلام"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5214" ,Name = "اتحاديه صنعت ايلام"};
+                defaultUnionInfo = new UnionInfo {Code = "5220" ,UnionName = "اتحاديه صنعت چهارمحال و بختياري"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5220" ,Name = "اتحاديه صنعت چهارمحال و بختياري"};
+                defaultUnionInfo = new UnionInfo {Code = "5226" ,UnionName = "اتحاديه صنعت سمنان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5226" ,Name = "اتحاديه صنعت سمنان"};
+                defaultUnionInfo = new UnionInfo {Code = "5202" ,UnionName = "اتحاديه صنعت قزوين"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5202" ,Name = "اتحاديه صنعت قزوين"};
+                defaultUnionInfo = new UnionInfo {Code = "5200" ,UnionName = "اتحاديه صنعت مازندران"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5200" ,Name = "اتحاديه صنعت مازندران"};
+                defaultUnionInfo = new UnionInfo {Code = "5222" ,UnionName = "اتحاديه صنعت مرکزي"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5222" ,Name = "اتحاديه صنعت مرکزي"};
+                defaultUnionInfo = new UnionInfo {Code = "5215" ,UnionName = "اتحاديه صنعت هرمزگان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5215" ,Name = "اتحاديه صنعت هرمزگان"};
+                defaultUnionInfo = new UnionInfo {Code = "5204" ,UnionName = "اتحاديه صنعت البرز"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5230" ,Name = "شرکت سلامت دام زاگرس گستر سلسله"};
+                defaultUnionInfo = new UnionInfo {Code = "52111" ,UnionName = "اتحاديه صنعت آدربايجان  غربي"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5204" ,Name = "اتحاديه صنعت البرز"};
+                defaultUnionInfo = new UnionInfo {Code = "5227" ,UnionName = "اتحاديه صنعت دامداران و دامپروران سيستان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "52111" ,Name = "اتحاديه صنعت آدربايجان  غربي"};
+                defaultUnionInfo = new UnionInfo {Code = "5213" ,UnionName = "اتحاديه صنعت گلستان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5227" ,Name = "اتحاديه صنعت دامداران و دامپروران سيستان"};
+                defaultUnionInfo = new UnionInfo {Code = "5208" ,UnionName = "اتحاديه صنعت همدان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5213" ,Name = "اتحاديه صنعت گلستان"};
+                defaultUnionInfo = new UnionInfo {Code = "5209" ,UnionName = "اتحاديه صنعت کرمان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5208" ,Name = "اتحاديه صنعت همدان"};
+                defaultUnionInfo = new UnionInfo {Code = "5206" ,UnionName = "اتحاديه صنعت خراسان رضوي"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5209" ,Name = "اتحاديه صنعت کرمان"};
+                defaultUnionInfo = new UnionInfo {Code = "5203" ,UnionName = "اتحاديه صنعت خوزستان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5206" ,Name = "اتحاديه صنعت خراسان رضوي"};
+                defaultUnionInfo = new UnionInfo {Code = "5281" ,UnionName = "اتحاديه صنعت آذربايجان شرقي"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5203" ,Name = "اتحاديه صنعت خوزستان"};
+                defaultUnionInfo = new UnionInfo {Code = "5205" ,UnionName = "اتحاديه صنعت جنوب کرمان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5281" ,Name = "اتحاديه صنعت آذربايجان شرقي"};
+                defaultUnionInfo = new UnionInfo {Code = "5211" ,UnionName = "اتحاديه صنعت کرمانشاه"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5205" ,Name = "اتحاديه صنعت جنوب کرمان"};
+                defaultUnionInfo = new UnionInfo {Code = "5201" ,UnionName = "اتحاديه صنعت سيستان بلوچستان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5211" ,Name = "اتحاديه صنعت کرمانشاه"};
+                defaultUnionInfo = new UnionInfo {Code = "5219" ,UnionName = "اتحاديه صنعت گيلان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5201" ,Name = "اتحاديه صنعت سيستان بلوچستان"};
+                defaultUnionInfo = new UnionInfo {Code = "5218" ,UnionName = "اتحاديه صنعت زنجان"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5219" ,Name = "اتحاديه صنعت گيلان"};
+                defaultUnionInfo = new UnionInfo {Code = "52155" ,UnionName = "اتحاديه صنعت بوشهر"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "5218" ,Name = "اتحاديه صنعت زنجان"};
+                defaultUnionInfo = new UnionInfo {Code = "52241" ,UnionName = "اتحاديه صنعت آذربايجان غربي"};
                 _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "52155" ,Name = "اتحاديه صنعت بوشهر"};
-                _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "52041" ,Name = "شرکت مشاوره فارغ التحصيلان علوم دامي"};
-                _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "52241" ,Name = "اتحاديه صنعت آذربايجان غربي"};
-                _context.UnionInfos.Add(defaultUnionInfo);
-                defaultUnionInfo = new UnionInfo {Code = "11111" ,Name = "اتحاديه صنعت اردبيل"};
+                defaultUnionInfo = new UnionInfo {Code = "11111" ,UnionName = "اتحاديه صنعت اردبيل"};
                 _context.UnionInfos.Add(defaultUnionInfo);
                 _context.SaveChanges();
 

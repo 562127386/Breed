@@ -50,6 +50,8 @@ using Akh.Breed.Organizations.Dto;
 using Akh.Breed.Plaques;
 using Akh.Breed.Plaques.Dto;
 using Akh.Breed.Sessions.Dto;
+using Akh.Breed.Unions;
+using Akh.Breed.Unions.Dto;
 using OfficeOpenXml.FormulaParsing.Utilities;
 
 namespace Akh.Breed
@@ -154,7 +156,7 @@ namespace Akh.Breed
             //Contractor
             configuration.CreateMap<Contractor, ContractorListDto>()
                 .ForMember(d => d.FirmTypeName, options => options.MapFrom(l => l.FirmType.Name))
-                .ForMember(d => d.SubInstitution, options => options.MapFrom(l => l.UnionInfo.Name))
+                .ForMember(d => d.SubInstitution, options => options.MapFrom(l => l.UnionInfo.UnionName))
                 .ForMember(d => d.Institution, options => options.MapFrom(l => l.Institution + " - " + l.StateInfo.Name + " - " + l.CityInfo.Name + (l.RegionInfo != null ? (" - " + l.RegionInfo.Name) : "") + (l.VillageInfo != null ? (" - " + l.VillageInfo.Name) : "")  ));
             configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()));

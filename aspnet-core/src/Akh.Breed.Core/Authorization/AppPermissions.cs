@@ -106,11 +106,6 @@
         public const string Pages_BaseInfo_ProviderInfo_Edit = "Pages.BaseInfo.ProviderInfo.Edit";
         public const string Pages_BaseInfo_ProviderInfo_Delete = "Pages.BaseInfo.ProviderInfo.Delete";
         
-        public const string Pages_BaseInfo_UnionInfo = "Pages.BaseInfo.UnionInfo";
-        public const string Pages_BaseInfo_UnionInfo_Create = "Pages.BaseInfo.UnionInfo.Create";
-        public const string Pages_BaseInfo_UnionInfo_Edit = "Pages.BaseInfo.UnionInfo.Edit";
-        public const string Pages_BaseInfo_UnionInfo_Delete = "Pages.BaseInfo.UnionInfo.Delete";
-        
         public const string Pages_BaseInfo_ActivityInfo = "Pages.BaseInfo.ActivityInfo";
         public const string Pages_BaseInfo_ActivityInfo_Create = "Pages.BaseInfo.ActivityInfo.Create";
         public const string Pages_BaseInfo_ActivityInfo_Edit = "Pages.BaseInfo.ActivityInfo.Edit";
@@ -149,6 +144,16 @@
         //Breed-app BaseIntro
         
         public const string Pages_BaseIntro = "Pages.BaseIntro";
+        
+        public const string Pages_BaseIntro_UnionInfo = "Pages.BaseIntro.UnionInfo";
+        public const string Pages_BaseIntro_UnionInfo_Create = "Pages.BaseIntro.UnionInfo.Create";
+        public const string Pages_BaseIntro_UnionInfo_Edit = "Pages.BaseIntro.UnionInfo.Edit";
+        public const string Pages_BaseIntro_UnionInfo_Delete = "Pages.BaseIntro.UnionInfo.Delete";
+        
+        public const string Pages_BaseIntro_UnionEmployee = "Pages.BaseIntro.UnionEmployee";
+        public const string Pages_BaseIntro_UnionEmployee_Create = "Pages.BaseIntro.UnionEmployee.Create";
+        public const string Pages_BaseIntro_UnionEmployee_Edit = "Pages.BaseIntro.UnionEmployee.Edit";
+        public const string Pages_BaseIntro_UnionEmployee_Delete = "Pages.BaseIntro.UnionEmployee.Delete";
         
         public const string Pages_BaseIntro_Contractor = "Pages.BaseIntro.Contractor";
         public const string Pages_BaseIntro_Contractor_Create = "Pages.BaseIntro.Contractor.Create";
