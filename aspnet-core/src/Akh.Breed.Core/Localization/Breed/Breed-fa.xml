@@ -1242,11 +1242,11 @@
 
 
     <text name="UnionEmployee">کارکنان اتحادیه</text>
-    <text name="CreateNewUnionInfo">ایجاد کارکنان اتحادیه</text>
+    <text name="CreateNewUnionEmployee">ایجاد کارکنان اتحادیه</text>
     <text name="ViewNewUnionEmployee">نمایش کارکنان اتحادیه</text>
     <text name="EditNewUnionEmployee">ویرایش کارکنان اتحادیه</text>
     <text name="DeleteNewUnionEmployee">حذف کارکنان اتحادیه</text>
-    <text name="AreYouSureToDeleteTheUnionInfo">آیا از حذف کارکنان اتحادیه {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToDeleteTheUnionEmployee">آیا از حذف کارکنان اتحادیه {0} مطمئن هستید؟</text>
     
     <text name="ViewNewActivityInfo">نمایش فعالیت</text>
     <text name="EditNewActivityInfo">ویرایش فعالیت</text>
