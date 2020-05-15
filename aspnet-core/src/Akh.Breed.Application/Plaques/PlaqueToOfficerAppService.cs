@@ -29,17 +29,17 @@ namespace Akh.Breed.Plaques
         private readonly IRepository<Officer> _officerRepository;
         private readonly IRepository<StateInfo> _stateInfoRepository;
         private readonly IRepository<CityInfo> _cityInfoRepository;
-        private readonly IRepository<PlaqueToCity> _plaqueToCityRepository;
+        private readonly IRepository<PlaqueToContractor> _plaqueToContractorRepository;
         private readonly IRepository<SpeciesInfo> _speciesInfoRepository;
         private readonly IRepository<PlaqueInfo,long> _plaqueInfoRepository;
         private readonly IRepository<UnionInfo> _unionInfoRepository;
         private readonly IRepository<Contractor> _contractorRepository;
         
-        public PlaqueToOfficerAppService(IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToCity> plaqueToCityRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository)
+        public PlaqueToOfficerAppService(IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToContractor> plaqueToContractorRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository)
         {
             _plaqueToOfficerRepository = plaqueToOfficerRepository;
             _officerRepository = officerRepository;
-            _plaqueToCityRepository = plaqueToCityRepository;
+            _plaqueToContractorRepository = plaqueToContractorRepository;
             _speciesInfoRepository = speciesInfoRepository;
             _stateInfoRepository = stateInfoRepository;
             _cityInfoRepository = cityInfoRepository;
@@ -65,12 +65,12 @@ namespace Akh.Breed.Plaques
             else if (isStateAdmin)
             {
                 var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-                query = query.Where(x => x.PlaqueToCity.PlaqueToState.StateInfoId == union.StateInfoId);
+                query = query.Where(x => x.PlaqueToContractor.PlaqueToState.StateInfoId == union.StateInfoId);
             }
             else if (isCityAdmin)
             {
                 var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-                query = query.Where(x => x.PlaqueToCity.CityInfoId == contractor.CityInfoId);
+                query = query.Where(x => x.PlaqueToContractor.Contractor.CityInfoId == contractor.CityInfoId);
             }
             else if (isOfficer)
             {
@@ -100,10 +100,11 @@ namespace Akh.Breed.Plaques
             {
                 plaqueToOfficer = await _plaqueToOfficerRepository
                     .GetAll()
-                    .Include(x => x.PlaqueToCity)
+                    .Include(x => x.PlaqueToContractor)
                     .ThenInclude(x => x.PlaqueToState)
                     .ThenInclude(x => x.PlaqueStore)
-                    .Include(x => x.PlaqueToCity)
+                    .Include(x => x.PlaqueToContractor)
+                    .ThenInclude(x => x.Contractor)
                     .ThenInclude(x => x.CityInfo)
                     .ThenInclude(x => x.StateInfo)
                     .Where(x => x.Id == input.Id.Value)
@@ -155,22 +156,22 @@ namespace Akh.Breed.Plaques
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
             
-            //CityInfos
+            //Contractors
             if (output.PlaqueToOfficer.StateInfoId.HasValue)
             {
-                output.CityInfos = _cityInfoRepository
+                output.Contractors = _contractorRepository
                     .GetAll()
                     .Where(x => x.StateInfoId == output.PlaqueToOfficer.StateInfoId.Value)
                     .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                     .ToList(); 
             }
 
-            if (output.PlaqueToOfficer.CityInfoId.HasValue)
+            if (output.PlaqueToOfficer.ContractorId.HasValue)
             {
                 //OfficerInfos
                 output.Officers = _officerRepository
                     .GetAll().Include(x => x.Contractor)
-                    .Where(x => x.Contractor.CityInfoId == output.PlaqueToOfficer.CityInfoId.Value)
+                    .Where(x => x.Contractor.Id == output.PlaqueToOfficer.ContractorId.Value)
                     .Select(c => new ComboboxItemDto(c.Id.ToString(),
                         c.Contractor.FirmName + " " + c.NationalCode + " (" + c.Name + "," + c.Family + ")"))
                     .ToList();
@@ -216,20 +217,20 @@ namespace Akh.Breed.Plaques
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer_Create)]
         private async Task CreatePlaqueToOfficerAsync(PlaqueToOfficerCreateOrUpdateInput input)
         {
-            var plaqueToCity = _plaqueToCityRepository.Get(input.PlaqueToCityId.Value);
-            plaqueToCity.LastCode = input.ToCode;
+            var plaqueToContractor = _plaqueToContractorRepository.Get(input.PlaqueToContractorId.Value);
+            plaqueToContractor.LastCode = input.ToCode;
             var plaqueToOfficer = ObjectMapper.Map<PlaqueToOfficer>(input);
-            await _plaqueToCityRepository.UpdateAsync(plaqueToCity);
+            await _plaqueToContractorRepository.UpdateAsync(plaqueToContractor);
             await _plaqueToOfficerRepository.InsertAsync(plaqueToOfficer);
         }
         
         public List<ComboboxItemDto> GetOfficerForCombo(NullableIdDto<int> input)
         {
             var query = _officerRepository
-                .GetAll().Include(x => x.Contractor).AsQueryable();
+                .GetAll().AsQueryable();
             if (input.Id.HasValue)
             {
-                query = query.Where(x => x.Contractor.CityInfoId == input.Id);
+                query = query.Where(x => x.ContractorId == input.Id);
             }
             
             return query.Select(c => new ComboboxItemDto(c.Id.ToString(),
@@ -243,11 +244,12 @@ namespace Akh.Breed.Plaques
             var query = QueryableExtensions.WhereIf(
                 _plaqueToOfficerRepository.GetAll()
                     .Include(x => x.Officer)
-                    .Include(x => x.PlaqueToCity)
+                    .Include(x => x.PlaqueToContractor)
                     .ThenInclude(x => x.PlaqueToState)
                     .ThenInclude(x => x.PlaqueStore)
                     .ThenInclude(x => x.Species)
-                    .Include(x => x.PlaqueToCity)
+                    .Include(x => x.PlaqueToContractor)
+                    .ThenInclude(x => x.Contractor)
                     .ThenInclude(x => x.CityInfo)
                     .ThenInclude(x => x.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
@@ -263,16 +265,16 @@ namespace Akh.Breed.Plaques
             {
                 throw new UserFriendlyException(L("ThisCodeRangeHasOverlap"));
             }
-            var plaqueToCityQuery = _plaqueToCityRepository.GetAll().AsNoTracking()
+            var plaqueToContractorQuery = _plaqueToContractorRepository.GetAll().AsNoTracking()
                 .Include(x => x.PlaqueToState)
                 .ThenInclude(x => x.PlaqueStore)
-                .Where(x => x.CityInfoId == input.CityInfoId && x.PlaqueToState.PlaqueStore.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);
-            var plaqueToCity = await plaqueToCityQuery.FirstOrDefaultAsync(x => (x.LastCode != 0 && x.ToCode - x.LastCode >= input.PlaqueCount) || (x.LastCode == 0 && x.ToCode - x.FromCode + 1 >= input.PlaqueCount));
-            if (plaqueToCity != null)
+                .Where(x => x.Contractor.Id == input.ContractorId && x.PlaqueToState.PlaqueStore.SpeciesId == input.SpeciesInfoId && x.ToCode != x.LastCode);
+            var plaqueToContractor = await plaqueToContractorQuery.FirstOrDefaultAsync(x => (x.LastCode != 0 && x.ToCode - x.LastCode >= input.PlaqueCount) || (x.LastCode == 0 && x.ToCode - x.FromCode + 1 >= input.PlaqueCount));
+            if (plaqueToContractor != null)
             {
-                input.FromCode = plaqueToCity.LastCode != 0 ? + plaqueToCity.LastCode + 1 : plaqueToCity.FromCode;
+                input.FromCode = plaqueToContractor.LastCode != 0 ? + plaqueToContractor.LastCode + 1 : plaqueToContractor.FromCode;
                 input.ToCode = input.FromCode + input.PlaqueCount.Value - 1;
-                input.PlaqueToCityId = plaqueToCity.Id;
+                input.PlaqueToContractorId = plaqueToContractor.Id;
             }
             else
             {

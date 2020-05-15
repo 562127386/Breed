@@ -23,9 +23,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Plaques
 {
-    public class PlaqueToCityAppService :  BreedAppServiceBase, IPlaqueToCityAppService
+    public class PlaqueToContractorAppService :  BreedAppServiceBase, IPlaqueToContractorAppService
     {
-        private readonly IRepository<PlaqueToCity> _plaqueToCityRepository;
+        private readonly IRepository<PlaqueToContractor> _plaqueToContractorRepository;
         private readonly IRepository<StateInfo> _stateInfoRepository;
         private readonly IRepository<CityInfo> _cityInfoRepository;
         private readonly IRepository<PlaqueToState> _plaqueToStateRepository;
@@ -33,9 +33,9 @@ namespace Akh.Breed.Plaques
         private readonly IRepository<UnionInfo> _unionInfoRepository;
         private readonly IRepository<Contractor> _contractorRepository;
         
-        public PlaqueToCityAppService(IRepository<PlaqueToCity> plaqueToCityRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueToState> plaqueToStateRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository)
+        public PlaqueToContractorAppService(IRepository<PlaqueToContractor> plaqueToContractorRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<PlaqueToState> plaqueToStateRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository)
         {
-            _plaqueToCityRepository = plaqueToCityRepository;
+            _plaqueToContractorRepository = plaqueToContractorRepository;
             _stateInfoRepository = stateInfoRepository;
             _cityInfoRepository = cityInfoRepository;
             _plaqueToStateRepository = plaqueToStateRepository;
@@ -44,8 +44,8 @@ namespace Akh.Breed.Plaques
             _contractorRepository = contractorRepository;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToCity)]
-        public async Task<PagedResultDto<PlaqueToCityListDto>> GetPlaqueToCity(GetPlaqueToCityInput input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToContractor)]
+        public async Task<PagedResultDto<PlaqueToContractorListDto>> GetPlaqueToContractor(GetPlaqueToContractorInput input)
         {
             var query = GetFilteredQuery(input);
             var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
@@ -61,52 +61,53 @@ namespace Akh.Breed.Plaques
             else if (isStateAdmin)
             {
                 var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-                query = query.Where(x => x.CityInfo.StateInfoId == union.StateInfoId);
+                query = query.Where(x => x.Contractor.CityInfo.StateInfoId == union.StateInfoId);
             }
             else if (isCityAdmin)
             {
                 var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-                query = query.Where(x => x.CityInfoId == contractor.CityInfoId);
+                query = query.Where(x => x.Contractor.CityInfoId == contractor.CityInfoId);
             }
             else
             {
                 query = query.Where(x => false);
             }
             var userCount = await query.CountAsync();
-            var plaqueToCitys = await query
+            var plaqueToContractors = await query
                 .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
-            var plaqueToCitysListDto = ObjectMapper.Map<List<PlaqueToCityListDto>>(plaqueToCitys);
-            return new PagedResultDto<PlaqueToCityListDto>(
+            var plaqueToContractorsListDto = ObjectMapper.Map<List<PlaqueToContractorListDto>>(plaqueToContractors);
+            return new PagedResultDto<PlaqueToContractorListDto>(
                 userCount,
-                plaqueToCitysListDto
+                plaqueToContractorsListDto
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToCity_Create, AppPermissions.Pages_IdentityInfo_PlaqueToCity_Edit)]
-        public async Task<PlaqueToCityGetForEditOutput> GetPlaqueToCityForEdit(NullableIdDto<int> input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Create, AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Edit)]
+        public async Task<PlaqueToContractorGetForEditOutput> GetPlaqueToContractorForEdit(NullableIdDto<int> input)
         {
-            PlaqueToCity plaqueToCity = null;
+            PlaqueToContractor plaqueToContractor = null;
             if (input.Id.HasValue)
             {
-                plaqueToCity = await _plaqueToCityRepository
+                plaqueToContractor = await _plaqueToContractorRepository
                     .GetAll()
                     .Include(x => x.PlaqueToState)
                     .ThenInclude(x => x.PlaqueStore)
-                    .Include(x => x.CityInfo)
+                    .Include(x => x.Contractor)
+                    .ThenInclude(x => x.CityInfo)
                     .Where(x => x.Id == input.Id.Value)
                     .FirstOrDefaultAsync();
             }
             //Getting all available roles
-            var output = new PlaqueToCityGetForEditOutput();
+            var output = new PlaqueToContractorGetForEditOutput();
             
-            //plaqueToCity
-            var newPlaqueToCity = new PlaqueToCityCreateOrUpdateInput();
-            newPlaqueToCity.SetTime = newPlaqueToCity.SetTime.GetShamsi();
-            output.PlaqueToCity = plaqueToCity != null
-                ? ObjectMapper.Map<PlaqueToCityCreateOrUpdateInput>(plaqueToCity)
-                : newPlaqueToCity;
+            //plaqueToContractor
+            var newPlaqueToContractor = new PlaqueToContractorCreateOrUpdateInput();
+            newPlaqueToContractor.SetTime = newPlaqueToContractor.SetTime.GetShamsi();
+            output.PlaqueToContractor = plaqueToContractor != null
+                ? ObjectMapper.Map<PlaqueToContractorCreateOrUpdateInput>(plaqueToContractor)
+                : newPlaqueToContractor;
             
             //StateInfos
             var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
@@ -139,12 +140,12 @@ namespace Akh.Breed.Plaques
                 .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                 .ToList();
             
-            //CityInfos
-            if (output.PlaqueToCity.StateInfoId.HasValue)
+            //ContractorInfos
+            if (output.PlaqueToContractor.StateInfoId.HasValue)
             {
-                output.CityInfos = _cityInfoRepository
+                output.Contractors = _contractorRepository
                     .GetAll()
-                    .Where(x => x.StateInfoId == output.PlaqueToCity.StateInfoId.Value)
+                    .Where(x => x.StateInfoId == output.PlaqueToContractor.StateInfoId.Value)
                     .Select(c => new ComboboxItemDto(c.Id.ToString(), c.Name))
                     .ToList(); 
             }
@@ -157,51 +158,52 @@ namespace Akh.Breed.Plaques
             return output;
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToCity_Create, AppPermissions.Pages_IdentityInfo_PlaqueToCity_Edit)]
-        public async Task CreateOrUpdatePlaqueToCity(PlaqueToCityCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Create, AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Edit)]
+        public async Task CreateOrUpdatePlaqueToContractor(PlaqueToContractorCreateOrUpdateInput input)
         {
             await CheckValidation(input);
             
             if (input.Id.HasValue)
             {
-                await UpdatePlaqueToCityAsync(input);
+                await UpdatePlaqueToContractorAsync(input);
             }
             else
             {
-                await CreatePlaqueToCityAsync(input);
+                await CreatePlaqueToContractorAsync(input);
             }
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToCity_Delete)]
-        public async Task DeletePlaqueToCity(EntityDto input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Delete)]
+        public async Task DeletePlaqueToContractor(EntityDto input)
         {
             throw new UserFriendlyException(L("AreYouSureToDeleteThePlaqueState"));
-            //await _plaqueToCityRepository.DeleteAsync(input.Id);
+            //await _plaqueToContractorRepository.DeleteAsync(input.Id);
         }
 
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToCity_Edit)]
-        private async Task UpdatePlaqueToCityAsync(PlaqueToCityCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Edit)]
+        private async Task UpdatePlaqueToContractorAsync(PlaqueToContractorCreateOrUpdateInput input)
         {
-            var plaqueToCity = ObjectMapper.Map<PlaqueToCity>(input);
-            await _plaqueToCityRepository.UpdateAsync(plaqueToCity);
+            var plaqueToContractor = ObjectMapper.Map<PlaqueToContractor>(input);
+            await _plaqueToContractorRepository.UpdateAsync(plaqueToContractor);
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToCity_Create)]
-        private async Task CreatePlaqueToCityAsync(PlaqueToCityCreateOrUpdateInput input)
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Create)]
+        private async Task CreatePlaqueToContractorAsync(PlaqueToContractorCreateOrUpdateInput input)
         {
             var plaqueToState = _plaqueToStateRepository.Get(input.PlaqueToStateId.Value);
             plaqueToState.LastCode = input.ToCode;
-            var plaqueToCity = ObjectMapper.Map<PlaqueToCity>(input);
+            var plaqueToContractor = ObjectMapper.Map<PlaqueToContractor>(input);
             await _plaqueToStateRepository.UpdateAsync(plaqueToState);
-            await _plaqueToCityRepository.InsertAsync(plaqueToCity);
+            await _plaqueToContractorRepository.InsertAsync(plaqueToContractor);
         }
         
-        private IQueryable<PlaqueToCity> GetFilteredQuery(GetPlaqueToCityInput input)
+        private IQueryable<PlaqueToContractor> GetFilteredQuery(GetPlaqueToContractorInput input)
         {
             long tempSearch = Convert.ToInt64(input.Filter);
             var query = QueryableExtensions.WhereIf(
-                _plaqueToCityRepository.GetAll()
-                    .Include(x => x.CityInfo)
+                _plaqueToContractorRepository.GetAll()
+                    .Include(x => x.Contractor)
+                    .ThenInclude(x => x.CityInfo)
                     .ThenInclude(x => x.StateInfo)
                     .Include(x => x.PlaqueToState)
                     .ThenInclude(x => x.PlaqueStore)
@@ -213,7 +215,7 @@ namespace Akh.Breed.Plaques
             return query;
         }
 
-        private async Task CheckValidation(PlaqueToCityCreateOrUpdateInput input)
+        private async Task CheckValidation(PlaqueToContractorCreateOrUpdateInput input)
         {
             if (input.PlaqueCount <= 0)
             {

@@ -30,9 +30,9 @@ namespace Akh.Breed.Plaques
         public virtual Officer Officer { get; set; }
         public int? OfficerId { get; set; }
         
-        [ForeignKey("PlaqueToCityId")]
-        public virtual PlaqueToCity PlaqueToCity { get; set; }
-        public int? PlaqueToCityId { get; set; }     
+        [ForeignKey("PlaqueToContractorId")]
+        public virtual PlaqueToContractor PlaqueToContractor { get; set; }
+        public int? PlaqueToContractorId { get; set; }     
 
         public DateTime CreationTime { get; set; }
         

@@ -184,10 +184,10 @@
         public const string Pages_IdentityInfo_PlaqueToState_Edit = "Pages.IdentityInfo.PlaqueToState.Edit";
         public const string Pages_IdentityInfo_PlaqueToState_Delete = "Pages.IdentityInfo.PlaqueToState.Delete";        
                 
-        public const string Pages_IdentityInfo_PlaqueToCity = "Pages.IdentityInfo.PlaqueToCity";
-        public const string Pages_IdentityInfo_PlaqueToCity_Create = "Pages.IdentityInfo.PlaqueToCity.Create";
-        public const string Pages_IdentityInfo_PlaqueToCity_Edit = "Pages.IdentityInfo.PlaqueToCity.Edit";
-        public const string Pages_IdentityInfo_PlaqueToCity_Delete = "Pages.IdentityInfo.PlaqueToCity.Delete";
+        public const string Pages_IdentityInfo_PlaqueToContractor = "Pages.IdentityInfo.PlaqueToContractor";
+        public const string Pages_IdentityInfo_PlaqueToContractor_Create = "Pages.IdentityInfo.PlaqueToContractor.Create";
+        public const string Pages_IdentityInfo_PlaqueToContractor_Edit = "Pages.IdentityInfo.PlaqueToContractor.Edit";
+        public const string Pages_IdentityInfo_PlaqueToContractor_Delete = "Pages.IdentityInfo.PlaqueToContractor.Delete";
                 
         public const string Pages_IdentityInfo_PlaqueToOfficer = "Pages.IdentityInfo.PlaqueToOfficer";
         public const string Pages_IdentityInfo_PlaqueToOfficer_Create = "Pages.IdentityInfo.PlaqueToOfficer.Create";

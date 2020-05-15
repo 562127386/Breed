@@ -9,7 +9,7 @@ namespace Akh.Breed.Plaques.Dto
         
         public List<ComboboxItemDto> StateInfos { get; set; }
         
-        public List<ComboboxItemDto> CityInfos { get; set; }
+        public List<ComboboxItemDto> Contractors { get; set; }
         
         public List<ComboboxItemDto> Officers { get; set; }
         public List<ComboboxItemDto> SpeciesInfos { get; set; }
@@ -17,7 +17,7 @@ namespace Akh.Breed.Plaques.Dto
         public PlaqueToOfficerGetForEditOutput()
         {
             StateInfos = new List<ComboboxItemDto>();
-            CityInfos = new List<ComboboxItemDto>();
+            Contractors = new List<ComboboxItemDto>();
             Officers = new List<ComboboxItemDto>();
             SpeciesInfos = new List<ComboboxItemDto>();
         }

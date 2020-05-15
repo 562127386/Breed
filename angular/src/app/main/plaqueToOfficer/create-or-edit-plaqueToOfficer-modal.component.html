@@ -18,7 +18,7 @@
                             <div class="row">
                                 <label class="col-form-label col-md-3 col-sm-12">{{"StateInfo" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getCities($event.value)"
+                                        <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getContractors($event.value)"
                                         name="stateInfoId" [(ngModel)]="plaqueToOfficer.stateInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
                                     <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                 </div>
@@ -26,11 +26,11 @@
                         </div>
                         <div class="form-group col-sm-12">
                             <div class="row">
-                                <label class="col-form-label col-md-3 col-sm-12">{{"CityInfo" | localize}} *</label>
+                                <label class="col-form-label col-md-3 col-sm-12">{{"Contractor" | localize}} *</label>
                                 <div class="col-md-9 col-sm-12">
-                                        <p-dropdown #cityInfoCombobox="ngModel" [options]="cityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getOfficers($event.value)"
-                                        name="cityInfoId" [(ngModel)]="plaqueToOfficer.cityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
-                                    <validation-messages [formCtrl]="cityInfoCombobox"></validation-messages>
+                                        <p-dropdown #contractorCombobox="ngModel" [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getOfficers($event.value)"
+                                        name="contractorId" [(ngModel)]="plaqueToOfficer.contractorId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="contractorCombobox"></validation-messages>
                                 </div>
                             </div>
                         </div>              

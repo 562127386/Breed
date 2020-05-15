@@ -1214,12 +1214,12 @@
     <text name="DeleteNewPlaqueToState">حذف پلاک اختصاصی به استان</text>
     <text name="AreYouSureToDeleteThePlaqueToState">آیا از حذف پلاک از استان {0} مطمئن هستید؟</text>
 
-    <text name="PlaqueToCity">تخصیص پلاک به پیمانکار</text>
-    <text name="CreateNewPlaqueToCity">اختصاص پلاک به پیمانکار</text>
-    <text name="ViewNewPlaqueToCity">نمایش پلاک اختصاصی به پیمانکار</text>
-    <text name="EditNewPlaqueToCity">ویرایش پلاک اختصاصی به پیمانکار</text>
-    <text name="DeleteNewPlaqueToCity">حذف پلاک اختصاصی به پیمانکار</text>
-    <text name="AreYouSureToDeleteThePlaqueToCity">آیا از حذف پلاک از پیمانکار {0} مطمئن هستید؟</text>
+    <text name="PlaqueToContractor">تخصیص پلاک به پیمانکار</text>
+    <text name="CreateNewPlaqueToContractor">اختصاص پلاک به پیمانکار</text>
+    <text name="ViewNewPlaqueToContractor">نمایش پلاک اختصاصی به پیمانکار</text>
+    <text name="EditNewPlaqueToContractor">ویرایش پلاک اختصاصی به پیمانکار</text>
+    <text name="DeleteNewPlaqueToContractor">حذف پلاک اختصاصی به پیمانکار</text>
+    <text name="AreYouSureToDeleteThePlaqueToContractor">آیا از حذف پلاک از پیمانکار {0} مطمئن هستید؟</text>
 
     <text name="PlaqueToOfficer">تخصیص پلاک به مامور</text>
     <text name="CreateNewPlaqueToOfficer">اختصاص پلاک به مامور</text>
@@ -1274,7 +1274,7 @@
     <text name="LiveStockOwner">دامدار</text>
     <text name="Nationality">ملیت</text>
     <text name="Iranian">ایرانی</text>
-    <text name="NoneIranian">خارجی</text>
+    <text name="NoneIranian">خارجی</text>dotnetE
     <text name="RealityOrNone">حقوقی / حقیقی</text>
     <text name="Reality">حقیقی</text>
     <text name="NoneReality">حقوقی</text>

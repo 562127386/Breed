@@ -22,7 +22,7 @@ import { NoticeComponent } from './notice/notice.component';
 import { EpidemiologicInfoComponent } from './epidemiologicInfo/epidemiologicInfo.component';
 import { PlaqueStoreComponent } from './plaqueStore/plaqueStore.component';
 import { PlaqueToStateComponent } from './plaqueToState/plaqueToState.component';
-import { PlaqueToCityComponent } from './plaqueToCity/plaqueToCity.component';
+import { PlaqueToContractorComponent } from './plaqueToContractor/plaqueToContractor.component';
 import { PlaqueToOfficerComponent } from './plaqueToOfficer/plaqueToOfficer.component';
 import { PlaqueToHerdComponent } from './plaqueToHerd/plaqueToHerd.component';
 import { HerdComponent } from './herd/herd.component';
@@ -59,7 +59,7 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
                     { path: 'epidemiologicInfo', component: EpidemiologicInfoComponent },
                     { path: 'plaqueStore', component: PlaqueStoreComponent },
                     { path: 'plaqueToState', component: PlaqueToStateComponent },
-                    { path: 'plaqueToCity', component: PlaqueToCityComponent },
+                    { path: 'plaqueToContractor', component: PlaqueToContractorComponent },
                     { path: 'plaqueToOfficer', component: PlaqueToOfficerComponent },
                     { path: 'plaqueToHerd', component: PlaqueToHerdComponent },
                     { path: 'herd', component: HerdComponent },

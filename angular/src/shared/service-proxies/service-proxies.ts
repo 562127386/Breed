@@ -10885,7 +10885,7 @@ export class PlaqueStoreServiceProxy {
 }
 
 @Injectable()
-export class PlaqueToCityServiceProxy {
+export class PlaqueToContractorServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -10902,8 +10902,8 @@ export class PlaqueToCityServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getPlaqueToCity(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlaqueToCityListDto> {
-        let url_ = this.baseUrl + "/api/services/app/PlaqueToCity/GetPlaqueToCity?";
+    getPlaqueToContractor(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlaqueToContractorListDto> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToContractor/GetPlaqueToContractor?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
@@ -10931,20 +10931,20 @@ export class PlaqueToCityServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetPlaqueToCity(response_);
+            return this.processGetPlaqueToContractor(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetPlaqueToCity(<any>response_);
+                    return this.processGetPlaqueToContractor(<any>response_);
                 } catch (e) {
-                    return <Observable<PagedResultDtoOfPlaqueToCityListDto>><any>_observableThrow(e);
+                    return <Observable<PagedResultDtoOfPlaqueToContractorListDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PagedResultDtoOfPlaqueToCityListDto>><any>_observableThrow(response_);
+                return <Observable<PagedResultDtoOfPlaqueToContractorListDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetPlaqueToCity(response: HttpResponseBase): Observable<PagedResultDtoOfPlaqueToCityListDto> {
+    protected processGetPlaqueToContractor(response: HttpResponseBase): Observable<PagedResultDtoOfPlaqueToContractorListDto> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -10955,7 +10955,7 @@ export class PlaqueToCityServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfPlaqueToCityListDto.fromJS(resultData200);
+            result200 = PagedResultDtoOfPlaqueToContractorListDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -10963,15 +10963,15 @@ export class PlaqueToCityServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PagedResultDtoOfPlaqueToCityListDto>(<any>null);
+        return _observableOf<PagedResultDtoOfPlaqueToContractorListDto>(<any>null);
     }
 
     /**
      * @param id (optional) 
      * @return Success
      */
-    getPlaqueToCityForEdit(id: number | undefined): Observable<PlaqueToCityGetForEditOutput> {
-        let url_ = this.baseUrl + "/api/services/app/PlaqueToCity/GetPlaqueToCityForEdit?";
+    getPlaqueToContractorForEdit(id: number | undefined): Observable<PlaqueToContractorGetForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToContractor/GetPlaqueToContractorForEdit?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
@@ -10987,20 +10987,20 @@ export class PlaqueToCityServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetPlaqueToCityForEdit(response_);
+            return this.processGetPlaqueToContractorForEdit(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetPlaqueToCityForEdit(<any>response_);
+                    return this.processGetPlaqueToContractorForEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<PlaqueToCityGetForEditOutput>><any>_observableThrow(e);
+                    return <Observable<PlaqueToContractorGetForEditOutput>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PlaqueToCityGetForEditOutput>><any>_observableThrow(response_);
+                return <Observable<PlaqueToContractorGetForEditOutput>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetPlaqueToCityForEdit(response: HttpResponseBase): Observable<PlaqueToCityGetForEditOutput> {
+    protected processGetPlaqueToContractorForEdit(response: HttpResponseBase): Observable<PlaqueToContractorGetForEditOutput> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -11011,7 +11011,7 @@ export class PlaqueToCityServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PlaqueToCityGetForEditOutput.fromJS(resultData200);
+            result200 = PlaqueToContractorGetForEditOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -11019,15 +11019,15 @@ export class PlaqueToCityServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PlaqueToCityGetForEditOutput>(<any>null);
+        return _observableOf<PlaqueToContractorGetForEditOutput>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    createOrUpdatePlaqueToCity(body: PlaqueToCityCreateOrUpdateInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/PlaqueToCity/CreateOrUpdatePlaqueToCity";
+    createOrUpdatePlaqueToContractor(body: PlaqueToContractorCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToContractor/CreateOrUpdatePlaqueToContractor";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -11042,11 +11042,11 @@ export class PlaqueToCityServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateOrUpdatePlaqueToCity(response_);
+            return this.processCreateOrUpdatePlaqueToContractor(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processCreateOrUpdatePlaqueToCity(<any>response_);
+                    return this.processCreateOrUpdatePlaqueToContractor(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -11055,7 +11055,7 @@ export class PlaqueToCityServiceProxy {
         }));
     }
 
-    protected processCreateOrUpdatePlaqueToCity(response: HttpResponseBase): Observable<void> {
+    protected processCreateOrUpdatePlaqueToContractor(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -11078,8 +11078,8 @@ export class PlaqueToCityServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    deletePlaqueToCity(id: number | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/PlaqueToCity/DeletePlaqueToCity?";
+    deletePlaqueToContractor(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PlaqueToContractor/DeletePlaqueToContractor?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
@@ -11094,11 +11094,11 @@ export class PlaqueToCityServiceProxy {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeletePlaqueToCity(response_);
+            return this.processDeletePlaqueToContractor(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processDeletePlaqueToCity(<any>response_);
+                    return this.processDeletePlaqueToContractor(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -11107,7 +11107,7 @@ export class PlaqueToCityServiceProxy {
         }));
     }
 
-    protected processDeletePlaqueToCity(response: HttpResponseBase): Observable<void> {
+    protected processDeletePlaqueToContractor(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -29411,7 +29411,7 @@ export interface IPlaqueStoreGetForEditOutput {
     manufacturers: ComboboxItemDto[] | undefined;
 }
 
-export class PlaqueToCityListDto implements IPlaqueToCityListDto {
+export class PlaqueToContractorListDto implements IPlaqueToContractorListDto {
     fromCode!: number;
     toCode!: number;
     plaqueAllocated!: number;
@@ -29420,10 +29420,11 @@ export class PlaqueToCityListDto implements IPlaqueToCityListDto {
     setTime!: moment.Moment;
     stateName!: string | undefined;
     cityName!: string | undefined;
+    contractorName!: string | undefined;
     speciesName!: string | undefined;
     id!: number;
 
-    constructor(data?: IPlaqueToCityListDto) {
+    constructor(data?: IPlaqueToContractorListDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -29442,14 +29443,15 @@ export class PlaqueToCityListDto implements IPlaqueToCityListDto {
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.stateName = data["stateName"];
             this.cityName = data["cityName"];
+            this.contractorName = data["contractorName"];
             this.speciesName = data["speciesName"];
             this.id = data["id"];
         }
     }
 
-    static fromJS(data: any): PlaqueToCityListDto {
+    static fromJS(data: any): PlaqueToContractorListDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PlaqueToCityListDto();
+        let result = new PlaqueToContractorListDto();
         result.init(data);
         return result;
     }
@@ -29464,13 +29466,14 @@ export class PlaqueToCityListDto implements IPlaqueToCityListDto {
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["stateName"] = this.stateName;
         data["cityName"] = this.cityName;
+        data["contractorName"] = this.contractorName;
         data["speciesName"] = this.speciesName;
         data["id"] = this.id;
         return data; 
     }
 }
 
-export interface IPlaqueToCityListDto {
+export interface IPlaqueToContractorListDto {
     fromCode: number;
     toCode: number;
     plaqueAllocated: number;
@@ -29479,15 +29482,16 @@ export interface IPlaqueToCityListDto {
     setTime: moment.Moment;
     stateName: string | undefined;
     cityName: string | undefined;
+    contractorName: string | undefined;
     speciesName: string | undefined;
     id: number;
 }
 
-export class PagedResultDtoOfPlaqueToCityListDto implements IPagedResultDtoOfPlaqueToCityListDto {
+export class PagedResultDtoOfPlaqueToContractorListDto implements IPagedResultDtoOfPlaqueToContractorListDto {
     totalCount!: number;
-    items!: PlaqueToCityListDto[] | undefined;
+    items!: PlaqueToContractorListDto[] | undefined;
 
-    constructor(data?: IPagedResultDtoOfPlaqueToCityListDto) {
+    constructor(data?: IPagedResultDtoOfPlaqueToContractorListDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -29502,14 +29506,14 @@ export class PagedResultDtoOfPlaqueToCityListDto implements IPagedResultDtoOfPla
             if (Array.isArray(data["items"])) {
                 this.items = [] as any;
                 for (let item of data["items"])
-                    this.items!.push(PlaqueToCityListDto.fromJS(item));
+                    this.items!.push(PlaqueToContractorListDto.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): PagedResultDtoOfPlaqueToCityListDto {
+    static fromJS(data: any): PagedResultDtoOfPlaqueToContractorListDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfPlaqueToCityListDto();
+        let result = new PagedResultDtoOfPlaqueToContractorListDto();
         result.init(data);
         return result;
     }
@@ -29526,24 +29530,24 @@ export class PagedResultDtoOfPlaqueToCityListDto implements IPagedResultDtoOfPla
     }
 }
 
-export interface IPagedResultDtoOfPlaqueToCityListDto {
+export interface IPagedResultDtoOfPlaqueToContractorListDto {
     totalCount: number;
-    items: PlaqueToCityListDto[] | undefined;
+    items: PlaqueToContractorListDto[] | undefined;
 }
 
-export class PlaqueToCityCreateOrUpdateInput implements IPlaqueToCityCreateOrUpdateInput {
+export class PlaqueToContractorCreateOrUpdateInput implements IPlaqueToContractorCreateOrUpdateInput {
     id!: number | undefined;
     plaqueCount!: number | undefined;
     fromCode!: number;
     toCode!: number;
     stateInfoId!: number | undefined;
-    cityInfoId!: number | undefined;
+    contractorId!: number | undefined;
     speciesInfoId!: number | undefined;
     plaqueToStateId!: number | undefined;
     finishedPlaqueId!: number | undefined;
     setTime!: moment.Moment | undefined;
 
-    constructor(data?: IPlaqueToCityCreateOrUpdateInput) {
+    constructor(data?: IPlaqueToContractorCreateOrUpdateInput) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -29559,7 +29563,7 @@ export class PlaqueToCityCreateOrUpdateInput implements IPlaqueToCityCreateOrUpd
             this.fromCode = data["fromCode"];
             this.toCode = data["toCode"];
             this.stateInfoId = data["stateInfoId"];
-            this.cityInfoId = data["cityInfoId"];
+            this.contractorId = data["contractorId"];
             this.speciesInfoId = data["speciesInfoId"];
             this.plaqueToStateId = data["plaqueToStateId"];
             this.finishedPlaqueId = data["finishedPlaqueId"];
@@ -29567,9 +29571,9 @@ export class PlaqueToCityCreateOrUpdateInput implements IPlaqueToCityCreateOrUpd
         }
     }
 
-    static fromJS(data: any): PlaqueToCityCreateOrUpdateInput {
+    static fromJS(data: any): PlaqueToContractorCreateOrUpdateInput {
         data = typeof data === 'object' ? data : {};
-        let result = new PlaqueToCityCreateOrUpdateInput();
+        let result = new PlaqueToContractorCreateOrUpdateInput();
         result.init(data);
         return result;
     }
@@ -29581,7 +29585,7 @@ export class PlaqueToCityCreateOrUpdateInput implements IPlaqueToCityCreateOrUpd
         data["fromCode"] = this.fromCode;
         data["toCode"] = this.toCode;
         data["stateInfoId"] = this.stateInfoId;
-        data["cityInfoId"] = this.cityInfoId;
+        data["contractorId"] = this.contractorId;
         data["speciesInfoId"] = this.speciesInfoId;
         data["plaqueToStateId"] = this.plaqueToStateId;
         data["finishedPlaqueId"] = this.finishedPlaqueId;
@@ -29590,26 +29594,26 @@ export class PlaqueToCityCreateOrUpdateInput implements IPlaqueToCityCreateOrUpd
     }
 }
 
-export interface IPlaqueToCityCreateOrUpdateInput {
+export interface IPlaqueToContractorCreateOrUpdateInput {
     id: number | undefined;
     plaqueCount: number | undefined;
     fromCode: number;
     toCode: number;
     stateInfoId: number | undefined;
-    cityInfoId: number | undefined;
+    contractorId: number | undefined;
     speciesInfoId: number | undefined;
     plaqueToStateId: number | undefined;
     finishedPlaqueId: number | undefined;
     setTime: moment.Moment | undefined;
 }
 
-export class PlaqueToCityGetForEditOutput implements IPlaqueToCityGetForEditOutput {
-    plaqueToCity!: PlaqueToCityCreateOrUpdateInput;
+export class PlaqueToContractorGetForEditOutput implements IPlaqueToContractorGetForEditOutput {
+    plaqueToContractor!: PlaqueToContractorCreateOrUpdateInput;
     stateInfos!: ComboboxItemDto[] | undefined;
-    cityInfos!: ComboboxItemDto[] | undefined;
+    contractors!: ComboboxItemDto[] | undefined;
     speciesInfos!: ComboboxItemDto[] | undefined;
 
-    constructor(data?: IPlaqueToCityGetForEditOutput) {
+    constructor(data?: IPlaqueToContractorGetForEditOutput) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -29620,16 +29624,16 @@ export class PlaqueToCityGetForEditOutput implements IPlaqueToCityGetForEditOutp
 
     init(data?: any) {
         if (data) {
-            this.plaqueToCity = data["plaqueToCity"] ? PlaqueToCityCreateOrUpdateInput.fromJS(data["plaqueToCity"]) : <any>undefined;
+            this.plaqueToContractor = data["plaqueToContractor"] ? PlaqueToContractorCreateOrUpdateInput.fromJS(data["plaqueToContractor"]) : <any>undefined;
             if (Array.isArray(data["stateInfos"])) {
                 this.stateInfos = [] as any;
                 for (let item of data["stateInfos"])
                     this.stateInfos!.push(ComboboxItemDto.fromJS(item));
             }
-            if (Array.isArray(data["cityInfos"])) {
-                this.cityInfos = [] as any;
-                for (let item of data["cityInfos"])
-                    this.cityInfos!.push(ComboboxItemDto.fromJS(item));
+            if (Array.isArray(data["contractors"])) {
+                this.contractors = [] as any;
+                for (let item of data["contractors"])
+                    this.contractors!.push(ComboboxItemDto.fromJS(item));
             }
             if (Array.isArray(data["speciesInfos"])) {
                 this.speciesInfos = [] as any;
@@ -29639,25 +29643,25 @@ export class PlaqueToCityGetForEditOutput implements IPlaqueToCityGetForEditOutp
         }
     }
 
-    static fromJS(data: any): PlaqueToCityGetForEditOutput {
+    static fromJS(data: any): PlaqueToContractorGetForEditOutput {
         data = typeof data === 'object' ? data : {};
-        let result = new PlaqueToCityGetForEditOutput();
+        let result = new PlaqueToContractorGetForEditOutput();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["plaqueToCity"] = this.plaqueToCity ? this.plaqueToCity.toJSON() : <any>undefined;
+        data["plaqueToContractor"] = this.plaqueToContractor ? this.plaqueToContractor.toJSON() : <any>undefined;
         if (Array.isArray(this.stateInfos)) {
             data["stateInfos"] = [];
             for (let item of this.stateInfos)
                 data["stateInfos"].push(item.toJSON());
         }
-        if (Array.isArray(this.cityInfos)) {
-            data["cityInfos"] = [];
-            for (let item of this.cityInfos)
-                data["cityInfos"].push(item.toJSON());
+        if (Array.isArray(this.contractors)) {
+            data["contractors"] = [];
+            for (let item of this.contractors)
+                data["contractors"].push(item.toJSON());
         }
         if (Array.isArray(this.speciesInfos)) {
             data["speciesInfos"] = [];
@@ -29668,10 +29672,10 @@ export class PlaqueToCityGetForEditOutput implements IPlaqueToCityGetForEditOutp
     }
 }
 
-export interface IPlaqueToCityGetForEditOutput {
-    plaqueToCity: PlaqueToCityCreateOrUpdateInput;
+export interface IPlaqueToContractorGetForEditOutput {
+    plaqueToContractor: PlaqueToContractorCreateOrUpdateInput;
     stateInfos: ComboboxItemDto[] | undefined;
-    cityInfos: ComboboxItemDto[] | undefined;
+    contractors: ComboboxItemDto[] | undefined;
     speciesInfos: ComboboxItemDto[] | undefined;
 }
 
@@ -30029,10 +30033,10 @@ export class PlaqueToOfficerCreateOrUpdateInput implements IPlaqueToOfficerCreat
     fromCode!: number;
     toCode!: number;
     stateInfoId!: number | undefined;
-    cityInfoId!: number | undefined;
+    contractorId!: number | undefined;
     officerId!: number | undefined;
     speciesInfoId!: number | undefined;
-    plaqueToCityId!: number | undefined;
+    plaqueToContractorId!: number | undefined;
     finishedPlaqueId!: number | undefined;
     setTime!: moment.Moment | undefined;
 
@@ -30052,10 +30056,10 @@ export class PlaqueToOfficerCreateOrUpdateInput implements IPlaqueToOfficerCreat
             this.fromCode = data["fromCode"];
             this.toCode = data["toCode"];
             this.stateInfoId = data["stateInfoId"];
-            this.cityInfoId = data["cityInfoId"];
+            this.contractorId = data["contractorId"];
             this.officerId = data["officerId"];
             this.speciesInfoId = data["speciesInfoId"];
-            this.plaqueToCityId = data["plaqueToCityId"];
+            this.plaqueToContractorId = data["plaqueToContractorId"];
             this.finishedPlaqueId = data["finishedPlaqueId"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
         }
@@ -30075,10 +30079,10 @@ export class PlaqueToOfficerCreateOrUpdateInput implements IPlaqueToOfficerCreat
         data["fromCode"] = this.fromCode;
         data["toCode"] = this.toCode;
         data["stateInfoId"] = this.stateInfoId;
-        data["cityInfoId"] = this.cityInfoId;
+        data["contractorId"] = this.contractorId;
         data["officerId"] = this.officerId;
         data["speciesInfoId"] = this.speciesInfoId;
-        data["plaqueToCityId"] = this.plaqueToCityId;
+        data["plaqueToContractorId"] = this.plaqueToContractorId;
         data["finishedPlaqueId"] = this.finishedPlaqueId;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         return data; 
@@ -30091,10 +30095,10 @@ export interface IPlaqueToOfficerCreateOrUpdateInput {
     fromCode: number;
     toCode: number;
     stateInfoId: number | undefined;
-    cityInfoId: number | undefined;
+    contractorId: number | undefined;
     officerId: number | undefined;
     speciesInfoId: number | undefined;
-    plaqueToCityId: number | undefined;
+    plaqueToContractorId: number | undefined;
     finishedPlaqueId: number | undefined;
     setTime: moment.Moment | undefined;
 }
@@ -30102,7 +30106,7 @@ export interface IPlaqueToOfficerCreateOrUpdateInput {
 export class PlaqueToOfficerGetForEditOutput implements IPlaqueToOfficerGetForEditOutput {
     plaqueToOfficer!: PlaqueToOfficerCreateOrUpdateInput;
     stateInfos!: ComboboxItemDto[] | undefined;
-    cityInfos!: ComboboxItemDto[] | undefined;
+    contractors!: ComboboxItemDto[] | undefined;
     officers!: ComboboxItemDto[] | undefined;
     speciesInfos!: ComboboxItemDto[] | undefined;
 
@@ -30123,10 +30127,10 @@ export class PlaqueToOfficerGetForEditOutput implements IPlaqueToOfficerGetForEd
                 for (let item of data["stateInfos"])
                     this.stateInfos!.push(ComboboxItemDto.fromJS(item));
             }
-            if (Array.isArray(data["cityInfos"])) {
-                this.cityInfos = [] as any;
-                for (let item of data["cityInfos"])
-                    this.cityInfos!.push(ComboboxItemDto.fromJS(item));
+            if (Array.isArray(data["contractors"])) {
+                this.contractors = [] as any;
+                for (let item of data["contractors"])
+                    this.contractors!.push(ComboboxItemDto.fromJS(item));
             }
             if (Array.isArray(data["officers"])) {
                 this.officers = [] as any;
@@ -30156,10 +30160,10 @@ export class PlaqueToOfficerGetForEditOutput implements IPlaqueToOfficerGetForEd
             for (let item of this.stateInfos)
                 data["stateInfos"].push(item.toJSON());
         }
-        if (Array.isArray(this.cityInfos)) {
-            data["cityInfos"] = [];
-            for (let item of this.cityInfos)
-                data["cityInfos"].push(item.toJSON());
+        if (Array.isArray(this.contractors)) {
+            data["contractors"] = [];
+            for (let item of this.contractors)
+                data["contractors"].push(item.toJSON());
         }
         if (Array.isArray(this.officers)) {
             data["officers"] = [];
@@ -30178,7 +30182,7 @@ export class PlaqueToOfficerGetForEditOutput implements IPlaqueToOfficerGetForEd
 export interface IPlaqueToOfficerGetForEditOutput {
     plaqueToOfficer: PlaqueToOfficerCreateOrUpdateInput;
     stateInfos: ComboboxItemDto[] | undefined;
-    cityInfos: ComboboxItemDto[] | undefined;
+    contractors: ComboboxItemDto[] | undefined;
     officers: ComboboxItemDto[] | undefined;
     speciesInfos: ComboboxItemDto[] | undefined;
 }

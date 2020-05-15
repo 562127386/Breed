@@ -19,13 +19,13 @@ namespace Akh.Breed.Plaques.Dto
         
         public int? StateInfoId { get; set; }
         
-        public int? CityInfoId { get; set; }
+        public int? ContractorId { get; set; }
         
         public int? OfficerId { get; set; }
         
         public int? SpeciesInfoId { get; set; }
         
-        public int? PlaqueToCityId { get; set; }
+        public int? PlaqueToContractorId { get; set; }
 
         public long? FinishedPlaqueId { get; set; }
         

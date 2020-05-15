@@ -5,7 +5,7 @@ using Abp.Timing;
 
 namespace Akh.Breed.Plaques.Dto
 {
-    public class PlaqueToCityCreateOrUpdateInput
+    public class PlaqueToContractorCreateOrUpdateInput
     {
         public const int CodeLength = 15; 
         
@@ -19,7 +19,7 @@ namespace Akh.Breed.Plaques.Dto
         
         public int? StateInfoId { get; set; }
         
-        public int? CityInfoId { get; set; }
+        public int? ContractorId { get; set; }
         
          public int? SpeciesInfoId { get; set; }
         
@@ -29,7 +29,7 @@ namespace Akh.Breed.Plaques.Dto
         
         public DateTime? SetTime { get; set; }
 
-        public PlaqueToCityCreateOrUpdateInput()
+        public PlaqueToContractorCreateOrUpdateInput()
         {
             SetTime = Clock.Now;
         } 

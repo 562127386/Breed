@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { PlaqueToOfficerServiceProxy, PlaqueToOfficerCreateOrUpdateInput, CityInfoServiceProxy } from '@shared/service-proxies/service-proxies';
+import { PlaqueToOfficerServiceProxy, PlaqueToOfficerCreateOrUpdateInput, ContractorServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
@@ -17,7 +17,7 @@ export class CreateOrEditPlaqueToOfficerModalComponent extends AppComponentBase 
     @ViewChild('codeInput' , { static: false }) codeInput: ElementRef;    
     @ViewChild('speciesInfoCombobox', { static: true }) speciesInfoCombobox: ElementRef;
     @ViewChild('stateInfoCombobox', { static: true }) stateInfoCombobox: ElementRef;
-    @ViewChild('cityInfoCombobox', { static: true }) cityInfoCombobox: ElementRef;
+    @ViewChild('contractorCombobox', { static: true }) contractorCombobox: ElementRef;
     @ViewChild('officerCombobox', { static: true }) officerCombobox: ElementRef;
     
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
@@ -25,7 +25,7 @@ export class CreateOrEditPlaqueToOfficerModalComponent extends AppComponentBase 
     plaqueToOfficer: PlaqueToOfficerCreateOrUpdateInput = new PlaqueToOfficerCreateOrUpdateInput();    
     speciesInfosSelectItems: SelectItem[] = [];
     stateInfosSelectItems: SelectItem[] = [];
-    cityInfosSelectItems: SelectItem[] = [];
+    contractorsSelectItems: SelectItem[] = [];
     officersSelectItems: SelectItem[] = [];
 
     active: boolean = false;
@@ -36,7 +36,7 @@ export class CreateOrEditPlaqueToOfficerModalComponent extends AppComponentBase 
     constructor(
         injector: Injector,
         private _plaqueToOfficerService: PlaqueToOfficerServiceProxy,
-        private _cityInfoService : CityInfoServiceProxy
+        private _contractorService : ContractorServiceProxy
     ) {
         super(injector);
     }
@@ -66,9 +66,9 @@ export class CreateOrEditPlaqueToOfficerModalComponent extends AppComponentBase 
                 };
             });
 
-            this.cityInfosSelectItems = _.map(userResult.cityInfos, function(cityInfo) {
+            this.contractorsSelectItems = _.map(userResult.contractors, function(contractor) {
                 return {
-                    label: cityInfo.displayText, value: Number(cityInfo.value)
+                    label: contractor.displayText, value: Number(contractor.value)
                 };
             });
 
@@ -113,13 +113,13 @@ export class CreateOrEditPlaqueToOfficerModalComponent extends AppComponentBase 
         this.modal.hide();
     }
 
-    getCities(stateInfoId: string): void {  
+    getContractors(stateInfoId: string): void {  
 
-        this._cityInfoService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
+        this._contractorService.getForCombo(Number(stateInfoId)).subscribe(userResult => {
             
-            this.cityInfosSelectItems = _.map(userResult, function(cityInfo) {
+            this.contractorsSelectItems = _.map(userResult, function(contractor) {
                 return {
-                    label: cityInfo.displayText, value: Number(cityInfo.value)
+                    label: contractor.displayText, value: Number(contractor.value)
                 };
             });
 
@@ -128,9 +128,9 @@ export class CreateOrEditPlaqueToOfficerModalComponent extends AppComponentBase 
         
     }
     
-    getOfficers(cityInfoId: string): void {  
+    getOfficers(contractorId: string): void {  
 
-        this._plaqueToOfficerService.getOfficerForCombo(Number(cityInfoId)).subscribe(userResult => {
+        this._plaqueToOfficerService.getOfficerForCombo(Number(contractorId)).subscribe(userResult => {
             
             this.officersSelectItems = _.map(userResult, function(officer) {
                 return {

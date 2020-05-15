@@ -7,11 +7,12 @@ using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
 using Akh.Breed.BaseInfo;
+using Akh.Breed.Contractors;
 
 namespace Akh.Breed.Plaques
 {
-    [Table("AkhPlaqueToCities")]
-    public class PlaqueToCity : Entity, IHasCreationTime, IMayHaveTenant
+    [Table("AkhPlaqueToContractors")]
+    public class PlaqueToContractor : Entity, IHasCreationTime, IMayHaveTenant
     {
         public const int CodeLength = 15; 
         
@@ -28,9 +29,9 @@ namespace Akh.Breed.Plaques
         
         public DateTime SetTime { get; set; }
         
-        [ForeignKey("CityInfoId")] 
-        public virtual CityInfo CityInfo { get; set; }
-        public int? CityInfoId { get; set; }        
+        [ForeignKey("ContractorId")] 
+        public virtual Contractor Contractor { get; set; }
+        public int? ContractorId { get; set; }        
         
         [ForeignKey("PlaqueToStateId")]
         public virtual PlaqueToState PlaqueToState { get; set; }
@@ -44,7 +45,7 @@ namespace Akh.Breed.Plaques
         
         public virtual ICollection<PlaqueToOfficer> PlaqueToOfficers { get; set; }
         
-        public PlaqueToCity()
+        public PlaqueToContractor()
         {
             CreationTime = Clock.Now;
             SetTime = Clock.Now;

@@ -3,20 +3,20 @@ using Abp.Application.Services.Dto;
 
 namespace Akh.Breed.Plaques.Dto
 {
-    public class PlaqueToCityGetForEditOutput
+    public class PlaqueToContractorGetForEditOutput
     {
-        public PlaqueToCityCreateOrUpdateInput PlaqueToCity { get; set; }
+        public PlaqueToContractorCreateOrUpdateInput PlaqueToContractor { get; set; }
         
         public List<ComboboxItemDto> StateInfos { get; set; }
 
-        public List<ComboboxItemDto> CityInfos { get; set; }
+        public List<ComboboxItemDto> Contractors { get; set; }
         
         public List<ComboboxItemDto> SpeciesInfos { get; set; }
 
-        public PlaqueToCityGetForEditOutput()
+        public PlaqueToContractorGetForEditOutput()
         {
             StateInfos = new List<ComboboxItemDto>();
-            CityInfos = new List<ComboboxItemDto>();
+            Contractors = new List<ComboboxItemDto>();
             SpeciesInfos = new List<ComboboxItemDto>();
         }
     }

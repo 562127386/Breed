@@ -6,7 +6,7 @@ using Akh.Breed.Dto;
 
 namespace Akh.Breed.Plaques.Dto
 {
-    public class GetPlaqueToCityInput : PagedAndSortedInputDto, IShouldNormalize
+    public class GetPlaqueToContractorInput : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Filter { get; set; }
         
@@ -21,7 +21,7 @@ namespace Akh.Breed.Plaques.Dto
         }
     }
     
-    public class PlaqueToCityListDto : EntityDto
+    public class PlaqueToContractorListDto : EntityDto
     {
         public long FromCode { get; set; }
         
@@ -37,6 +37,8 @@ namespace Akh.Breed.Plaques.Dto
         public string StateName { get; set; }
 
         public string CityName { get; set; }
+
+        public string ContractorName { get; set; }
 
         public string SpeciesName { get; set; }
         

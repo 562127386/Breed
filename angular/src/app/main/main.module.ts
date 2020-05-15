@@ -47,8 +47,8 @@ import { PlaqueStoreComponent } from "./plaqueStore/plaqueStore.component";
 import { CreateOrEditPlaqueStoreModalComponent } from "./plaqueStore/create-or-edit-plaqueStore-modal.component";
 import { PlaqueToStateComponent } from "./plaqueToState/plaqueToState.component";
 import { CreateOrEditPlaqueToStateModalComponent } from "./plaqueToState/create-or-edit-plaqueToState-modal.component";
-import { PlaqueToCityComponent } from "./plaqueToCity/plaqueToCity.component";
-import { CreateOrEditPlaqueToCityModalComponent } from "./plaqueToCity/create-or-edit-plaqueToCity-modal.component";
+import { PlaqueToContractorComponent } from "./plaqueToContractor/plaqueToContractor.component";
+import { CreateOrEditPlaqueToContractorModalComponent } from "./plaqueToContractor/create-or-edit-plaqueToContractor-modal.component";
 import { PlaqueToOfficerComponent } from "./plaqueToOfficer/plaqueToOfficer.component";
 import { CreateOrEditPlaqueToOfficerModalComponent } from "./plaqueToOfficer/create-or-edit-plaqueToOfficer-modal.component";
 import { PlaqueToHerdComponent } from "./plaqueToHerd/plaqueToHerd.component";
@@ -155,8 +155,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CreateOrEditPlaqueStoreModalComponent,
         PlaqueToStateComponent,
         CreateOrEditPlaqueToStateModalComponent,
-        PlaqueToCityComponent,
-        CreateOrEditPlaqueToCityModalComponent,
+        PlaqueToContractorComponent,
+        CreateOrEditPlaqueToContractorModalComponent,
         PlaqueToOfficerComponent,
         CreateOrEditPlaqueToOfficerModalComponent,
         PlaqueToHerdComponent,

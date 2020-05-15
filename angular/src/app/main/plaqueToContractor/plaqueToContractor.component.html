@@ -13,12 +13,12 @@
                                 <i class="flaticon2-graph"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                <span>{{"PlaqueToCity" | localize}}</span>
+                                <span>{{"PlaqueToContractor" | localize}}</span>
                             </h3>                        
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <div (click)="createPlaqueToCity()" *ngIf="'Pages.IdentityInfo.PlaqueToCity.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                                <div (click)="createPlaqueToContractor()" *ngIf="'Pages.IdentityInfo.PlaqueToContractor.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
                                     data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                     <i class="flaticon2-add-1"></i>
                                 </div>
@@ -37,7 +37,7 @@
                                                     class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
                                                     type="text">
                                                 <span class="input-group-btn">
-                                                    <button (click)="getPlaqueToCity()" class="btn btn-brand" type="submit"><i
+                                                    <button (click)="getPlaqueToContractor()" class="btn btn-brand" type="submit"><i
                                                             class="flaticon-search-1"
                                                             [attr.aria-label]="l('Search')"></i></button>
                                                 </span>
@@ -51,7 +51,7 @@
                         <div class="row align-items-center kt-margin-0">
                             <!--<Primeng-TurboTable-Start>-->
                             <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                                <p-table #dataTable (onLazyLoad)="getPlaqueToCity($event)" [value]="primengTableHelper.records"
+                                <p-table #dataTable (onLazyLoad)="getPlaqueToContractor($event)" [value]="primengTableHelper.records"
                                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false"
                                     [lazy]="true" [scrollable]="true" ScrollWidth="100%"
                                     [responsive]="primengTableHelper.isResponsive"
@@ -66,6 +66,9 @@
                                             </th>
                                             <th style="width: 100px" >
                                                 {{'CityInfo' | localize}}
+                                            </th>
+                                            <th style="width: 100px" >
+                                                {{'Contractor' | localize}}
                                             </th>
                                             <th style="width: 100px" >
                                                 {{'SpeciesName' | localize}}
@@ -108,6 +111,10 @@
                                                 {{record.cityName}}
                                             </td>
                                             <td style="width: 100px">
+                                                <span class="ui-column-title"> {{'Contractor' | localize}}</span>
+                                                {{record.contractorName}}
+                                            </td>
+                                            <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'SpeciesName' | localize}}</span>
                                                 {{record.speciesName}}
                                             </td>
@@ -133,11 +140,11 @@
                                             </td>
                                             <td style="width: 130px">
                                                 <div class="kt-section__content kt-section__content--solid">
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditPlaqueToCityModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
-                                                    <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditPlaqueToCityModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
-                                                        *ngIf="'Pages.IdentityInfo.PlaqueToCity.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button> -->
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deletePlaqueToCity(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
-                                                        *ngIf="'Pages.IdentityInfo.PlaqueToCity.Delete' | permission"><i class="flaticon-delete"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditPlaqueToContractorModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                    <!-- <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditPlaqueToContractorModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.IdentityInfo.PlaqueToContractor.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button> -->
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deletePlaqueToContractor(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.IdentityInfo.PlaqueToContractor.Delete' | permission"><i class="flaticon-delete"></i></button>
                                                 </div>                                            
                                             </td>                                     
                                         </tr>
@@ -148,7 +155,7 @@
                                 </div>
                                 <div class="primeng-paging-container">
                                     <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                                        (onPageChange)="getPlaqueToCity($event)"
+                                        (onPageChange)="getPlaqueToContractor($event)"
                                         [totalRecords]="primengTableHelper.totalRecordsCount"
                                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
     
@@ -168,7 +175,7 @@
                                 
                             </div>
                             <div class="col-lg-6 kt-align-right">
-                                <button (click)="createPlaqueToCity()" *ngIf="'Pages.IdentityInfo.PlaqueToCity.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewPlaqueToCity" | localize}}</button>
+                                <button (click)="createPlaqueToContractor()" *ngIf="'Pages.IdentityInfo.PlaqueToContractor.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewPlaqueToContractor" | localize}}</button>
                             </div>
                         </div>
                     </div>
@@ -176,6 +183,6 @@
                 </div>
             </div>
     
-            <createOrEditPlaqueToCityModal #createOrEditPlaqueToCityModal (modalSave)="getPlaqueToCity()"></createOrEditPlaqueToCityModal>
+            <createOrEditPlaqueToContractorModal #createOrEditPlaqueToContractorModal (modalSave)="getPlaqueToContractor()"></createOrEditPlaqueToContractorModal>
         </div>
     </div>

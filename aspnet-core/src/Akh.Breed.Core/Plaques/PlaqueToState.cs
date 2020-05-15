@@ -39,9 +39,9 @@ namespace Akh.Breed.Plaques
         
         public int? TenantId { get; set; }
         
-        public long PlaqueAllocated => PlaqueToCities.Sum(x => Convert.ToInt64(x.ToCode) - Convert.ToInt64(x.FromCode) + 1);
+        public long PlaqueAllocated => PlaqueToContractors.Sum(x => Convert.ToInt64(x.ToCode) - Convert.ToInt64(x.FromCode) + 1);
         
-        public virtual ICollection<PlaqueToCity> PlaqueToCities { get; set; }
+        public virtual ICollection<PlaqueToContractor> PlaqueToContractors { get; set; }
         
         public PlaqueToState()
         {

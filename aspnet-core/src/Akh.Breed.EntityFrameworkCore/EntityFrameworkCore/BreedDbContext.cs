@@ -88,7 +88,7 @@ namespace Akh.Breed.EntityFrameworkCore
 
         public virtual DbSet<PlaqueToState> PlaqueToStates { get; set; }
         
-        public virtual DbSet<PlaqueToCity> PlaqueToCities { get; set; }
+        public virtual DbSet<PlaqueToContractor> PlaqueToContractors { get; set; }
         
         public virtual DbSet<PlaqueToOfficer> PlaqueToOfficers { get; set; }
         
@@ -254,7 +254,7 @@ namespace Akh.Breed.EntityFrameworkCore
                 b.HasIndex(e => e.ToCode);
             });
             
-            modelBuilder.Entity<PlaqueToCity>(b =>
+            modelBuilder.Entity<PlaqueToContractor>(b =>
             {
                 b.HasIndex(e => e.FromCode);
                 b.HasIndex(e => e.ToCode);
