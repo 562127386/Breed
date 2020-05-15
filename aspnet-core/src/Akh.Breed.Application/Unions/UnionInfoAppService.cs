@@ -182,6 +182,13 @@ namespace Akh.Breed.Unions
             {
                 throw new UserFriendlyException(L("ThisNameAlreadyExists"));
             }
+            
+            existingObj = (await _unionInfoRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(l => l.StateInfoId == input.StateInfoId));
+            if (existingObj != null && existingObj.Id != input.Id)
+            {
+                throw new UserFriendlyException(L("ThisStateAlreadyExists"));
+            }
         }
         
     }

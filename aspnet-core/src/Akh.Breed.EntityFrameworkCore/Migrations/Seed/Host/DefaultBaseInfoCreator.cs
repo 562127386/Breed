@@ -21,7 +21,7 @@ namespace Akh.Breed.Migrations.Seed.Host
             CreateAcademicDegree();
             CreateProviderInfo();
             CreateUnionInfo();
-            CreateActivityInfo();
+            //CreateActivityInfo();
             CreateSexInfo();
             CreateSpeciesInfo();
             CreatePlaqueState();

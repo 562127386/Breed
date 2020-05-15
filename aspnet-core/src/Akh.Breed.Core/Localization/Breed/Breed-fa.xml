@@ -1178,7 +1178,8 @@
     <text name="FullTimeStaff">تعداد کارکنان تمام وقت</text>
     <text name="PartialTimeStaff">تعداد کارکنان پاره وقت</text>
 
-    <text name="ThisNameAlreadyExists">این نام قبلا ثبت شده است.</text>
+      <text name="ThisNameAlreadyExists">این نام قبلا ثبت شده است.</text>
+      <text name="ThisStateAlreadyExists">برای این استان اتحادیه وجود دارد.</text>
     <text name="ThisCodeAlreadyExists">این کد قبلا ثبت شده است.</text>
     <text name="ThisCodeRangeHasOverlap">محدوده وارد شده با {0} تا {1} همپوشانی دارد.</text>
     <text name="ThisCodeRangeShouldBe">برای گونه {0} محدوده {1} تا {2} مجاز است.</text>
