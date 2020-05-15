@@ -4,14 +4,18 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
+using Abp.Authorization.Users;
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
 using Akh.Breed.Authorization;
+using Akh.Breed.Authorization.Roles;
+using Akh.Breed.Authorization.Users;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.Unions.Dto;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Akh.Breed.Unions
@@ -20,11 +24,15 @@ namespace Akh.Breed.Unions
     {
         private readonly IRepository<UnionInfo> _unionInfoRepository;
         private readonly IRepository<StateInfo> _stateInfoRepository;
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly RoleManager _roleManager;
 
-        public UnionInfoAppService(IRepository<UnionInfo> unionInfoRepository, IRepository<StateInfo> stateInfoRepository)
+        public UnionInfoAppService(IRepository<UnionInfo> unionInfoRepository, IRepository<StateInfo> stateInfoRepository, IPasswordHasher<User> passwordHasher, RoleManager roleManager)
         {
             _unionInfoRepository = unionInfoRepository;
             _stateInfoRepository = stateInfoRepository;
+            _passwordHasher = passwordHasher;
+            _roleManager = roleManager;
         }
 
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo)]
@@ -107,9 +115,35 @@ namespace Akh.Breed.Unions
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo_Create)]
         private async Task CreateUnionInfoAsync(UnionInfoCreateOrUpdateInput input)
         {
-            var unionInfo = ObjectMapper.Map<UnionInfo>(input);
-            unionInfo.UserId = AbpSession.UserId;
-            await _unionInfoRepository.InsertAsync(unionInfo);
+            var nationalCode = input.NationalCode.Replace("-", "");
+            var user = new User
+            {
+                IsActive = true,
+                ShouldChangePasswordOnNextLogin = true,
+                UserName = nationalCode,
+                EmailAddress = nationalCode + "@mgnsys.ir",
+                Name = input.Name,
+                Surname = input.Family
+            };
+            
+            user.Password = _passwordHasher.HashPassword(user, nationalCode);
+            CheckErrors(await UserManager.CreateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+            var officerRole = _roleManager.GetRoleByName(StaticRoleNames.Host.StateAdmin);
+            long userId = user.ToUserIdentifier().UserId;
+            user.Roles = new List<UserRole>();
+            user.Roles.Add(new UserRole(null, user.Id, officerRole.Id));
+
+            if (userId > 0)
+            {
+                var unionInfo = ObjectMapper.Map<UnionInfo>(input);
+                unionInfo.UserId = AbpSession.UserId;
+                await _unionInfoRepository.InsertAsync(unionInfo);
+            }
+            else
+            {
+                throw new UserFriendlyException(L("AnErrorOccurred"));
+            }
         }
         
         private IQueryable<UnionInfo> GetFilteredQuery(GetUnionInfoInput input)

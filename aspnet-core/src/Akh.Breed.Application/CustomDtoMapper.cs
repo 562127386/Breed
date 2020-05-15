@@ -231,6 +231,10 @@ namespace Akh.Breed
                 .ForMember(d => d.StateInfoName, options => options.MapFrom(l => l.StateInfo.Name));
             configuration.CreateMap<UnionInfoCreateOrUpdateInput, UnionInfo>();
             configuration.CreateMap<UnionInfo, UnionInfoCreateOrUpdateInput>();
+
+            configuration.CreateMap<UnionEmployee, UnionEmployeeListDto>();
+            configuration.CreateMap<UnionEmployeeCreateOrUpdateInput, UnionEmployee>();
+            configuration.CreateMap<UnionEmployee, UnionEmployeeCreateOrUpdateInput>();
             
             configuration.CreateMap<ActivityInfo, ActivityInfoListDto>();
             configuration.CreateMap<ActivityInfoCreateOrUpdateInput, ActivityInfo>();

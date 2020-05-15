@@ -37,6 +37,7 @@ namespace Akh.Breed.Unions
         public async Task<PagedResultDto<UnionEmployeeListDto>> GetUnionEmployee(GetUnionEmployeeInput input)
         {
             var query = GetFilteredQuery(input);
+            query = query.Where(x => x.UnionInfoId == input.UnionInfoId);
             var userCount = await query.CountAsync();
             var unionEmployees = await query
                 .OrderBy(input.Sorting)
@@ -50,10 +51,10 @@ namespace Akh.Breed.Unions
         }
         
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee_Create, AppPermissions.Pages_BaseIntro_UnionEmployee_Edit)]
-        public async Task<UnionEmployeeCreateOrUpdateInput> GetUnionEmployeeForEdit(NullableIdDto<int> input)
+        public async Task<UnionEmployeeCreateOrUpdateInput> GetUnionEmployeeForEdit(int unionInfoId, NullableIdDto<int> input)
         {
             var output = new UnionEmployeeCreateOrUpdateInput();
-
+            output.UnionInfoId = unionInfoId;
             if (input.Id.HasValue)
             {
                 var unionEmployee = await _unionEmployeeRepository.GetAsync(input.Id.Value);

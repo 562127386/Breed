@@ -9,7 +9,7 @@ namespace Akh.Breed.Unions
     public interface IUnionEmployeeAppService : IApplicationService
     {
         Task<PagedResultDto<UnionEmployeeListDto>> GetUnionEmployee(GetUnionEmployeeInput input);
-        Task<UnionEmployeeCreateOrUpdateInput> GetUnionEmployeeForEdit(NullableIdDto<int> input);
+        Task<UnionEmployeeCreateOrUpdateInput> GetUnionEmployeeForEdit(int unionInfoId, NullableIdDto<int> input);
         Task CreateOrUpdateUnionEmployee(UnionEmployeeCreateOrUpdateInput input);
         Task DeleteUnionEmployee(EntityDto input);
     }

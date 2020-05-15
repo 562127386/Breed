@@ -17290,11 +17290,16 @@ export class UnionEmployeeServiceProxy {
     }
 
     /**
+     * @param unionInfoId (optional) 
      * @param id (optional) 
      * @return Success
      */
-    getUnionEmployeeForEdit(id: number | undefined): Observable<UnionEmployeeCreateOrUpdateInput> {
+    getUnionEmployeeForEdit(unionInfoId: number | undefined, id: number | undefined): Observable<UnionEmployeeCreateOrUpdateInput> {
         let url_ = this.baseUrl + "/api/services/app/UnionEmployee/GetUnionEmployeeForEdit?";
+        if (unionInfoId === null)
+            throw new Error("The parameter 'unionInfoId' cannot be null.");
+        else if (unionInfoId !== undefined)
+            url_ += "unionInfoId=" + encodeURIComponent("" + unionInfoId) + "&"; 
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)

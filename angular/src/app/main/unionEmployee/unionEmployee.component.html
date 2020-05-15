@@ -13,12 +13,12 @@
                                 <i class="flaticon2-graph"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                <span>{{"UnionInfo" | localize}}</span>
+                                <span>{{"UnionEmployee" | localize}}</span>
                             </h3>                        
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <div (click)="createUnionInfo()" *ngIf="'Pages.BaseIntro.UnionInfo.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
+                                <div (click)="createUnionEmployee()" *ngIf="'Pages.BaseIntro.UnionEmployee.Create' | permission" class="btn btn-clean btn-sm btn-icon btn-icon-md"  data-toggle="tooltip" data-placement="top" [title]="l('AddItem')"
                                     data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                     <i class="flaticon2-add-1"></i>
                                 </div>
@@ -37,7 +37,7 @@
                                                     class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
                                                     type="text">
                                                 <span class="input-group-btn">
-                                                    <button (click)="getUnionInfo()" class="btn btn-brand" type="submit"><i
+                                                    <button (click)="getUnionEmployee()" class="btn btn-brand" type="submit"><i
                                                             class="flaticon-search-1"
                                                             [attr.aria-label]="l('Search')"></i></button>
                                                 </span>
@@ -51,22 +51,15 @@
                         <div class="row align-items-center kt-margin-0">
                             <!--<Primeng-TurboTable-Start>-->
                             <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                                <p-table #dataTable (onLazyLoad)="getUnionInfo($event)" [value]="primengTableHelper.records"
+                                <p-table #dataTable (onLazyLoad)="getUnionEmployee($event)" [value]="primengTableHelper.records"
                                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false"
                                     [lazy]="true" [scrollable]="true" ScrollWidth="100%"
                                     [responsive]="primengTableHelper.isResponsive"
                                     [resizableColumns]="primengTableHelper.resizableColumns">
                                     <ng-template pTemplate="header">
-                                        <tr>                                             
-                                            <th style="width: 100px" >
-                                                {{'StateInfoName' | localize}}
-                                            </th>                                   
-                                            <th style="width: 100px" pSortableColumn="code">
-                                                {{'Code' | localize}}
-                                                <p-sortIcon field="code"></p-sortIcon>
-                                            </th>
-                                            <th style="width: 100px" pSortableColumn="unionName">
-                                                {{'UnionName' | localize}}
+                                        <tr>  
+                                            <th style="width: 100px" pSortableColumn="nationalcode">
+                                                {{'NationalCode' | localize}}
                                                 <p-sortIcon field="unionName"></p-sortIcon>
                                             </th>
                                             <th style="width: 100px" pSortableColumn="name">
@@ -81,7 +74,11 @@
                                                 {{'Phone' | localize}}
                                                 <p-sortIcon field="phone"></p-sortIcon>
                                             </th>
-                                            <th style="width: 130px">
+                                            <th style="width: 100px" pSortableColumn="post">
+                                                {{'Post' | localize}}
+                                                <p-sortIcon field="post"></p-sortIcon>
+                                            </th>
+                                            <th style="width: 100px">
                                                     {{'Actions' | localize}}
                                             </th>                                                                             
                                         </tr>
@@ -89,17 +86,9 @@
                                     <ng-template pTemplate="body" let-record="$implicit">
                                         <tr>                                          
                                             <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'StateInfoName' | localize}}</span>
-                                                {{record.stateInfoName}}
-                                            </td>                                   
-                                            <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'Code' | localize}}</span>
-                                                {{record.code}}
-                                            </td>
-                                            <td style="width: 100px">
-                                                <span class="ui-column-title"> {{'UnionName' | localize}}</span>
-                                                {{record.unionName}}
-                                            </td>
+                                                <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
+                                                {{record.nationalCode}}
+                                            </td>     
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'Name' | localize}}</span>
                                                 {{record.name}}
@@ -112,14 +101,17 @@
                                                 <span class="ui-column-title"> {{'Phone' | localize}}</span>
                                                 {{record.phone}}
                                             </td>
-                                            <td style="width: 130px">
+                                            <td style="width: 100px">
+                                                <span class="ui-column-title"> {{'Post' | localize}}</span>
+                                                {{record.post}}
+                                            </td>
+                                            <td style="width: 100px">
                                                 <div class="kt-section__content kt-section__content--solid">
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('Users')" (click)="manageEmployees(record)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-users"></i></button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditUnionInfoModal.show(record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditUnionInfoModal.show(record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
-                                                        *ngIf="'Pages.BaseIntro.UnionInfo.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteUnionInfo(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
-                                                        *ngIf="'Pages.BaseIntro.UnionInfo.Delete' | permission"><i class="flaticon-delete"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('ViewItem')" (click)="createOrEditUnionEmployeeModal.show(unionInfoId, record.id,true)" class="btn btn-brand btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-eye"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('EditItem')" (click)="createOrEditUnionEmployeeModal.show(unionInfoId, record.id)" class="btn btn-warning btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.BaseIntro.UnionEmployee.Edit' | permission"><i class="flaticon-cogwheel-1"></i></button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="deleteUnionEmployee(record)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"
+                                                        *ngIf="'Pages.BaseIntro.UnionEmployee.Delete' | permission"><i class="flaticon-delete"></i></button>
                                                 </div>                                            
                                             </td>                                     
                                         </tr>
@@ -130,7 +122,7 @@
                                 </div>
                                 <div class="primeng-paging-container">
                                     <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                                        (onPageChange)="getUnionInfo($event)"
+                                        (onPageChange)="getUnionEmployee($event)"
                                         [totalRecords]="primengTableHelper.totalRecordsCount"
                                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
     
@@ -150,7 +142,7 @@
                                 
                             </div>
                             <div class="col-lg-6 kt-align-right">
-                                <button (click)="createUnionInfo()" *ngIf="'Pages.BaseIntro.UnionInfo.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewUnionInfo" | localize}}</button>
+                                <button (click)="createUnionEmployee()" *ngIf="'Pages.BaseIntro.UnionEmployee.Create' | permission" class="btn btn-brand"><i class="fa fa-plus"></i> {{"CreateNewUnionEmployee" | localize}}</button>
                             </div>
                         </div>
                     </div>
@@ -158,6 +150,6 @@
                 </div>
             </div>
     
-            <createOrEditUnionInfoModal #createOrEditUnionInfoModal (modalSave)="getUnionInfo()"></createOrEditUnionInfoModal>
+            <createOrEditUnionEmployeeModal #createOrEditUnionEmployeeModal (modalSave)="getUnionEmployee()"></createOrEditUnionEmployeeModal>
         </div>
     </div>

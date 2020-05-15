@@ -6,6 +6,7 @@ import { ContractorComponent } from './contractor/contractor.component';
 import { OfficerComponent } from './officer/officer.component';
 import { ProviderInfoComponent } from './providerInfo/providerInfo.component';
 import { UnionInfoComponent } from './unionInfo/unionInfo.component';
+import { UnionEmployeeComponent } from './unionEmployee/unionEmployee.component';
 import { ActivityInfoComponent } from './activityInfo/activityInfo.component';
 import { SexInfoComponent } from './sexInfo/sexInfo.component';
 import { SpeciesInfoComponent } from './speciesInfo/speciesInfo.component';
@@ -41,7 +42,8 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
                     { path: 'contractor', component: ContractorComponent },
                     { path: 'officer', component: OfficerComponent },
                     { path: 'providerInfo', component: ProviderInfoComponent },
-                    { path: 'unionInfo', component: UnionInfoComponent },
+                    { path: 'unionInfo', component: UnionInfoComponent },                    
+                    { path: 'unionInfo/:id/employees', component: UnionEmployeeComponent, data: { permission: 'Pages.BaseIntro.UnionEmployee' } },
                     { path: 'activityInfo', component: ActivityInfoComponent },
                     { path: 'sexInfo', component: SexInfoComponent },
                     { path: 'speciesInfo', component: SpeciesInfoComponent },

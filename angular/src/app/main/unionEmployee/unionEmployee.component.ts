@@ -1,44 +1,71 @@
 import { Component, Injector, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { UnionInfoServiceProxy, UnionInfoListDto } from '@shared/service-proxies/service-proxies';
+import { UnionEmployeeServiceProxy, UnionEmployeeListDto } from '@shared/service-proxies/service-proxies';
 import { Paginator } from 'primeng/components/paginator/paginator';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Table } from 'primeng/components/table/table';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { finalize } from 'rxjs/operators';
-import { CreateOrEditUnionInfoModalComponent } from './create-or-edit-unionInfo-modal.component';
+import { CreateOrEditUnionEmployeeModalComponent } from './create-or-edit-unionEmployee-modal.component';
 
 @Component({
-    templateUrl: './unionInfo.component.html',
+    templateUrl: './unionEmployee.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: [appModuleAnimation()],
-    styleUrls: ['./unionInfo.component.less']
+    styleUrls: ['./unionEmployee.component.less']
 })
-export class UnionInfoComponent extends AppComponentBase implements AfterViewInit {
+export class UnionEmployeeComponent extends AppComponentBase implements AfterViewInit {
 
-    @ViewChild('createOrEditUnionInfoModal', { static: true }) createOrEditUnionInfoModal: CreateOrEditUnionInfoModalComponent;
+    @ViewChild('createOrEditUnionEmployeeModal', { static: true }) createOrEditUnionEmployeeModal: CreateOrEditUnionEmployeeModalComponent;
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
-    unionInfos: UnionInfoListDto[] = [];
+    unionEmployees: UnionEmployeeListDto[] = [];
     filterText : string = '';
+    unionInfoId?: number;
 
     constructor(
         injector: Injector,
-        private _unionInfoService: UnionInfoServiceProxy,
+        private _unionEmployeeService: UnionEmployeeServiceProxy,
         private _activatedRoute: ActivatedRoute,
         private _router: Router
     ) {
         super(injector);
-        this.filterText = this._activatedRoute.snapshot.queryParams['filterText'] || '';
     }
     
     ngAfterViewInit(): void {
+        setTimeout(() => {
+            this.init();
+        });
         this.primengTableHelper.adjustScroll(this.dataTable);
     }
+    
+    init(): void {
+        this._activatedRoute.params.subscribe((params: Params) => {
+            this.unionInfoId = params['id'];
+            this.filterText = params['filterText'] || '';
 
-    getUnionInfo(event?: LazyLoadEvent) {
+            this.reloadPage();
+        });
+    }
+
+    applyFilters(): void {
+        this._router.navigate(['app/main/unionInfo', this.unionInfoId, 'employees', {
+            filterText: this.filterText
+        }]);
+
+        if (this.paginator.getPage() !== 0) {
+            this.paginator.changePage(0);
+
+            return;
+        }
+    }
+
+    getUnionEmployee(event?: LazyLoadEvent) {
+        if (!this.paginator || !this.dataTable || !this.unionInfoId) {
+            return;
+        }
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
 
@@ -47,8 +74,9 @@ export class UnionInfoComponent extends AppComponentBase implements AfterViewIni
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._unionInfoService.getUnionInfo(
+        this._unionEmployeeService.getUnionEmployee(
             this.filterText,
+            this.unionInfoId,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
@@ -63,22 +91,17 @@ export class UnionInfoComponent extends AppComponentBase implements AfterViewIni
         this.paginator.changePage(this.paginator.getPage());
     }
 
-    createUnionInfo(): void {
-        this.createOrEditUnionInfoModal.show();
+    createUnionEmployee(): void {
+        this.createOrEditUnionEmployeeModal.show(this.unionInfoId);
     }
 
-    manageEmployees(unionInfo: UnionInfoListDto): void {
-        this._router.navigate(['app/main/unionInfo', unionInfo.id, 'employees']);
-    }
-
-
-    deleteUnionInfo(unionInfo: UnionInfoListDto): void {
+    deleteUnionEmployee(unionEmployee: UnionEmployeeListDto): void {
         this.message.confirm(
-            this.l('AreYouSureToDeleteTheUnionInfo', unionInfo.unionName),            
+            this.l('AreYouSureToDeleteTheUnionEmployee', unionEmployee.name + ' ' + unionEmployee.family),            
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {
-                    this._unionInfoService.deleteUnionInfo(unionInfo.id).subscribe(() => {
+                    this._unionEmployeeService.deleteUnionEmployee(unionEmployee.id).subscribe(() => {
                         this.reloadPage();
                         this.notify.info(this.l('SuccessfullyDeleted'));
                     });

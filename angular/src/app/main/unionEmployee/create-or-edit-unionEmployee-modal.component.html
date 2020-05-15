@@ -1,0 +1,88 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form *ngIf="active" #unionEmployeeForm="ngForm" novalidate (ngSubmit)="save()">
+                    <div class="modal-header kt-bg-brand">
+                        <h4 class="modal-title">
+                            <span *ngIf="unionEmployee.id && editdisabled">{{"ViewNewUnionEmployee" | localize}}: {{unionEmployee.name}}</span>
+                            <span *ngIf="unionEmployee.id && !editdisabled">{{"EditNewUnionEmployee" | localize}}: {{unionEmployee.name}}</span>
+                            <span *ngIf="!unionEmployee.id">{{"CreateNewUnionEmployee" | localize}}</span>
+                        </h4>
+                        <button type="button" class="close" (click)="close()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">             
+                                    
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Name" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #nameInput="ngModel" [(ngModel)]="unionEmployee.name" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *"  pattern="[^0-9]*" name="name" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Family" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #familyInput="ngModel" [(ngModel)]="unionEmployee.family" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Family' | localize}} *"  pattern="[^0-9]*" name="family" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="familyInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Post" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #postInput="ngModel" [(ngModel)]="unionEmployee.post" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'Name' | localize}} *"  pattern="[^0-9]*" name="post" required maxlength="64"/>
+                                                <validation-messages [formCtrl]="postInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask [style]="{'width':'100%'}" (onBlur)="checkNationalCode()" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="unionEmployee.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
+                                                <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
+                                                <div class="form-control-feedback ng-star-inserted" *ngIf="!this.nationalCodeValid">
+                                                    کد ملی معتیر نیست
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                       
+
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-999-999-9999" [(ngModel)]="unionEmployee.phone" type="num" autocomplete="new-password" name="phone" placeholder="0-912-111-2233" length="11" required></p-inputMask>
+                                                <validation-messages [formCtrl]="phoneInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                          
+                            </div>
+                        </div>
+                                                     
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-sm-12">
+                            <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!unionEmployeeForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                            <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    

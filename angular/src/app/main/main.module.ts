@@ -15,6 +15,8 @@ import { ProviderInfoComponent } from "./providerInfo/providerInfo.component";
 import { CreateOrEditProviderInfoModalComponent } from "./providerInfo/create-or-edit-providerInfo-modal.component";
 import { UnionInfoComponent } from "./unionInfo/unionInfo.component";
 import { CreateOrEditUnionInfoModalComponent } from "./unionInfo/create-or-edit-unionInfo-modal.component";
+import { UnionEmployeeComponent } from "./unionEmployee/unionEmployee.component";
+import { CreateOrEditUnionEmployeeModalComponent } from "./unionEmployee/create-or-edit-unionEmployee-modal.component";
 import { ActivityInfoComponent } from "./activityInfo/activityInfo.component";
 import { CreateOrEditActivityInfoModalComponent } from "./activityInfo/create-or-edit-activityInfo-modal.component";
 import { SexInfoComponent } from "./sexInfo/sexInfo.component";
@@ -121,6 +123,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CreateOrEditProviderInfoModalComponent,
         UnionInfoComponent,
         CreateOrEditUnionInfoModalComponent,
+        UnionEmployeeComponent,
+        CreateOrEditUnionEmployeeModalComponent,
         ActivityInfoComponent,
         CreateOrEditActivityInfoModalComponent,
         SexInfoComponent,
