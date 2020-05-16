@@ -65,7 +65,7 @@ namespace Akh.Breed.Contractors
             else if (isStateAdmin)
             {
                 var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-                query = query.Where(x => x.StateInfoId == union.StateInfoId);
+                query = query.Where(x => x.UnionInfoId == union.Id);
             }
             else
             {
@@ -83,7 +83,7 @@ namespace Akh.Breed.Contractors
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor_Create, AppPermissions.Pages_BaseIntro_Contractor_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor, AppPermissions.Pages_BaseIntro_Contractor_Create, AppPermissions.Pages_BaseIntro_Contractor_Edit)]
         public async Task<GetContractorForEditOutput> GetContractorForEdit(NullableIdDto<int> input)
         {
             Contractor contractor = null;

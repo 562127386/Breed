@@ -9,6 +9,7 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using Abp.UI;
 using Akh.Breed.Authorization;
 using Akh.Breed.Authorization.Roles;
@@ -39,6 +40,24 @@ namespace Akh.Breed.Unions
         public async Task<PagedResultDto<UnionInfoListDto>> GetUnionInfo(GetUnionInfoInput input)
         {
             var query = GetFilteredQuery(input);
+            var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
+            var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
+            var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
+            var isStateAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin);
+            var isCityAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin);
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.Id == union.Id);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
             var userCount = await query.CountAsync();
             var unionInfos = await query
                 .OrderBy(input.Sorting)
@@ -51,7 +70,7 @@ namespace Akh.Breed.Unions
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo_Create, AppPermissions.Pages_BaseIntro_UnionInfo_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo, AppPermissions.Pages_BaseIntro_UnionInfo_Create, AppPermissions.Pages_BaseIntro_UnionInfo_Edit)]
         public async Task<UnionInfoGetForEditOutput> GetUnionInfoForEdit(NullableIdDto<int> input)
         {
             UnionInfo unionInfo = null;
@@ -137,7 +156,7 @@ namespace Akh.Breed.Unions
             if (userId > 0)
             {
                 var unionInfo = ObjectMapper.Map<UnionInfo>(input);
-                unionInfo.UserId = AbpSession.UserId;
+                unionInfo.UserId = userId;
                 await _unionInfoRepository.InsertAsync(unionInfo);
             }
             else

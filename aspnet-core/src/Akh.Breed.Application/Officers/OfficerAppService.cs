@@ -63,7 +63,7 @@ namespace Akh.Breed.Officers
             else if (isStateAdmin)
             {
                 var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-                query = query.Where(x => x.Contractor.StateInfoId == union.StateInfoId);
+                query = query.Where(x => x.Contractor.UnionInfoId == union.Id);
             }
             else if (isCityAdmin)
             {
