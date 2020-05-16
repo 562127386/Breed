@@ -86,7 +86,7 @@ namespace Akh.Breed.Officers
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer_Create, AppPermissions.Pages_BaseIntro_Officer_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer, AppPermissions.Pages_BaseIntro_Officer_Create, AppPermissions.Pages_BaseIntro_Officer_Edit)]
         public async Task<GetOfficerForEditOutput> GetOfficerForEdit(NullableIdDto<int> input)
         {
             Officer officer = null;

@@ -158,7 +158,7 @@ namespace Akh.Breed.Plaques
             return output;
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Create, AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToContractor, AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Create, AppPermissions.Pages_IdentityInfo_PlaqueToContractor_Edit)]
         public async Task CreateOrUpdatePlaqueToContractor(PlaqueToContractorCreateOrUpdateInput input)
         {
             await CheckValidation(input);

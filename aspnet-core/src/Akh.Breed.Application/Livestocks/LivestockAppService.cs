@@ -120,7 +120,7 @@ namespace Akh.Breed.Livestocks
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification_Create, AppPermissions.Pages_IdentityInfo_Identification_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification, AppPermissions.Pages_IdentityInfo_Identification_Create, AppPermissions.Pages_IdentityInfo_Identification_Edit)]
         public async Task<GetLivestockForEditOutput> GetLivestockForEdit(NullableIdDto<int> input)
         {
             var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);

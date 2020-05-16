@@ -93,7 +93,7 @@ namespace Akh.Breed.Plaques
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Create, AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToHerd, AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Create, AppPermissions.Pages_IdentityInfo_PlaqueToHerd_Edit)]
         public async Task<PlaqueToHerdGetForEditOutput> GetPlaqueToHerdForEdit(NullableIdDto<int> input)
         {
             var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);

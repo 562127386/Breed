@@ -46,7 +46,7 @@ namespace Akh.Breed.Herds
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_Activities_EditGeoHerd_Create, AppPermissions.Pages_Activities_EditGeoHerd_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_Activities_EditGeoHerd, AppPermissions.Pages_Activities_EditGeoHerd_Create, AppPermissions.Pages_Activities_EditGeoHerd_Edit)]
         public async Task<GetHerdGeoLogForEditOutput> GetHerdGeoLogForEdit(NullableIdDto<int> input)
         {
             HerdGeoLog herdGeoLog = null;

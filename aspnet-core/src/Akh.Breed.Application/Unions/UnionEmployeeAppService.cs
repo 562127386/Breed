@@ -65,7 +65,7 @@ namespace Akh.Breed.Unions
             return output;
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee_Create, AppPermissions.Pages_BaseIntro_UnionEmployee_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee, AppPermissions.Pages_BaseIntro_UnionEmployee_Create, AppPermissions.Pages_BaseIntro_UnionEmployee_Edit)]
         public async Task CreateOrUpdateUnionEmployee(UnionEmployeeCreateOrUpdateInput input)
         {
             await CheckValidation(input);

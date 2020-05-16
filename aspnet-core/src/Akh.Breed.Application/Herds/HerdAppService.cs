@@ -96,7 +96,7 @@ namespace Akh.Breed.Herds
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd_Create, AppPermissions.Pages_BaseIntro_Herd_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd, AppPermissions.Pages_BaseIntro_Herd_Create, AppPermissions.Pages_BaseIntro_Herd_Edit)]
         public async Task<GetHerdForEditOutput> GetHerdForEdit(NullableIdDto<int> input)
         {
             Herd herd = null;

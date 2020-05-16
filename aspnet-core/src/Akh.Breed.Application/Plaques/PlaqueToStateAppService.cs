@@ -77,7 +77,7 @@ namespace Akh.Breed.Plaques
             );
         }
         
-        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToState_Create, AppPermissions.Pages_IdentityInfo_PlaqueToState_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToState, AppPermissions.Pages_IdentityInfo_PlaqueToState_Create, AppPermissions.Pages_IdentityInfo_PlaqueToState_Edit)]
         public async Task<PlaqueToStateGetForEditOutput> GetPlaqueToStateForEdit(NullableIdDto<int> input)
         {
             PlaqueToState plaqueToState = null;
