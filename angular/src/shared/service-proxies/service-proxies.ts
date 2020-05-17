@@ -27299,11 +27299,11 @@ export class OfficerCreateOrUpdateInput implements IOfficerCreateOrUpdateInput {
     address!: string | undefined;
     postalCode!: string | undefined;
     academicDegreeName!: string | undefined;
-    academicDegreeId!: number;
+    academicDegreeId!: number | undefined;
     stateInfoName!: string | undefined;
-    stateInfoId!: number;
+    stateInfoId!: number | undefined;
     contractorName!: string | undefined;
-    contractorId!: number;
+    contractorId!: number | undefined;
     userId!: number;
 
     constructor(data?: IOfficerCreateOrUpdateInput) {
@@ -27388,11 +27388,11 @@ export interface IOfficerCreateOrUpdateInput {
     address: string | undefined;
     postalCode: string | undefined;
     academicDegreeName: string | undefined;
-    academicDegreeId: number;
+    academicDegreeId: number | undefined;
     stateInfoName: string | undefined;
-    stateInfoId: number;
+    stateInfoId: number | undefined;
     contractorName: string | undefined;
-    contractorId: number;
+    contractorId: number | undefined;
     userId: number;
 }
 

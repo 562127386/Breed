@@ -33,15 +33,15 @@ namespace Akh.Breed.Officers.Dto
 
         public string AcademicDegreeName { get; set; }
 
-        public int AcademicDegreeId { get; set; }
+        public int? AcademicDegreeId { get; set; }
 
         public string StateInfoName { get; set; }
 
-        public int StateInfoId { get; set; }
+        public int? StateInfoId { get; set; }
 
         public string ContractorName { get; set; }
 
-        public int ContractorId { get; set; }
+        public int? ContractorId { get; set; }
 
         public long UserId { get; set; }
     }
