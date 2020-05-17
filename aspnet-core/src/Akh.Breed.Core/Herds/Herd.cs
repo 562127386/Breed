@@ -9,6 +9,7 @@ using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
 using Akh.Breed.BaseInfo;
 using Akh.Breed.Contractors;
+using Akh.Breed.Officers;
 using Akh.Breed.Unions;
 
 namespace Akh.Breed.Herds
@@ -97,6 +98,10 @@ namespace Akh.Breed.Herds
         [ForeignKey("ContractorId")]
         public Contractor Contractor { get; set; }
         public int? ContractorId { get; set; }
+
+        [ForeignKey("OfficerId")]
+        public Officer Officer { get; set; }
+        public int? OfficerId { get; set; }
 
         public DateTime CreationTime { get; set; }
         

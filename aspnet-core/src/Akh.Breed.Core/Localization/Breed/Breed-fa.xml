@@ -1285,7 +1285,7 @@
     <text name="ActivityInfoName">نوع فعالیت</text>
     <text name="LicenseNum">شماره پروانه</text>
     <text name="SpeciesInfoName">گونه</text>
-    <text name="ThisCodeIsAllocated">این کد قبلا استفاده شده است.</text>
+    <text name="ThisCodeIsAllocated">این کد قبلا نصب شده است.</text>
     <text name="ThisStoreIsNotAllocatedTo">پلاک {0} به این مامور اختصاص داده نشده است.</text>
     <text name="TheOfficerDoesNotExists">این کاربر به عنوان مامور تعریف نشده است.</text>
     <text name="ThePlaqueStoreDoesNotExists">برای این کد انبار تعریف نشده است.</text>
@@ -1309,7 +1309,7 @@
     <text name="UniqueCodeContractor">شناسه یکتا پیمانکار</text>
     <text name="UniqueCodeOfficer">شناسه یکتا مامور</text>
     <text name="UniqueCodeHerd">شناسه یکتا گله</text>
-    <text name="LiveStockOfficer">نام مامور</text>
+    <text name="LiveStockOfficer">مامور</text>
     <text name="LiveStockNowDate">تاریخ</text>
     <text name="LiveStockNowTime">ساعت</text>
     <text name="PlaqueCode">شماره پلاک</text>

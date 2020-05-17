@@ -29,9 +29,9 @@ namespace Akh.Breed.Herds.Dto
         
         public string Institution { get; set; }
 
-        public string Name { get; set; }
+        public string LiveStockOwner { get; set; }
 
-        public string Family { get; set; }
+        public string OfficerName { get; set; }
 
         public string EpidemiologicCode { get; set; }
 

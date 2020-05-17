@@ -63,7 +63,7 @@
                                     <div class="row">                                
                                         <div class="form-group col-md-6 col-sm-12">
                                             <div class="row">
-                                                <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}} *</label>
+                                                <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}}</label>
                                                 <div class="col-md-8 col-sm-12">
                                                     <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="unionInfo.postalCode" type="num" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10"></p-inputMask>
                                                     <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="form-group col-md-6 col-sm-12">
                                             <div class="row">
-                                                <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}}</label>
+                                                <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}} *</label>
                                                 <div class="col-md-8 col-sm-12">
                                                     <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-999-999-9999" [(ngModel)]="unionInfo.phone" type="num" autocomplete="new-password" name="phone" placeholder="0-912-111-2233" length="11" required></p-inputMask>
                                                     <validation-messages [formCtrl]="phoneInput"></validation-messages>

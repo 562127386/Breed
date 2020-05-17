@@ -100,7 +100,7 @@ export class TopBarComponent extends ThemesLayoutBaseComponent implements OnInit
     setCurrentLoginInformations(): void {
         this.shownLoginName = this.appSession.getShownLoginName();
         this.tenancyName = this.appSession.tenancyName;
-        this.userName = this.appSession.user.userName;
+        this.userName = this.appSession.user.name + ' ' + this.appSession.user.surname;
     }
 
     getShownUserName(linkedUser: LinkedUserDto): string {

@@ -23431,8 +23431,8 @@ export class HerdListDto implements IHerdListDto {
     agriculturalId!: string | undefined;
     code!: string | undefined;
     institution!: string | undefined;
-    name!: string | undefined;
-    family!: string | undefined;
+    liveStockOwner!: string | undefined;
+    officerName!: string | undefined;
     epidemiologicCode!: string | undefined;
     postalCode!: string | undefined;
     mobile!: string | undefined;
@@ -23455,8 +23455,8 @@ export class HerdListDto implements IHerdListDto {
             this.agriculturalId = data["agriculturalId"];
             this.code = data["code"];
             this.institution = data["institution"];
-            this.name = data["name"];
-            this.family = data["family"];
+            this.liveStockOwner = data["liveStockOwner"];
+            this.officerName = data["officerName"];
             this.epidemiologicCode = data["epidemiologicCode"];
             this.postalCode = data["postalCode"];
             this.mobile = data["mobile"];
@@ -23479,8 +23479,8 @@ export class HerdListDto implements IHerdListDto {
         data["agriculturalId"] = this.agriculturalId;
         data["code"] = this.code;
         data["institution"] = this.institution;
-        data["name"] = this.name;
-        data["family"] = this.family;
+        data["liveStockOwner"] = this.liveStockOwner;
+        data["officerName"] = this.officerName;
         data["epidemiologicCode"] = this.epidemiologicCode;
         data["postalCode"] = this.postalCode;
         data["mobile"] = this.mobile;
@@ -23496,8 +23496,8 @@ export interface IHerdListDto {
     agriculturalId: string | undefined;
     code: string | undefined;
     institution: string | undefined;
-    name: string | undefined;
-    family: string | undefined;
+    liveStockOwner: string | undefined;
+    officerName: string | undefined;
     epidemiologicCode: string | undefined;
     postalCode: string | undefined;
     mobile: string | undefined;
@@ -29906,7 +29906,7 @@ export class PlaqueToOfficerListDto implements IPlaqueToOfficerListDto {
     plaqueUsed!: number;
     setTime!: moment.Moment;
     stateName!: string | undefined;
-    cityName!: string | undefined;
+    contractorName!: string | undefined;
     officerName!: string | undefined;
     officerFamily!: string | undefined;
     officerCode!: string | undefined;
@@ -29930,7 +29930,7 @@ export class PlaqueToOfficerListDto implements IPlaqueToOfficerListDto {
             this.plaqueUsed = data["plaqueUsed"];
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.stateName = data["stateName"];
-            this.cityName = data["cityName"];
+            this.contractorName = data["contractorName"];
             this.officerName = data["officerName"];
             this.officerFamily = data["officerFamily"];
             this.officerCode = data["officerCode"];
@@ -29954,7 +29954,7 @@ export class PlaqueToOfficerListDto implements IPlaqueToOfficerListDto {
         data["plaqueUsed"] = this.plaqueUsed;
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["stateName"] = this.stateName;
-        data["cityName"] = this.cityName;
+        data["contractorName"] = this.contractorName;
         data["officerName"] = this.officerName;
         data["officerFamily"] = this.officerFamily;
         data["officerCode"] = this.officerCode;
@@ -29971,7 +29971,7 @@ export interface IPlaqueToOfficerListDto {
     plaqueUsed: number;
     setTime: moment.Moment;
     stateName: string | undefined;
-    cityName: string | undefined;
+    contractorName: string | undefined;
     officerName: string | undefined;
     officerFamily: string | undefined;
     officerCode: string | undefined;

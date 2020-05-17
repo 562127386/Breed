@@ -166,6 +166,8 @@ namespace Akh.Breed
             configuration.CreateMap<Herd, HerdListDto>()
                 .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.FirmName + "(" + l.Contractor.Name + "," + l.Contractor.Family + ")"))
                 .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
+                .ForMember(d => d.LiveStockOwner, options => options.MapFrom(l => l.Iranian ? (l.Reality ? " (حقیقی)" + l.Name + " " + l.Family : " (حقوقی)" + l.FirmName) :  " (شرکت خارجی)" + l.Phone))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
                 .ForMember(d => d.Institution, options => options.MapFrom(l => l.Institution + " - " + l.StateInfo.Name + " - " + l.CityInfo.Name + (l.RegionInfo != null ? (" - " + l.RegionInfo.Name) : "") + (l.VillageInfo != null ? (" - " + l.VillageInfo.Name) : "")  ));
             configuration.CreateMap<HerdCreateOrUpdateInput, Herd>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()))
@@ -357,7 +359,7 @@ namespace Akh.Breed
             configuration.CreateMap<PlaqueToOfficer, PlaqueToOfficerListDto>()
                 .ForMember(d => d.SetTime, options => options.MapFrom(l => l.SetTime.GetShamsi()))
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
-                .ForMember(d => d.CityName, options => options.MapFrom(l => l.PlaqueToContractor.Contractor.CityInfo.Name))
+                .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.PlaqueToContractor.Contractor.FirmName + " (" + l.PlaqueToContractor.Contractor.Name + "," + l.PlaqueToContractor.Contractor.Family + ")"))
                 .ForMember(d => d.StateName, options => options.MapFrom(l => l.PlaqueToContractor.Contractor.CityInfo.StateInfo.Name))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name))
                 .ForMember(d => d.OfficerFamily, options => options.MapFrom(l => l.Officer.Family))

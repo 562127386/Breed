@@ -34,7 +34,7 @@ namespace Akh.Breed.Plaques.Dto
         
         public string StateName { get; set; }
         
-        public string CityName { get; set; }
+        public string ContractorName { get; set; }
         
         public string OfficerName { get; set; }
         

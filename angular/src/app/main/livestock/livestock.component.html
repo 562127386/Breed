@@ -59,7 +59,7 @@
                                 <ng-template pTemplate="header">
                                     <tr>     
                                         <th style="width: 130px" pSortableColumn="nationalCode">
-                                            {{'NationalCode' | localize}}
+                                            {{'LivestockCode' | localize}}
                                             <p-sortIcon field="nationalCode"></p-sortIcon>
                                         </th>
                                         <th style="width: 90px" pSortableColumn="latitude">
@@ -98,7 +98,7 @@
                                 <ng-template pTemplate="body" let-record="$implicit">
                                     <tr>      
                                         <td style="width: 130px">
-                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
+                                            <span class="ui-column-title"> {{'LivestockCode' | localize}}</span>
                                             {{record.nationalCode}}
                                         </td>
                                         <td style="width: 90px">

@@ -199,6 +199,8 @@ namespace Akh.Breed.Herds
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd_Create, AppPermissions.Pages_BaseIntro_Herd_Edit)]
         public async Task CreateOrUpdateHerd(HerdCreateOrUpdateInput input)
         {
+            await CheckValidation(input);
+            
             if (input.Id.HasValue)
             {
                 await UpdateHerdAsync(input);
@@ -275,6 +277,7 @@ namespace Akh.Breed.Herds
             var query = QueryableExtensions.WhereIf(
                 _herdRepository.GetAll()
                 .Include(x => x.Contractor)
+                .Include(x => x.Officer)
                 .Include(x => x.ActivityInfo)
                 .Include(x => x.StateInfo)
                 .Include(x => x.CityInfo)
@@ -304,5 +307,20 @@ namespace Akh.Breed.Herds
 
             return query;
         }        
+        
+        public async Task<HerdCreateOrUpdateInput> CheckValidation(HerdCreateOrUpdateInput input)
+        {
+            var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+            if (officer == null)
+            {
+                throw new UserFriendlyException(L("TheOfficerDoesNotExists"));
+            }
+            else
+            {
+                input.OfficerId = officer.Id;
+            }
+
+            return input;
+        }
    }
 }

@@ -60,6 +60,9 @@
                                         <tr>                                        
                                             <th style="width: 100px" >
                                                 {{'SpeciesName' | localize}}
+                                            </th>                                        
+                                            <th style="width: 100px" >
+                                                {{'Manufacturer' | localize}}
                                             </th>
                                             <th style="width: 100px" pSortableColumn="setTime">
                                                 {{'SetTime' | localize}}
@@ -97,6 +100,10 @@
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'SpeciesName' | localize}}</span>
                                                 {{record.speciesName}}
+                                            </td>                                        
+                                            <td style="width: 100px">
+                                                <span class="ui-column-title"> {{'Manufacturer' | localize}}</span>
+                                                {{record.manufacturerName}}
                                             </td>
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'SetTime' | localize}}</span>
