@@ -102,7 +102,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"AcademicDegree" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                            <p-dropdown #academicDegreeCombobox="ngModel" [options]="academicDegreesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="academicDegreeId" [(ngModel)]="officer.academicDegreeId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *"></p-dropdown>
+                                            <p-dropdown #academicDegreeCombobox="ngModel" [options]="academicDegreesSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="academicDegreeId" [(ngModel)]="officer.academicDegreeId" [style]="{'width':'100%'}" placeholder="{{'Select' | localize}} *" required></p-dropdown>
                                             <validation-messages [formCtrl]="academicDegreeCombobox"></validation-messages>
                                     </div>
                                 </div>                                
@@ -116,7 +116,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"StateInfo" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                            <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="stateInfoId" [(ngModel)]="officer.stateInfoId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *" (onChange)="getCities($event.value)"></p-dropdown>
+                                            <p-dropdown #stateInfoCombobox="ngModel" [options]="stateInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="stateInfoId" [(ngModel)]="officer.stateInfoId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *" (onChange)="getCities($event.value)" required></p-dropdown>
                                             <validation-messages [formCtrl]="stateInfoCombobox"></validation-messages>
                                     </div>
                                 </div>                                
@@ -125,7 +125,7 @@
                                 <div class="row">
                                     <label class="col-form-label col-md-4 col-sm-12">{{"Contractor" | localize}} *</label>
                                     <div class="col-md-8 col-sm-12">
-                                            <p-dropdown #contractorCombobox="ngModel" [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="contractorId" [(ngModel)]="officer.contractorId" [style]="{'width':'100%'}" required placeholder="{{'Select' | localize}} *"></p-dropdown>
+                                            <p-dropdown #contractorCombobox="ngModel" [options]="contractorsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" name="contractorId" [(ngModel)]="officer.contractorId" [style]="{'width':'100%'}" placeholder="{{'Select' | localize}} *" required></p-dropdown>
                                         <validation-messages [formCtrl]="contractorCombobox"></validation-messages>
                                     </div>
                                 </div>                                
