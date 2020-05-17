@@ -161,6 +161,7 @@ namespace Akh.Breed
             configuration.CreateMap<ContractorCreateOrUpdateInput, Contractor>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()));
             configuration.CreateMap<Contractor, ContractorCreateOrUpdateInput>()
+                .ForMember(d => d.UserName, options => options.MapFrom(l => l.User.UserName))
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
 
             configuration.CreateMap<Herd, HerdListDto>()
@@ -220,6 +221,7 @@ namespace Akh.Breed
             configuration.CreateMap<OfficerCreateOrUpdateInput, Officer>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()));
             configuration.CreateMap<Officer, OfficerCreateOrUpdateInput>()
+                .ForMember(d => d.UserName, options => options.MapFrom(l => l.User.UserName))
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
             configuration.CreateMap<Officer, OfficerEditDto>()
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
@@ -232,11 +234,13 @@ namespace Akh.Breed
             configuration.CreateMap<UnionInfo, UnionInfoListDto>()
                 .ForMember(d => d.StateInfoName, options => options.MapFrom(l => l.StateInfo.Name));
             configuration.CreateMap<UnionInfoCreateOrUpdateInput, UnionInfo>();
-            configuration.CreateMap<UnionInfo, UnionInfoCreateOrUpdateInput>();
+            configuration.CreateMap<UnionInfo, UnionInfoCreateOrUpdateInput>()
+                .ForMember(d => d.UserName, options => options.MapFrom(l => l.User.UserName));
 
             configuration.CreateMap<UnionEmployee, UnionEmployeeListDto>();
             configuration.CreateMap<UnionEmployeeCreateOrUpdateInput, UnionEmployee>();
-            configuration.CreateMap<UnionEmployee, UnionEmployeeCreateOrUpdateInput>();
+            configuration.CreateMap<UnionEmployee, UnionEmployeeCreateOrUpdateInput>()
+                .ForMember(d => d.UserName, options => options.MapFrom(l => l.User.UserName));
             
             configuration.CreateMap<ActivityInfo, ActivityInfoListDto>();
             configuration.CreateMap<ActivityInfoCreateOrUpdateInput, ActivityInfo>();

@@ -5248,6 +5248,62 @@ export class HerdServiceProxy {
         }
         return _observableOf<ComboboxItemDto[]>(<any>null);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    checkValidation(body: HerdCreateOrUpdateInput | undefined): Observable<HerdCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/Herd/CheckValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckValidation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckValidation(<any>response_);
+                } catch (e) {
+                    return <Observable<HerdCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<HerdCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckValidation(response: HttpResponseBase): Observable<HerdCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = HerdCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<HerdCreateOrUpdateInput>(<any>null);
+    }
 }
 
 @Injectable()
@@ -21383,6 +21439,7 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
     birthDate!: moment.Moment | undefined;
     name!: string | undefined;
     family!: string | undefined;
+    userName!: string | undefined;
     phone!: string | undefined;
     email!: string | undefined;
     firmName!: string | undefined;
@@ -21396,6 +21453,7 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
     partialTimeStaffBachelorAndUpper!: number | undefined;
     firmTypeId!: number | undefined;
     unionInfoId!: number | undefined;
+    userId!: number;
     stateInfoId!: number | undefined;
     cityInfoId!: number | undefined;
     regionInfoId!: number | undefined;
@@ -21422,6 +21480,7 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
             this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
             this.name = data["name"];
             this.family = data["family"];
+            this.userName = data["userName"];
             this.phone = data["phone"];
             this.email = data["email"];
             this.firmName = data["firmName"];
@@ -21435,6 +21494,7 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
             this.partialTimeStaffBachelorAndUpper = data["partialTimeStaffBachelorAndUpper"];
             this.firmTypeId = data["firmTypeId"];
             this.unionInfoId = data["unionInfoId"];
+            this.userId = data["userId"];
             this.stateInfoId = data["stateInfoId"];
             this.cityInfoId = data["cityInfoId"];
             this.regionInfoId = data["regionInfoId"];
@@ -21461,6 +21521,7 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
         data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
         data["name"] = this.name;
         data["family"] = this.family;
+        data["userName"] = this.userName;
         data["phone"] = this.phone;
         data["email"] = this.email;
         data["firmName"] = this.firmName;
@@ -21474,6 +21535,7 @@ export class ContractorCreateOrUpdateInput implements IContractorCreateOrUpdateI
         data["partialTimeStaffBachelorAndUpper"] = this.partialTimeStaffBachelorAndUpper;
         data["firmTypeId"] = this.firmTypeId;
         data["unionInfoId"] = this.unionInfoId;
+        data["userId"] = this.userId;
         data["stateInfoId"] = this.stateInfoId;
         data["cityInfoId"] = this.cityInfoId;
         data["regionInfoId"] = this.regionInfoId;
@@ -21493,6 +21555,7 @@ export interface IContractorCreateOrUpdateInput {
     birthDate: moment.Moment | undefined;
     name: string | undefined;
     family: string | undefined;
+    userName: string | undefined;
     phone: string | undefined;
     email: string | undefined;
     firmName: string | undefined;
@@ -21506,6 +21569,7 @@ export interface IContractorCreateOrUpdateInput {
     partialTimeStaffBachelorAndUpper: number | undefined;
     firmTypeId: number | undefined;
     unionInfoId: number | undefined;
+    userId: number;
     stateInfoId: number | undefined;
     cityInfoId: number | undefined;
     regionInfoId: number | undefined;
@@ -23589,6 +23653,7 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
     cityInfoId!: number | undefined;
     regionInfoId!: number | undefined;
     villageInfoId!: number | undefined;
+    officerId!: number | undefined;
 
     constructor(data?: IHerdCreateOrUpdateInput) {
         if (data) {
@@ -23635,6 +23700,7 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
             this.cityInfoId = data["cityInfoId"];
             this.regionInfoId = data["regionInfoId"];
             this.villageInfoId = data["villageInfoId"];
+            this.officerId = data["officerId"];
         }
     }
 
@@ -23681,6 +23747,7 @@ export class HerdCreateOrUpdateInput implements IHerdCreateOrUpdateInput {
         data["cityInfoId"] = this.cityInfoId;
         data["regionInfoId"] = this.regionInfoId;
         data["villageInfoId"] = this.villageInfoId;
+        data["officerId"] = this.officerId;
         return data; 
     }
 }
@@ -23720,6 +23787,7 @@ export interface IHerdCreateOrUpdateInput {
     cityInfoId: number | undefined;
     regionInfoId: number | undefined;
     villageInfoId: number | undefined;
+    officerId: number | undefined;
 }
 
 export class GetHerdForEditOutput implements IGetHerdForEditOutput {
@@ -27216,13 +27284,14 @@ export interface IPagedResultDtoOfOfficerListDto {
     items: OfficerListDto[] | undefined;
 }
 
-export class OfficerEditDto implements IOfficerEditDto {
+export class OfficerCreateOrUpdateInput implements IOfficerCreateOrUpdateInput {
     id!: number | undefined;
     code!: string | undefined;
     nationalCode!: string | undefined;
     birthDate!: moment.Moment | undefined;
     name!: string | undefined;
     family!: string | undefined;
+    userName!: string | undefined;
     fatherName!: string | undefined;
     idNo!: string | undefined;
     workNumber!: string | undefined;
@@ -27232,11 +27301,12 @@ export class OfficerEditDto implements IOfficerEditDto {
     academicDegreeName!: string | undefined;
     academicDegreeId!: number;
     stateInfoName!: string | undefined;
-    stateInfoId!: number | undefined;
+    stateInfoId!: number;
     contractorName!: string | undefined;
     contractorId!: number;
+    userId!: number;
 
-    constructor(data?: IOfficerEditDto) {
+    constructor(data?: IOfficerCreateOrUpdateInput) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -27253,6 +27323,7 @@ export class OfficerEditDto implements IOfficerEditDto {
             this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
             this.name = data["name"];
             this.family = data["family"];
+            this.userName = data["userName"];
             this.fatherName = data["fatherName"];
             this.idNo = data["idNo"];
             this.workNumber = data["workNumber"];
@@ -27265,12 +27336,13 @@ export class OfficerEditDto implements IOfficerEditDto {
             this.stateInfoId = data["stateInfoId"];
             this.contractorName = data["contractorName"];
             this.contractorId = data["contractorId"];
+            this.userId = data["userId"];
         }
     }
 
-    static fromJS(data: any): OfficerEditDto {
+    static fromJS(data: any): OfficerCreateOrUpdateInput {
         data = typeof data === 'object' ? data : {};
-        let result = new OfficerEditDto();
+        let result = new OfficerCreateOrUpdateInput();
         result.init(data);
         return result;
     }
@@ -27283,6 +27355,7 @@ export class OfficerEditDto implements IOfficerEditDto {
         data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
         data["name"] = this.name;
         data["family"] = this.family;
+        data["userName"] = this.userName;
         data["fatherName"] = this.fatherName;
         data["idNo"] = this.idNo;
         data["workNumber"] = this.workNumber;
@@ -27295,17 +27368,19 @@ export class OfficerEditDto implements IOfficerEditDto {
         data["stateInfoId"] = this.stateInfoId;
         data["contractorName"] = this.contractorName;
         data["contractorId"] = this.contractorId;
+        data["userId"] = this.userId;
         return data; 
     }
 }
 
-export interface IOfficerEditDto {
+export interface IOfficerCreateOrUpdateInput {
     id: number | undefined;
     code: string | undefined;
     nationalCode: string | undefined;
     birthDate: moment.Moment | undefined;
     name: string | undefined;
     family: string | undefined;
+    userName: string | undefined;
     fatherName: string | undefined;
     idNo: string | undefined;
     workNumber: string | undefined;
@@ -27315,13 +27390,14 @@ export interface IOfficerEditDto {
     academicDegreeName: string | undefined;
     academicDegreeId: number;
     stateInfoName: string | undefined;
-    stateInfoId: number | undefined;
+    stateInfoId: number;
     contractorName: string | undefined;
     contractorId: number;
+    userId: number;
 }
 
 export class GetOfficerForEditOutput implements IGetOfficerForEditOutput {
-    officer!: OfficerEditDto;
+    officer!: OfficerCreateOrUpdateInput;
     academicDegrees!: ComboboxItemDto[] | undefined;
     stateInfos!: ComboboxItemDto[] | undefined;
     contractors!: ComboboxItemDto[] | undefined;
@@ -27337,7 +27413,7 @@ export class GetOfficerForEditOutput implements IGetOfficerForEditOutput {
 
     init(data?: any) {
         if (data) {
-            this.officer = data["officer"] ? OfficerEditDto.fromJS(data["officer"]) : <any>undefined;
+            this.officer = data["officer"] ? OfficerCreateOrUpdateInput.fromJS(data["officer"]) : <any>undefined;
             if (Array.isArray(data["academicDegrees"])) {
                 this.academicDegrees = [] as any;
                 for (let item of data["academicDegrees"])
@@ -27386,114 +27462,10 @@ export class GetOfficerForEditOutput implements IGetOfficerForEditOutput {
 }
 
 export interface IGetOfficerForEditOutput {
-    officer: OfficerEditDto;
+    officer: OfficerCreateOrUpdateInput;
     academicDegrees: ComboboxItemDto[] | undefined;
     stateInfos: ComboboxItemDto[] | undefined;
     contractors: ComboboxItemDto[] | undefined;
-}
-
-export class OfficerCreateOrUpdateInput implements IOfficerCreateOrUpdateInput {
-    id!: number | undefined;
-    code!: string | undefined;
-    nationalCode!: string | undefined;
-    birthDate!: moment.Moment | undefined;
-    name!: string | undefined;
-    family!: string | undefined;
-    fatherName!: string | undefined;
-    idNo!: string | undefined;
-    workNumber!: string | undefined;
-    mobileNumber!: string | undefined;
-    address!: string | undefined;
-    postalCode!: string | undefined;
-    academicDegreeName!: string | undefined;
-    academicDegreeId!: number;
-    stateInfoName!: string | undefined;
-    stateInfoId!: number;
-    contractorName!: string | undefined;
-    contractorId!: number;
-
-    constructor(data?: IOfficerCreateOrUpdateInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.id = data["id"];
-            this.code = data["code"];
-            this.nationalCode = data["nationalCode"];
-            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
-            this.name = data["name"];
-            this.family = data["family"];
-            this.fatherName = data["fatherName"];
-            this.idNo = data["idNo"];
-            this.workNumber = data["workNumber"];
-            this.mobileNumber = data["mobileNumber"];
-            this.address = data["address"];
-            this.postalCode = data["postalCode"];
-            this.academicDegreeName = data["academicDegreeName"];
-            this.academicDegreeId = data["academicDegreeId"];
-            this.stateInfoName = data["stateInfoName"];
-            this.stateInfoId = data["stateInfoId"];
-            this.contractorName = data["contractorName"];
-            this.contractorId = data["contractorId"];
-        }
-    }
-
-    static fromJS(data: any): OfficerCreateOrUpdateInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new OfficerCreateOrUpdateInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["code"] = this.code;
-        data["nationalCode"] = this.nationalCode;
-        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
-        data["name"] = this.name;
-        data["family"] = this.family;
-        data["fatherName"] = this.fatherName;
-        data["idNo"] = this.idNo;
-        data["workNumber"] = this.workNumber;
-        data["mobileNumber"] = this.mobileNumber;
-        data["address"] = this.address;
-        data["postalCode"] = this.postalCode;
-        data["academicDegreeName"] = this.academicDegreeName;
-        data["academicDegreeId"] = this.academicDegreeId;
-        data["stateInfoName"] = this.stateInfoName;
-        data["stateInfoId"] = this.stateInfoId;
-        data["contractorName"] = this.contractorName;
-        data["contractorId"] = this.contractorId;
-        return data; 
-    }
-}
-
-export interface IOfficerCreateOrUpdateInput {
-    id: number | undefined;
-    code: string | undefined;
-    nationalCode: string | undefined;
-    birthDate: moment.Moment | undefined;
-    name: string | undefined;
-    family: string | undefined;
-    fatherName: string | undefined;
-    idNo: string | undefined;
-    workNumber: string | undefined;
-    mobileNumber: string | undefined;
-    address: string | undefined;
-    postalCode: string | undefined;
-    academicDegreeName: string | undefined;
-    academicDegreeId: number;
-    stateInfoName: string | undefined;
-    stateInfoId: number;
-    contractorName: string | undefined;
-    contractorId: number;
 }
 
 export class OrganizationUnitDto implements IOrganizationUnitDto {
@@ -35100,9 +35072,11 @@ export class UnionEmployeeCreateOrUpdateInput implements IUnionEmployeeCreateOrU
     nationalCode!: string | undefined;
     name!: string | undefined;
     family!: string | undefined;
+    userName!: string | undefined;
     phone!: string | undefined;
     post!: string | undefined;
     unionInfoId!: number;
+    userId!: number;
 
     constructor(data?: IUnionEmployeeCreateOrUpdateInput) {
         if (data) {
@@ -35119,9 +35093,11 @@ export class UnionEmployeeCreateOrUpdateInput implements IUnionEmployeeCreateOrU
             this.nationalCode = data["nationalCode"];
             this.name = data["name"];
             this.family = data["family"];
+            this.userName = data["userName"];
             this.phone = data["phone"];
             this.post = data["post"];
             this.unionInfoId = data["unionInfoId"];
+            this.userId = data["userId"];
         }
     }
 
@@ -35138,9 +35114,11 @@ export class UnionEmployeeCreateOrUpdateInput implements IUnionEmployeeCreateOrU
         data["nationalCode"] = this.nationalCode;
         data["name"] = this.name;
         data["family"] = this.family;
+        data["userName"] = this.userName;
         data["phone"] = this.phone;
         data["post"] = this.post;
         data["unionInfoId"] = this.unionInfoId;
+        data["userId"] = this.userId;
         return data; 
     }
 }
@@ -35150,9 +35128,11 @@ export interface IUnionEmployeeCreateOrUpdateInput {
     nationalCode: string | undefined;
     name: string | undefined;
     family: string | undefined;
+    userName: string | undefined;
     phone: string | undefined;
     post: string | undefined;
     unionInfoId: number;
+    userId: number;
 }
 
 export class UnionInfoListDto implements IUnionInfoListDto {
@@ -35286,10 +35266,12 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
     nationalCode!: string | undefined;
     name!: string | undefined;
     family!: string | undefined;
+    userName!: string | undefined;
     phone!: string | undefined;
     address!: string | undefined;
     postalCode!: string | undefined;
     stateInfoId!: number;
+    userId!: number;
 
     constructor(data?: IUnionInfoCreateOrUpdateInput) {
         if (data) {
@@ -35308,10 +35290,12 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
             this.nationalCode = data["nationalCode"];
             this.name = data["name"];
             this.family = data["family"];
+            this.userName = data["userName"];
             this.phone = data["phone"];
             this.address = data["address"];
             this.postalCode = data["postalCode"];
             this.stateInfoId = data["stateInfoId"];
+            this.userId = data["userId"];
         }
     }
 
@@ -35330,10 +35314,12 @@ export class UnionInfoCreateOrUpdateInput implements IUnionInfoCreateOrUpdateInp
         data["nationalCode"] = this.nationalCode;
         data["name"] = this.name;
         data["family"] = this.family;
+        data["userName"] = this.userName;
         data["phone"] = this.phone;
         data["address"] = this.address;
         data["postalCode"] = this.postalCode;
         data["stateInfoId"] = this.stateInfoId;
+        data["userId"] = this.userId;
         return data; 
     }
 }
@@ -35345,10 +35331,12 @@ export interface IUnionInfoCreateOrUpdateInput {
     nationalCode: string | undefined;
     name: string | undefined;
     family: string | undefined;
+    userName: string | undefined;
     phone: string | undefined;
     address: string | undefined;
     postalCode: string | undefined;
     stateInfoId: number;
+    userId: number;
 }
 
 export class UnionInfoGetForEditOutput implements IUnionInfoGetForEditOutput {

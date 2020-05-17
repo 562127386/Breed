@@ -17,6 +17,8 @@ namespace Akh.Breed.Unions.Dto
         public string Name { get; set; }
 
         public string Family { get; set; }
+        
+        public string UserName { get; set; }
 
         public string Phone { get; set; }
 
@@ -26,5 +28,7 @@ namespace Akh.Breed.Unions.Dto
 
         [Required]
         public int StateInfoId { get; set; }
+
+        public long UserId { get; set; }
     }
 }

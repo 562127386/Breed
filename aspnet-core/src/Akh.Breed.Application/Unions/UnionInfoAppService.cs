@@ -76,7 +76,9 @@ namespace Akh.Breed.Unions
             UnionInfo unionInfo = null;
             if (input.Id.HasValue)
             {
-                unionInfo = await _unionInfoRepository.GetAsync(input.Id.Value);
+                unionInfo = await _unionInfoRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.Id == input.Id.Value);
             }
             //Getting all available roles
             var output = new UnionInfoGetForEditOutput();
@@ -127,6 +129,14 @@ namespace Akh.Breed.Unions
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionInfo_Edit)]
         private async Task UpdateUnionInfoAsync(UnionInfoCreateOrUpdateInput input)
         {
+            var user = await UserManager.GetUserByIdAsync(input.UserId);
+            user.Name = input.Name;
+            user.Surname = input.Family;
+            user.UserName = input.UserName;
+            user.EmailAddress = input.UserName + "@mgnsys.ir";
+            CheckErrors(await UserManager.UpdateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+            
             var unionInfo = ObjectMapper.Map<UnionInfo>(input);
             await _unionInfoRepository.UpdateAsync(unionInfo);
         }
@@ -139,8 +149,8 @@ namespace Akh.Breed.Unions
             {
                 IsActive = true,
                 ShouldChangePasswordOnNextLogin = true,
-                UserName = nationalCode,
-                EmailAddress = nationalCode + "@mgnsys.ir",
+                UserName = input.UserName,
+                EmailAddress = input.UserName + "@mgnsys.ir",
                 Name = input.Name,
                 Surname = input.Family
             };

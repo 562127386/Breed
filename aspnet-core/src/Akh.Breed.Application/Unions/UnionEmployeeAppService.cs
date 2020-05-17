@@ -57,7 +57,9 @@ namespace Akh.Breed.Unions
             output.UnionInfoId = unionInfoId;
             if (input.Id.HasValue)
             {
-                var unionEmployee = await _unionEmployeeRepository.GetAsync(input.Id.Value);
+                var unionEmployee = await _unionEmployeeRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.Id == input.Id.Value);
                 if (unionEmployee != null)
                     ObjectMapper.Map<UnionEmployee,UnionEmployeeCreateOrUpdateInput>(unionEmployee,output);
             }
@@ -97,6 +99,14 @@ namespace Akh.Breed.Unions
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_UnionEmployee_Edit)]
         private async Task UpdateUnionEmployeeAsync(UnionEmployeeCreateOrUpdateInput input)
         {
+            var user = await UserManager.GetUserByIdAsync(input.UserId);
+            user.Name = input.Name;
+            user.Surname = input.Family;
+            user.UserName = input.UserName;
+            user.EmailAddress = input.UserName + "@mgnsys.ir";
+            CheckErrors(await UserManager.UpdateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+            
             var unionEmployee = ObjectMapper.Map<UnionEmployee>(input);
             await _unionEmployeeRepository.UpdateAsync(unionEmployee);
         }
@@ -109,8 +119,8 @@ namespace Akh.Breed.Unions
             {
                 IsActive = true,
                 ShouldChangePasswordOnNextLogin = true,
-                UserName = nationalCode,
-                EmailAddress = nationalCode + "@mgnsys.ir",
+                UserName = input.UserName,
+                EmailAddress = input.UserName + "@mgnsys.ir",
                 Name = input.Name,
                 Surname = input.Family
             };

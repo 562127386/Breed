@@ -90,6 +90,7 @@ namespace Akh.Breed.Contractors
             if (input.Id.HasValue)
             {
                 contractor = await _contractorRepository.GetAll()
+                    .Include(x => x.User)
                     .Include(x => x.VillageInfo)
                     .Include(x => x.RegionInfo)
                     .Include(x => x.CityInfo)
@@ -197,6 +198,14 @@ namespace Akh.Breed.Contractors
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor_Edit)]
         private async Task UpdateContractorAsync(ContractorCreateOrUpdateInput input)
         {
+            var user = await UserManager.GetUserByIdAsync(input.UserId);
+            user.Name = input.Name;
+            user.Surname = input.Family;
+            user.UserName = input.UserName;
+            user.EmailAddress = input.UserName + "@mgnsys.ir";
+            CheckErrors(await UserManager.UpdateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+            
             var contractor = ObjectMapper.Map<Contractor>(input);
             await _contractorRepository.UpdateAsync(contractor);
         }
@@ -209,8 +218,8 @@ namespace Akh.Breed.Contractors
             {
                 IsActive = true,
                 ShouldChangePasswordOnNextLogin = true,
-                UserName = nationalCode,
-                EmailAddress = nationalCode + "@mgnsys.ir",
+                UserName = input.UserName,
+                EmailAddress = input.UserName + "@mgnsys.ir",
                 Name = input.Name,
                 Surname = input.Family
             };

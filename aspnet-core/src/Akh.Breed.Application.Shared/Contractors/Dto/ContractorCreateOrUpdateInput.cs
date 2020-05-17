@@ -24,6 +24,8 @@ namespace Akh.Breed.Contractors.Dto
         public string Name { get; set; }
 
         public string Family { get; set; }
+        
+        public string UserName { get; set; }
 
         public string Phone { get; set; }
 
@@ -50,6 +52,8 @@ namespace Akh.Breed.Contractors.Dto
         public int? FirmTypeId { get; set; }
         
         public int? UnionInfoId { get; set; }
+
+        public long UserId { get; set; }
         
         public int? StateInfoId { get; set; }
         public int? CityInfoId { get; set; }

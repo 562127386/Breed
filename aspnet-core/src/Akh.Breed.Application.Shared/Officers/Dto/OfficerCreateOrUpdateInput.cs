@@ -14,8 +14,10 @@ namespace Akh.Breed.Officers.Dto
         public DateTime? BirthDate { get; set; }
 
         public string Name { get; set; }
-
+        
         public string Family { get; set; }
+        
+        public string UserName { get; set; }
         
         public string FatherName { get; set; }
         
@@ -40,5 +42,7 @@ namespace Akh.Breed.Officers.Dto
         public string ContractorName { get; set; }
 
         public int ContractorId { get; set; }
+
+        public long UserId { get; set; }
     }
 }

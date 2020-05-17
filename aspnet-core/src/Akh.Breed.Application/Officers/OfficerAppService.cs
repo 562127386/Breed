@@ -92,15 +92,17 @@ namespace Akh.Breed.Officers
             Officer officer = null;
             if (input.Id.HasValue)
             {
-                officer = await _officerRepository.GetAsync(input.Id.Value);
+                officer = await _officerRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.Id == input.Id.Value);
             }
             
             var output = new GetOfficerForEditOutput();
             
             //officer
             output.Officer = officer != null
-                ? ObjectMapper.Map<OfficerEditDto>(officer)
-                : new OfficerEditDto();
+                ? ObjectMapper.Map<OfficerCreateOrUpdateInput>(officer)
+                : new OfficerCreateOrUpdateInput();
             
             //AcademicDegrees
             output.AcademicDegrees = _academicDegreeRepository
@@ -139,11 +141,11 @@ namespace Akh.Breed.Officers
                 .ToList();
             
             //Contractors
-            if (output.Officer.StateInfoId.HasValue)
+            if (output.Officer.StateInfoId > 0)
             {
                 output.Contractors = _contractorRepository
                     .GetAllList()
-                    .Where(x => x.StateInfoId == output.Officer.StateInfoId.Value)
+                    .Where(x => x.StateInfoId == output.Officer.StateInfoId)
                     .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" + c.Name + "," + c.Family + ")")
                         {IsSelected = output.Officer.ContractorId == c.Id})
                     .ToList();
@@ -182,6 +184,14 @@ namespace Akh.Breed.Officers
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Officer_Edit)]
         private async Task UpdateOfficerAsync(OfficerCreateOrUpdateInput input)
         {
+            var user = await UserManager.GetUserByIdAsync(input.UserId);
+            user.Name = input.Name;
+            user.Surname = input.Family;
+            user.UserName = input.UserName;
+            user.EmailAddress = input.UserName + "@mgnsys.ir";
+            CheckErrors(await UserManager.UpdateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+            
             var officer = ObjectMapper.Map<Officer>(input);
             await _officerRepository.UpdateAsync(officer);
         }
@@ -194,8 +204,8 @@ namespace Akh.Breed.Officers
             {
                 IsActive = true,
                 ShouldChangePasswordOnNextLogin = true,
-                UserName = nationalCode,
-                EmailAddress = nationalCode + "@mgnsys.ir",
+                UserName = input.UserName,
+                EmailAddress = input.UserName + "@mgnsys.ir",
                 Name = input.Name,
                 Surname = input.Family
             };

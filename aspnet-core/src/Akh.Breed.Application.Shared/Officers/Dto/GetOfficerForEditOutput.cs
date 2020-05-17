@@ -5,7 +5,7 @@ namespace Akh.Breed.Officers.Dto
 {
     public class GetOfficerForEditOutput
     {
-        public OfficerEditDto Officer { get; set; }
+        public OfficerCreateOrUpdateInput Officer { get; set; }
         
         public List<ComboboxItemDto> AcademicDegrees { get; set; }
         public List<ComboboxItemDto> StateInfos { get; set; }
