@@ -1067,6 +1067,12 @@
     <text name="ViewNewLivestock">نمایش پلاک نصب شده</text>
     <text name="EditNewLivestock">اصلاح پلاک نصب شده</text>
 
+    <text name="CreateNewSupport">درخواست پشتیبانی</text>
+    <text name="AreYouSureToDeleteTheSupport">آیا از حذف درخواست پشتیبانی {0} مطمئن هستید؟</text>
+    <text name="SupportHeaderInfo">مدیریت درخواست پشتیبانی</text>
+    <text name="ViewNewSupport">نمایش درخواست پشتیبانی</text>
+    <text name="EditNewSupport">اصلاح درخواست پشتیبانی</text>
+
     <text name="CreateNewHerd">ایجاد گله</text>
     <text name="AreYouSureToDeleteTheHerd">آیا از حذف گله {0} مطمئن هستید؟</text>
     <text name="HerdHeaderInfo">مدیریت گله</text>

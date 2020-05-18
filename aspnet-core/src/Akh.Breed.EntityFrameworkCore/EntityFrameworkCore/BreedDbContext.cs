@@ -18,6 +18,7 @@ using Akh.Breed.Livestocks;
 using Akh.Breed.Notices;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques;
+using Akh.Breed.Support;
 using Akh.Breed.Unions;
 
 namespace Akh.Breed.EntityFrameworkCore
@@ -97,6 +98,12 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<PlaqueChange> PlaqueChanges { get; set; }
 
         public virtual DbSet<HerdGeoLog> HerdGeoLogs { get; set; }
+        
+        public virtual DbSet<Support.Support> Supports { get; set; }
+        
+        public virtual DbSet<SupportType> SupportTypes { get; set; }
+        
+        public virtual DbSet<SupportState> SupportStates { get; set; }
 
         
         public BreedDbContext(DbContextOptions<BreedDbContext> options)

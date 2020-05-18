@@ -13,6 +13,11 @@
         public const string Pages_DemoUiComponents= "Pages.DemoUiComponents";
         public const string Pages_Administration = "Pages.Administration";
 
+        public const string Pages_Administration_Support = "Pages.Administration.Support";
+        public const string Pages_Administration_Support_Create = "Pages.Administration.Support.Create";
+        public const string Pages_Administration_Support_Edit = "Pages.Administration.Support.Edit";
+        public const string Pages_Administration_Support_Delete = "Pages.Administration.Support.Delete";
+
         public const string Pages_Administration_Notice = "Pages.Administration.Notice";
         public const string Pages_Administration_Notice_Create = "Pages.Administration.Notice.Create";
         public const string Pages_Administration_Notice_Edit = "Pages.Administration.Notice.Edit";

@@ -37,6 +37,11 @@ namespace Akh.Breed.Authorization
             notice.CreateChildPermission(AppPermissions.Pages_Administration_Notice_Create, L("CreateNewNotice"));
             notice.CreateChildPermission(AppPermissions.Pages_Administration_Notice_Edit, L("EditNewNotice"));
             notice.CreateChildPermission(AppPermissions.Pages_Administration_Notice_Delete, L("DeleteNewNotice"));
+
+            var support = administration.CreateChildPermission(AppPermissions.Pages_Administration_Support, L("Support"));
+            support.CreateChildPermission(AppPermissions.Pages_Administration_Support_Create, L("CreateNewSupport"));
+            support.CreateChildPermission(AppPermissions.Pages_Administration_Support_Edit, L("EditNewSupport"));
+            support.CreateChildPermission(AppPermissions.Pages_Administration_Support_Delete, L("DeleteNewSupport"));
             
             var roles = administration.CreateChildPermission(AppPermissions.Pages_Administration_Roles, L("Roles"));
             roles.CreateChildPermission(AppPermissions.Pages_Administration_Roles_Create, L("CreatingNewRole"));

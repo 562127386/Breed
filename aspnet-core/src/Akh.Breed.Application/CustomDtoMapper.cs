@@ -50,6 +50,7 @@ using Akh.Breed.Organizations.Dto;
 using Akh.Breed.Plaques;
 using Akh.Breed.Plaques.Dto;
 using Akh.Breed.Sessions.Dto;
+using Akh.Breed.Support.Dto;
 using Akh.Breed.Unions;
 using Akh.Breed.Unions.Dto;
 using OfficeOpenXml.FormulaParsing.Utilities;
@@ -203,6 +204,15 @@ namespace Akh.Breed
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
+
+            configuration.CreateMap<Support.Support, SupportListDto>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
+                .ForMember(d => d.SupportTypeName, options => options.MapFrom(l => l.SupportType.Name))
+                .ForMember(d => d.SupportStateName, options => options.MapFrom(l => l.SupportState.Name));
+            configuration.CreateMap<SupportCreateOrUpdateInput, Support.Support>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetMiladi()));
+            configuration.CreateMap<Support.Support, SupportCreateOrUpdateInput>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()));
 
             configuration.CreateMap<PlaqueToHerd, PlaqueToHerdListDto>()
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
