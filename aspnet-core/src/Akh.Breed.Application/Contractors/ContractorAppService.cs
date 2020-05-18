@@ -186,6 +186,10 @@ namespace Akh.Breed.Contractors
         {
             try
             {
+                var contractor = _contractorRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefault(x => x.Id == input.Id);
+                await UserManager.DeleteAsync(contractor?.User);
                 await _contractorRepository.DeleteAsync(input.Id);
                 await CurrentUnitOfWork.SaveChangesAsync();
             }

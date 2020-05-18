@@ -12,7 +12,7 @@ namespace Akh.Breed.Unions.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "CreationTime Desc";
+                Sorting = "CreationTime DESC";
             }
 
             Filter = Filter?.Trim();

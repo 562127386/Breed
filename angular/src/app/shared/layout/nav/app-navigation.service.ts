@@ -41,11 +41,11 @@ export class AppNavigationService {
                 new AppMenuItem('PlaqueStore', 'Pages.IdentityInfo.PlaqueStore', 'flaticon2-box', '/app/main/plaqueStore'),
                 new AppMenuItem('PlaqueToState', 'Pages.IdentityInfo.PlaqueToState', 'flaticon2-box', '/app/main/plaqueToState'),
                 new AppMenuItem('PlaqueToContractor', 'Pages.IdentityInfo.PlaqueToContractor', 'flaticon2-box', '/app/main/plaqueToContractor'),
-                new AppMenuItem('PlaqueToOfficer', 'Pages.IdentityInfo.PlaqueToOfficer', 'flaticon2-box', '/app/main/plaqueToOfficer'),
+                new AppMenuItem('PlaqueToOfficer', 'Pages.IdentityInfo.PlaqueToOfficer', 'flaticon2-box', '/app/main/plaqueToOfficer')
+            ]),            
+            new AppMenuItem('Activities', 'Pages.Activities', 'flaticon2-box', '',[
                 new AppMenuItem('Identification', 'Pages.IdentityInfo.Identification', 'flaticon2-box', '/app/main/livestock'),
                 new AppMenuItem('PlaqueToHerd', 'Pages.IdentityInfo.PlaqueToHerd', 'flaticon2-box', '/app/main/plaqueToHerd'),
-            ]),            
-            new AppMenuItem('Activities', 'Pages.Activities', 'flaticon2-box', '',[                
                 new AppMenuItem('EditGeoHerd', 'Pages.Activities.EditGeoHerd', 'flaticon2-box', '/app/main/herdGeoLog'),
                 new AppMenuItem('EditStatePlaque', 'Pages.Activities.EditStatePlaque', 'flaticon2-box', '/app/main/plaqueChange'),
                 new AppMenuItem('HerdCertificate', 'Pages.Activities.HerdCertificate', 'flaticon2-box', null)
@@ -55,8 +55,8 @@ export class AppNavigationService {
             new AppMenuItem('Dashboard', 'Pages.Tenant.Dashboard', 'flaticon-line-graph', '/app/main/dashboard'),
             new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
-            new AppMenuItem('Notice', 'Pages.Administration.Notice', 'flaticon-technology-2', '/app/main/notice'),
             new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
+                new AppMenuItem('Notice', 'Pages.Administration.Notice', 'flaticon-technology-2', '/app/main/notice'),
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'flaticon-suitcase', '/app/admin/roles'),
                 new AppMenuItem('Users', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/users'),

@@ -117,6 +117,10 @@ namespace Akh.Breed.Unions
         {
             try
             {
+                var unionInfo = _unionInfoRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefault(x => x.Id == input.Id);
+                await UserManager.DeleteAsync(unionInfo?.User);
                 await _unionInfoRepository.DeleteAsync(input.Id);
                 await CurrentUnitOfWork.SaveChangesAsync();
             }

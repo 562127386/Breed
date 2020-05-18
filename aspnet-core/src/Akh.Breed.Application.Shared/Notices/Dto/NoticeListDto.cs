@@ -12,7 +12,7 @@ namespace Akh.Breed.Notices.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "CreationTime,Title";
+                Sorting = "CreationTime DESC";
             }
 
             Filter = Filter?.Trim();

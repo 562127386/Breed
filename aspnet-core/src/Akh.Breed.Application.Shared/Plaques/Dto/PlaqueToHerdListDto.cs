@@ -13,7 +13,7 @@ namespace Akh.Breed.Plaques.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "NationalCode";
+                Sorting = "CreationTime DESC";
             }
 
             Filter = Filter?.Trim();

@@ -12,9 +12,9 @@ namespace Akh.Breed.BaseInfos.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "Code,Name";
+                Sorting = "CreationTime DESC";
             }
-
+            Sorting = Sorting.Replace("stateInfoName", "StateInfo.Name");
             Filter = Filter?.Trim();
         }
     }

@@ -13,7 +13,7 @@ namespace Akh.Breed.Officers.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "Family,Name";
+                Sorting = "CreationTime DESC";
             }
 
             Filter = Filter?.Trim();

@@ -14,7 +14,7 @@ namespace Akh.Breed.Plaques.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "FromCode";
+                Sorting = "CreationTime DESC";
             }
 
             Filter = Filter?.Trim();

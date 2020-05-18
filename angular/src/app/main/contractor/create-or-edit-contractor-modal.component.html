@@ -96,7 +96,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"PostalCode" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="contractor.postalCode" type="num" autocomplete="new-password" name="postalCode" placeholder="99999-99999" length="10" required></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #postalCodeInput="ngModel" mask="99999-99999" [(ngModel)]="contractor.postalCode" type="num" autocomplete="new-password" name="postalCode" placeholder="_____-_____" length="10" required></p-inputMask>
                                                 <validation-messages [formCtrl]="postalCodeInput"></validation-messages>
                                             </div>
                                         </div>
@@ -122,7 +122,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"NationalCode" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" (onBlur)="checkNationalCode()" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="contractor.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="128-111456-2" length="10" required></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" (onBlur)="checkNationalCode()" #nationalCodeInput="ngModel" mask="999-999999-9" [(ngModel)]="contractor.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="___-______-_" length="10" required></p-inputMask>
                                                 <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
                                                 <div class="form-control-feedback ng-star-inserted" *ngIf="!this.nationalCodeValid">
                                                     کد ملی معتیر نیست
@@ -134,7 +134,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"BirthDate" | localize}} *</label>
                                             <div class="col-md-8 col-sm-12">
-                                                    <input #birthDateTempInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="birthDateTemp" name="birthDateTemp" maxlength="10" autocomplete="new-password" placeholder="1398/01/01" pattern="^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$" required/>
+                                                    <input #birthDateTempInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="birthDateTemp" name="birthDateTemp" maxlength="10" autocomplete="new-password" placeholder="____/__/__" pattern="^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$" required/>
                                                     <validation-messages [formCtrl]="birthDateTempInput"></validation-messages>
                                             </div>
                                         </div>                                
@@ -174,7 +174,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"Mobile" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-999-999-9999" [(ngModel)]="contractor.phone" type="num" autocomplete="new-password" name="phone" placeholder="0-912-111-2233" length="11"></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #phoneInput="ngModel" mask="0-999-999-9999" [(ngModel)]="contractor.phone" type="num" autocomplete="new-password" name="phone" placeholder="_-___-___-____" length="11"></p-inputMask>
                                                 <validation-messages [formCtrl]="phoneInput"></validation-messages>
                                             </div>
                                         </div>
@@ -228,7 +228,7 @@
                                         <div class="row">
                                             <label class="col-form-label col-md-4 col-sm-12">{{"FirmEstablishmentYear" | localize}}</label>
                                             <div class="col-md-8 col-sm-12">
-                                                <p-inputMask [style]="{'width':'100%'}" #firmEstablishmentYearInput="ngModel" mask="1999" [(ngModel)]="contractor.firmEstablishmentYear" type="text" autocomplete="new-password" name="firmEstablishmentYear" placeholder="1398" length="4"></p-inputMask>
+                                                <p-inputMask [style]="{'width':'100%'}" #firmEstablishmentYearInput="ngModel" mask="1999" [(ngModel)]="contractor.firmEstablishmentYear" type="text" autocomplete="new-password" name="firmEstablishmentYear" placeholder="____" length="4"></p-inputMask>
                                                 <validation-messages [formCtrl]="firmEstablishmentYearInput"></validation-messages>
                                             </div>
                                         </div>

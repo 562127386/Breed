@@ -976,10 +976,10 @@
     <text name="PlaqueStore">انبار پلاک</text>
     <text name="BaseInfo">تعاریف پایه</text>
     <text name="BaseIntro">معرفی</text>
-    <text name="IdentityInfo">هویت</text>
+    <text name="IdentityInfo">انبار و تخصیص</text>
     <text name="PlaqueAllocation">تخصیص پلاک به مامور</text>
     <text name="Identification">نصب پلاک</text>
-    <text name="Activities">عملیات</text>
+    <text name="Activities">هویت</text>
     <text name="Reports">گزارش گیری</text>
     <text name="SpeciesInfo">گونه دام</text>
     <text name="PlaqueState">وضعیت پلاک</text>
@@ -1303,7 +1303,7 @@
     <text name="CreateNewStatePlaque">ایجاد تغییرات وضعیت پلاک</text>
     <text name="EditNewStatePlaque">ویرایش تغییرات وضعیت پلاک</text>
     <text name="DeleteNewStatePlaque">حذف تغییرات وضعیت پلاک</text>
-    <text name="PlaqueAllocated">تعداد پلاک اختصاص داده شده</text>
+    <text name="PlaqueAllocated">تخصیص</text>
     <text name="SexInfoName">جنیست دام</text>
     <text name="UniqueCode">شناسه یکتا</text>
     <text name="UniqueCodeContractor">شناسه یکتا پیمانکار</text>

@@ -9,7 +9,7 @@ namespace Akh.Breed.MultiTenancy.Payments.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "CreationTime Desc";
+                Sorting = "CreationTime DESC";
             }
 
             Sorting = Sorting.Replace("editionDisplayName", "Edition.DisplayName");

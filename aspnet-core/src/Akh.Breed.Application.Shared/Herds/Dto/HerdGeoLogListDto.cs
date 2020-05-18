@@ -13,7 +13,7 @@ namespace Akh.Breed.Herds.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "HerdId";
+                Sorting = "CreationTime DESC";
             }
 
             Filter = Filter?.Trim();

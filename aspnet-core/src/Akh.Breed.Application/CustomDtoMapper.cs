@@ -365,8 +365,7 @@ namespace Akh.Breed
                 .ForMember(d => d.PlaqueCount, options => options.MapFrom(l =>  l.ToCode - l.FromCode + 1 ))
                 .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.PlaqueToContractor.Contractor.FirmName + " (" + l.PlaqueToContractor.Contractor.Name + "," + l.PlaqueToContractor.Contractor.Family + ")"))
                 .ForMember(d => d.StateName, options => options.MapFrom(l => l.PlaqueToContractor.Contractor.CityInfo.StateInfo.Name))
-                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name))
-                .ForMember(d => d.OfficerFamily, options => options.MapFrom(l => l.Officer.Family))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
                 .ForMember(d => d.OfficerCode, options => options.MapFrom(l => l.Officer.Code))
                 .ForMember(d => d.SpeciesName, options => options.MapFrom(l => l.PlaqueToContractor.PlaqueToState.PlaqueStore.Species.Name));
             configuration.CreateMap<PlaqueToOfficerCreateOrUpdateInput, PlaqueToOfficer>()

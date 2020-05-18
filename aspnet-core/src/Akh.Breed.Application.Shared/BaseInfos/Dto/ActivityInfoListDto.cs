@@ -12,7 +12,7 @@ namespace Akh.Breed.BaseInfos.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "CreationTime Desc";
+                Sorting = "CreationTime DESC";
             }
 
             Filter = Filter?.Trim();

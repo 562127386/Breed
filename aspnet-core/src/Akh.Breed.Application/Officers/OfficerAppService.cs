@@ -124,11 +124,14 @@ namespace Akh.Breed.Officers
             else if (isStateAdmin)
             {
                 var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                output.Officer.StateInfoId = union.StateInfoId;
                 stateInfoQuery = stateInfoQuery.Where(x => x.Id == union.StateInfoId);
             }
             else if (isCityAdmin)
             {
                 var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                output.Officer.StateInfoId = contractor.StateInfoId;
+                output.Officer.ContractorId = contractor.Id;
                 stateInfoQuery = stateInfoQuery.Where(x => x.Id == contractor.StateInfoId);
             }
             else
@@ -143,12 +146,26 @@ namespace Akh.Breed.Officers
             //Contractors
             if (output.Officer.StateInfoId > 0)
             {
-                output.Contractors = _contractorRepository
-                    .GetAllList()
-                    .Where(x => x.StateInfoId == output.Officer.StateInfoId)
-                    .Select(c => new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" + c.Name + "," + c.Family + ")")
-                        {IsSelected = output.Officer.ContractorId == c.Id})
-                    .ToList();
+                if (output.Officer.ContractorId > 0)
+                {
+                    output.Contractors = _contractorRepository
+                        .GetAllList()
+                        .Where(x => x.Id == output.Officer.ContractorId)
+                        .Select(c =>
+                            new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" + c.Name + "," + c.Family + ")")
+                                {IsSelected = output.Officer.ContractorId == c.Id})
+                        .ToList();
+                }
+                else
+                {
+                    output.Contractors = _contractorRepository
+                        .GetAllList()
+                        .Where(x => x.StateInfoId == output.Officer.StateInfoId)
+                        .Select(c =>
+                            new ComboboxItemDto(c.Id.ToString(), c.FirmName + " (" + c.Name + "," + c.Family + ")")
+                                {IsSelected = output.Officer.ContractorId == c.Id})
+                        .ToList(); 
+                }
             }
 
             return output;
@@ -172,6 +189,10 @@ namespace Akh.Breed.Officers
         {
             try
             {
+                var officer = _officerRepository.GetAll()
+                    .Include(x => x.User)
+                    .FirstOrDefault(x => x.Id == input.Id);
+                await UserManager.DeleteAsync(officer?.User);
                 await _officerRepository.DeleteAsync(input.Id);
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
