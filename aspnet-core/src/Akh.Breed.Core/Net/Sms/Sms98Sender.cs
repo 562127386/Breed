@@ -39,8 +39,11 @@ namespace Akh.Breed.Net.Sms
                 };
 
                 var newUrl = new Uri(QueryHelpers.AddQueryString(url, param));
-                var response = httpClient.GetAsync(newUrl).Result;
-                if (!response.IsSuccessStatusCode)
+                try
+                {
+                    var response = httpClient.GetAsync(newUrl).Result;
+                }
+                catch (Exception e)
                 {
                     Logger.Warn("Sending SMS has error! Message content:");
                 }
