@@ -66,7 +66,7 @@ namespace Akh.Breed.Plaques
             else if (isCityAdmin)
             {
                 var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-                query = query.Where(x => x.Contractor.CityInfoId == contractor.CityInfoId);
+                query = query.Where(x => x.ContractorId == contractor.Id);
             }
             else
             {
