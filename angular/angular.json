@@ -72,7 +72,11 @@
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.moment.js",
 
               "src/assets/metronic/vendors/global/vendors.bundle.js",
-              "src/assets/metronic/common/js/scripts.bundle.js"
+              "src/assets/metronic/common/js/scripts.bundle.js",
+
+              "src/stimulsoft/stimulsoft.reports.js",
+              "src/stimulsoft/stimulsoft.viewer.js",
+              "src/stimulsoft/stimulsoft.designer.js"
             ]
           },
           "configurations": {

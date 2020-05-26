@@ -48,7 +48,7 @@ export class AppNavigationService {
                 new AppMenuItem('PlaqueToHerd', 'Pages.IdentityInfo.PlaqueToHerd', 'flaticon2-box', '/app/main/plaqueToHerd'),
                 new AppMenuItem('EditGeoHerd', 'Pages.Activities.EditGeoHerd', 'flaticon2-box', '/app/main/herdGeoLog'),
                 new AppMenuItem('EditStatePlaque', 'Pages.Activities.EditStatePlaque', 'flaticon2-box', '/app/main/plaqueChange'),
-                new AppMenuItem('HerdCertificate', 'Pages.Activities.HerdCertificate', 'flaticon2-box', null)
+                new AppMenuItem('HerdCertificate', 'Pages.Activities.HerdCertificate', 'flaticon2-box', '/app/main/herdCertificate')
             ]),
             new AppMenuItem('Reports', 'Pages.Reports', 'flaticon2-box', ''),
             new AppMenuItem('Dashboard', 'Pages.Administration.Host.Dashboard', 'flaticon-line-graph', '/app/admin/hostDashboard'),

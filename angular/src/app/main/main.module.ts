@@ -59,6 +59,7 @@ import { PlaqueChangeComponent } from "./plaqueChange/plaqueChange.component";
 import { CreateOrEditPlaqueChangeModalComponent } from "./plaqueChange/create-or-edit-plaqueChange-modal.component";
 import { LivestockComponent } from "./livestock/livestock.component";
 import { CreateOrEditLivestockModalComponent } from "./livestock/create-or-edit-livestock-modal.component";
+import { HerdCertificateComponent } from "./herdCertificate/herdCertificate.component";
 import { HerdGeoLogComponent } from "./herdGeoLog/herdGeoLog.component";
 import { CreateOrEditHerdGeoLogModalComponent } from "./herdGeoLog/create-or-edit-herdGeoLog-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -167,6 +168,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CreateOrEditLivestockModalComponent,
         PlaqueChangeComponent,
         CreateOrEditPlaqueChangeModalComponent,
+        HerdCertificateComponent,
         HerdGeoLogComponent,
         CreateOrEditHerdGeoLogModalComponent
     
