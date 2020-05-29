@@ -75,8 +75,7 @@
               "src/assets/metronic/common/js/scripts.bundle.js",
 
               "src/stimulsoft/stimulsoft.reports.js",
-              "src/stimulsoft/stimulsoft.viewer.js",
-              "src/stimulsoft/stimulsoft.designer.js"
+              "src/stimulsoft/stimulsoft.viewer.js"
             ]
           },
           "configurations": {
