@@ -30,8 +30,8 @@ Stimulsoft.Base.StiLicense.Key = "6vJhGtLLLz2GNviWmUTrhSqnOItdDwjBylQzQcAOiHl2AD
   
     ngOnInit() {
 
-		this.options = new Stimulsoft.Designer.StiDesignerOptions();
-		this.options.appearance.fullScreenMode = true;
+		// this.options = new Stimulsoft.Designer.StiDesignerOptions();
+		// this.options.appearance.fullScreenMode = true;
 
         this.report = new Stimulsoft.Report.StiReport(); 
         this.report.loadFile("/assets/reports/SimpleList.mrt");
