@@ -179,6 +179,7 @@ namespace Akh.Breed
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()))
                 .ForMember(d => d.IssueDate, options => options.MapFrom(l => l.IssueDate.GetShamsi()))
                 .ForMember(d => d.ValidityDate, options => options.MapFrom(l => l.ValidityDate.GetShamsi()));
+            configuration.CreateMap<Herd, ReportHerdCertificatedOutput>();
 
             
             configuration.CreateMap<Livestock, MonitoringListDto>()

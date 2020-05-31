@@ -16,6 +16,8 @@ using Akh.Breed.BaseInfo;
 using Akh.Breed.BaseInfos.Dto;
 using Akh.Breed.Contractors;
 using Akh.Breed.Herds.Dto;
+using Akh.Breed.Livestocks;
+using Akh.Breed.Livestocks.Dto;
 using Akh.Breed.Net.Sms;
 using Akh.Breed.Officers;
 using Akh.Breed.Unions;
@@ -36,8 +38,9 @@ namespace Akh.Breed.Herds
         private readonly IRepository<Contractor> _contractorRepository;
         private readonly IRepository<Officer> _officerRepository;
         private readonly ISms98Sender _sms98Sender;
+        private readonly IRepository<Livestock> _livestockRepository;
         
-        public HerdAppService(IRepository<Herd> herdRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<HerdGeoLog> herdGeoLogInfoRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Contractor> contractorRepository, ISms98Sender sms98Sender, IRepository<Officer> officerRepository)
+        public HerdAppService(IRepository<Herd> herdRepository, IRepository<StateInfo> stateInfoRepository, IRepository<CityInfo> cityInfoRepository, IRepository<RegionInfo> regionInfoRepository, IRepository<VillageInfo> villageInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<HerdGeoLog> herdGeoLogInfoRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Contractor> contractorRepository, ISms98Sender sms98Sender, IRepository<Officer> officerRepository, IRepository<Livestock> livestockRepository)
         {
             _herdRepository = herdRepository;
             _stateInfoRepository = stateInfoRepository;
@@ -50,6 +53,7 @@ namespace Akh.Breed.Herds
             _contractorRepository = contractorRepository;
             _sms98Sender = sms98Sender;
             _officerRepository = officerRepository;
+            _livestockRepository = livestockRepository;
         }
         
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
@@ -321,6 +325,24 @@ namespace Akh.Breed.Herds
             }
 
             return input;
+        }
+        
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd, AppPermissions.Pages_BaseIntro_Herd_Create, AppPermissions.Pages_BaseIntro_Herd_Edit)]
+        public async Task<ReportHerdCertificatedOutput> GetHerdCertificated(EntityDto input)
+        {
+            Herd herd = null;
+            herd = await _herdRepository.GetAll()
+                .FirstOrDefaultAsync(x => x.Id == input.Id);
+
+            var output = ObjectMapper.Map<ReportHerdCertificatedOutput>(herd);
+            
+            var livestocks = await _livestockRepository.GetAll()
+                .Where(x => x.HerdId == input.Id)
+                .OrderBy(x => x.NationalCode)
+                .ToListAsync();
+            output.Livestocks = ObjectMapper.Map<List<LivestockListDto>>(livestocks);
+
+            return output;
         }
    }
 }

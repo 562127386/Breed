@@ -5304,6 +5304,62 @@ export class HerdServiceProxy {
         }
         return _observableOf<HerdCreateOrUpdateInput>(<any>null);
     }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getHerdCertificated(id: number | undefined): Observable<ReportHerdCertificatedOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Herd/GetHerdCertificated?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHerdCertificated(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHerdCertificated(<any>response_);
+                } catch (e) {
+                    return <Observable<ReportHerdCertificatedOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ReportHerdCertificatedOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetHerdCertificated(response: HttpResponseBase): Observable<ReportHerdCertificatedOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ReportHerdCertificatedOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ReportHerdCertificatedOutput>(<any>null);
+    }
 }
 
 @Injectable()
@@ -14958,6 +15014,249 @@ export class SubscriptionServiceProxy {
 }
 
 @Injectable()
+export class SupportServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getSupport(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfSupportListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Support/GetSupport?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSupport(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSupport(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfSupportListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfSupportListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSupport(response: HttpResponseBase): Observable<PagedResultDtoOfSupportListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfSupportListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfSupportListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getSupportForEdit(id: number | undefined): Observable<SupportGetForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Support/GetSupportForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSupportForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSupportForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<SupportGetForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SupportGetForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSupportForEdit(response: HttpResponseBase): Observable<SupportGetForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SupportGetForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SupportGetForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateSupport(body: SupportCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Support/CreateOrUpdateSupport";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateSupport(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateSupport(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateSupport(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteSupport(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Support/DeleteSupport?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteSupport(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteSupport(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteSupport(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class TenantServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -23910,6 +24209,158 @@ export interface IGetHerdForEditOutput {
     contractors: ComboboxItemDto[] | undefined;
 }
 
+export class LivestockListDto implements ILivestockListDto {
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    imported!: boolean;
+    birthDate!: moment.Moment | undefined;
+    speciesInfoName!: string | undefined;
+    sexInfoName!: string | undefined;
+    herdName!: string | undefined;
+    activityInfoName!: string | undefined;
+    officerName!: string | undefined;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: ILivestockListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.imported = data["imported"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.speciesInfoName = data["speciesInfoName"];
+            this.sexInfoName = data["sexInfoName"];
+            this.herdName = data["herdName"];
+            this.activityInfoName = data["activityInfoName"];
+            this.officerName = data["officerName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): LivestockListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LivestockListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["imported"] = this.imported;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["speciesInfoName"] = this.speciesInfoName;
+        data["sexInfoName"] = this.sexInfoName;
+        data["herdName"] = this.herdName;
+        data["activityInfoName"] = this.activityInfoName;
+        data["officerName"] = this.officerName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ILivestockListDto {
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    imported: boolean;
+    birthDate: moment.Moment | undefined;
+    speciesInfoName: string | undefined;
+    sexInfoName: string | undefined;
+    herdName: string | undefined;
+    activityInfoName: string | undefined;
+    officerName: string | undefined;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class ReportHerdCertificatedOutput implements IReportHerdCertificatedOutput {
+    id!: number;
+    herdName!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    epidemiologicCode!: string | undefined;
+    contractorName!: string | undefined;
+    officerName!: string | undefined;
+    livestocks!: LivestockListDto[] | undefined;
+
+    constructor(data?: IReportHerdCertificatedOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.herdName = data["herdName"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.epidemiologicCode = data["epidemiologicCode"];
+            this.contractorName = data["contractorName"];
+            this.officerName = data["officerName"];
+            if (Array.isArray(data["livestocks"])) {
+                this.livestocks = [] as any;
+                for (let item of data["livestocks"])
+                    this.livestocks!.push(LivestockListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ReportHerdCertificatedOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ReportHerdCertificatedOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["herdName"] = this.herdName;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["epidemiologicCode"] = this.epidemiologicCode;
+        data["contractorName"] = this.contractorName;
+        data["officerName"] = this.officerName;
+        if (Array.isArray(this.livestocks)) {
+            data["livestocks"] = [];
+            for (let item of this.livestocks)
+                data["livestocks"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IReportHerdCertificatedOutput {
+    id: number;
+    herdName: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    epidemiologicCode: string | undefined;
+    contractorName: string | undefined;
+    officerName: string | undefined;
+    livestocks: LivestockListDto[] | undefined;
+}
+
 export class HerdGeoLogListDto implements IHerdGeoLogListDto {
     latitude!: string | undefined;
     longitude!: string | undefined;
@@ -26072,86 +26523,6 @@ export class PagedResultDtoOfMonitoringListDto implements IPagedResultDtoOfMonit
 export interface IPagedResultDtoOfMonitoringListDto {
     totalCount: number;
     items: MonitoringListDto[] | undefined;
-}
-
-export class LivestockListDto implements ILivestockListDto {
-    nationalCode!: string | undefined;
-    latitude!: string | undefined;
-    longitude!: string | undefined;
-    imported!: boolean;
-    birthDate!: moment.Moment | undefined;
-    speciesInfoName!: string | undefined;
-    sexInfoName!: string | undefined;
-    herdName!: string | undefined;
-    activityInfoName!: string | undefined;
-    officerName!: string | undefined;
-    creationTime!: moment.Moment;
-    id!: number;
-
-    constructor(data?: ILivestockListDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.nationalCode = data["nationalCode"];
-            this.latitude = data["latitude"];
-            this.longitude = data["longitude"];
-            this.imported = data["imported"];
-            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
-            this.speciesInfoName = data["speciesInfoName"];
-            this.sexInfoName = data["sexInfoName"];
-            this.herdName = data["herdName"];
-            this.activityInfoName = data["activityInfoName"];
-            this.officerName = data["officerName"];
-            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): LivestockListDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new LivestockListDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["nationalCode"] = this.nationalCode;
-        data["latitude"] = this.latitude;
-        data["longitude"] = this.longitude;
-        data["imported"] = this.imported;
-        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
-        data["speciesInfoName"] = this.speciesInfoName;
-        data["sexInfoName"] = this.sexInfoName;
-        data["herdName"] = this.herdName;
-        data["activityInfoName"] = this.activityInfoName;
-        data["officerName"] = this.officerName;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface ILivestockListDto {
-    nationalCode: string | undefined;
-    latitude: string | undefined;
-    longitude: string | undefined;
-    imported: boolean;
-    birthDate: moment.Moment | undefined;
-    speciesInfoName: string | undefined;
-    sexInfoName: string | undefined;
-    herdName: string | undefined;
-    activityInfoName: string | undefined;
-    officerName: string | undefined;
-    creationTime: moment.Moment;
-    id: number;
 }
 
 export class PagedResultDtoOfLivestockListDto implements IPagedResultDtoOfLivestockListDto {
@@ -32734,6 +33105,234 @@ export class StripePaymentResultOutput implements IStripePaymentResultOutput {
 
 export interface IStripePaymentResultOutput {
     paymentDone: boolean;
+}
+
+export class SupportListDto implements ISupportListDto {
+    description!: string | undefined;
+    response!: string | undefined;
+    supportTypeName!: string | undefined;
+    supportStateName!: string | undefined;
+    userName!: string | undefined;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: ISupportListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.description = data["description"];
+            this.response = data["response"];
+            this.supportTypeName = data["supportTypeName"];
+            this.supportStateName = data["supportStateName"];
+            this.userName = data["userName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): SupportListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SupportListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["description"] = this.description;
+        data["response"] = this.response;
+        data["supportTypeName"] = this.supportTypeName;
+        data["supportStateName"] = this.supportStateName;
+        data["userName"] = this.userName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ISupportListDto {
+    description: string | undefined;
+    response: string | undefined;
+    supportTypeName: string | undefined;
+    supportStateName: string | undefined;
+    userName: string | undefined;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class PagedResultDtoOfSupportListDto implements IPagedResultDtoOfSupportListDto {
+    totalCount!: number;
+    items!: SupportListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfSupportListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(SupportListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfSupportListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfSupportListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfSupportListDto {
+    totalCount: number;
+    items: SupportListDto[] | undefined;
+}
+
+export class SupportCreateOrUpdateInput implements ISupportCreateOrUpdateInput {
+    id!: number | undefined;
+    description!: string | undefined;
+    response!: string | undefined;
+    supportTypeId!: number | undefined;
+    supportStateId!: number | undefined;
+    userId!: number | undefined;
+    creationTime!: moment.Moment;
+
+    constructor(data?: ISupportCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.description = data["description"];
+            this.response = data["response"];
+            this.supportTypeId = data["supportTypeId"];
+            this.supportStateId = data["supportStateId"];
+            this.userId = data["userId"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): SupportCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new SupportCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["description"] = this.description;
+        data["response"] = this.response;
+        data["supportTypeId"] = this.supportTypeId;
+        data["supportStateId"] = this.supportStateId;
+        data["userId"] = this.userId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ISupportCreateOrUpdateInput {
+    id: number | undefined;
+    description: string | undefined;
+    response: string | undefined;
+    supportTypeId: number | undefined;
+    supportStateId: number | undefined;
+    userId: number | undefined;
+    creationTime: moment.Moment;
+}
+
+export class SupportGetForEditOutput implements ISupportGetForEditOutput {
+    support!: SupportCreateOrUpdateInput;
+    supportTypes!: ComboboxItemDto[] | undefined;
+    supportStates!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: ISupportGetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.support = data["support"] ? SupportCreateOrUpdateInput.fromJS(data["support"]) : <any>undefined;
+            if (Array.isArray(data["supportTypes"])) {
+                this.supportTypes = [] as any;
+                for (let item of data["supportTypes"])
+                    this.supportTypes!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["supportStates"])) {
+                this.supportStates = [] as any;
+                for (let item of data["supportStates"])
+                    this.supportStates!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): SupportGetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new SupportGetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["support"] = this.support ? this.support.toJSON() : <any>undefined;
+        if (Array.isArray(this.supportTypes)) {
+            data["supportTypes"] = [];
+            for (let item of this.supportTypes)
+                data["supportTypes"].push(item.toJSON());
+        }
+        if (Array.isArray(this.supportStates)) {
+            data["supportStates"] = [];
+            for (let item of this.supportStates)
+                data["supportStates"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface ISupportGetForEditOutput {
+    support: SupportCreateOrUpdateInput;
+    supportTypes: ComboboxItemDto[] | undefined;
+    supportStates: ComboboxItemDto[] | undefined;
 }
 
 export class TenantListDto implements ITenantListDto {

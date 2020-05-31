@@ -14,5 +14,6 @@ namespace Akh.Breed.Herds
         Task DeleteHerd(EntityDto input);
 
         List<ComboboxItemDto> GetContractorForCombo(NullableIdDto<int> input);
+        Task<ReportHerdCertificatedOutput> GetHerdCertificated(EntityDto input);
     }
 }
