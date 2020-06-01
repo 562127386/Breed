@@ -305,11 +305,6 @@ namespace Akh.Breed.Herds
                     u.RegionInfo.Name.Contains(input.Filter) ||
                     u.VillageInfo.Name.Contains(input.Filter));
 
-            if (isOfficer)
-            {
-                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
-            }
-
             return query;
         }        
         

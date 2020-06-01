@@ -194,11 +194,6 @@ namespace Akh.Breed.Plaques
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.NationalCode.Contains(input.Filter));
 
-            if (isOfficer)
-            {
-                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
-            }
-            
             return query;
         }        
         
