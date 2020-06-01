@@ -35,7 +35,7 @@ Stimulsoft.Base.StiLicense.Key = "6vJhGtLLLz2GNviWmUTrhSqnOItdDwjBylQzQcAOiHl2AD
 		// this.options = new Stimulsoft.Designer.StiDesignerOptions();
 		// this.options.appearance.fullScreenMode = true;
         	
-        this._herdService.getHerdCertificated(1034).subscribe(result => {
+        this._herdService.getHerdCertificated(1035).subscribe(result => {
             this.report = new Stimulsoft.Report.StiReport(); 
             this.report.loadFile("/assets/reports/HerdCertificate.mrt");
 
