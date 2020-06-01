@@ -15,5 +15,6 @@ namespace Akh.Breed.Herds
 
         List<ComboboxItemDto> GetContractorForCombo(NullableIdDto<int> input);
         Task<ReportHerdCertificatedOutput> GetHerdCertificated(EntityDto input);
+        List<ComboboxItemDto> GetHerdCertificatedForCombo(bool input);
     }
 }

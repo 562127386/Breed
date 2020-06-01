@@ -1,12 +1,12 @@
 {
   "ReportVersion": "2020.2.1.0",
-  "ReportGuid": "ceba6c7641844bad8ac961f9ba51af86",
+  "ReportGuid": "02e665d97cb94992b52bb748e3f6f363",
   "ReportName": "Report",
   "ReportAlias": "Simple List",
   "ReportAuthor": "Stimulsoft",
   "ReportDescription": "This sample demonstrates how to create a simple list report.",
   "ReportCreated": "/Date(1085817540000+0430)/",
-  "ReportChanged": "/Date(1590962898389+0430)/",
+  "ReportChanged": "/Date(1591033020792+0430)/",
   "EngineVersion": "EngineV2",
   "PreviewMode": "StandardAndDotMatrix",
   "PreviewSettings": 33538047,
@@ -145,7 +145,7 @@
         "Name": "Breed",
         "Alias": "Breed",
         "Type": "Json",
-        "Image": "jhp3ysrcXBWwEkpoYUhvujFinxEze6TJS3GnG+aqHkjKa6unK9uk0QjkkILKLn/NjOYMh14F4AxOiXvp9Q8OTTwUB/LtxkBXFl6ayES3bbbNZioKE+J4maHjgCMdruoGH4ZXaoc35fwvDdLB5Yp++k7qhE1MnLdWkK3ypNFmV0X/jryi1DPc/PDs4XG4OOt3bZ/5mxdAThbKyFWx+bZ/uim2rBKmTNIL37pKyrUiGteSE6qKy49gqe1XpITPocupNyhxKW2tRH/oPZK4jooW3YtDgMoPP7EaQdRyroqPtqizgicSaIZwTskyeCVzki/ENhKiVlAoHoY="
+        "Image": "sipGhULRDcH0REpc0odauhD6C/0UDHqIS0yRDkNZ5JNCa6tdK8X4oQg+hB5FUcGMtRNydXYGFNg0qFKGKuQ4J0CdpC+rxOPpaF5umr3PGhOlL7nJw1uM54qe1qcBovSOS/CwUKoQhk7qNJ2PUqhfVlPTwca8LtXeLJXyNW3ePUMoJ40MiXlrtWgCOn96jx6N3giT3X9bo7BhhO8aMBRCOklytAmZXo8ho81KI1yp5w4Kk6teoVQHMGXMRbeGZ22JC2k6qWcWurf70C9XFpq6KLjT+kuX+k4WFO4o9GCSHSBYj7v2SLdw9HkcqW82UPT4stMTjj0ZYGDL4UpZw3WajA=="
       }
     },
     "DataSources": {
@@ -371,7 +371,7 @@
           "Ident": "StiReportTitleBand",
           "Name": "ReportTitleBand2",
           "Guid": "0e78e53250ce4a74baab882ac9d3f6e0",
-          "ClientRectangle": "0,0.4,19,7",
+          "ClientRectangle": "0,0.4,19,3.4",
           "Interaction": {
             "Ident": "StiInteraction"
           },
@@ -394,7 +394,7 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": "Bahnschrift;16;Bold;",
+              "Font": "Leelawadee;16;Bold;",
               "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
               "TextBrush": "solid:Black",
@@ -412,7 +412,6 @@
               "MinSize": "0,0",
               "MaxSize": "0,0",
               "ClientRectangle": "0,1.2,19,1.2",
-              "ComponentStyle": "Title2",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -421,10 +420,10 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";9;;",
-              "Border": ";102,77,38;;;;;;solid:Black",
+              "Font": "Leelawadee;12;Bold;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:102,77,38",
+              "TextBrush": "solid:Black",
               "TextOptions": {
                 "WordWrap": true
               },
@@ -439,7 +438,6 @@
               "MinSize": "0,0",
               "MaxSize": "0,0",
               "ClientRectangle": "0,0,19,1.2",
-              "ComponentStyle": "Title2",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -448,10 +446,10 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";9;;",
-              "Border": ";102,77,38;;;;;;solid:Black",
+              "Font": "Leelawadee;9;Bold;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:102,77,38",
+              "TextBrush": "solid:Black",
               "TextOptions": {
                 "WordWrap": true
               },
@@ -464,7 +462,6 @@
               "MinSize": "0,0",
               "MaxSize": "0,0",
               "ClientRectangle": "3,0,2,0.8",
-              "ComponentStyle": "Title1",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -473,10 +470,10 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";19;;",
-              "Border": "Bottom;193,152,89;;;;;;solid:Black",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:193,152,89",
+              "TextBrush": "solid:Black",
               "Type": "Expression"
             },
             "4": {
@@ -487,7 +484,6 @@
               "MinSize": "0,0",
               "MaxSize": "0,0",
               "ClientRectangle": "0,0,3,0.8",
-              "ComponentStyle": "Title2",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -496,10 +492,10 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";9;;",
-              "Border": ";102,77,38;;;;;;solid:Black",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:102,77,38",
+              "TextBrush": "solid:Black",
               "TextOptions": {
                 "WordWrap": true
               },
@@ -528,19 +524,18 @@
               "MinSize": "0,0",
               "MaxSize": "0,0",
               "ClientRectangle": "3,0.8,2,0.8",
-              "ComponentStyle": "Title1",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
               "Text": {
                 "Value": "شماره:"
               },
-              "HorAlignment": "Right",
+              "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";19;;",
-              "Border": "Bottom;193,152,89;;;;;;solid:Black",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:193,152,89",
+              "TextBrush": "solid:Black",
               "Type": "Expression"
             },
             "7": {
@@ -557,7 +552,7 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": "Bahnschrift;;;",
+              "Font": "Leelawadee;12;;",
               "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
               "TextBrush": "solid:Black"
@@ -585,51 +580,60 @@
               "Interaction": {
                 "Ident": "StiInteraction"
               },
-              "Border": ";193,152,89;;;;;;solid:Black",
-              "ForeColor": "102,77,38",
+              "Border": ";;;;;;;solid:Black",
               "BackColor": "Transparent",
               "HorAlignment": "Center",
               "VertAlignment": "Center",
               "BarCodeType": {
-                "Ident": "StiGS1_128BarCodeType"
+                "Ident": "StiEAN128aBarCodeType"
               },
               "Code": {
                 "Value": "{int.Parse(root.epidemiologicCode)}"
               }
-            },
-            "10": {
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand2",
+          "ClientRectangle": "0,4.6,19,4.6",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:",
+          "Components": {
+            "0": {
               "Ident": "StiText",
               "Name": "Text21",
               "Guid": "858428b3ed7440668e7ee362258ea739",
               "CanGrow": true,
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "0,3.4,19,2.8",
-              "ComponentStyle": "Title2",
+              "ClientRectangle": "0,0.2,19,2.6",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
               "Text": {
-                "Value": "گواهی می شود در تاریخ : {Today.ToString(\"Y\")} تعداد ----- راس نفر دام از نوع نصب شد."
+                "Value": "گواهی می شود در تاریخ ----- تعداد {Count(DataBand1)} راس/نفر دام ----- در دامداری ---- به کد ملی ---- و  کد گله ----- به آدرس ----- پلاک کوبی و ثبت شد."
               },
               "HorAlignment": "Right",
-              "VertAlignment": "Center",
-              "Font": ";9;;",
-              "Border": ";102,77,38;;;;;;solid:Black",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:102,77,38",
+              "TextBrush": "solid:Black",
               "TextOptions": {
                 "WordWrap": true
               },
               "LineSpacing": 1.1499999761581421,
               "Type": "Expression"
             },
-            "11": {
+            "1": {
               "Ident": "StiText",
               "Name": "Text22",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "9.8,6.2,6.6,0.8",
+              "ClientRectangle": "3.4,2.8,6.4,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -638,17 +642,17 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";9;;",
-              "Border": ";193,152,89;;;;;;solid:Black",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:102,77,38"
+              "TextBrush": "solid:Black"
             },
-            "12": {
+            "2": {
               "Ident": "StiText",
               "Name": "Text23",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "0,6.2,6.4,0.8",
+              "ClientRectangle": "3.4,3.6,6.4,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -657,19 +661,18 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";9;;",
-              "Border": ";193,152,89;;;;;;solid:Black",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:102,77,38"
+              "TextBrush": "solid:Black"
             },
-            "13": {
+            "3": {
               "Ident": "StiText",
               "Name": "Text24",
               "Guid": "07f64c83968c47f6878ddfc9e534265f",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "6.4,6.2,3.4,0.8",
-              "ComponentStyle": "Title1",
+              "ClientRectangle": "0,3.6,3.4,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -678,20 +681,19 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";19;;",
-              "Border": "Bottom;193,152,89;;;;;;solid:Black",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:193,152,89",
+              "TextBrush": "solid:Black",
               "Type": "Expression"
             },
-            "14": {
+            "4": {
               "Ident": "StiText",
               "Name": "Text25",
               "Guid": "1a6c16bb41b144398bb0717720af221f",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "16.4,6.2,2.6,0.8",
-              "ComponentStyle": "Title1",
+              "ClientRectangle": "0,2.8,3.4,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -700,18 +702,40 @@
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
-              "Font": ";19;;",
-              "Border": "Bottom;193,152,89;;;;;;solid:Black",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
               "Brush": "solid:",
-              "TextBrush": "solid:193,152,89",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "9.8,2.8,9.2,1.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "اتحادیه سراسری\r\nصنف دامپروری همگام کشور"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Leelawadee;12;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:",
+              "TextBrush": "solid:Black",
               "Type": "Expression"
             }
-          }
+          },
+          "NewPageAfter": true,
+          "DataSourceName": "root"
         },
-        "2": {
+        "3": {
           "Ident": "StiHeaderBand",
           "Name": "HeaderBand1",
-          "ClientRectangle": "0,8.2,19,0.6",
+          "ClientRectangle": "0,10,19,0.6",
           "Interaction": {
             "Ident": "StiInteraction"
           },
@@ -827,10 +851,10 @@
           },
           "PrintIfEmpty": true
         },
-        "3": {
+        "4": {
           "Ident": "StiDataBand",
           "Name": "DataBand1",
-          "ClientRectangle": "0,9.6,19,0.6",
+          "ClientRectangle": "0,11.4,19,0.6",
           "Interaction": {
             "Ident": "StiBandInteraction"
           },
@@ -856,7 +880,7 @@
               "HorAlignment": "Center",
               "VertAlignment": "Center",
               "Font": ";9;;",
-              "Border": "Left;193,152,89;;;;;;solid:Black",
+              "Border": "Left, Right;193,152,89;;;;;;solid:Black",
               "Brush": "solid:",
               "TextBrush": "solid:102,77,38",
               "Type": "Expression"
@@ -957,7 +981,7 @@
               "HorAlignment": "Center",
               "VertAlignment": "Center",
               "Font": ";9;;",
-              "Border": "Left;193,152,89;;;;;;solid:Black",
+              "Border": "Left, Right;193,152,89;;;;;;solid:Black",
               "Brush": "solid:",
               "TextBrush": "solid:102,77,38"
             }
@@ -965,10 +989,10 @@
           "DataSourceName": "root_livestocks",
           "EvenStyle": "Data2"
         },
-        "4": {
+        "5": {
           "Ident": "StiFooterBand",
           "Name": "FooterBand1",
-          "ClientRectangle": "0,11,19,0.2",
+          "ClientRectangle": "0,12.8,19,0.2",
           "Interaction": {
             "Ident": "StiInteraction"
           },

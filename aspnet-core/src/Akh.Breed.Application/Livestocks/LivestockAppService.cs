@@ -101,7 +101,8 @@ namespace Akh.Breed.Livestocks
             }
             else if (isOfficer)
             {
-                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
+                var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.OfficerId == officer.Id);
             }
             else
             {

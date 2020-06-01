@@ -82,7 +82,8 @@ namespace Akh.Breed.Herds
             }
             else if (isOfficer)
             {
-                query = query.Where(x => x.CreatorUserId == AbpSession.UserId);
+                var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.OfficerId == officer.Id);
             }
             else
             {
@@ -327,7 +328,7 @@ namespace Akh.Breed.Herds
             return input;
         }
         
-        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd, AppPermissions.Pages_BaseIntro_Herd_Create, AppPermissions.Pages_BaseIntro_Herd_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
         public async Task<ReportHerdCertificatedOutput> GetHerdCertificated(EntityDto input)
         {
             Herd herd = null;
@@ -343,6 +344,16 @@ namespace Akh.Breed.Herds
             output.Livestocks = ObjectMapper.Map<List<LivestockListDto>>(livestocks);
 
             return output;
+        }
+        
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
+        public List<ComboboxItemDto> GetHerdCertificatedForCombo(bool input)
+        {
+            var query = _herdRepository
+                .GetAll();
+            
+            return query.Select(c => new ComboboxItemDto(c.Id.ToString(),  " (" +c.Name+","+c.Family+")" ))
+                .ToList();
         }
    }
 }

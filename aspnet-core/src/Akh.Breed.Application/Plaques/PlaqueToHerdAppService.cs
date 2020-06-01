@@ -74,7 +74,8 @@ namespace Akh.Breed.Plaques
             }
             else if (isOfficer)
             {
-                query = query.Where(x => x.Officer.UserId == AbpSession.UserId);
+                var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.OfficerId == officer.Id);
             }
             else
             {
