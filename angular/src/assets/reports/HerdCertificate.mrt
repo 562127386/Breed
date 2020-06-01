@@ -1,12 +1,12 @@
 {
   "ReportVersion": "2020.2.1.0",
-  "ReportGuid": "02e665d97cb94992b52bb748e3f6f363",
+  "ReportGuid": "c9548397caef42bf9d6fb527085b5273",
   "ReportName": "Report",
   "ReportAlias": "Simple List",
   "ReportAuthor": "Stimulsoft",
   "ReportDescription": "This sample demonstrates how to create a simple list report.",
   "ReportCreated": "/Date(1085817540000+0430)/",
-  "ReportChanged": "/Date(1591033020792+0430)/",
+  "ReportChanged": "/Date(1591043388910+0430)/",
   "EngineVersion": "EngineV2",
   "PreviewMode": "StandardAndDotMatrix",
   "PreviewSettings": 33538047,
@@ -461,7 +461,7 @@
               "Guid": "426e9ac30a6840e7b47553f34723b8df",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "3,0,2,0.8",
+              "ClientRectangle": "3.2,1.8,2,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -483,7 +483,7 @@
               "CanGrow": true,
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "0,0,3,0.8",
+              "ClientRectangle": "0.2,1.8,3,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -523,7 +523,7 @@
               "Guid": "ad84743dbb104522bab5af7de42fb833",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "3,0.8,2,0.8",
+              "ClientRectangle": "3.2,2.6,2,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -543,7 +543,7 @@
               "Name": "Text3",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "0,0.8,3,0.8",
+              "ClientRectangle": "0.2,2.6,3,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -576,7 +576,7 @@
               "Name": "BarCode1",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "0,1.6,5,1.8",
+              "ClientRectangle": "0,0,5.2,1.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -585,7 +585,8 @@
               "HorAlignment": "Center",
               "VertAlignment": "Center",
               "BarCodeType": {
-                "Ident": "StiEAN128aBarCodeType"
+                "Ident": "StiEAN128aBarCodeType",
+                "Height": 0.8
               },
               "Code": {
                 "Value": "{int.Parse(root.epidemiologicCode)}"
@@ -615,7 +616,7 @@
                 "Ident": "StiInteraction"
               },
               "Text": {
-                "Value": "گواهی می شود در تاریخ ----- تعداد {Count(DataBand1)} راس/نفر دام ----- در دامداری ---- به کد ملی ---- و  کد گله ----- به آدرس ----- پلاک کوبی و ثبت شد."
+                "Value": "گواهی می شود در تاریخ --- تعداد {Count(DataBand1)} راس/نفر دام بر اساس لیست پیوست در دامداری --- با شماره ملی --- کد گله --- به آدرس --- پلاک کوبی و ثبت شد."
               },
               "HorAlignment": "Right",
               "Font": "Leelawadee;12;;",
@@ -633,7 +634,7 @@
               "Name": "Text22",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "3.4,2.8,6.4,0.8",
+              "ClientRectangle": "0,3.6,3.4,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -652,7 +653,7 @@
               "Name": "Text23",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "3.4,3.6,6.4,0.8",
+              "ClientRectangle": "3.4,3.6,3.4,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -672,12 +673,12 @@
               "Guid": "07f64c83968c47f6878ddfc9e534265f",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "0,3.6,3.4,0.8",
+              "ClientRectangle": "3.4,2.8,3.4,0.8",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
               "Text": {
-                "Value": "نام پیمانکار:"
+                "Value": "پیمانکار"
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
@@ -698,7 +699,7 @@
                 "Ident": "StiInteraction"
               },
               "Text": {
-                "Value": "نام مامور:"
+                "Value": "مامور نصب"
               },
               "HorAlignment": "Center",
               "VertAlignment": "Center",
@@ -713,7 +714,7 @@
               "Name": "Text26",
               "MinSize": "0,0",
               "MaxSize": "0,0",
-              "ClientRectangle": "9.8,2.8,9.2,1.6",
+              "ClientRectangle": "10.2,2.8,8.8,1.6",
               "Interaction": {
                 "Ident": "StiInteraction"
               },
@@ -727,6 +728,46 @@
               "Brush": "solid:",
               "TextBrush": "solid:Black",
               "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "eb1541fd5a8248b6808c4b32bfd7356b",
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "6.8,2.8,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "دامدار"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "6.8,3.6,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{root.contractorName}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Leelawadee;12;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:",
+              "TextBrush": "solid:Black"
             }
           },
           "NewPageAfter": true,
