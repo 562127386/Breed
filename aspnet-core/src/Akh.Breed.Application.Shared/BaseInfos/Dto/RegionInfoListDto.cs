@@ -14,7 +14,8 @@ namespace Akh.Breed.BaseInfos.Dto
             {
                 Sorting = "CreationTime DESC";
             }
-
+            Sorting = Sorting.Replace("stateInfoName", "CityInfo.StateInfo.Name");
+            Sorting = Sorting.Replace("cityInfoName", "CityInfo.Name");
             Filter = Filter?.Trim();
         }
     }

@@ -14,7 +14,6 @@ namespace Akh.Breed.BaseInfos.Dto
             {
                 Sorting = "CreationTime DESC";
             }
-
             Filter = Filter?.Trim();
         }
     }

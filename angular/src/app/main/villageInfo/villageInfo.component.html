@@ -58,14 +58,17 @@
                                     [resizableColumns]="primengTableHelper.resizableColumns">
                                     <ng-template pTemplate="header">
                                         <tr>                                        
-                                            <th style="width: 100px" >
+                                            <th style="width: 100px" pSortableColumn="stateInfoName">
                                                 {{'StateInfoName' | localize}}
+                                                <p-sortIcon field="stateInfoName"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" >
+                                            <th style="width: 100px" pSortableColumn="cityInfoName">
                                                 {{'CityInfoName' | localize}}
+                                                <p-sortIcon field="cityInfoName"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" >
+                                            <th style="width: 100px" pSortableColumn="regionInfoName">
                                                 {{'RegionInfoName' | localize}}
+                                                <p-sortIcon field="regionInfoName"></p-sortIcon>
                                             </th>
                                             <th style="width: 100px" pSortableColumn="code">
                                                 {{'Code' | localize}}
