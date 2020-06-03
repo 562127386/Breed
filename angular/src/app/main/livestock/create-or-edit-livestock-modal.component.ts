@@ -41,6 +41,10 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
     liveStockOfficer: string;
     liveStockNowDate: string;
     liveStockNowTime: string;
+    herdId: number = undefined;
+    activityInfoId: number = undefined;
+    speciesInfoId: number = undefined;
+    nationalCode: string = '';
 
     constructor(
         injector: Injector,
@@ -104,6 +108,14 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
                 this.liveStockNowTime = userResult.livestock.creationTime.format('HH:mm');
             }
             this.getUserLocation();
+            if(this.herdId != undefined){
+                this.livestock.herdId = this.herdId;
+                this.getActivities(this.herdId.toString());
+                this.livestock.activityInfoId = this.activityInfoId;
+                this.livestock.speciesInfoId = this.speciesInfoId;
+                this.livestock.nationalCode = this.nationalCode;
+                
+            }
             this.modal.show();
         });
         
@@ -125,7 +137,18 @@ export class CreateOrEditLivestockModalComponent extends AppComponentBase {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
                 this.modalSave.emit(this.livestock);
-                if(shouldCountinue !== undefined && shouldCountinue == 1){                
+                if(shouldCountinue !== undefined && shouldCountinue == 1){
+                    this.herdId = this.livestock.herdId;
+                    this.activityInfoId = this.livestock.activityInfoId;
+                    this.speciesInfoId = this.livestock.speciesInfoId;
+                    let plaqueCode = Number(this.livestock.nationalCode);
+                    if(plaqueCode < 1000000000){
+                        this.nationalCode = (364052000000000+plaqueCode+1).toString();
+                    }
+                    else{
+                        this.nationalCode = (plaqueCode+1).toString();
+                    }
+
                     this.show();
                 }
             });
