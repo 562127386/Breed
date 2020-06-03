@@ -1075,6 +1075,7 @@
 
     <text name="CreateNewHerd">ایجاد گله</text>
     <text name="AreYouSureToDeleteTheHerd">آیا از حذف گله {0} مطمئن هستید؟</text>
+    <text name="AreYouSureToConfirmTheHerd">با توجه به اینکه بعد از تایید نهایی امکان ثبت پلاک برای این گله وجود ندارد خواهشمند است قبل از ثبت نهایی از صحت اطلاعات خود اطمینان حاصل فرمایید.</text>
     <text name="HerdHeaderInfo">مدیریت گله</text>
     <text name="ViewNewHerd">نمایش گله</text>
     <text name="EditNewHerd">ویرایش گله</text>

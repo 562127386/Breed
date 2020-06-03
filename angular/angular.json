@@ -53,7 +53,8 @@
               
               "src/app/shared/core.less",
               "src/app/shared/layout/layout.less",
-              "src/styles.css"
+              "src/styles.css",
+              "src/stimulsoft/stimulsoft.viewer.office2013.whiteblue.css"
             ],
             "scripts": [
               "node_modules/@aspnet/signalr/dist/browser/signalr.min.js",

@@ -28,14 +28,13 @@
                                 <div class="col-md-8 col-sm-12">
                                     <p-dropdown #herdCombobox="ngModel" [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
                                         name="herdId" [(ngModel)]="herdId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
-                                    <validation-messages [formCtrl]="herdCombobox"></validation-messages>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">   
-                            <button type="button" [disabled]="!herdId" data-toggle="tooltip" data-placement="top" [title]="l('DeleteItem')" (click)="herdCertificate(herdId)" class="btn btn-danger  btn-sm btn-icon kt-margin-l-5 kt-margin-r-5"><i class="flaticon-delete"></i></button>
+                        <div class="col-md-6 col-sm-12">
+                            <button type="button" [disabled]="!herdId" data-toggle="tooltip" data-placement="top" [title]="l('Ok')" (click)="herdCertificate(herdId)" class="btn btn-primary" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Ok" | localize}}</span></button>
                         </div> 
-                        <div class="col-sm-12"> 
+                        <div dir="ltr" class="col-sm-12"> 
                             <div id="viewer"></div>
                         </div>
                     </div>

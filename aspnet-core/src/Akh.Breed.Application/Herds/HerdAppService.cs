@@ -9,6 +9,7 @@ using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Runtime.Session;
+using Abp.Timing;
 using Abp.UI;
 using Akh.Breed.Authorization;
 using Akh.Breed.Authorization.Roles;
@@ -328,11 +329,18 @@ namespace Akh.Breed.Herds
         {
             Herd herd = null;
             herd = await _herdRepository.GetAll()
+                .Include(x => x.Officer)
+                .ThenInclude(x => x.Contractor)
+                .Include(x => x.StateInfo)
+                .Include(x => x.CityInfo)
+                .Include(x => x.RegionInfo)
+                .Include(x => x.VillageInfo)
                 .FirstOrDefaultAsync(x => x.Id == input.Id);
 
             var output = ObjectMapper.Map<ReportHerdCertificatedOutput>(herd);
             
             var livestocks = await _livestockRepository.GetAll()
+                .Include(x => x.SexInfo)
                 .Where(x => x.HerdId == input.Id)
                 .OrderBy(x => x.NationalCode)
                 .ToListAsync();
@@ -342,10 +350,52 @@ namespace Akh.Breed.Herds
         }
         
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
+        public async Task SetHerdCertificated(int input)
+        {
+            Herd herd = _herdRepository.FirstOrDefault(x => x.Id == input);
+            herd.IsCertificated = true;
+            herd.CertificateDate = Clock.Now;
+
+            await _herdRepository.UpdateAsync(herd);
+        }
+        
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
         public List<ComboboxItemDto> GetHerdCertificatedForCombo(bool input)
         {
             var query = _herdRepository
-                .GetAll();
+                .GetAll()
+                .Where(x => !x.IsCertificated);
+            
+            var user = UserManager.GetUserById(AbpSession.GetUserId());
+            var isAdmin = UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin).Result;
+            var isSysAdmin = UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin).Result;
+            var isStateAdmin = UserManager.IsInRoleAsync(user,StaticRoleNames.Host.StateAdmin).Result;
+            var isCityAdmin = UserManager.IsInRoleAsync(user,StaticRoleNames.Host.CityAdmin).Result;
+            var isOfficer = UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Officer).Result;
+            var stateInfoQuery = _stateInfoRepository.GetAll();
+            if (isAdmin || isSysAdmin)
+            {
+                query = query;
+            }
+            else if (isStateAdmin)
+            {
+                var union = _unionInfoRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.UnionInfoId == union.Id);
+            }
+            else if (isCityAdmin)
+            {
+                var contractor = _contractorRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.StateInfoId == contractor.StateInfoId);
+            }
+            else if (isOfficer)
+            {
+                var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                query = query.Where(x => x.OfficerId == officer.Id);
+            }
+            else
+            {
+                query = query.Where(x => false);
+            }
             
             return query.Select(c => new ComboboxItemDto(c.Id.ToString(),  " (" +c.Name+","+c.Family+")" ))
                 .ToList();

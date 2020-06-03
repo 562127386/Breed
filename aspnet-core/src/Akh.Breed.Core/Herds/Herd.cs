@@ -67,6 +67,10 @@ namespace Akh.Breed.Herds
         
         public int Capacity { get; set; }
         
+        public DateTime? CertificateDate { get; set; }
+
+        public bool IsCertificated { get; set; }
+
         [ForeignKey("EpidemiologicInfoId")]
         public EpidemiologicInfo EpidemiologicInfo { get; set; }
         public int? EpidemiologicInfoId { get; set; }

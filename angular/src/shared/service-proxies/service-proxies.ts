@@ -5365,6 +5365,58 @@ export class HerdServiceProxy {
      * @param input (optional) 
      * @return Success
      */
+    setHerdCertificated(input: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Herd/SetHerdCertificated?";
+        if (input === null)
+            throw new Error("The parameter 'input' cannot be null.");
+        else if (input !== undefined)
+            url_ += "input=" + encodeURIComponent("" + input) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSetHerdCertificated(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSetHerdCertificated(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSetHerdCertificated(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param input (optional) 
+     * @return Success
+     */
     getHerdCertificatedForCombo(input: boolean | undefined): Observable<ComboboxItemDto[]> {
         let url_ = this.baseUrl + "/api/services/app/Herd/GetHerdCertificatedForCombo?";
         if (input === null)
@@ -24274,7 +24326,7 @@ export class LivestockListDto implements ILivestockListDto {
     latitude!: string | undefined;
     longitude!: string | undefined;
     imported!: boolean;
-    birthDate!: moment.Moment | undefined;
+    birthDateStr!: string | undefined;
     speciesInfoName!: string | undefined;
     sexInfoName!: string | undefined;
     herdName!: string | undefined;
@@ -24298,7 +24350,7 @@ export class LivestockListDto implements ILivestockListDto {
             this.latitude = data["latitude"];
             this.longitude = data["longitude"];
             this.imported = data["imported"];
-            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.birthDateStr = data["birthDateStr"];
             this.speciesInfoName = data["speciesInfoName"];
             this.sexInfoName = data["sexInfoName"];
             this.herdName = data["herdName"];
@@ -24322,7 +24374,7 @@ export class LivestockListDto implements ILivestockListDto {
         data["latitude"] = this.latitude;
         data["longitude"] = this.longitude;
         data["imported"] = this.imported;
-        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["birthDateStr"] = this.birthDateStr;
         data["speciesInfoName"] = this.speciesInfoName;
         data["sexInfoName"] = this.sexInfoName;
         data["herdName"] = this.herdName;
@@ -24339,7 +24391,7 @@ export interface ILivestockListDto {
     latitude: string | undefined;
     longitude: string | undefined;
     imported: boolean;
-    birthDate: moment.Moment | undefined;
+    birthDateStr: string | undefined;
     speciesInfoName: string | undefined;
     sexInfoName: string | undefined;
     herdName: string | undefined;
@@ -24352,11 +24404,24 @@ export interface ILivestockListDto {
 export class ReportHerdCertificatedOutput implements IReportHerdCertificatedOutput {
     id!: number;
     herdName!: string | undefined;
-    latitude!: string | undefined;
-    longitude!: string | undefined;
-    epidemiologicCode!: string | undefined;
+    iranian!: boolean;
+    reality!: boolean;
+    code!: string | undefined;
+    nationalCode!: string | undefined;
+    name!: string | undefined;
+    family!: string | undefined;
+    address!: string | undefined;
+    postalCode!: string | undefined;
+    firmCode!: string | undefined;
+    firmName!: string | undefined;
+    stateName!: string | undefined;
+    cityName!: string | undefined;
+    regionName!: string | undefined;
+    villageName!: string | undefined;
     contractorName!: string | undefined;
     officerName!: string | undefined;
+    certificatedDateStr!: string | undefined;
+    isCertificated!: boolean;
     livestocks!: LivestockListDto[] | undefined;
 
     constructor(data?: IReportHerdCertificatedOutput) {
@@ -24372,11 +24437,24 @@ export class ReportHerdCertificatedOutput implements IReportHerdCertificatedOutp
         if (data) {
             this.id = data["id"];
             this.herdName = data["herdName"];
-            this.latitude = data["latitude"];
-            this.longitude = data["longitude"];
-            this.epidemiologicCode = data["epidemiologicCode"];
+            this.iranian = data["iranian"];
+            this.reality = data["reality"];
+            this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.name = data["name"];
+            this.family = data["family"];
+            this.address = data["address"];
+            this.postalCode = data["postalCode"];
+            this.firmCode = data["firmCode"];
+            this.firmName = data["firmName"];
+            this.stateName = data["stateName"];
+            this.cityName = data["cityName"];
+            this.regionName = data["regionName"];
+            this.villageName = data["villageName"];
             this.contractorName = data["contractorName"];
             this.officerName = data["officerName"];
+            this.certificatedDateStr = data["certificatedDateStr"];
+            this.isCertificated = data["isCertificated"];
             if (Array.isArray(data["livestocks"])) {
                 this.livestocks = [] as any;
                 for (let item of data["livestocks"])
@@ -24396,11 +24474,24 @@ export class ReportHerdCertificatedOutput implements IReportHerdCertificatedOutp
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["herdName"] = this.herdName;
-        data["latitude"] = this.latitude;
-        data["longitude"] = this.longitude;
-        data["epidemiologicCode"] = this.epidemiologicCode;
+        data["iranian"] = this.iranian;
+        data["reality"] = this.reality;
+        data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
+        data["firmCode"] = this.firmCode;
+        data["firmName"] = this.firmName;
+        data["stateName"] = this.stateName;
+        data["cityName"] = this.cityName;
+        data["regionName"] = this.regionName;
+        data["villageName"] = this.villageName;
         data["contractorName"] = this.contractorName;
         data["officerName"] = this.officerName;
+        data["certificatedDateStr"] = this.certificatedDateStr;
+        data["isCertificated"] = this.isCertificated;
         if (Array.isArray(this.livestocks)) {
             data["livestocks"] = [];
             for (let item of this.livestocks)
@@ -24413,11 +24504,24 @@ export class ReportHerdCertificatedOutput implements IReportHerdCertificatedOutp
 export interface IReportHerdCertificatedOutput {
     id: number;
     herdName: string | undefined;
-    latitude: string | undefined;
-    longitude: string | undefined;
-    epidemiologicCode: string | undefined;
+    iranian: boolean;
+    reality: boolean;
+    code: string | undefined;
+    nationalCode: string | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    address: string | undefined;
+    postalCode: string | undefined;
+    firmCode: string | undefined;
+    firmName: string | undefined;
+    stateName: string | undefined;
+    cityName: string | undefined;
+    regionName: string | undefined;
+    villageName: string | undefined;
     contractorName: string | undefined;
     officerName: string | undefined;
+    certificatedDateStr: string | undefined;
+    isCertificated: boolean;
     livestocks: LivestockListDto[] | undefined;
 }
 

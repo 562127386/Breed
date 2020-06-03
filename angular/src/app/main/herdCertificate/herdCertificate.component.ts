@@ -53,24 +53,49 @@ export class HerdCertificateComponent extends AppComponentBase implements OnInit
 
     herdCertificate(herdId: number): void {
         this.message.confirm(
-            this.l('AreYouSureToDeleteTheHerdGeoLog', herdId),            
+            this.l('AreYouSureToConfirmTheHerd'),            
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {
-                    this._herdService.getHerdCertificated(herdId).subscribe(result => {
-                        this.report = new Stimulsoft.Report.StiReport(); 
-                        this.report.loadFile("/assets/reports/HerdCertificate.mrt");
-            
-                        this.dataSet = new Stimulsoft.System.Data.DataSet("Breed");
-                        this.dataSet.readJson(result);
-            
-                        this.report.dictionary.databases.clear();
-                        this.report.regData(this.dataSet.dataSetName, this.dataSet.dataSetName, this.dataSet);
-            
-                        this.viewer = new Stimulsoft.Viewer.StiViewer(null, 'StiViewer', false);                                
-                        this.viewer.report = this.report;
-            
-                        this.viewer.renderHtml('viewer');
+                    this._herdService.setHerdCertificated(herdId).subscribe(result => {                         
+                        this.notify.info(this.l('SuccessfullySaved'));   
+                        this._herdService.getHerdCertificated(herdId).subscribe(result => {
+                            this.options = new Stimulsoft.Viewer.StiViewerOptions();
+                            this.options.appearance.rightToLeft = false;
+                            this.options.toolbar.showOpenButton = false;
+                            this.options.toolbar.showBookmarksButton = false;
+                            this.options.toolbar.showParametersButton = false;
+                            this.options.toolbar.showResourcesButton = false;
+                            this.options.toolbar.showEditorButton = false;
+                            this.options.toolbar.showFullScreenButton = false;
+                            this.options.toolbar.showViewModeButton = false;
+                            this.options.toolbar.showDesignButton = false;
+                            this.options.toolbar.showAboutButton = false;
+                            this.options.toolbar.printDestination = Stimulsoft.Viewer.StiPrintDestination.Default;
+
+                            this.report = new Stimulsoft.Report.StiReport(); 
+                            this.report.loadFile("/assets/reports/HerdCertificate.mrt");
+                
+                            this.dataSet = new Stimulsoft.System.Data.DataSet("Breed");
+                            this.dataSet.readJson(result);
+                
+                            this.report.dictionary.databases.clear();
+                            this.report.regData(this.dataSet.dataSetName, this.dataSet.dataSetName, this.dataSet);
+                
+                            this.viewer = new Stimulsoft.Viewer.StiViewer(this.options, 'StiViewer', false);                                
+                            this.viewer.report = this.report;
+                
+                            this.viewer.renderHtml('viewer');
+                        });
+
+                        this._herdService.getHerdCertificatedForCombo(true).subscribe(userResult => {
+
+                            this.herdsSelectItems = _.map(userResult, function(herd) {
+                                return {
+                                    label: herd.displayText, value: Number(herd.value)
+                                };
+                            });
+                        });
                     });
                 }
             }
