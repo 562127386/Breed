@@ -126,15 +126,24 @@ namespace Akh.Breed.Plaques
         
         private IQueryable<PlaqueStore> GetFilteredQuery(GetPlaqueStoreInput input)
         {
-            long tempSearch = Convert.ToInt64(input.Filter);
+            long tempSearch = 0;
+            try
+            {
+                tempSearch = Convert.ToInt64(input.Filter);
+            }
+            catch (Exception e)
+            {
+            }
             var query = QueryableExtensions.WhereIf(
                 _plaqueStoreRepository.GetAll()
                     .Include(x => x.Species)
                     .Include(x => x.Manufacturer)
                     .Include(x => x.FinishedPlaque),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
-                    u.FromCode <= tempSearch &&
-                    u.ToCode >= tempSearch);
+                    (u.FromCode <= tempSearch &&
+                    u.ToCode >= tempSearch) ||
+                    u.Species.Name.Contains(input.Filter) ||
+                    u.Manufacturer.Name.Contains(input.Filter));
 
             return query;
         }

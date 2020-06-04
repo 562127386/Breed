@@ -14,6 +14,7 @@ namespace Akh.Breed.Unions.Dto
             {
                 Sorting = "CreationTime DESC";
             }
+            Sorting = Sorting.Replace("stateInfoName", "StateInfo.Name");
 
             Filter = Filter?.Trim();
         }

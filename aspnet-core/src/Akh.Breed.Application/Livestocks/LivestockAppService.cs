@@ -243,7 +243,14 @@ namespace Akh.Breed.Livestocks
                 .Include(x => x.ActivityInfo)
                 .Include(x => x.Officer),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
-                    u.NationalCode.Contains(input.Filter));
+                    u.NationalCode.Contains(input.Filter) || 
+                    u.SpeciesInfo.Name.Contains(input.Filter)|| 
+                    u.Herd.HerdName.Contains(input.Filter)|| 
+                    u.Herd.Name.Contains(input.Filter)|| 
+                    u.Herd.Family.Contains(input.Filter)|| 
+                    u.ActivityInfo.Name.Contains(input.Filter)|| 
+                    u.Officer.Name.Contains(input.Filter)|| 
+                    u.Officer.Family.Contains(input.Filter));
                                 
             return query;
         }        

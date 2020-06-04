@@ -184,7 +184,11 @@ namespace Akh.Breed.Unions
             var query = QueryableExtensions.WhereIf(_unionInfoRepository.GetAllIncluding(p => p.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
                     u.UnionName.Contains(input.Filter) ||
-                    u.Code.Contains(input.Filter));
+                    u.Code.Contains(input.Filter) ||
+                    u.Name.Contains(input.Filter) ||
+                    u.Family.Contains(input.Filter) ||
+                    u.NationalCode.Replace("-","").Contains(input.Filter) ||
+                    u.StateInfo.Name.Contains(input.Filter));
 
             return query;
         }

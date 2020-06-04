@@ -16,6 +16,10 @@ namespace Akh.Breed.Plaques.Dto
             {
                 Sorting = "CreationTime DESC";
             }
+            Sorting = Sorting.Replace("stateInfoName", "PlaqueToContractor.Contractor.CityInfo.StateInfo.Name");
+            Sorting = Sorting.Replace("contractorName", "PlaqueToContractor.Contractor.Family,PlaqueToContractor.Contractor.Name");
+            Sorting = Sorting.Replace("officerName", "Officer.Name");
+            Sorting = Sorting.Replace("speciesName", "PlaqueToContractor.PlaqueToState.PlaqueStore.Species.Name");
 
             Filter = Filter?.Trim();
         }

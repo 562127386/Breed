@@ -159,7 +159,12 @@ namespace Akh.Breed.Plaques
                     .Include(x => x.NewState)
                     .Include(x => x.Officer),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
-                    u.Plaque.Code.ToString().Contains(input.Filter));
+                    u.Plaque.Code.ToString().Contains(input.Filter) ||
+                    u.Plaque.Livestock.Herd.HerdName.Contains(input.Filter) ||
+                    u.PreState.Name.Contains(input.Filter) ||
+                    u.NewState.Name.Contains(input.Filter) ||
+                    u.Officer.Name.Contains(input.Filter) ||
+                    u.Officer.Family.Contains(input.Filter));
 
             return query;
         }

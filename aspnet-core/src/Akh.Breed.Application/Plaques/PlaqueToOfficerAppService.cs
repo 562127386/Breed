@@ -241,7 +241,14 @@ namespace Akh.Breed.Plaques
         
         private IQueryable<PlaqueToOfficer> GetFilteredQuery(GetPlaqueToOfficerInput input)
         {
-            long tempSearch = Convert.ToInt64(input.Filter);
+            long tempSearch = 0;
+            try
+            {
+                tempSearch = Convert.ToInt64(input.Filter);
+            }
+            catch (Exception e)
+            {
+            }
             var query = QueryableExtensions.WhereIf(
                 _plaqueToOfficerRepository.GetAll()
                     .Include(x => x.Officer)
@@ -254,8 +261,14 @@ namespace Akh.Breed.Plaques
                     .ThenInclude(x => x.CityInfo)
                     .ThenInclude(x => x.StateInfo),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
-                    u.FromCode <= tempSearch &&
-                    u.ToCode >= tempSearch);
+                    (u.FromCode <= tempSearch &&
+                    u.ToCode >= tempSearch) ||
+                    u.Officer.Name.Contains(input.Filter) ||
+                    u.Officer.Family.Contains(input.Filter) ||
+                    u.PlaqueToContractor.PlaqueToState.PlaqueStore.Species.Name.Contains(input.Filter) ||
+                    u.PlaqueToContractor.Contractor.Name.Contains(input.Filter) ||
+                    u.PlaqueToContractor.Contractor.Family.Contains(input.Filter) ||
+                    u.PlaqueToContractor.Contractor.CityInfo.StateInfo.Name.Contains(input.Filter));
 
             return query;
         }

@@ -15,6 +15,8 @@ namespace Akh.Breed.Officers.Dto
             {
                 Sorting = "CreationTime DESC";
             }
+            Sorting = Sorting.Replace("contractorName", "Contractor.Family,Contractor.Name");
+            Sorting = Sorting.Replace("stateInfoName", "StateInfo.Name");
 
             Filter = Filter?.Trim();
         }

@@ -61,17 +61,21 @@
                                             <!-- <th style="width: 100px" >
                                                 {{'OfficerCode' | localize}}
                                             </th> -->
-                                            <th style="width: 100px" >
+                                            <th style="width: 100px" pSortableColumn="stateInfoName">
                                                 {{'StateInfo' | localize}}
+                                                <p-sortIcon field="stateInfoName"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" >
+                                            <th style="width: 100px" pSortableColumn="cityInfoName">
                                                 {{'CityInfo' | localize}}
+                                                <p-sortIcon field="cityInfoName"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" >
+                                            <th style="width: 100px" pSortableColumn="contractorName">
                                                 {{'Contractor' | localize}}
+                                                <p-sortIcon field="contractorName"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" >
+                                            <th style="width: 100px" pSortableColumn="speciesName">
                                                 {{'SpeciesName' | localize}}
+                                                <p-sortIcon field="speciesName"></p-sortIcon>
                                             </th>
                                             <th style="width: 110px" pSortableColumn="setTime">
                                                 {{'SetTime' | localize}}

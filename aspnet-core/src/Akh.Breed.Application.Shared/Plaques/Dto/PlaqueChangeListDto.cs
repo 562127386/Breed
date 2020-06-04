@@ -16,6 +16,10 @@ namespace Akh.Breed.Plaques.Dto
             {
                 Sorting = "CreationTime DESC";
             }
+            Sorting = Sorting.Replace("plaqueHerdName", "Plaque.Livestock.Herd.HerdName");
+            Sorting = Sorting.Replace("preStateName", "PreState.Name");
+            Sorting = Sorting.Replace("newStateName", "NewState.Name");
+            Sorting = Sorting.Replace("officerName", "Officer.Family,Officer.Name");
 
             Filter = Filter?.Trim();
         }

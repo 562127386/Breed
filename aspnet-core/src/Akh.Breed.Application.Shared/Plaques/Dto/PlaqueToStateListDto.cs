@@ -16,6 +16,8 @@ namespace Akh.Breed.Plaques.Dto
             {
                 Sorting = "CreationTime DESC";
             }
+            Sorting = Sorting.Replace("stateInfoName", "StateInfo.Name");
+            Sorting = Sorting.Replace("speciesName", "PlaqueStore.Species.Name");
 
             Filter = Filter?.Trim();
         }

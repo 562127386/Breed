@@ -298,6 +298,8 @@ namespace Akh.Breed.Herds
                     u.PostalCode.Replace("-","").Contains(input.Filter) ||
                     u.HerdName.Contains(input.Filter) ||
                     u.EpidemiologicCode.Contains(input.Filter) ||
+                    u.Officer.Name.Contains(input.Filter) ||
+                    u.Officer.Family.Contains(input.Filter) ||
                     u.Contractor.Name.Contains(input.Filter) ||
                     u.Contractor.Family.Contains(input.Filter) ||
                     u.Contractor.FirmName.Contains(input.Filter) ||

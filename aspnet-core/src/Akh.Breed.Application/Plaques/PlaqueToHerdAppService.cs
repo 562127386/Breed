@@ -192,6 +192,9 @@ namespace Akh.Breed.Plaques
                 .Include(x => x.Herd)
                 .Include(x => x.Officer),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
+                    u.Herd.Name.Contains(input.Filter) ||
+                    u.Officer.Name.Contains(input.Filter) ||
+                    u.Officer.Family.Contains(input.Filter) ||
                     u.NationalCode.Contains(input.Filter));
 
             return query;

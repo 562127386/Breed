@@ -126,6 +126,8 @@ namespace Akh.Breed.Herds
                 .Include(x => x.Herd)
                 .Include(x => x.Officer),
                 !input.Filter.IsNullOrWhiteSpace(), u =>
+                    u.Officer.Name.Contains(input.Filter) ||
+                    u.Officer.Family.Contains(input.Filter) ||
                     u.Herd.HerdName.Contains(input.Filter) ||
                     u.Herd.FirmName.Contains(input.Filter));
 

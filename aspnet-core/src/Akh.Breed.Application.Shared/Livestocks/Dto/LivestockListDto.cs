@@ -15,6 +15,10 @@ namespace Akh.Breed.Livestocks.Dto
             {
                 Sorting = "CreationTime DESC";
             }
+            Sorting = Sorting.Replace("speciesInfoName", "SpeciesInfo.Name");
+            Sorting = Sorting.Replace("herdName", "Herd.HerdName");
+            Sorting = Sorting.Replace("activityInfoName", "ActivityInfo.Name");
+            Sorting = Sorting.Replace("officerName", "Officer.Family");
 
             Filter = Filter?.Trim();
         }
