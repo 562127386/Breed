@@ -5414,6 +5414,62 @@ export class HerdServiceProxy {
     }
 
     /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getHerdLivestock(id: number | undefined): Observable<ReportHerdLivestockOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Herd/GetHerdLivestock?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHerdLivestock(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHerdLivestock(<any>response_);
+                } catch (e) {
+                    return <Observable<ReportHerdLivestockOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ReportHerdLivestockOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetHerdLivestock(response: HttpResponseBase): Observable<ReportHerdLivestockOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ReportHerdLivestockOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ReportHerdLivestockOutput>(<any>null);
+    }
+
+    /**
      * @param input (optional) 
      * @return Success
      */
@@ -23913,6 +23969,7 @@ export class HerdListDto implements IHerdListDto {
     mobile!: string | undefined;
     activityInfoName!: string | undefined;
     contractorName!: string | undefined;
+    isCertificated!: boolean;
     id!: number;
 
     constructor(data?: IHerdListDto) {
@@ -23937,6 +23994,7 @@ export class HerdListDto implements IHerdListDto {
             this.mobile = data["mobile"];
             this.activityInfoName = data["activityInfoName"];
             this.contractorName = data["contractorName"];
+            this.isCertificated = data["isCertificated"];
             this.id = data["id"];
         }
     }
@@ -23961,6 +24019,7 @@ export class HerdListDto implements IHerdListDto {
         data["mobile"] = this.mobile;
         data["activityInfoName"] = this.activityInfoName;
         data["contractorName"] = this.contractorName;
+        data["isCertificated"] = this.isCertificated;
         data["id"] = this.id;
         return data; 
     }
@@ -23978,6 +24037,7 @@ export interface IHerdListDto {
     mobile: string | undefined;
     activityInfoName: string | undefined;
     contractorName: string | undefined;
+    isCertificated: boolean;
     id: number;
 }
 
@@ -24327,6 +24387,7 @@ export class LivestockListDto implements ILivestockListDto {
     longitude!: string | undefined;
     imported!: boolean;
     birthDateStr!: string | undefined;
+    creationTimeStr!: string | undefined;
     speciesInfoName!: string | undefined;
     sexInfoName!: string | undefined;
     herdName!: string | undefined;
@@ -24351,6 +24412,7 @@ export class LivestockListDto implements ILivestockListDto {
             this.longitude = data["longitude"];
             this.imported = data["imported"];
             this.birthDateStr = data["birthDateStr"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.speciesInfoName = data["speciesInfoName"];
             this.sexInfoName = data["sexInfoName"];
             this.herdName = data["herdName"];
@@ -24375,6 +24437,7 @@ export class LivestockListDto implements ILivestockListDto {
         data["longitude"] = this.longitude;
         data["imported"] = this.imported;
         data["birthDateStr"] = this.birthDateStr;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["speciesInfoName"] = this.speciesInfoName;
         data["sexInfoName"] = this.sexInfoName;
         data["herdName"] = this.herdName;
@@ -24392,6 +24455,7 @@ export interface ILivestockListDto {
     longitude: string | undefined;
     imported: boolean;
     birthDateStr: string | undefined;
+    creationTimeStr: string | undefined;
     speciesInfoName: string | undefined;
     sexInfoName: string | undefined;
     herdName: string | undefined;
@@ -24522,6 +24586,130 @@ export interface IReportHerdCertificatedOutput {
     officerName: string | undefined;
     certificatedDateStr: string | undefined;
     isCertificated: boolean;
+    livestocks: LivestockListDto[] | undefined;
+}
+
+export class ReportHerdLivestockOutput implements IReportHerdLivestockOutput {
+    id!: number;
+    doneDate!: string | undefined;
+    fromDate!: string | undefined;
+    toDate!: string | undefined;
+    herdName!: string | undefined;
+    code!: string | undefined;
+    nationalCode!: string | undefined;
+    name!: string | undefined;
+    family!: string | undefined;
+    address!: string | undefined;
+    postalCode!: string | undefined;
+    firmCode!: string | undefined;
+    firmName!: string | undefined;
+    stateName!: string | undefined;
+    cityName!: string | undefined;
+    regionName!: string | undefined;
+    villageName!: string | undefined;
+    contractorName!: string | undefined;
+    officerName!: string | undefined;
+    officerCode!: string | undefined;
+    livestocks!: LivestockListDto[] | undefined;
+
+    constructor(data?: IReportHerdLivestockOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.doneDate = data["doneDate"];
+            this.fromDate = data["fromDate"];
+            this.toDate = data["toDate"];
+            this.herdName = data["herdName"];
+            this.code = data["code"];
+            this.nationalCode = data["nationalCode"];
+            this.name = data["name"];
+            this.family = data["family"];
+            this.address = data["address"];
+            this.postalCode = data["postalCode"];
+            this.firmCode = data["firmCode"];
+            this.firmName = data["firmName"];
+            this.stateName = data["stateName"];
+            this.cityName = data["cityName"];
+            this.regionName = data["regionName"];
+            this.villageName = data["villageName"];
+            this.contractorName = data["contractorName"];
+            this.officerName = data["officerName"];
+            this.officerCode = data["officerCode"];
+            if (Array.isArray(data["livestocks"])) {
+                this.livestocks = [] as any;
+                for (let item of data["livestocks"])
+                    this.livestocks!.push(LivestockListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ReportHerdLivestockOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ReportHerdLivestockOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["doneDate"] = this.doneDate;
+        data["fromDate"] = this.fromDate;
+        data["toDate"] = this.toDate;
+        data["herdName"] = this.herdName;
+        data["code"] = this.code;
+        data["nationalCode"] = this.nationalCode;
+        data["name"] = this.name;
+        data["family"] = this.family;
+        data["address"] = this.address;
+        data["postalCode"] = this.postalCode;
+        data["firmCode"] = this.firmCode;
+        data["firmName"] = this.firmName;
+        data["stateName"] = this.stateName;
+        data["cityName"] = this.cityName;
+        data["regionName"] = this.regionName;
+        data["villageName"] = this.villageName;
+        data["contractorName"] = this.contractorName;
+        data["officerName"] = this.officerName;
+        data["officerCode"] = this.officerCode;
+        if (Array.isArray(this.livestocks)) {
+            data["livestocks"] = [];
+            for (let item of this.livestocks)
+                data["livestocks"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IReportHerdLivestockOutput {
+    id: number;
+    doneDate: string | undefined;
+    fromDate: string | undefined;
+    toDate: string | undefined;
+    herdName: string | undefined;
+    code: string | undefined;
+    nationalCode: string | undefined;
+    name: string | undefined;
+    family: string | undefined;
+    address: string | undefined;
+    postalCode: string | undefined;
+    firmCode: string | undefined;
+    firmName: string | undefined;
+    stateName: string | undefined;
+    cityName: string | undefined;
+    regionName: string | undefined;
+    villageName: string | undefined;
+    contractorName: string | undefined;
+    officerName: string | undefined;
+    officerCode: string | undefined;
     livestocks: LivestockListDto[] | undefined;
 }
 
