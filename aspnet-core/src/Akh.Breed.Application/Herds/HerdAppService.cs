@@ -362,6 +362,31 @@ namespace Akh.Breed.Herds
         }
         
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
+        public async Task<ReportHerdLivestockOutput> GetHerdLivestock(EntityDto input)
+        {
+            Herd herd = null;
+            herd = await _herdRepository.GetAll()
+                .Include(x => x.Officer)
+                .ThenInclude(x => x.Contractor)
+                .Include(x => x.StateInfo)
+                .Include(x => x.CityInfo)
+                .Include(x => x.RegionInfo)
+                .Include(x => x.VillageInfo)
+                .FirstOrDefaultAsync(x => x.Id == input.Id);
+
+            var output = ObjectMapper.Map<ReportHerdLivestockOutput>(herd);
+            
+            var livestocks = await _livestockRepository.GetAll()
+                .Include(x => x.SexInfo)
+                .Where(x => x.HerdId == input.Id)
+                .OrderBy(x => x.NationalCode)
+                .ToListAsync();
+            output.Livestocks = ObjectMapper.Map<List<LivestockListDto>>(livestocks);
+
+            return output;
+        }
+        
+        [AbpAuthorize(AppPermissions.Pages_BaseIntro_Herd)]
         public List<ComboboxItemDto> GetHerdCertificatedForCombo(bool input)
         {
             var query = _herdRepository

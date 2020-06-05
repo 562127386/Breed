@@ -188,6 +188,18 @@ namespace Akh.Breed
                 .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.Name + " " + l.Contractor.Family))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
                 .ForMember(d => d.CertificatedDateStr, options => options.MapFrom(l => l.CertificateDate.GetShamsiStr("yyyy/MM/dd hh:mm")));
+            configuration.CreateMap<Herd, ReportHerdLivestockOutput>()
+                .ForMember(d => d.NationalCode, options => options.MapFrom(l => l.NationalCode.Replace("-","")))
+                .ForMember(d => d.StateName, options => options.MapFrom(l => l.StateInfo.Name))
+                .ForMember(d => d.CityName, options => options.MapFrom(l => l.CityInfo.Name))
+                .ForMember(d => d.RegionName, options => options.MapFrom(l => l.RegionInfo.Name))
+                .ForMember(d => d.VillageName, options => options.MapFrom(l => l.VillageInfo.Name))
+                .ForMember(d => d.ContractorName, options => options.MapFrom(l => l.Contractor.Name + " " + l.Contractor.Family))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
+                .ForMember(d => d.OfficerCode, options => options.MapFrom(l => l.Officer.Code))
+                .ForMember(d => d.DoneDate, options => options.MapFrom(l => l.CreationTime.GetShamsiStr("yyyy/MM/dd hh:mm")))
+                .ForMember(d => d.FromDate, options => options.MapFrom(l => l.CreationTime.GetShamsiStr("yyyy/MM/dd")))
+                .ForMember(d => d.ToDate, options => options.MapFrom(l => l.CreationTime.GetShamsiStr("yyyy/MM/dd")));
 
             
             configuration.CreateMap<Livestock, MonitoringListDto>()
@@ -200,7 +212,8 @@ namespace Akh.Breed
                 .ForMember(d => d.ContractorCode, options => options.MapFrom(l => l.Herd.Contractor.Code ))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
             configuration.CreateMap<Livestock, LivestockListDto>()
-                .ForMember(d => d.BirthDateStr, options => options.MapFrom(l => l.CreationTime.GetShamsiStr("yyyy/MM/dd")))
+                .ForMember(d => d.BirthDateStr, options => options.MapFrom(l => l.BirthDate.GetShamsiStr("yyyy/MM/dd")))
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsiStr("yyyy/MM/dd hh:mm")))
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
                 .ForMember(d => d.SexInfoName, options => options.MapFrom(l => l.SexInfo.Name))

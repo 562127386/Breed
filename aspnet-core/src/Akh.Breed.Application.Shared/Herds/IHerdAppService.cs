@@ -17,5 +17,6 @@ namespace Akh.Breed.Herds
         Task<ReportHerdCertificatedOutput> GetHerdCertificated(EntityDto input);
         List<ComboboxItemDto> GetHerdCertificatedForCombo(bool input);
         Task SetHerdCertificated(int input);
+        Task<ReportHerdLivestockOutput> GetHerdLivestock(EntityDto input);
     }
 }

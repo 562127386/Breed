@@ -34,6 +34,7 @@ namespace Akh.Breed.Livestocks.Dto
         public bool Imported { get; set; }
 
         public string BirthDateStr { get; set; }
+        public string CreationTimeStr { get; set; }
         
         public string SpeciesInfoName { get; set; }
 
