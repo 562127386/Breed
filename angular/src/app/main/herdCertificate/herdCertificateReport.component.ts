@@ -38,7 +38,7 @@ export class HerdCertificateReportComponent extends AppComponentBase {
 
     show(herd: HerdListDto): void {  
 
-        
+        this.herd = herd;
         this._herdService.getHerdCertificated(herd.id).subscribe(result => {
             this.options = new Stimulsoft.Viewer.StiViewerOptions();
             this.options.appearance.rightToLeft = false;
