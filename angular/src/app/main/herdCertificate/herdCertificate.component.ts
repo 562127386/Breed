@@ -68,9 +68,10 @@ export class HerdCertificateComponent extends AppComponentBase implements AfterV
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {
-                    this._herdService.setHerdCertificated(herd.id).subscribe(result => {                         
+                    this._herdService.setHerdCertificated(herd.id).subscribe(result => {  
+                        this.reloadPage();                       
                         this.notify.info(this.l('SuccessfullySaved')); 
-                        this.herdCertificateReport.show(herd.id);
+                        this.herdCertificateReport.show(herd);
                     });
                 }
             }

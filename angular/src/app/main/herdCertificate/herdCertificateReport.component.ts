@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { HerdServiceProxy, HerdCreateOrUpdateInput } from '@shared/service-proxies/service-proxies';
+import { HerdServiceProxy, HerdListDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -20,12 +20,9 @@ export class HerdCertificateReportComponent extends AppComponentBase {
     
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    herd: HerdCreateOrUpdateInput = new HerdCreateOrUpdateInput();  
+    herd: HerdListDto = new HerdListDto();  
 
     active: boolean = false;
-    saving: boolean = false;
-    editdisabled: boolean = false;
-    herdId: number;
     options: any;
     designer: any;
     viewer: any;
@@ -39,17 +36,10 @@ export class HerdCertificateReportComponent extends AppComponentBase {
         super(injector);
     }
 
-    show(herdId?: number,editdisabled?: boolean): void {  
-        if (!herdId) {
-            this.active = true;
-        }
-        this.editdisabled = true;
-        if (!editdisabled) {
-            this.editdisabled = false;
-        }
+    show(herd: HerdListDto): void {  
 
-           
-        this._herdService.getHerdCertificated(herdId).subscribe(result => {
+        
+        this._herdService.getHerdCertificated(herd.id).subscribe(result => {
             this.options = new Stimulsoft.Viewer.StiViewerOptions();
             this.options.appearance.rightToLeft = false;
             this.options.toolbar.showOpenButton = false;
@@ -75,18 +65,20 @@ export class HerdCertificateReportComponent extends AppComponentBase {
             this.viewer = new Stimulsoft.Viewer.StiViewer(this.options, 'StiViewer', false);                                
             this.viewer.report = this.report;
 
-            this.viewer.renderHtml('viewer');
+            this.active = true;
+            this.modal.show();   
+
+            
         });
         
     }
 
     onShown(): void {
-        // this.nameInput.nativeElement.focus();
+        this.viewer.renderHtml('viewer');
     }      
 
     close(): void {
         this.active = false;
-        this.editdisabled = true;
         this.modal.hide();
     }    
 
