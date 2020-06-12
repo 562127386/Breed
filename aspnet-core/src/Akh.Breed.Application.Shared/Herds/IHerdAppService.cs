@@ -12,11 +12,10 @@ namespace Akh.Breed.Herds
         Task<GetHerdForEditOutput> GetHerdForEdit(NullableIdDto<int> input);
         Task CreateOrUpdateHerd(HerdCreateOrUpdateInput input);
         Task DeleteHerd(EntityDto input);
-
         List<ComboboxItemDto> GetContractorForCombo(NullableIdDto<int> input);
-        Task<ReportHerdCertificatedOutput> GetHerdCertificated(EntityDto input);
         List<ComboboxItemDto> GetHerdCertificatedForCombo(bool input);
         Task SetHerdCertificated(int input);
+        Task<ReportHerdCertificatedOutput> GetHerdCertificated(EntityDto input);
         Task<ReportHerdLivestockOutput> GetHerdLivestock(EntityDto input);
     }
 }

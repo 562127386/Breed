@@ -29,6 +29,7 @@ import { HerdComponent } from './herd/herd.component';
 import { LivestockComponent } from './livestock/livestock.component';
 import { PlaqueChangeComponent } from './plaqueChange/plaqueChange.component';
 import { HerdCertificateComponent } from './herdCertificate/herdCertificate.component';
+import { HerdLivestockComponent } from "./herdLivestock/herdLivestock.component";
 import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
 
 @NgModule({
@@ -67,6 +68,7 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
                     { path: 'livestock', component: LivestockComponent },
                     { path: 'plaqueChange', component: PlaqueChangeComponent },
                     { path: 'herdCertificate', component: HerdCertificateComponent },
+                    { path: 'herdLivestock', component: HerdLivestockComponent },
                     { path: 'herdGeoLog', component: HerdGeoLogComponent }
 
                 ]
