@@ -62,7 +62,7 @@ import { CreateOrEditLivestockModalComponent } from "./livestock/create-or-edit-
 import { HerdCertificateComponent } from "./herdCertificate/herdCertificate.component";
 import { HerdCertificateReportComponent } from "./herdCertificate/herdCertificateReport.component";
 import { HerdLivestockComponent } from "./herdLivestock/herdLivestock.component";
-// import { HerdLivestockReportComponent } from "./herdLivestock/herdLivestockReport.component";
+import { ReportHerdLivestockModalComponent } from './herdLivestock/report-herdLivestock-modal.component';
 import { HerdGeoLogComponent } from "./herdGeoLog/herdGeoLog.component";
 import { CreateOrEditHerdGeoLogModalComponent } from "./herdGeoLog/create-or-edit-herdGeoLog-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -173,6 +173,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         CreateOrEditPlaqueChangeModalComponent,
         HerdCertificateComponent,
         HerdLivestockComponent,
+        ReportHerdLivestockModalComponent,
         HerdCertificateReportComponent,
         HerdGeoLogComponent,
         CreateOrEditHerdGeoLogModalComponent

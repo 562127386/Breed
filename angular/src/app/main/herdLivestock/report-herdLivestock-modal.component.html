@@ -1,0 +1,144 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #livestockForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header kt-bg-brand">
+                    <h4 class="modal-title">
+                        <span *ngIf="livestock.id && editdisabled">{{"ViewNewLivestock" | localize}}: {{livestock.name}}</span>
+                        <span *ngIf="livestock.id && !editdisabled">{{"EditNewLivestock" | localize}}: {{livestock.name}}</span>
+                        <span *ngIf="!livestock.id">{{"CreateNewLivestock" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockOfficer" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="liveStockOfficer" class="form-control m-input" type="text" name="liveStockOfficer"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockNowDate" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="liveStockNowDate" class="form-control m-input" type="text" name="liveStockNowDate"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockNowTime" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="liveStockNowTime" class="form-control m-input" type="text" name="liveStockNowTime"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"HerdInfo" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-dropdown #herdCombobox="ngModel" [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getActivities($event.value)"
+                                        name="herdId" [(ngModel)]="livestock.herdId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="herdCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"ActivityInfo" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-dropdown #activityInfoCombobox="ngModel" [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                        name="activityInfoId" [(ngModel)]="livestock.activityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="activityInfoCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"SpeciesInfo" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-dropdown #speciesInfoCombobox="ngModel" [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
+                                        name="speciesInfoId" [(ngModel)]="livestock.speciesInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"LivestockCode" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="{{codeMask}}" unmask="true" [(ngModel)]="livestock.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="{{codePlaceHolder}}" (onComplete)="checkValidation()" length="15" required></p-inputMask>
+                                    <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"SexInfo" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <p-dropdown #sexInfoCombobox="ngModel" [options]="sexInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                        name="sexInfoId" [(ngModel)]="livestock.sexInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                    <validation-messages [formCtrl]="sexInfoCombobox"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"BirthDate" | localize}} *</label>
+                                <div class="col-md-8 col-sm-12">
+                                    <input #birthDateTempInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="birthDateTemp" name="birthDateTemp" maxlength="10" autocomplete="new-password" placeholder="____/__/__" pattern="^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$" required/>
+                                    <validation-messages [formCtrl]="birthDateTempInput"></validation-messages> 
+                                </div>
+                            </div>                                
+                        </div> 
+                    </div>                    
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"Latitude" | localize}} *</label>
+                                <div class="input-group col-md-8 col-sm-12">
+                                    <input #latitudeInput="ngModel" class="form-control" type="text" placeholder="{{'Latitude' | localize}} *" [(ngModel)]="livestock.latitude" name="latitude" maxlength="256" pattern="^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$" required/>
+                                    <div class="input-group-append">
+                                        <div class="form-control" type="button" (click)="getUserLocation()"><i class="flaticon2-refresh-arrow"></i></div>
+                                    </div> 
+                                    <validation-messages [formCtrl]="latitudeInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 col-sm-12">{{"Longitude" | localize}} *</label>
+                                <div class="input-group col-md-8 col-sm-12">
+                                    <input #longitudeInput="ngModel" class="form-control" type="longitude" placeholder="{{'Longitude' | localize}} *" [(ngModel)]="livestock.longitude" name="text" maxlength="256" pattern="^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$" required/>
+                                    <div class="input-group-append">
+                                        <div class="form-control" type="button" (click)="getUserLocation()"><i class="flaticon2-refresh-arrow"></i></div>
+                                    </div>                                    
+                                    <validation-messages [formCtrl]="longitudeInput"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                       
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="button" (click)="save(1)" class="btn btn-primary" [disabled]="!livestockForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"SaveAndContinue" | localize}}</span></button>
+                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!livestockForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

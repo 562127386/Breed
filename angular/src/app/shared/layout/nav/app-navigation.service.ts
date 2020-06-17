@@ -50,7 +50,9 @@ export class AppNavigationService {
                 new AppMenuItem('EditStatePlaque', 'Pages.Activities.EditStatePlaque', 'flaticon2-box', '/app/main/plaqueChange'),
                 new AppMenuItem('HerdCertificate', 'Pages.Activities.HerdCertificate', 'flaticon2-box', '/app/main/herdCertificate')
             ]),
-            new AppMenuItem('Reports', 'Pages.Reports', 'flaticon2-box', ''),
+            new AppMenuItem('Reports', 'Pages.Reports', 'flaticon2-box', '', [
+                new AppMenuItem('HerdLivestock', 'Pages.Reports.HerdLivestock', 'flaticon-technology-2', '/app/main/herdLivestock')
+            ]),
             new AppMenuItem('Dashboard', 'Pages.Administration.Host.Dashboard', 'flaticon-line-graph', '/app/admin/hostDashboard'),
             new AppMenuItem('Dashboard', 'Pages.Tenant.Dashboard', 'flaticon-line-graph', '/app/main/dashboard'),
             new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
