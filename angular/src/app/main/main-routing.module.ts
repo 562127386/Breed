@@ -35,6 +35,7 @@ import { BreedInfoComponent } from './breedInfo/breedInfo.component';
 import { BirthTypeInfoComponent } from './birthTypeInfo/birthTypeInfo.component';
 import { AnomalyInfoComponent } from './anomalyInfo/anomalyInfo.component';
 import { MembershipInfoComponent } from './membershipInfo/membershipInfo.component';
+import { BodyColorInfoComponent } from './bodyColorInfo/bodyColorInfo.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -76,7 +77,8 @@ import { MembershipInfoComponent } from './membershipInfo/membershipInfo.compone
                     { path: 'breedInfo', component: BreedInfoComponent },
                     { path: 'birthTypeInfo', component: BirthTypeInfoComponent },
                     { path: 'anomalyInfo', component: AnomalyInfoComponent },
-                    { path: 'membershipInfo', component: MembershipInfoComponent }
+                    { path: 'membershipInfo', component: MembershipInfoComponent },
+                    { path: 'bodyColorInfo', component: BodyColorInfoComponent }
 
                 ]
             }
