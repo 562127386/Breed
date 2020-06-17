@@ -36,6 +36,7 @@ import { BirthTypeInfoComponent } from './birthTypeInfo/birthTypeInfo.component'
 import { AnomalyInfoComponent } from './anomalyInfo/anomalyInfo.component';
 import { MembershipInfoComponent } from './membershipInfo/membershipInfo.component';
 import { BodyColorInfoComponent } from './bodyColorInfo/bodyColorInfo.component';
+import { SpotConnectorInfoComponent } from './spotConnectorInfo/spotConnectorInfo.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -78,7 +79,8 @@ import { BodyColorInfoComponent } from './bodyColorInfo/bodyColorInfo.component'
                     { path: 'birthTypeInfo', component: BirthTypeInfoComponent },
                     { path: 'anomalyInfo', component: AnomalyInfoComponent },
                     { path: 'membershipInfo', component: MembershipInfoComponent },
-                    { path: 'bodyColorInfo', component: BodyColorInfoComponent }
+                    { path: 'bodyColorInfo', component: BodyColorInfoComponent },
+                    { path: 'spotConnectorInfo', component: SpotConnectorInfoComponent }
 
                 ]
             }

@@ -35,6 +35,8 @@ import { MembershipInfoComponent } from "./membershipInfo/membershipInfo.compone
 import { CreateOrEditMembershipInfoModalComponent } from "./membershipInfo/create-or-edit-membershipInfo-modal.component";
 import { BodyColorInfoComponent } from "./bodyColorInfo/bodyColorInfo.component";
 import { CreateOrEditBodyColorInfoModalComponent } from "./bodyColorInfo/create-or-edit-bodyColorInfo-modal.component";
+import { SpotConnectorInfoComponent } from "./spotConnectorInfo/spotConnectorInfo.component";
+import { CreateOrEditSpotConnectorInfoModalComponent } from "./spotConnectorInfo/create-or-edit-spotConnectorInfo-modal.component";
 import { ManufacturerComponent } from "./manufacturer/manufacturer.component";
 import { CreateOrEditManufacturerModalComponent } from "./manufacturer/create-or-edit-manufacturer-modal.component";
 import { NoticeComponent } from "./notice/notice.component";
@@ -196,7 +198,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         MembershipInfoComponent,
         CreateOrEditMembershipInfoModalComponent,
         BodyColorInfoComponent,
-        CreateOrEditBodyColorInfoModalComponent
+        CreateOrEditBodyColorInfoModalComponent,
+        SpotConnectorInfoComponent,
+        CreateOrEditSpotConnectorInfoModalComponent
     
     ],
     providers: [
