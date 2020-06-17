@@ -989,6 +989,13 @@
     <text name="VillageInfo">دهستان</text>
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
+    <text name="Inseminating">تلقیح</text>
+    <text name="BreedInfo">نژاد</text>
+    <text name="BirthTypeInfo">نوع تولد</text>
+    <text name="AnomalyInfo">نوع ناهنجاری</text>
+    <text name="MembershipInfo">عضو پروژه</text>
+    <text name="BodyColorInfo">رنگ بدن</text>
+    <text name="SpotConnectorInfo">اتصال سیاهی</text>
     <text name="Manufacturer">شرکت سازنده</text>
     <text name="HerdGeoLog">موقیعت گله</text>
     <text name="PlaqueChange">تغییر وضعیت پلاک</text>
@@ -1031,6 +1038,48 @@
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
     <text name="DeleteNewAcademicDegree">حذف مقطع تحصیلی</text>
+
+    <text name="CreateNewBreedInfo">ایجاد نژاد</text>
+    <text name="AreYouSureToDeleteTheBreedInfo">آیا از حذف نژاد {0} مطمئن هستید؟</text>
+    <text name="BreedInfoHeaderInfo">مدیریت نژاد</text>
+    <text name="ViewNewBreedInfo">نمایش نژاد</text>
+    <text name="EditNewBreedInfo">ویرایش نژاد</text>
+    <text name="DeleteNewBreedInfo">حذف نژاد</text>
+
+    <text name="CreateNewBirthTypeInfo">ایجاد نوع تولد</text>
+    <text name="AreYouSureToDeleteTheBirthTypeInfo">آیا از حذف نوع تولد {0} مطمئن هستید؟</text>
+    <text name="BirthTypeInfoHeaderInfo">مدیریت نوع تولد</text>
+    <text name="ViewNewBirthTypeInfo">نمایش نوع تولد</text>
+    <text name="EditNewBirthTypeInfo">ویرایش نوع تولد</text>
+    <text name="DeleteNewBirthTypeInfo">حذف نوع تولد</text>
+
+    <text name="CreateNewAnomalyInfo">ایجاد نوع ناهنجاری</text>
+    <text name="AreYouSureToDeleteTheAnomalyInfo">آیا از حذف نوع ناهنجاری {0} مطمئن هستید؟</text>
+    <text name="AnomalyInfoHeaderInfo">مدیریت نوع ناهنجاری</text>
+    <text name="ViewNewAnomalyInfo">نمایش نوع ناهنجاری</text>
+    <text name="EditNewAnomalyInfo">ویرایش نوع ناهنجاری</text>
+    <text name="DeleteNewAnomalyInfo">حذف نوع ناهنجاری</text>
+
+    <text name="CreateNewMembershipInfo">ایجاد عضو پروژه</text>
+    <text name="AreYouSureToDeleteTheMembershipInfo">آیا از حذف عضو پروژه {0} مطمئن هستید؟</text>
+    <text name="MembershipInfoHeaderInfo">مدیریت عضو پروژه</text>
+    <text name="ViewNewMembershipInfo">نمایش عضو پروژه</text>
+    <text name="EditNewMembershipInfo">ویرایش عضو پروژه</text>
+    <text name="DeleteNewMembershipInfo">حذف عضو پروژه</text>
+
+    <text name="CreateNewBodyColorInfo">ایجاد رنگ بدن</text>
+    <text name="AreYouSureToDeleteTheBodyColorInfo">آیا از حذف رنگ بدن {0} مطمئن هستید؟</text>
+    <text name="BodyColorInfoHeaderInfo">مدیریت رنگ بدن</text>
+    <text name="ViewNewBodyColorInfo">نمایش رنگ بدن</text>
+    <text name="EditNewBodyColorInfo">ویرایش رنگ بدن</text>
+    <text name="DeleteNewBodyColorInfo">حذف رنگ بدن</text>
+
+    <text name="CreateNewSpotConnectorInfo">ایجاد اتصال سیاهی</text>
+    <text name="AreYouSureToDeleteTheSpotConnectorInfo">آیا از حذف اتصال سیاهی {0} مطمئن هستید؟</text>
+    <text name="SpotConnectorInfoHeaderInfo">مدیریت اتصال سیاهی</text>
+    <text name="ViewNewSpotConnectorInfo">نمایش اتصال سیاهی</text>
+    <text name="EditNewSpotConnectorInfo">ویرایش اتصال سیاهی</text>
+    <text name="DeleteNewSpotConnectorInfo">حذف اتصال سیاهی</text>
 
     <text name="CreateNewManufacturer">ایجاد وارد کننده</text>
     <text name="AreYouSureToDeleteTheManufacturer">آیا از حذف وارد کننده {0} مطمئن هستید؟</text>
