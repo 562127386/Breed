@@ -34,6 +34,7 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
 import { BreedInfoComponent } from './breedInfo/breedInfo.component';
 import { BirthTypeInfoComponent } from './birthTypeInfo/birthTypeInfo.component';
 import { AnomalyInfoComponent } from './anomalyInfo/anomalyInfo.component';
+import { MembershipInfoComponent } from './membershipInfo/membershipInfo.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -74,7 +75,8 @@ import { AnomalyInfoComponent } from './anomalyInfo/anomalyInfo.component';
                     { path: 'herdGeoLog', component: HerdGeoLogComponent },
                     { path: 'breedInfo', component: BreedInfoComponent },
                     { path: 'birthTypeInfo', component: BirthTypeInfoComponent },
-                    { path: 'anomalyInfo', component: AnomalyInfoComponent }
+                    { path: 'anomalyInfo', component: AnomalyInfoComponent },
+                    { path: 'membershipInfo', component: MembershipInfoComponent }
 
                 ]
             }
