@@ -50,6 +50,14 @@ export class AppNavigationService {
                 new AppMenuItem('EditStatePlaque', 'Pages.Activities.EditStatePlaque', 'flaticon2-box', '/app/main/plaqueChange'),
                 new AppMenuItem('HerdCertificate', 'Pages.Activities.HerdCertificate', 'flaticon2-box', '/app/main/herdCertificate')
             ]),
+            new AppMenuItem('Inseminating', 'Pages.Inseminating', 'flaticon2-box', '', [
+                new AppMenuItem('BreedInfo', 'Pages.Inseminating.BreedInfo', 'flaticon-technology-2', '/app/main/breedInfo'),
+                new AppMenuItem('BirthTypeInfo', 'Pages.Inseminating.BirthTypeInfo', 'flaticon-technology-2', '/app/main/birthTypeInfo'),
+                new AppMenuItem('AnomalyInfo', 'Pages.Inseminating.AnomalyInfo', 'flaticon-technology-2', '/app/main/anomalyInfo'),
+                new AppMenuItem('MembershipInfo', 'Pages.Inseminating.MembershipInfo', 'flaticon-technology-2', '/app/main/membershipInfo'),
+                new AppMenuItem('BodyColorInfo', 'Pages.Inseminating.BodyColorInfo', 'flaticon-technology-2', '/app/main/bodyColorInfo'),
+                new AppMenuItem('SpotConnectorInfo', 'Pages.Inseminating.SpotConnectorInfo', 'flaticon-technology-2', '/app/main/spotConnectorInfo')
+            ]),
             new AppMenuItem('Reports', 'Pages.Reports', 'flaticon2-box', '', [
                 new AppMenuItem('HerdLivestock', 'Pages.Reports.HerdLivestock', 'flaticon-technology-2', '/app/main/herdLivestock')
             ]),

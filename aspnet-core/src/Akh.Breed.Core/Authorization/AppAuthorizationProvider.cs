@@ -259,32 +259,32 @@ namespace Akh.Breed.Authorization
 
             var inseminating = pages.CreateChildPermission(AppPermissions.Pages_Inseminating, L("Inseminating"));
 
-            var breedInf = reports.CreateChildPermission(AppPermissions.Pages_Inseminating_BreedInfo, L("BreedInfo"));
+            var breedInf = inseminating.CreateChildPermission(AppPermissions.Pages_Inseminating_BreedInfo, L("BreedInfo"));
             breedInf.CreateChildPermission(AppPermissions.Pages_Inseminating_BreedInfo_Create, L("CreateNewBreedInfo"));
             breedInf.CreateChildPermission(AppPermissions.Pages_Inseminating_BreedInfo_Edit, L("EditNewBreedInfo"));
             breedInf.CreateChildPermission(AppPermissions.Pages_Inseminating_BreedInfo_Delete, L("DeleteNewBreedInfo"));
 
-            var birthTypeInfo = reports.CreateChildPermission(AppPermissions.Pages_Inseminating_BirthTypeInfo, L("BirthTypeInfo"));
+            var birthTypeInfo = inseminating.CreateChildPermission(AppPermissions.Pages_Inseminating_BirthTypeInfo, L("BirthTypeInfo"));
             birthTypeInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_BirthTypeInfo_Create, L("CreateNewBirthTypeInfo"));
             birthTypeInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_BirthTypeInfo_Edit, L("EditNewBirthTypeInfo"));
             birthTypeInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_BirthTypeInfo_Delete, L("DeleteNewBirthTypeInfo"));
 
-            var anomalyInfo = reports.CreateChildPermission(AppPermissions.Pages_Inseminating_AnomalyInfo, L("AnomalyInfo"));
+            var anomalyInfo = inseminating.CreateChildPermission(AppPermissions.Pages_Inseminating_AnomalyInfo, L("AnomalyInfo"));
             anomalyInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_AnomalyInfo_Create, L("CreateNewAnomalyInfo"));
             anomalyInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_AnomalyInfo_Edit, L("EditNewAnomalyInfo"));
             anomalyInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_AnomalyInfo_Delete, L("DeleteNewAnomalyInfo"));
 
-            var membershipInfo = reports.CreateChildPermission(AppPermissions.Pages_Inseminating_MembershipInfo, L("MembershipInfo"));
+            var membershipInfo = inseminating.CreateChildPermission(AppPermissions.Pages_Inseminating_MembershipInfo, L("MembershipInfo"));
             membershipInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_MembershipInfo_Create, L("CreateNewMembershipInfo"));
             membershipInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_MembershipInfo_Edit, L("EditNewMembershipInfo"));
             membershipInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_MembershipInfo_Delete, L("DeleteNewMembershipInfo"));
 
-            var bodyColorInfo = reports.CreateChildPermission(AppPermissions.Pages_Inseminating_BodyColorInfo, L("BodyColorInfo"));
+            var bodyColorInfo = inseminating.CreateChildPermission(AppPermissions.Pages_Inseminating_BodyColorInfo, L("BodyColorInfo"));
             bodyColorInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_BodyColorInfo_Create, L("CreateNewBodyColorInfo"));
             bodyColorInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_BodyColorInfo_Edit, L("EditNewBodyColorInfo"));
             bodyColorInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_BodyColorInfo_Delete, L("DeleteNewBodyColorInfo"));
 
-            var spotConnectorInfo = reports.CreateChildPermission(AppPermissions.Pages_Inseminating_SpotConnectorInfo, L("SpotConnectorInfo"));
+            var spotConnectorInfo = inseminating.CreateChildPermission(AppPermissions.Pages_Inseminating_SpotConnectorInfo, L("SpotConnectorInfo"));
             spotConnectorInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_SpotConnectorInfo_Create, L("CreateNewSpotConnectorInfo"));
             spotConnectorInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_SpotConnectorInfo_Edit, L("EditNewSpotConnectorInfo"));
             spotConnectorInfo.CreateChildPermission(AppPermissions.Pages_Inseminating_SpotConnectorInfo_Delete, L("DeleteNewSpotConnectorInfo"));

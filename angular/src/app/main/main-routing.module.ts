@@ -31,7 +31,7 @@ import { PlaqueChangeComponent } from './plaqueChange/plaqueChange.component';
 import { HerdCertificateComponent } from './herdCertificate/herdCertificate.component';
 import { HerdLivestockComponent } from "./herdLivestock/herdLivestock.component";
 import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
-
+import { BreedInfoComponent } from './breedInfo/breedInfo.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -69,7 +69,8 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
                     { path: 'plaqueChange', component: PlaqueChangeComponent },
                     { path: 'herdCertificate', component: HerdCertificateComponent },
                     { path: 'herdLivestock', component: HerdLivestockComponent },
-                    { path: 'herdGeoLog', component: HerdGeoLogComponent }
+                    { path: 'herdGeoLog', component: HerdGeoLogComponent },
+                    { path: 'breedInfo', component: BreedInfoComponent }
 
                 ]
             }

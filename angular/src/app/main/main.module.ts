@@ -25,6 +25,8 @@ import { SpeciesInfoComponent } from "./speciesInfo/speciesInfo.component";
 import { CreateOrEditSpeciesInfoModalComponent } from "./speciesInfo/create-or-edit-speciesInfo-modal.component";
 import { AcademicDegreeComponent } from "./academicDegree/academicDegree.component";
 import { CreateOrEditAcademicDegreeModalComponent } from "./academicDegree/create-or-edit-academicDegree-modal.component";
+import { BreedInfoComponent } from "./breedInfo/breedInfo.component";
+import { CreateOrEditBreedInfoModalComponent } from "./breedInfo/create-or-edit-breedInfo-modal.component";
 import { ManufacturerComponent } from "./manufacturer/manufacturer.component";
 import { CreateOrEditManufacturerModalComponent } from "./manufacturer/create-or-edit-manufacturer-modal.component";
 import { NoticeComponent } from "./notice/notice.component";
@@ -176,7 +178,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         ReportHerdLivestockModalComponent,
         HerdCertificateReportComponent,
         HerdGeoLogComponent,
-        CreateOrEditHerdGeoLogModalComponent
+        CreateOrEditHerdGeoLogModalComponent,
+        BreedInfoComponent,
+        CreateOrEditBreedInfoModalComponent
     
     ],
     providers: [
