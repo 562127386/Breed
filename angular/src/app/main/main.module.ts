@@ -29,6 +29,8 @@ import { BreedInfoComponent } from "./breedInfo/breedInfo.component";
 import { CreateOrEditBreedInfoModalComponent } from "./breedInfo/create-or-edit-breedInfo-modal.component";
 import { BirthTypeInfoComponent } from "./birthTypeInfo/birthTypeInfo.component";
 import { CreateOrEditBirthTypeInfoModalComponent } from "./birthTypeInfo/create-or-edit-birthTypeInfo-modal.component";
+import { AnomalyInfoComponent } from "./anomalyInfo/anomalyInfo.component";
+import { CreateOrEditAnomalyInfoModalComponent } from "./anomalyInfo/create-or-edit-anomalyInfo-modal.component";
 import { ManufacturerComponent } from "./manufacturer/manufacturer.component";
 import { CreateOrEditManufacturerModalComponent } from "./manufacturer/create-or-edit-manufacturer-modal.component";
 import { NoticeComponent } from "./notice/notice.component";
@@ -184,7 +186,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         BreedInfoComponent,
         CreateOrEditBreedInfoModalComponent,
         BirthTypeInfoComponent,
-        CreateOrEditBirthTypeInfoModalComponent
+        CreateOrEditBirthTypeInfoModalComponent,
+        AnomalyInfoComponent,
+        CreateOrEditAnomalyInfoModalComponent
     
     ],
     providers: [
