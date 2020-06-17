@@ -32,6 +32,7 @@ import { HerdCertificateComponent } from './herdCertificate/herdCertificate.comp
 import { HerdLivestockComponent } from "./herdLivestock/herdLivestock.component";
 import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
 import { BreedInfoComponent } from './breedInfo/breedInfo.component';
+import { BirthTypeInfoComponent } from './birthTypeInfo/birthTypeInfo.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -70,7 +71,8 @@ import { BreedInfoComponent } from './breedInfo/breedInfo.component';
                     { path: 'herdCertificate', component: HerdCertificateComponent },
                     { path: 'herdLivestock', component: HerdLivestockComponent },
                     { path: 'herdGeoLog', component: HerdGeoLogComponent },
-                    { path: 'breedInfo', component: BreedInfoComponent }
+                    { path: 'breedInfo', component: BreedInfoComponent },
+                    { path: 'birthTypeInfo', component: BirthTypeInfoComponent }
 
                 ]
             }
