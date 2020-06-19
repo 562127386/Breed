@@ -49,6 +49,8 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<Herd> Herds { get; set; }
 
         public virtual DbSet<Livestock> Livestocks { get; set; }
+        
+        public virtual DbSet<Insemination> Inseminating { get; set; }
 
         public virtual DbSet<Officer> Officers { get; set; }
 

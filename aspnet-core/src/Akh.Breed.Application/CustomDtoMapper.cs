@@ -33,6 +33,8 @@ using Akh.Breed.Editions.Dto;
 using Akh.Breed.Friendships;
 using Akh.Breed.Friendships.Cache;
 using Akh.Breed.Friendships.Dto;
+using Akh.Breed.Inseminating;
+using Akh.Breed.Inseminating.Dto;
 using Akh.Breed.Livestocks;
 using Akh.Breed.Livestocks.Dto;
 using Akh.Breed.Localization.Dto;
@@ -224,6 +226,23 @@ namespace Akh.Breed
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()))
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetMiladi()));
             configuration.CreateMap<Livestock, LivestockCreateOrUpdateInput>()
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
+                .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));
+            
+            configuration.CreateMap<Insemination, InseminationListDto>()
+                .ForMember(d => d.BirthDateStr, options => options.MapFrom(l => l.BirthDate.GetShamsiStr("yyyy/MM/dd")))
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsiStr("yyyy/MM/dd hh:mm")))
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
+                .ForMember(d => d.SpeciesInfoName, options => options.MapFrom(l => l.SpeciesInfo.Name))
+                .ForMember(d => d.SexInfoName, options => options.MapFrom(l => l.SexInfo.Name))
+                .ForMember(d => d.HerdName, options => options.MapFrom(l => l.Herd.Code + " - " + l.Herd.HerdName + "(" +l.Herd.Name+","+l.Herd.Family+")"))
+                .ForMember(d => d.ActivityInfoName, options => options.MapFrom(l => l.ActivityInfo.Name))
+                .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family));
+            configuration.CreateMap<InseminationCreateOrUpdateInput, Insemination>()
+                .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetMiladi()))
+                .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetMiladi()));
+            configuration.CreateMap<Insemination, InseminationCreateOrUpdateInput>()
                 .ForMember(d => d.CreationTime, options => options.MapFrom(l => l.CreationTime.GetShamsi()))
                 .ForMember(d => d.OfficerName, options => options.MapFrom(l => l.Officer.Name + " " + l.Officer.Family))
                 .ForMember(d => d.BirthDate, options => options.MapFrom(l => l.BirthDate.GetShamsi()));

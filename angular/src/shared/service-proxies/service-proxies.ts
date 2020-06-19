@@ -7214,6 +7214,365 @@ export class HostSettingsServiceProxy {
 }
 
 @Injectable()
+export class InseminationServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getInsemination(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfInseminationListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/GetInsemination?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetInsemination(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetInsemination(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfInseminationListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfInseminationListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetInsemination(response: HttpResponseBase): Observable<PagedResultDtoOfInseminationListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfInseminationListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfInseminationListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getInseminationForEdit(id: number | undefined): Observable<GetInseminationForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/GetInseminationForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetInseminationForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetInseminationForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetInseminationForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetInseminationForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetInseminationForEdit(response: HttpResponseBase): Observable<GetInseminationForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetInseminationForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetInseminationForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateInsemination(body: InseminationCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/CreateOrUpdateInsemination";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateInsemination(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateInsemination(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateInsemination(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteInsemination(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/DeleteInsemination?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteInsemination(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteInsemination(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteInsemination(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    checkValidation(body: InseminationCreateOrUpdateInput | undefined): Observable<InseminationCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/CheckValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckValidation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckValidation(<any>response_);
+                } catch (e) {
+                    return <Observable<InseminationCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<InseminationCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckValidation(response: HttpResponseBase): Observable<InseminationCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = InseminationCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<InseminationCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getActivityForCombo(id: number | undefined): Observable<ComboboxItemDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/GetActivityForCombo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetActivityForCombo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetActivityForCombo(<any>response_);
+                } catch (e) {
+                    return <Observable<ComboboxItemDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ComboboxItemDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetActivityForCombo(response: HttpResponseBase): Observable<ComboboxItemDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ComboboxItemDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ComboboxItemDto[]>(<any>null);
+    }
+}
+
+@Injectable()
 export class InstallServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -27986,6 +28345,450 @@ export class SendTestEmailInput implements ISendTestEmailInput {
 
 export interface ISendTestEmailInput {
     emailAddress: string | undefined;
+}
+
+export class InseminationListDto implements IInseminationListDto {
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    birthDateStr!: string | undefined;
+    creationTimeStr!: string | undefined;
+    speciesInfoName!: string | undefined;
+    sexInfoName!: string | undefined;
+    herdName!: string | undefined;
+    activityInfoName!: string | undefined;
+    officerName!: string | undefined;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: IInseminationListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.birthDateStr = data["birthDateStr"];
+            this.creationTimeStr = data["creationTimeStr"];
+            this.speciesInfoName = data["speciesInfoName"];
+            this.sexInfoName = data["sexInfoName"];
+            this.herdName = data["herdName"];
+            this.activityInfoName = data["activityInfoName"];
+            this.officerName = data["officerName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): InseminationListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InseminationListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["birthDateStr"] = this.birthDateStr;
+        data["creationTimeStr"] = this.creationTimeStr;
+        data["speciesInfoName"] = this.speciesInfoName;
+        data["sexInfoName"] = this.sexInfoName;
+        data["herdName"] = this.herdName;
+        data["activityInfoName"] = this.activityInfoName;
+        data["officerName"] = this.officerName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IInseminationListDto {
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    birthDateStr: string | undefined;
+    creationTimeStr: string | undefined;
+    speciesInfoName: string | undefined;
+    sexInfoName: string | undefined;
+    herdName: string | undefined;
+    activityInfoName: string | undefined;
+    officerName: string | undefined;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class PagedResultDtoOfInseminationListDto implements IPagedResultDtoOfInseminationListDto {
+    totalCount!: number;
+    items!: InseminationListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfInseminationListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(InseminationListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfInseminationListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfInseminationListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfInseminationListDto {
+    totalCount: number;
+    items: InseminationListDto[] | undefined;
+}
+
+export class InseminationCreateOrUpdateInput implements IInseminationCreateOrUpdateInput {
+    id!: number | undefined;
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    birthDate!: moment.Moment | undefined;
+    speciesInfoId!: number | undefined;
+    sexInfoId!: number | undefined;
+    herdId!: number | undefined;
+    activityInfoId!: number | undefined;
+    officerId!: number | undefined;
+    officerName!: string | undefined;
+    breedInfoId!: number | undefined;
+    livestockFatherId!: number | undefined;
+    nationalCodeFather!: string | undefined;
+    breedInfoFatherId!: number | undefined;
+    livestockMotherId!: number | undefined;
+    nationalCodeMother!: string | undefined;
+    breedInfoMotherId!: number | undefined;
+    earNumber!: string | undefined;
+    bodyNumber!: string | undefined;
+    foreignRegistrationNumber!: string | undefined;
+    birthTypeInfoId!: number | undefined;
+    anomalyInfoId!: number | undefined;
+    membershipInfoId!: number | undefined;
+    idIssueDate!: moment.Moment | undefined;
+    bloodShare!: string | undefined;
+    breedShare!: string | undefined;
+    bodyColorInfoId!: number | undefined;
+    spotColorInfoId!: number | undefined;
+    spotConnectorInfoId!: number | undefined;
+    breedName!: string | undefined;
+    creationTime!: moment.Moment | undefined;
+
+    constructor(data?: IInseminationCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.speciesInfoId = data["speciesInfoId"];
+            this.sexInfoId = data["sexInfoId"];
+            this.herdId = data["herdId"];
+            this.activityInfoId = data["activityInfoId"];
+            this.officerId = data["officerId"];
+            this.officerName = data["officerName"];
+            this.breedInfoId = data["breedInfoId"];
+            this.livestockFatherId = data["livestockFatherId"];
+            this.nationalCodeFather = data["nationalCodeFather"];
+            this.breedInfoFatherId = data["breedInfoFatherId"];
+            this.livestockMotherId = data["livestockMotherId"];
+            this.nationalCodeMother = data["nationalCodeMother"];
+            this.breedInfoMotherId = data["breedInfoMotherId"];
+            this.earNumber = data["earNumber"];
+            this.bodyNumber = data["bodyNumber"];
+            this.foreignRegistrationNumber = data["foreignRegistrationNumber"];
+            this.birthTypeInfoId = data["birthTypeInfoId"];
+            this.anomalyInfoId = data["anomalyInfoId"];
+            this.membershipInfoId = data["membershipInfoId"];
+            this.idIssueDate = data["idIssueDate"] ? moment(data["idIssueDate"].toString()) : <any>undefined;
+            this.bloodShare = data["bloodShare"];
+            this.breedShare = data["breedShare"];
+            this.bodyColorInfoId = data["bodyColorInfoId"];
+            this.spotColorInfoId = data["spotColorInfoId"];
+            this.spotConnectorInfoId = data["spotConnectorInfoId"];
+            this.breedName = data["breedName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): InseminationCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new InseminationCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["speciesInfoId"] = this.speciesInfoId;
+        data["sexInfoId"] = this.sexInfoId;
+        data["herdId"] = this.herdId;
+        data["activityInfoId"] = this.activityInfoId;
+        data["officerId"] = this.officerId;
+        data["officerName"] = this.officerName;
+        data["breedInfoId"] = this.breedInfoId;
+        data["livestockFatherId"] = this.livestockFatherId;
+        data["nationalCodeFather"] = this.nationalCodeFather;
+        data["breedInfoFatherId"] = this.breedInfoFatherId;
+        data["livestockMotherId"] = this.livestockMotherId;
+        data["nationalCodeMother"] = this.nationalCodeMother;
+        data["breedInfoMotherId"] = this.breedInfoMotherId;
+        data["earNumber"] = this.earNumber;
+        data["bodyNumber"] = this.bodyNumber;
+        data["foreignRegistrationNumber"] = this.foreignRegistrationNumber;
+        data["birthTypeInfoId"] = this.birthTypeInfoId;
+        data["anomalyInfoId"] = this.anomalyInfoId;
+        data["membershipInfoId"] = this.membershipInfoId;
+        data["idIssueDate"] = this.idIssueDate ? this.idIssueDate.toISOString() : <any>undefined;
+        data["bloodShare"] = this.bloodShare;
+        data["breedShare"] = this.breedShare;
+        data["bodyColorInfoId"] = this.bodyColorInfoId;
+        data["spotColorInfoId"] = this.spotColorInfoId;
+        data["spotConnectorInfoId"] = this.spotConnectorInfoId;
+        data["breedName"] = this.breedName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IInseminationCreateOrUpdateInput {
+    id: number | undefined;
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    birthDate: moment.Moment | undefined;
+    speciesInfoId: number | undefined;
+    sexInfoId: number | undefined;
+    herdId: number | undefined;
+    activityInfoId: number | undefined;
+    officerId: number | undefined;
+    officerName: string | undefined;
+    breedInfoId: number | undefined;
+    livestockFatherId: number | undefined;
+    nationalCodeFather: string | undefined;
+    breedInfoFatherId: number | undefined;
+    livestockMotherId: number | undefined;
+    nationalCodeMother: string | undefined;
+    breedInfoMotherId: number | undefined;
+    earNumber: string | undefined;
+    bodyNumber: string | undefined;
+    foreignRegistrationNumber: string | undefined;
+    birthTypeInfoId: number | undefined;
+    anomalyInfoId: number | undefined;
+    membershipInfoId: number | undefined;
+    idIssueDate: moment.Moment | undefined;
+    bloodShare: string | undefined;
+    breedShare: string | undefined;
+    bodyColorInfoId: number | undefined;
+    spotColorInfoId: number | undefined;
+    spotConnectorInfoId: number | undefined;
+    breedName: string | undefined;
+    creationTime: moment.Moment | undefined;
+}
+
+export class GetInseminationForEditOutput implements IGetInseminationForEditOutput {
+    insemination!: InseminationCreateOrUpdateInput;
+    speciesInfos!: ComboboxItemDto[] | undefined;
+    sexInfos!: ComboboxItemDto[] | undefined;
+    herds!: ComboboxItemDto[] | undefined;
+    activityInfos!: ComboboxItemDto[] | undefined;
+    breedInfos!: ComboboxItemDto[] | undefined;
+    birthTypeInfos!: ComboboxItemDto[] | undefined;
+    anomalyInfos!: ComboboxItemDto[] | undefined;
+    membershipInfos!: ComboboxItemDto[] | undefined;
+    bodyColorInfos!: ComboboxItemDto[] | undefined;
+    spotConnectorInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IGetInseminationForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.insemination = data["insemination"] ? InseminationCreateOrUpdateInput.fromJS(data["insemination"]) : <any>undefined;
+            if (Array.isArray(data["speciesInfos"])) {
+                this.speciesInfos = [] as any;
+                for (let item of data["speciesInfos"])
+                    this.speciesInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["sexInfos"])) {
+                this.sexInfos = [] as any;
+                for (let item of data["sexInfos"])
+                    this.sexInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["herds"])) {
+                this.herds = [] as any;
+                for (let item of data["herds"])
+                    this.herds!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["activityInfos"])) {
+                this.activityInfos = [] as any;
+                for (let item of data["activityInfos"])
+                    this.activityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["breedInfos"])) {
+                this.breedInfos = [] as any;
+                for (let item of data["breedInfos"])
+                    this.breedInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["birthTypeInfos"])) {
+                this.birthTypeInfos = [] as any;
+                for (let item of data["birthTypeInfos"])
+                    this.birthTypeInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["anomalyInfos"])) {
+                this.anomalyInfos = [] as any;
+                for (let item of data["anomalyInfos"])
+                    this.anomalyInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["membershipInfos"])) {
+                this.membershipInfos = [] as any;
+                for (let item of data["membershipInfos"])
+                    this.membershipInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["bodyColorInfos"])) {
+                this.bodyColorInfos = [] as any;
+                for (let item of data["bodyColorInfos"])
+                    this.bodyColorInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["spotConnectorInfos"])) {
+                this.spotConnectorInfos = [] as any;
+                for (let item of data["spotConnectorInfos"])
+                    this.spotConnectorInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetInseminationForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetInseminationForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["insemination"] = this.insemination ? this.insemination.toJSON() : <any>undefined;
+        if (Array.isArray(this.speciesInfos)) {
+            data["speciesInfos"] = [];
+            for (let item of this.speciesInfos)
+                data["speciesInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.sexInfos)) {
+            data["sexInfos"] = [];
+            for (let item of this.sexInfos)
+                data["sexInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.herds)) {
+            data["herds"] = [];
+            for (let item of this.herds)
+                data["herds"].push(item.toJSON());
+        }
+        if (Array.isArray(this.activityInfos)) {
+            data["activityInfos"] = [];
+            for (let item of this.activityInfos)
+                data["activityInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.breedInfos)) {
+            data["breedInfos"] = [];
+            for (let item of this.breedInfos)
+                data["breedInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.birthTypeInfos)) {
+            data["birthTypeInfos"] = [];
+            for (let item of this.birthTypeInfos)
+                data["birthTypeInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.anomalyInfos)) {
+            data["anomalyInfos"] = [];
+            for (let item of this.anomalyInfos)
+                data["anomalyInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.membershipInfos)) {
+            data["membershipInfos"] = [];
+            for (let item of this.membershipInfos)
+                data["membershipInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.bodyColorInfos)) {
+            data["bodyColorInfos"] = [];
+            for (let item of this.bodyColorInfos)
+                data["bodyColorInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.spotConnectorInfos)) {
+            data["spotConnectorInfos"] = [];
+            for (let item of this.spotConnectorInfos)
+                data["spotConnectorInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetInseminationForEditOutput {
+    insemination: InseminationCreateOrUpdateInput;
+    speciesInfos: ComboboxItemDto[] | undefined;
+    sexInfos: ComboboxItemDto[] | undefined;
+    herds: ComboboxItemDto[] | undefined;
+    activityInfos: ComboboxItemDto[] | undefined;
+    breedInfos: ComboboxItemDto[] | undefined;
+    birthTypeInfos: ComboboxItemDto[] | undefined;
+    anomalyInfos: ComboboxItemDto[] | undefined;
+    membershipInfos: ComboboxItemDto[] | undefined;
+    bodyColorInfos: ComboboxItemDto[] | undefined;
+    spotConnectorInfos: ComboboxItemDto[] | undefined;
 }
 
 export class InstallDto implements IInstallDto {

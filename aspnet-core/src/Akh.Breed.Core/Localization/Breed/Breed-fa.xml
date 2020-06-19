@@ -990,6 +990,7 @@
     <text name="ProviderInfo">تامین کنندگان</text>
     <text name="AcademicDegree">تحصیلات</text>
     <text name="Inseminating">تلقیح</text>
+    <text name="Insemination">تلقیح</text>
     <text name="BreedInfo">نژاد</text>
     <text name="BirthTypeInfo">نوع تولد</text>
     <text name="AnomalyInfo">نوع ناهنجاری</text>
@@ -1038,6 +1039,13 @@
     <text name="ViewNewAcademicDegree">نمایش مقطع تحصیلی</text>
     <text name="EditNewAcademicDegree">ویرایش مقطع تحصیلی</text>
     <text name="DeleteNewAcademicDegree">حذف مقطع تحصیلی</text>
+
+    <text name="CreateNewInsemination">ایجاد تلقیح</text>
+    <text name="AreYouSureToDeleteTheInsemination">آیا از حذف تلقیح {0} مطمئن هستید؟</text>
+    <text name="InseminationHeaderInfo">مدیریت تلقیح</text>
+    <text name="ViewNewInsemination">نمایش تلقیح</text>
+    <text name="EditNewInsemination">ویرایش تلقیح</text>
+    <text name="DeleteNewInsemination">حذف تلقیح</text>
 
     <text name="CreateNewBreedInfo">ایجاد نژاد</text>
     <text name="AreYouSureToDeleteTheBreedInfo">آیا از حذف نژاد {0} مطمئن هستید؟</text>

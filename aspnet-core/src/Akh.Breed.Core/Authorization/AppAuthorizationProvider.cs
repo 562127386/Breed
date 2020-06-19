@@ -259,6 +259,11 @@ namespace Akh.Breed.Authorization
 
             var inseminating = pages.CreateChildPermission(AppPermissions.Pages_Inseminating, L("Inseminating"));
 
+            var insemination = inseminating.CreateChildPermission(AppPermissions.Pages_Inseminating_Insemination, L("Insemination"));
+            insemination.CreateChildPermission(AppPermissions.Pages_Inseminating_Insemination_Create, L("CreateNewInsemination"));
+            insemination.CreateChildPermission(AppPermissions.Pages_Inseminating_Insemination_Edit, L("EditNewInsemination"));
+            insemination.CreateChildPermission(AppPermissions.Pages_Inseminating_Insemination_Delete, L("DeleteNewInsemination"));
+
             var breedInf = inseminating.CreateChildPermission(AppPermissions.Pages_Inseminating_BreedInfo, L("BreedInfo"));
             breedInf.CreateChildPermission(AppPermissions.Pages_Inseminating_BreedInfo_Create, L("CreateNewBreedInfo"));
             breedInf.CreateChildPermission(AppPermissions.Pages_Inseminating_BreedInfo_Edit, L("EditNewBreedInfo"));

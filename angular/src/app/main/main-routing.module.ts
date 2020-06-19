@@ -37,6 +37,7 @@ import { AnomalyInfoComponent } from './anomalyInfo/anomalyInfo.component';
 import { MembershipInfoComponent } from './membershipInfo/membershipInfo.component';
 import { BodyColorInfoComponent } from './bodyColorInfo/bodyColorInfo.component';
 import { SpotConnectorInfoComponent } from './spotConnectorInfo/spotConnectorInfo.component';
+import { InseminationComponent } from './insemination/insemination.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -80,7 +81,8 @@ import { SpotConnectorInfoComponent } from './spotConnectorInfo/spotConnectorInf
                     { path: 'anomalyInfo', component: AnomalyInfoComponent },
                     { path: 'membershipInfo', component: MembershipInfoComponent },
                     { path: 'bodyColorInfo', component: BodyColorInfoComponent },
-                    { path: 'spotConnectorInfo', component: SpotConnectorInfoComponent }
+                    { path: 'spotConnectorInfo', component: SpotConnectorInfoComponent },
+                    { path: 'insemination', component: InseminationComponent }
 
                 ]
             }

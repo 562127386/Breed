@@ -75,6 +75,8 @@ import { HerdCertificateComponent } from "./herdCertificate/herdCertificate.comp
 import { HerdCertificateReportComponent } from "./herdCertificate/herdCertificateReport.component";
 import { HerdLivestockComponent } from "./herdLivestock/herdLivestock.component";
 import { ReportHerdLivestockModalComponent } from './herdLivestock/report-herdLivestock-modal.component';
+import { InseminationComponent } from "./insemination/insemination.component";
+import { CreateOrEditInseminationModalComponent } from './insemination/create-or-edit-insemination-modal.component';
 import { HerdGeoLogComponent } from "./herdGeoLog/herdGeoLog.component";
 import { CreateOrEditHerdGeoLogModalComponent } from "./herdGeoLog/create-or-edit-herdGeoLog-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -200,7 +202,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         BodyColorInfoComponent,
         CreateOrEditBodyColorInfoModalComponent,
         SpotConnectorInfoComponent,
-        CreateOrEditSpotConnectorInfoModalComponent
+        CreateOrEditSpotConnectorInfoModalComponent,
+        InseminationComponent,
+        CreateOrEditInseminationModalComponent
     
     ],
     providers: [

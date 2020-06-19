@@ -51,6 +51,7 @@ export class AppNavigationService {
                 new AppMenuItem('HerdCertificate', 'Pages.Activities.HerdCertificate', 'flaticon2-box', '/app/main/herdCertificate')
             ]),
             new AppMenuItem('Inseminating', 'Pages.Inseminating', 'flaticon2-box', '', [
+                new AppMenuItem('Insemination', 'Pages.Inseminating.Insemination', 'flaticon-technology-2', '/app/main/insemination'),
                 new AppMenuItem('BreedInfo', 'Pages.Inseminating.BreedInfo', 'flaticon-technology-2', '/app/main/breedInfo'),
                 new AppMenuItem('BirthTypeInfo', 'Pages.Inseminating.BirthTypeInfo', 'flaticon-technology-2', '/app/main/birthTypeInfo'),
                 new AppMenuItem('AnomalyInfo', 'Pages.Inseminating.AnomalyInfo', 'flaticon-technology-2', '/app/main/anomalyInfo'),

@@ -237,9 +237,14 @@
         public const string Pages_Reports_HerdLivestock_Edit = "Pages.Reports.HerdLivestock.Edit";
         public const string Pages_Reports_HerdLivestock_Delete = "Pages.Reports.HerdLivestock.Delete";
         
-        //Breed-app Reports
+        //Breed-app Inseminating
         
         public const string Pages_Inseminating = "Pages.Inseminating";
+        
+        public const string Pages_Inseminating_Insemination = "Pages.Inseminating.Insemination";
+        public const string Pages_Inseminating_Insemination_Create = "Pages.Inseminating.Insemination.Create";
+        public const string Pages_Inseminating_Insemination_Edit = "Pages.Inseminating.Insemination.Edit";
+        public const string Pages_Inseminating_Insemination_Delete = "Pages.Inseminating.Insemination.Delete";
         
         public const string Pages_Inseminating_BreedInfo = "Pages.Inseminating.BreedInfo";
         public const string Pages_Inseminating_BreedInfo_Create = "Pages.Inseminating.BreedInfo.Create";
