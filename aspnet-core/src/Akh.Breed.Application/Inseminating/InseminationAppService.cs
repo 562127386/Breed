@@ -17,6 +17,7 @@ using Akh.Breed.Contractors;
 using Akh.Breed.Herds;
 using Akh.Breed.Inseminating.Dto;
 using Akh.Breed.Livestocks.Dto;
+using Akh.Breed.Net.Sms;
 using Akh.Breed.Officers;
 using Akh.Breed.Plaques;
 using Akh.Breed.Unions;
@@ -42,8 +43,9 @@ namespace Akh.Breed.Inseminating
         private readonly IRepository<MembershipInfo> _membershipInfoRepository;
         private readonly IRepository<BodyColorInfo> _bodyColorInfoRepository;
         private readonly IRepository<SpotConnectorInfo> _spotConnectorInfoRepository;
+        private readonly ISms98Sender _sms98Sender;
         
-        public InseminationAppService(IRepository<Insemination> inseminationRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository, IRepository<BreedInfo> breedInfoRepository, IRepository<BirthTypeInfo> birthTypeInfoRepository, IRepository<AnomalyInfo> anomalyInfoRepository, IRepository<MembershipInfo> membershipInfoRepository, IRepository<BodyColorInfo> bodyColorInfoRepository, IRepository<SpotConnectorInfo> spotConnectorInfoRepository)
+        public InseminationAppService(IRepository<Insemination> inseminationRepository, IRepository<SpeciesInfo> speciesInfoRepository, IRepository<SexInfo> sexInfoRepository, IRepository<Herd> herdRepository, IRepository<ActivityInfo> activityInfoRepository, IRepository<Officer> officerRepository, IRepository<PlaqueToOfficer> plaqueToOfficerRepository, IRepository<PlaqueInfo, long> plaqueInfoRepository, IRepository<UnionInfo> unionInfoRepository, IRepository<Contractor> contractorRepository, IRepository<BreedInfo> breedInfoRepository, IRepository<BirthTypeInfo> birthTypeInfoRepository, IRepository<AnomalyInfo> anomalyInfoRepository, IRepository<MembershipInfo> membershipInfoRepository, IRepository<BodyColorInfo> bodyColorInfoRepository, IRepository<SpotConnectorInfo> spotConnectorInfoRepository, ISms98Sender sms98Sender)
         {
             _inseminationRepository = inseminationRepository;
             _speciesInfoRepository = speciesInfoRepository;
@@ -61,6 +63,7 @@ namespace Akh.Breed.Inseminating
             _membershipInfoRepository = membershipInfoRepository;
             _bodyColorInfoRepository = bodyColorInfoRepository;
             _spotConnectorInfoRepository = spotConnectorInfoRepository;
+            _sms98Sender = sms98Sender;
         }
         
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_Identification)]
@@ -248,6 +251,13 @@ namespace Akh.Breed.Inseminating
                 InseminationId = insemination.Id
             };
             await _plaqueInfoRepository.InsertAsync(plaqueInfo);
+            if (insemination.Id > 0)
+            {
+                var herd = _herdRepository.FirstOrDefault(x => x.Id == insemination.HerdId);
+                var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
+                var message = "تلقیح برای کد "+ insemination.NationalCode +" در سامانه دامیار توسط "+ officer?.Name + " " + officer?.Family +" ثبت شد.";
+                await _sms98Sender.SendAsync(herd.Mobile.Replace("-",""), message);
+            }
         }
         
         private IQueryable<Insemination> GetFilteredQuery(GetInseminationInput input)
