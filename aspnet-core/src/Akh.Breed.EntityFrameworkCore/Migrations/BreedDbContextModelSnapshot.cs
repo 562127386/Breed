@@ -1565,6 +1565,38 @@ namespace Akh.Breed.Migrations
                     b.ToTable("AkhManufacturers");
                 });
 
+            modelBuilder.Entity("Akh.Breed.BaseInfo.MembershipInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("AkhMembershipInfo");
+                });
+
             modelBuilder.Entity("Akh.Breed.BaseInfo.PlaqueState", b =>
                 {
                     b.Property<int>("Id")
@@ -2215,6 +2247,307 @@ namespace Akh.Breed.Migrations
                     b.ToTable("AkhHerdGeoLogs");
                 });
 
+            modelBuilder.Entity("Akh.Breed.Inseminating.AnomalyInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("AkhAnomalyInfo");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Inseminating.BirthTypeInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("AkhBirthTypeInfo");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Inseminating.BodyColorInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("AkhBodyColorInfo");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Inseminating.BreedInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("AkhBreedInfo");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Inseminating.Insemination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ActivityInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AnomalyInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("BirthTypeInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BloodShare")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BodyColorInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BodyNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BreedInfoFatherId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BreedInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BreedInfoMotherId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BreedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BreedShare")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("EarNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ForeignRegistrationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HerdId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("IdIssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("LivestockFatherId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LivestockMotherId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MembershipInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NationalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NationalCodeFather")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NationalCodeMother")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OfficerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SexInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpeciesInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpotColorInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpotConnectorInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityInfoId");
+
+                    b.HasIndex("AnomalyInfoId");
+
+                    b.HasIndex("BirthTypeInfoId");
+
+                    b.HasIndex("BodyColorInfoId");
+
+                    b.HasIndex("BreedInfoFatherId");
+
+                    b.HasIndex("BreedInfoId");
+
+                    b.HasIndex("BreedInfoMotherId");
+
+                    b.HasIndex("HerdId");
+
+                    b.HasIndex("LivestockFatherId");
+
+                    b.HasIndex("LivestockMotherId");
+
+                    b.HasIndex("MembershipInfoId");
+
+                    b.HasIndex("OfficerId");
+
+                    b.HasIndex("SexInfoId");
+
+                    b.HasIndex("SpeciesInfoId");
+
+                    b.HasIndex("SpotColorInfoId");
+
+                    b.HasIndex("SpotConnectorInfoId");
+
+                    b.ToTable("AkhInseminating");
+                });
+
+            modelBuilder.Entity("Akh.Breed.Inseminating.SpotConnectorInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("AkhSpotConnectorInfo");
+                });
+
             modelBuilder.Entity("Akh.Breed.Livestocks.Livestock", b =>
                 {
                     b.Property<int>("Id")
@@ -2663,6 +2996,9 @@ namespace Akh.Breed.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("InseminationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Latitude")
                         .HasColumnType("nvarchar(max)");
 
@@ -2688,6 +3024,8 @@ namespace Akh.Breed.Migrations
 
                     b.HasIndex("Code")
                         .IsUnique();
+
+                    b.HasIndex("InseminationId");
 
                     b.HasIndex("LivestockId");
 
@@ -3449,6 +3787,73 @@ namespace Akh.Breed.Migrations
                         .HasForeignKey("OfficerId");
                 });
 
+            modelBuilder.Entity("Akh.Breed.Inseminating.Insemination", b =>
+                {
+                    b.HasOne("Akh.Breed.BaseInfo.ActivityInfo", "ActivityInfo")
+                        .WithMany()
+                        .HasForeignKey("ActivityInfoId");
+
+                    b.HasOne("Akh.Breed.Inseminating.AnomalyInfo", "AnomalyInfo")
+                        .WithMany()
+                        .HasForeignKey("AnomalyInfoId");
+
+                    b.HasOne("Akh.Breed.Inseminating.BirthTypeInfo", "BirthTypeInfo")
+                        .WithMany()
+                        .HasForeignKey("BirthTypeInfoId");
+
+                    b.HasOne("Akh.Breed.Inseminating.BodyColorInfo", "BodyColorInfo")
+                        .WithMany()
+                        .HasForeignKey("BodyColorInfoId");
+
+                    b.HasOne("Akh.Breed.Inseminating.BreedInfo", "BreedInfoFather")
+                        .WithMany()
+                        .HasForeignKey("BreedInfoFatherId");
+
+                    b.HasOne("Akh.Breed.Inseminating.BreedInfo", "BreedInfo")
+                        .WithMany()
+                        .HasForeignKey("BreedInfoId");
+
+                    b.HasOne("Akh.Breed.Inseminating.BreedInfo", "BreedInfoMother")
+                        .WithMany()
+                        .HasForeignKey("BreedInfoMotherId");
+
+                    b.HasOne("Akh.Breed.Herds.Herd", "Herd")
+                        .WithMany()
+                        .HasForeignKey("HerdId");
+
+                    b.HasOne("Akh.Breed.Livestocks.Livestock", "LivestockFather")
+                        .WithMany()
+                        .HasForeignKey("LivestockFatherId");
+
+                    b.HasOne("Akh.Breed.Livestocks.Livestock", "LivestockMother")
+                        .WithMany()
+                        .HasForeignKey("LivestockMotherId");
+
+                    b.HasOne("Akh.Breed.BaseInfo.MembershipInfo", "MembershipInfo")
+                        .WithMany()
+                        .HasForeignKey("MembershipInfoId");
+
+                    b.HasOne("Akh.Breed.Officers.Officer", "Officer")
+                        .WithMany()
+                        .HasForeignKey("OfficerId");
+
+                    b.HasOne("Akh.Breed.BaseInfo.SexInfo", "SexInfo")
+                        .WithMany()
+                        .HasForeignKey("SexInfoId");
+
+                    b.HasOne("Akh.Breed.BaseInfo.SpeciesInfo", "SpeciesInfo")
+                        .WithMany()
+                        .HasForeignKey("SpeciesInfoId");
+
+                    b.HasOne("Akh.Breed.Inseminating.BodyColorInfo", "SpotColorInfo")
+                        .WithMany()
+                        .HasForeignKey("SpotColorInfoId");
+
+                    b.HasOne("Akh.Breed.Inseminating.SpotConnectorInfo", "SpotConnectorInfo")
+                        .WithMany()
+                        .HasForeignKey("SpotConnectorInfoId");
+                });
+
             modelBuilder.Entity("Akh.Breed.Livestocks.Livestock", b =>
                 {
                     b.HasOne("Akh.Breed.BaseInfo.ActivityInfo", "ActivityInfo")
@@ -3547,6 +3952,10 @@ namespace Akh.Breed.Migrations
 
             modelBuilder.Entity("Akh.Breed.Plaques.PlaqueInfo", b =>
                 {
+                    b.HasOne("Akh.Breed.Inseminating.Insemination", "Insemination")
+                        .WithMany()
+                        .HasForeignKey("InseminationId");
+
                     b.HasOne("Akh.Breed.Livestocks.Livestock", "Livestock")
                         .WithMany()
                         .HasForeignKey("LivestockId");

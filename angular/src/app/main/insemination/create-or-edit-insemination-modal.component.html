@@ -1,0 +1,334 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #inseminationForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header kt-bg-brand">
+                    <h4 class="modal-title">
+                        <span *ngIf="insemination.id && editdisabled">{{"ViewNewInsemination" | localize}}: {{insemination.name}}</span>
+                        <span *ngIf="insemination.id && !editdisabled">{{"EditNewInsemination" | localize}}: {{insemination.name}}</span>
+                        <span *ngIf="!insemination.id">{{"CreateNewInsemination" | localize}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockOfficer" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="liveStockOfficer" class="form-control m-input" type="text" name="liveStockOfficer"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockNowDate" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="liveStockNowDate" class="form-control m-input" type="text" name="liveStockNowDate"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <div class="row">
+                                <label class="col-form-label col-sm-6">{{"LiveStockNowTime" | localize}}</label>
+                                <div class="col-sm-6">
+                                    <input [ngStyle]="{'border':'0px'}" readonly [(ngModel)]="liveStockNowTime" class="form-control m-input" type="text" name="liveStockNowTime"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p-fieldset class="col-sm-12" [legend]="l('Livestock')" [toggleable]="true">
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"HerdInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #herdCombobox="ngModel" [options]="herdsSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="getActivities($event.value)"
+                                                    name="herdId" [(ngModel)]="insemination.herdId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="herdCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"ActivityInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #activityInfoCombobox="ngModel" [options]="activityInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                                    name="activityInfoId" [(ngModel)]="insemination.activityInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="activityInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"SpeciesInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #speciesInfoCombobox="ngModel" [options]="speciesInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" (onChange)="setCodeMask($event.value)"
+                                                    name="speciesInfoId" [(ngModel)]="insemination.speciesInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="speciesInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"LivestockCode" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask [style]="{'width':'100%'}" #nationalCodeInput="ngModel" mask="{{codeMask}}" unmask="true" [(ngModel)]="insemination.nationalCode" type="num" autocomplete="new-password" name="nationalCode" placeholder="{{codePlaceHolder}}" (onComplete)="checkValidation()" length="15" required></p-inputMask>
+                                                <validation-messages [formCtrl]="nationalCodeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"SexInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #sexInfoCombobox="ngModel" [options]="sexInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30" 
+                                                    name="sexInfoId" [(ngModel)]="insemination.sexInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="sexInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BirthDate" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #birthDateTempInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="birthDateTemp" name="birthDateTemp" maxlength="10" autocomplete="new-password" placeholder="____/__/__" pattern="^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$" required/>
+                                                <validation-messages [formCtrl]="birthDateTempInput"></validation-messages> 
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                </div>                    
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Latitude" | localize}} *</label>
+                                            <div class="input-group col-md-8 col-sm-12">
+                                                <input #latitudeInput="ngModel" class="form-control" type="text" placeholder="{{'Latitude' | localize}} *" [(ngModel)]="insemination.latitude" name="latitude" maxlength="256" pattern="^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$" required/>
+                                                <div class="input-group-append">
+                                                    <div class="form-control" type="button" (click)="getUserLocation()"><i class="flaticon2-refresh-arrow"></i></div>
+                                                </div> 
+                                                <validation-messages [formCtrl]="latitudeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"Longitude" | localize}} *</label>
+                                            <div class="input-group col-md-8 col-sm-12">
+                                                <input #longitudeInput="ngModel" class="form-control" type="longitude" placeholder="{{'Longitude' | localize}} *" [(ngModel)]="insemination.longitude" name="text" maxlength="256" pattern="^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$" required/>
+                                                <div class="input-group-append">
+                                                    <div class="form-control" type="button" (click)="getUserLocation()"><i class="flaticon2-refresh-arrow"></i></div>
+                                                </div>                                    
+                                                <validation-messages [formCtrl]="longitudeInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                    
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"NationalCodeFather" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask [style]="{'width':'100%'}" #nationalCodeFatherInput="ngModel" mask="{{codeMask}}" unmask="true" [(ngModel)]="insemination.nationalCodeFather" type="num" autocomplete="new-password" name="nationalCodeFather" placeholder="{{codePlaceHolder}}" (onComplete)="checkValidation()" length="15" required></p-inputMask>
+                                                <validation-messages [formCtrl]="nationalCodeFatherInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BreedInfoFather" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #breedInfoFatherCombobox="ngModel" [options]="breedInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="breedInfoFatherId" [(ngModel)]="insemination.breedInfoFatherId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="breedInfoFatherCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"NationalCodeMother" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-inputMask [style]="{'width':'100%'}" #nationalCodeMotherInput="ngModel" mask="{{codeMask}}" unmask="true" [(ngModel)]="insemination.nationalCodeMother" type="num" autocomplete="new-password" name="nationalCodeMother" placeholder="{{codePlaceHolder}}" (onComplete)="checkValidation()" length="15" required></p-inputMask>
+                                                <validation-messages [formCtrl]="nationalCodeMotherInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BreedInfoMother" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #breedInfoMotherCombobox="ngModel" [options]="breedInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="breedInfoMotherId" [(ngModel)]="insemination.breedInfoMotherId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="breedInfoMotherCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </p-fieldset>
+                        </div>
+                        <div class="col-sm-12">
+                            <p-fieldset class="col-sm-12" [legend]="l('Information')" [toggleable]="true">
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"EarNumber" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #earNumberInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="earNumber" name="earNumber" pKeyFilter="num" placeholder="{{'EarNumber' | localize}} *" maxlength="16"/>
+                                                <validation-messages [formCtrl]="earNumberInput"></validation-messages> 
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BodyNumber" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #bodyNumberInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="bodyNumber" name="bodyNumber" pKeyFilter="num" placeholder="{{'BodyNumber' | localize}} *" maxlength="16"/>
+                                                <validation-messages [formCtrl]="bodyNumberInput"></validation-messages> 
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"ForeignRegistrationNumber" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #foreignRegistrationNumberInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="foreignRegistrationNumber" name="foreignRegistrationNumber" pKeyFilter="num" placeholder="{{'ForeignRegistrationNumber' | localize}} *" maxlength="16"/>
+                                                <validation-messages [formCtrl]="foreignRegistrationNumberInput"></validation-messages> 
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BirthTypeInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #birthTypeInfoCombobox="ngModel" [options]="birthTypeInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="birthTypeInfoId" [(ngModel)]="insemination.birthTypeInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="birthTypeInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"AnomalyInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #anomalyInfoCombobox="ngModel" [options]="anomalyInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="anomalyInfoId" [(ngModel)]="insemination.anomalyInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="anomalyInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"MembershipInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #membershipInfoCombobox="ngModel" [options]="membershipInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="membershipInfoId" [(ngModel)]="insemination.membershipInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="membershipInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">                                    
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"IdIssueDate" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #idIssueDateTempInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="idIssueDateTemp" name="idIssueDateTemp" maxlength="10" autocomplete="new-password" placeholder="____/__/__" pattern="^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$" required/>
+                                                <validation-messages [formCtrl]="idIssueDateTempInput"></validation-messages> 
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BloodShare" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #bloodShareInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="bloodShare" name="bloodShare" pKeyFilter="num" placeholder="{{'BloodShare' | localize}} *" maxlength="16"/>
+                                                <validation-messages [formCtrl]="bloodShareInput"></validation-messages> 
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BreedShare" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #breedShareInput="ngModel" class="kt-align-right form-control" type="text" [(ngModel)]="breedShare" name="breedShare" pKeyFilter="num" placeholder="{{'BloodShare' | localize}} *" maxlength="16"/>
+                                                <validation-messages [formCtrl]="breedShareInput"></validation-messages> 
+                                            </div>
+                                        </div>                                
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BodyColorInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #membershipInfoCombobox="ngModel" [options]="bodyColorInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="membershipInfoId" [(ngModel)]="insemination.membershipInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="membershipInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"SpotColorInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #spotColorInfoCombobox="ngModel" [options]="bodyColorInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="spotColorInfoId" [(ngModel)]="insemination.spotColorInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="spotColorInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"SpotConnectorInfo" | localize}} *</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <p-dropdown #spotConnectorInfoCombobox="ngModel" [options]="breedInfosSelectItems" [filter]="true" [virtualScroll]="true" [itemSize]="30"
+                                                    name="spotConnectorInfoId" [(ngModel)]="insemination.spotConnectorInfoId" [style]="{'width':'100%'}" [placeholder]="l('Select')" required></p-dropdown>
+                                                <validation-messages [formCtrl]="spotConnectorInfoCombobox"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <label class="col-form-label col-md-4 col-sm-12">{{"BreedName" | localize}}</label>
+                                            <div class="col-md-8 col-sm-12">
+                                                <input #breedNameInput="ngModel" [(ngModel)]="insemination.breedName" class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'BreedName' | localize}} *" name="breedName" required maxlength="64"/>
+                                            <validation-messages [formCtrl]="breedNameInput"></validation-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div>
+                    </div>
+                                                                       
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <button *ngIf="!editdisabled" type="button" (click)="save(1)" class="btn btn-primary" [disabled]="!inseminationForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"SaveAndContinue" | localize}}</span></button>
+                        <button *ngIf="!editdisabled" type="submit" class="btn btn-primary" [disabled]="!inseminationForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+                        <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

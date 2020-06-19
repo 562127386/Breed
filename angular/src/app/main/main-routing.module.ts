@@ -31,7 +31,13 @@ import { PlaqueChangeComponent } from './plaqueChange/plaqueChange.component';
 import { HerdCertificateComponent } from './herdCertificate/herdCertificate.component';
 import { HerdLivestockComponent } from "./herdLivestock/herdLivestock.component";
 import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
-
+import { BreedInfoComponent } from './breedInfo/breedInfo.component';
+import { BirthTypeInfoComponent } from './birthTypeInfo/birthTypeInfo.component';
+import { AnomalyInfoComponent } from './anomalyInfo/anomalyInfo.component';
+import { MembershipInfoComponent } from './membershipInfo/membershipInfo.component';
+import { BodyColorInfoComponent } from './bodyColorInfo/bodyColorInfo.component';
+import { SpotConnectorInfoComponent } from './spotConnectorInfo/spotConnectorInfo.component';
+import { InseminationComponent } from './insemination/insemination.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -69,7 +75,14 @@ import { HerdGeoLogComponent } from './herdGeoLog/herdGeoLog.component';
                     { path: 'plaqueChange', component: PlaqueChangeComponent },
                     { path: 'herdCertificate', component: HerdCertificateComponent },
                     { path: 'herdLivestock', component: HerdLivestockComponent },
-                    { path: 'herdGeoLog', component: HerdGeoLogComponent }
+                    { path: 'herdGeoLog', component: HerdGeoLogComponent },
+                    { path: 'breedInfo', component: BreedInfoComponent },
+                    { path: 'birthTypeInfo', component: BirthTypeInfoComponent },
+                    { path: 'anomalyInfo', component: AnomalyInfoComponent },
+                    { path: 'membershipInfo', component: MembershipInfoComponent },
+                    { path: 'bodyColorInfo', component: BodyColorInfoComponent },
+                    { path: 'spotConnectorInfo', component: SpotConnectorInfoComponent },
+                    { path: 'insemination', component: InseminationComponent }
 
                 ]
             }

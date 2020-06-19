@@ -14,6 +14,7 @@ using Akh.Breed.MultiTenancy.Payments;
 using Akh.Breed.Storage;
 using Akh.Breed.Contractors;
 using Akh.Breed.Herds;
+using Akh.Breed.Inseminating;
 using Akh.Breed.Livestocks;
 using Akh.Breed.Notices;
 using Akh.Breed.Officers;
@@ -48,10 +49,25 @@ namespace Akh.Breed.EntityFrameworkCore
         public virtual DbSet<Herd> Herds { get; set; }
 
         public virtual DbSet<Livestock> Livestocks { get; set; }
+        
+        public virtual DbSet<Insemination> Inseminating { get; set; }
 
         public virtual DbSet<Officer> Officers { get; set; }
 
         public virtual DbSet<AcademicDegree> AcademicDegrees { get; set; }
+        
+        public virtual DbSet<BreedInfo> BreedInfos { get; set; }
+        
+        public virtual DbSet<BirthTypeInfo> BirthTypeInfos { get; set; }
+        
+        public virtual DbSet<AnomalyInfo> AnomalyInfos { get; set; }
+        
+        public virtual DbSet<MembershipInfo> MembershipInfos { get; set; }
+        
+        public virtual DbSet<BodyColorInfo> BodyColorInfos { get; set; }
+        
+        public virtual DbSet<SpotConnectorInfo> SpotConnectorInfos { get; set; }
+        
 
         public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         
@@ -181,6 +197,42 @@ namespace Akh.Breed.EntityFrameworkCore
             });
             
             modelBuilder.Entity<AcademicDegree>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<BreedInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<BirthTypeInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<AnomalyInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<MembershipInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<BodyColorInfo>(b =>
+            {
+                b.HasIndex(e => e.Code).IsUnique();
+                b.HasIndex(e => e.Name).IsUnique();
+            });
+            
+            modelBuilder.Entity<SpotConnectorInfo>(b =>
             {
                 b.HasIndex(e => e.Code).IsUnique();
                 b.HasIndex(e => e.Name).IsUnique();

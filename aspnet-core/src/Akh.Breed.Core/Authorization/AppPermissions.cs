@@ -232,10 +232,49 @@
         
         public const string Pages_Reports = "Pages.Reports";
         
-        public const string Pages_Reports_EditGeoHerd = "Pages.Reports.EditGeoHerd";
-        public const string Pages_Reports_EditGeoHerd_Create = "Pages.Reports.EditGeoHerd.Create";
-        public const string Pages_Reports_EditGeoHerd_Edit = "Pages.Reports.EditGeoHerd.Edit";
-        public const string Pages_Reports_EditGeoHerd_Delete = "Pages.Reports.EditGeoHerd.Delete";
+        public const string Pages_Reports_HerdLivestock = "Pages.Reports.HerdLivestock";
+        public const string Pages_Reports_HerdLivestock_Create = "Pages.Reports.HerdLivestock.Create";
+        public const string Pages_Reports_HerdLivestock_Edit = "Pages.Reports.HerdLivestock.Edit";
+        public const string Pages_Reports_HerdLivestock_Delete = "Pages.Reports.HerdLivestock.Delete";
+        
+        //Breed-app Inseminating
+        
+        public const string Pages_Inseminating = "Pages.Inseminating";
+        
+        public const string Pages_Inseminating_Insemination = "Pages.Inseminating.Insemination";
+        public const string Pages_Inseminating_Insemination_Create = "Pages.Inseminating.Insemination.Create";
+        public const string Pages_Inseminating_Insemination_Edit = "Pages.Inseminating.Insemination.Edit";
+        public const string Pages_Inseminating_Insemination_Delete = "Pages.Inseminating.Insemination.Delete";
+        
+        public const string Pages_Inseminating_BreedInfo = "Pages.Inseminating.BreedInfo";
+        public const string Pages_Inseminating_BreedInfo_Create = "Pages.Inseminating.BreedInfo.Create";
+        public const string Pages_Inseminating_BreedInfo_Edit = "Pages.Inseminating.BreedInfo.Edit";
+        public const string Pages_Inseminating_BreedInfo_Delete = "Pages.Inseminating.BreedInfo.Delete";
+        
+        public const string Pages_Inseminating_BirthTypeInfo = "Pages.Inseminating.BirthTypeInfo";
+        public const string Pages_Inseminating_BirthTypeInfo_Create = "Pages.Inseminating.BirthTypeInfo.Create";
+        public const string Pages_Inseminating_BirthTypeInfo_Edit = "Pages.Inseminating.BirthTypeInfo.Edit";
+        public const string Pages_Inseminating_BirthTypeInfo_Delete = "Pages.Inseminating.BirthTypeInfo.Delete";
+        
+        public const string Pages_Inseminating_AnomalyInfo = "Pages.Inseminating.AnomalyInfo";
+        public const string Pages_Inseminating_AnomalyInfo_Create = "Pages.Inseminating.AnomalyInfo.Create";
+        public const string Pages_Inseminating_AnomalyInfo_Edit = "Pages.Inseminating.AnomalyInfo.Edit";
+        public const string Pages_Inseminating_AnomalyInfo_Delete = "Pages.Inseminating.AnomalyInfo.Delete";
+        
+        public const string Pages_Inseminating_MembershipInfo = "Pages.Inseminating.MembershipInfo";
+        public const string Pages_Inseminating_MembershipInfo_Create = "Pages.Inseminating.MembershipInfo.Create";
+        public const string Pages_Inseminating_MembershipInfo_Edit = "Pages.Inseminating.MembershipInfo.Edit";
+        public const string Pages_Inseminating_MembershipInfo_Delete = "Pages.Inseminating.MembershipInfo.Delete";
+        
+        public const string Pages_Inseminating_BodyColorInfo = "Pages.Inseminating.BodyColorInfo";
+        public const string Pages_Inseminating_BodyColorInfo_Create = "Pages.Inseminating.BodyColorInfo.Create";
+        public const string Pages_Inseminating_BodyColorInfo_Edit = "Pages.Inseminating.BodyColorInfo.Edit";
+        public const string Pages_Inseminating_BodyColorInfo_Delete = "Pages.Inseminating.BodyColorInfo.Delete";
+        
+        public const string Pages_Inseminating_SpotConnectorInfo = "Pages.Inseminating.SpotConnectorInfo";
+        public const string Pages_Inseminating_SpotConnectorInfo_Create = "Pages.Inseminating.SpotConnectorInfo.Create";
+        public const string Pages_Inseminating_SpotConnectorInfo_Edit = "Pages.Inseminating.SpotConnectorInfo.Edit";
+        public const string Pages_Inseminating_SpotConnectorInfo_Delete = "Pages.Inseminating.SpotConnectorInfo.Delete";
 
 
     }

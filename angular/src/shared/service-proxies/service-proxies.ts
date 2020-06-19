@@ -1058,6 +1058,249 @@ export class ActivityInfoServiceProxy {
 }
 
 @Injectable()
+export class AnomalyInfoServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getAnomalyInfo(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfAnomalyInfoListDto> {
+        let url_ = this.baseUrl + "/api/services/app/AnomalyInfo/GetAnomalyInfo?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAnomalyInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAnomalyInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfAnomalyInfoListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfAnomalyInfoListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAnomalyInfo(response: HttpResponseBase): Observable<PagedResultDtoOfAnomalyInfoListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfAnomalyInfoListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfAnomalyInfoListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getAnomalyInfoForEdit(id: number | undefined): Observable<AnomalyInfoCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/AnomalyInfo/GetAnomalyInfoForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAnomalyInfoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAnomalyInfoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<AnomalyInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<AnomalyInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAnomalyInfoForEdit(response: HttpResponseBase): Observable<AnomalyInfoCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = AnomalyInfoCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<AnomalyInfoCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateAnomalyInfo(body: AnomalyInfoCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/AnomalyInfo/CreateOrUpdateAnomalyInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateAnomalyInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateAnomalyInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateAnomalyInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteAnomalyInfo(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/AnomalyInfo/DeleteAnomalyInfo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteAnomalyInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteAnomalyInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteAnomalyInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class AuditLogServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -1651,6 +1894,735 @@ export class AuditLogServiceProxy {
             }));
         }
         return _observableOf<EntityPropertyChangeDto[]>(<any>null);
+    }
+}
+
+@Injectable()
+export class BirthTypeInfoServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getBirthTypeInfo(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfBirthTypeInfoListDto> {
+        let url_ = this.baseUrl + "/api/services/app/BirthTypeInfo/GetBirthTypeInfo?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBirthTypeInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBirthTypeInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfBirthTypeInfoListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfBirthTypeInfoListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBirthTypeInfo(response: HttpResponseBase): Observable<PagedResultDtoOfBirthTypeInfoListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfBirthTypeInfoListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfBirthTypeInfoListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getBirthTypeInfoForEdit(id: number | undefined): Observable<BirthTypeInfoCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/BirthTypeInfo/GetBirthTypeInfoForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBirthTypeInfoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBirthTypeInfoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<BirthTypeInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BirthTypeInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBirthTypeInfoForEdit(response: HttpResponseBase): Observable<BirthTypeInfoCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BirthTypeInfoCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BirthTypeInfoCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateBirthTypeInfo(body: BirthTypeInfoCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BirthTypeInfo/CreateOrUpdateBirthTypeInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateBirthTypeInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateBirthTypeInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateBirthTypeInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteBirthTypeInfo(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BirthTypeInfo/DeleteBirthTypeInfo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteBirthTypeInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteBirthTypeInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteBirthTypeInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class BodyColorInfoServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getBodyColorInfo(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfBodyColorInfoListDto> {
+        let url_ = this.baseUrl + "/api/services/app/BodyColorInfo/GetBodyColorInfo?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBodyColorInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBodyColorInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfBodyColorInfoListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfBodyColorInfoListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBodyColorInfo(response: HttpResponseBase): Observable<PagedResultDtoOfBodyColorInfoListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfBodyColorInfoListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfBodyColorInfoListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getBodyColorInfoForEdit(id: number | undefined): Observable<BodyColorInfoCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/BodyColorInfo/GetBodyColorInfoForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBodyColorInfoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBodyColorInfoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<BodyColorInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BodyColorInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBodyColorInfoForEdit(response: HttpResponseBase): Observable<BodyColorInfoCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BodyColorInfoCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BodyColorInfoCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateBodyColorInfo(body: BodyColorInfoCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BodyColorInfo/CreateOrUpdateBodyColorInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateBodyColorInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateBodyColorInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateBodyColorInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteBodyColorInfo(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BodyColorInfo/DeleteBodyColorInfo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteBodyColorInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteBodyColorInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteBodyColorInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class BreedInfoServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getBreedInfo(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfBreedInfoListDto> {
+        let url_ = this.baseUrl + "/api/services/app/BreedInfo/GetBreedInfo?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBreedInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBreedInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfBreedInfoListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfBreedInfoListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBreedInfo(response: HttpResponseBase): Observable<PagedResultDtoOfBreedInfoListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfBreedInfoListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfBreedInfoListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getBreedInfoForEdit(id: number | undefined): Observable<BreedInfoCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/BreedInfo/GetBreedInfoForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBreedInfoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBreedInfoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<BreedInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BreedInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBreedInfoForEdit(response: HttpResponseBase): Observable<BreedInfoCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BreedInfoCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BreedInfoCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateBreedInfo(body: BreedInfoCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BreedInfo/CreateOrUpdateBreedInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateBreedInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateBreedInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateBreedInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteBreedInfo(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BreedInfo/DeleteBreedInfo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteBreedInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteBreedInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteBreedInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -6242,6 +7214,365 @@ export class HostSettingsServiceProxy {
 }
 
 @Injectable()
+export class InseminationServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getInsemination(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfInseminationListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/GetInsemination?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetInsemination(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetInsemination(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfInseminationListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfInseminationListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetInsemination(response: HttpResponseBase): Observable<PagedResultDtoOfInseminationListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfInseminationListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfInseminationListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getInseminationForEdit(id: number | undefined): Observable<GetInseminationForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/GetInseminationForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetInseminationForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetInseminationForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetInseminationForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetInseminationForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetInseminationForEdit(response: HttpResponseBase): Observable<GetInseminationForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetInseminationForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetInseminationForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateInsemination(body: InseminationCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/CreateOrUpdateInsemination";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateInsemination(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateInsemination(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateInsemination(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteInsemination(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/DeleteInsemination?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteInsemination(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteInsemination(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteInsemination(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    checkValidation(body: InseminationCreateOrUpdateInput | undefined): Observable<InseminationCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/CheckValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckValidation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckValidation(<any>response_);
+                } catch (e) {
+                    return <Observable<InseminationCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<InseminationCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckValidation(response: HttpResponseBase): Observable<InseminationCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = InseminationCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<InseminationCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getActivityForCombo(id: number | undefined): Observable<ComboboxItemDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Insemination/GetActivityForCombo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetActivityForCombo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetActivityForCombo(<any>response_);
+                } catch (e) {
+                    return <Observable<ComboboxItemDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ComboboxItemDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetActivityForCombo(response: HttpResponseBase): Observable<ComboboxItemDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ComboboxItemDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ComboboxItemDto[]>(<any>null);
+    }
+}
+
+@Injectable()
 export class InstallServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -7597,6 +8928,249 @@ export class ManufacturerServiceProxy {
     }
 
     protected processDeleteManufacturer(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class MembershipInfoServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getMembershipInfo(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfMembershipInfoListDto> {
+        let url_ = this.baseUrl + "/api/services/app/MembershipInfo/GetMembershipInfo?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMembershipInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMembershipInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMembershipInfoListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMembershipInfoListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMembershipInfo(response: HttpResponseBase): Observable<PagedResultDtoOfMembershipInfoListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMembershipInfoListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMembershipInfoListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getMembershipInfoForEdit(id: number | undefined): Observable<MembershipInfoCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/MembershipInfo/GetMembershipInfoForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMembershipInfoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMembershipInfoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<MembershipInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MembershipInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMembershipInfoForEdit(response: HttpResponseBase): Observable<MembershipInfoCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MembershipInfoCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MembershipInfoCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateMembershipInfo(body: MembershipInfoCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/MembershipInfo/CreateOrUpdateMembershipInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateMembershipInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateMembershipInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateMembershipInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteMembershipInfo(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/MembershipInfo/DeleteMembershipInfo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteMembershipInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteMembershipInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteMembershipInfo(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -14483,6 +16057,249 @@ export class SpeciesInfoServiceProxy {
 }
 
 @Injectable()
+export class SpotConnectorInfoServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getSpotConnectorInfo(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfSpotConnectorInfoListDto> {
+        let url_ = this.baseUrl + "/api/services/app/SpotConnectorInfo/GetSpotConnectorInfo?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSpotConnectorInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSpotConnectorInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfSpotConnectorInfoListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfSpotConnectorInfoListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSpotConnectorInfo(response: HttpResponseBase): Observable<PagedResultDtoOfSpotConnectorInfoListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfSpotConnectorInfoListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfSpotConnectorInfoListDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getSpotConnectorInfoForEdit(id: number | undefined): Observable<SpotConnectorInfoCreateOrUpdateInput> {
+        let url_ = this.baseUrl + "/api/services/app/SpotConnectorInfo/GetSpotConnectorInfoForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSpotConnectorInfoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSpotConnectorInfoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<SpotConnectorInfoCreateOrUpdateInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SpotConnectorInfoCreateOrUpdateInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSpotConnectorInfoForEdit(response: HttpResponseBase): Observable<SpotConnectorInfoCreateOrUpdateInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SpotConnectorInfoCreateOrUpdateInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SpotConnectorInfoCreateOrUpdateInput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrUpdateSpotConnectorInfo(body: SpotConnectorInfoCreateOrUpdateInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SpotConnectorInfo/CreateOrUpdateSpotConnectorInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrUpdateSpotConnectorInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrUpdateSpotConnectorInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrUpdateSpotConnectorInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteSpotConnectorInfo(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SpotConnectorInfo/DeleteSpotConnectorInfo?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteSpotConnectorInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteSpotConnectorInfo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteSpotConnectorInfo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class StateImportServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -20454,6 +22271,142 @@ export interface IActivityInfoCreateOrUpdateInput {
     code: string | undefined;
 }
 
+export class AnomalyInfoListDto implements IAnomalyInfoListDto {
+    name!: string | undefined;
+    code!: string | undefined;
+    id!: number;
+
+    constructor(data?: IAnomalyInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.code = data["code"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): AnomalyInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AnomalyInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["code"] = this.code;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IAnomalyInfoListDto {
+    name: string | undefined;
+    code: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfAnomalyInfoListDto implements IPagedResultDtoOfAnomalyInfoListDto {
+    totalCount!: number;
+    items!: AnomalyInfoListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfAnomalyInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(AnomalyInfoListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfAnomalyInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfAnomalyInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfAnomalyInfoListDto {
+    totalCount: number;
+    items: AnomalyInfoListDto[] | undefined;
+}
+
+export class AnomalyInfoCreateOrUpdateInput implements IAnomalyInfoCreateOrUpdateInput {
+    id!: number | undefined;
+    name!: string | undefined;
+    code!: string | undefined;
+
+    constructor(data?: IAnomalyInfoCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.code = data["code"];
+        }
+    }
+
+    static fromJS(data: any): AnomalyInfoCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AnomalyInfoCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["code"] = this.code;
+        return data; 
+    }
+}
+
+export interface IAnomalyInfoCreateOrUpdateInput {
+    id: number | undefined;
+    name: string | undefined;
+    code: string | undefined;
+}
+
 export class AuditLogListDto implements IAuditLogListDto {
     userId!: number | undefined;
     userName!: string | undefined;
@@ -20854,6 +22807,414 @@ export interface IEntityPropertyChangeDto {
     propertyTypeFullName: string | undefined;
     tenantId: number | undefined;
     id: number;
+}
+
+export class BirthTypeInfoListDto implements IBirthTypeInfoListDto {
+    name!: string | undefined;
+    code!: string | undefined;
+    id!: number;
+
+    constructor(data?: IBirthTypeInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.code = data["code"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BirthTypeInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BirthTypeInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["code"] = this.code;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBirthTypeInfoListDto {
+    name: string | undefined;
+    code: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfBirthTypeInfoListDto implements IPagedResultDtoOfBirthTypeInfoListDto {
+    totalCount!: number;
+    items!: BirthTypeInfoListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfBirthTypeInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(BirthTypeInfoListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfBirthTypeInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfBirthTypeInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfBirthTypeInfoListDto {
+    totalCount: number;
+    items: BirthTypeInfoListDto[] | undefined;
+}
+
+export class BirthTypeInfoCreateOrUpdateInput implements IBirthTypeInfoCreateOrUpdateInput {
+    id!: number | undefined;
+    name!: string | undefined;
+    code!: string | undefined;
+
+    constructor(data?: IBirthTypeInfoCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.code = data["code"];
+        }
+    }
+
+    static fromJS(data: any): BirthTypeInfoCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new BirthTypeInfoCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["code"] = this.code;
+        return data; 
+    }
+}
+
+export interface IBirthTypeInfoCreateOrUpdateInput {
+    id: number | undefined;
+    name: string | undefined;
+    code: string | undefined;
+}
+
+export class BodyColorInfoListDto implements IBodyColorInfoListDto {
+    name!: string | undefined;
+    code!: string | undefined;
+    id!: number;
+
+    constructor(data?: IBodyColorInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.code = data["code"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BodyColorInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BodyColorInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["code"] = this.code;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBodyColorInfoListDto {
+    name: string | undefined;
+    code: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfBodyColorInfoListDto implements IPagedResultDtoOfBodyColorInfoListDto {
+    totalCount!: number;
+    items!: BodyColorInfoListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfBodyColorInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(BodyColorInfoListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfBodyColorInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfBodyColorInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfBodyColorInfoListDto {
+    totalCount: number;
+    items: BodyColorInfoListDto[] | undefined;
+}
+
+export class BodyColorInfoCreateOrUpdateInput implements IBodyColorInfoCreateOrUpdateInput {
+    id!: number | undefined;
+    name!: string | undefined;
+    code!: string | undefined;
+
+    constructor(data?: IBodyColorInfoCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.code = data["code"];
+        }
+    }
+
+    static fromJS(data: any): BodyColorInfoCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new BodyColorInfoCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["code"] = this.code;
+        return data; 
+    }
+}
+
+export interface IBodyColorInfoCreateOrUpdateInput {
+    id: number | undefined;
+    name: string | undefined;
+    code: string | undefined;
+}
+
+export class BreedInfoListDto implements IBreedInfoListDto {
+    name!: string | undefined;
+    code!: string | undefined;
+    id!: number;
+
+    constructor(data?: IBreedInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.code = data["code"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BreedInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BreedInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["code"] = this.code;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBreedInfoListDto {
+    name: string | undefined;
+    code: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfBreedInfoListDto implements IPagedResultDtoOfBreedInfoListDto {
+    totalCount!: number;
+    items!: BreedInfoListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfBreedInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(BreedInfoListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfBreedInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfBreedInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfBreedInfoListDto {
+    totalCount: number;
+    items: BreedInfoListDto[] | undefined;
+}
+
+export class BreedInfoCreateOrUpdateInput implements IBreedInfoCreateOrUpdateInput {
+    id!: number | undefined;
+    name!: string | undefined;
+    code!: string | undefined;
+
+    constructor(data?: IBreedInfoCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.code = data["code"];
+        }
+    }
+
+    static fromJS(data: any): BreedInfoCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new BreedInfoCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["code"] = this.code;
+        return data; 
+    }
+}
+
+export interface IBreedInfoCreateOrUpdateInput {
+    id: number | undefined;
+    name: string | undefined;
+    code: string | undefined;
 }
 
 export class CacheDto implements ICacheDto {
@@ -25986,6 +28347,450 @@ export interface ISendTestEmailInput {
     emailAddress: string | undefined;
 }
 
+export class InseminationListDto implements IInseminationListDto {
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    birthDateStr!: string | undefined;
+    creationTimeStr!: string | undefined;
+    speciesInfoName!: string | undefined;
+    sexInfoName!: string | undefined;
+    herdName!: string | undefined;
+    activityInfoName!: string | undefined;
+    officerName!: string | undefined;
+    creationTime!: moment.Moment;
+    id!: number;
+
+    constructor(data?: IInseminationListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.birthDateStr = data["birthDateStr"];
+            this.creationTimeStr = data["creationTimeStr"];
+            this.speciesInfoName = data["speciesInfoName"];
+            this.sexInfoName = data["sexInfoName"];
+            this.herdName = data["herdName"];
+            this.activityInfoName = data["activityInfoName"];
+            this.officerName = data["officerName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): InseminationListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InseminationListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["birthDateStr"] = this.birthDateStr;
+        data["creationTimeStr"] = this.creationTimeStr;
+        data["speciesInfoName"] = this.speciesInfoName;
+        data["sexInfoName"] = this.sexInfoName;
+        data["herdName"] = this.herdName;
+        data["activityInfoName"] = this.activityInfoName;
+        data["officerName"] = this.officerName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IInseminationListDto {
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    birthDateStr: string | undefined;
+    creationTimeStr: string | undefined;
+    speciesInfoName: string | undefined;
+    sexInfoName: string | undefined;
+    herdName: string | undefined;
+    activityInfoName: string | undefined;
+    officerName: string | undefined;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class PagedResultDtoOfInseminationListDto implements IPagedResultDtoOfInseminationListDto {
+    totalCount!: number;
+    items!: InseminationListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfInseminationListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(InseminationListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfInseminationListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfInseminationListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfInseminationListDto {
+    totalCount: number;
+    items: InseminationListDto[] | undefined;
+}
+
+export class InseminationCreateOrUpdateInput implements IInseminationCreateOrUpdateInput {
+    id!: number | undefined;
+    nationalCode!: string | undefined;
+    latitude!: string | undefined;
+    longitude!: string | undefined;
+    birthDate!: moment.Moment | undefined;
+    speciesInfoId!: number | undefined;
+    sexInfoId!: number | undefined;
+    herdId!: number | undefined;
+    activityInfoId!: number | undefined;
+    officerId!: number | undefined;
+    officerName!: string | undefined;
+    breedInfoId!: number | undefined;
+    livestockFatherId!: number | undefined;
+    nationalCodeFather!: string | undefined;
+    breedInfoFatherId!: number | undefined;
+    livestockMotherId!: number | undefined;
+    nationalCodeMother!: string | undefined;
+    breedInfoMotherId!: number | undefined;
+    earNumber!: string | undefined;
+    bodyNumber!: string | undefined;
+    foreignRegistrationNumber!: string | undefined;
+    birthTypeInfoId!: number | undefined;
+    anomalyInfoId!: number | undefined;
+    membershipInfoId!: number | undefined;
+    idIssueDate!: moment.Moment | undefined;
+    bloodShare!: string | undefined;
+    breedShare!: string | undefined;
+    bodyColorInfoId!: number | undefined;
+    spotColorInfoId!: number | undefined;
+    spotConnectorInfoId!: number | undefined;
+    breedName!: string | undefined;
+    creationTime!: moment.Moment | undefined;
+
+    constructor(data?: IInseminationCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.nationalCode = data["nationalCode"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.birthDate = data["birthDate"] ? moment(data["birthDate"].toString()) : <any>undefined;
+            this.speciesInfoId = data["speciesInfoId"];
+            this.sexInfoId = data["sexInfoId"];
+            this.herdId = data["herdId"];
+            this.activityInfoId = data["activityInfoId"];
+            this.officerId = data["officerId"];
+            this.officerName = data["officerName"];
+            this.breedInfoId = data["breedInfoId"];
+            this.livestockFatherId = data["livestockFatherId"];
+            this.nationalCodeFather = data["nationalCodeFather"];
+            this.breedInfoFatherId = data["breedInfoFatherId"];
+            this.livestockMotherId = data["livestockMotherId"];
+            this.nationalCodeMother = data["nationalCodeMother"];
+            this.breedInfoMotherId = data["breedInfoMotherId"];
+            this.earNumber = data["earNumber"];
+            this.bodyNumber = data["bodyNumber"];
+            this.foreignRegistrationNumber = data["foreignRegistrationNumber"];
+            this.birthTypeInfoId = data["birthTypeInfoId"];
+            this.anomalyInfoId = data["anomalyInfoId"];
+            this.membershipInfoId = data["membershipInfoId"];
+            this.idIssueDate = data["idIssueDate"] ? moment(data["idIssueDate"].toString()) : <any>undefined;
+            this.bloodShare = data["bloodShare"];
+            this.breedShare = data["breedShare"];
+            this.bodyColorInfoId = data["bodyColorInfoId"];
+            this.spotColorInfoId = data["spotColorInfoId"];
+            this.spotConnectorInfoId = data["spotConnectorInfoId"];
+            this.breedName = data["breedName"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): InseminationCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new InseminationCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nationalCode"] = this.nationalCode;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["birthDate"] = this.birthDate ? this.birthDate.toISOString() : <any>undefined;
+        data["speciesInfoId"] = this.speciesInfoId;
+        data["sexInfoId"] = this.sexInfoId;
+        data["herdId"] = this.herdId;
+        data["activityInfoId"] = this.activityInfoId;
+        data["officerId"] = this.officerId;
+        data["officerName"] = this.officerName;
+        data["breedInfoId"] = this.breedInfoId;
+        data["livestockFatherId"] = this.livestockFatherId;
+        data["nationalCodeFather"] = this.nationalCodeFather;
+        data["breedInfoFatherId"] = this.breedInfoFatherId;
+        data["livestockMotherId"] = this.livestockMotherId;
+        data["nationalCodeMother"] = this.nationalCodeMother;
+        data["breedInfoMotherId"] = this.breedInfoMotherId;
+        data["earNumber"] = this.earNumber;
+        data["bodyNumber"] = this.bodyNumber;
+        data["foreignRegistrationNumber"] = this.foreignRegistrationNumber;
+        data["birthTypeInfoId"] = this.birthTypeInfoId;
+        data["anomalyInfoId"] = this.anomalyInfoId;
+        data["membershipInfoId"] = this.membershipInfoId;
+        data["idIssueDate"] = this.idIssueDate ? this.idIssueDate.toISOString() : <any>undefined;
+        data["bloodShare"] = this.bloodShare;
+        data["breedShare"] = this.breedShare;
+        data["bodyColorInfoId"] = this.bodyColorInfoId;
+        data["spotColorInfoId"] = this.spotColorInfoId;
+        data["spotConnectorInfoId"] = this.spotConnectorInfoId;
+        data["breedName"] = this.breedName;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IInseminationCreateOrUpdateInput {
+    id: number | undefined;
+    nationalCode: string | undefined;
+    latitude: string | undefined;
+    longitude: string | undefined;
+    birthDate: moment.Moment | undefined;
+    speciesInfoId: number | undefined;
+    sexInfoId: number | undefined;
+    herdId: number | undefined;
+    activityInfoId: number | undefined;
+    officerId: number | undefined;
+    officerName: string | undefined;
+    breedInfoId: number | undefined;
+    livestockFatherId: number | undefined;
+    nationalCodeFather: string | undefined;
+    breedInfoFatherId: number | undefined;
+    livestockMotherId: number | undefined;
+    nationalCodeMother: string | undefined;
+    breedInfoMotherId: number | undefined;
+    earNumber: string | undefined;
+    bodyNumber: string | undefined;
+    foreignRegistrationNumber: string | undefined;
+    birthTypeInfoId: number | undefined;
+    anomalyInfoId: number | undefined;
+    membershipInfoId: number | undefined;
+    idIssueDate: moment.Moment | undefined;
+    bloodShare: string | undefined;
+    breedShare: string | undefined;
+    bodyColorInfoId: number | undefined;
+    spotColorInfoId: number | undefined;
+    spotConnectorInfoId: number | undefined;
+    breedName: string | undefined;
+    creationTime: moment.Moment | undefined;
+}
+
+export class GetInseminationForEditOutput implements IGetInseminationForEditOutput {
+    insemination!: InseminationCreateOrUpdateInput;
+    speciesInfos!: ComboboxItemDto[] | undefined;
+    sexInfos!: ComboboxItemDto[] | undefined;
+    herds!: ComboboxItemDto[] | undefined;
+    activityInfos!: ComboboxItemDto[] | undefined;
+    breedInfos!: ComboboxItemDto[] | undefined;
+    birthTypeInfos!: ComboboxItemDto[] | undefined;
+    anomalyInfos!: ComboboxItemDto[] | undefined;
+    membershipInfos!: ComboboxItemDto[] | undefined;
+    bodyColorInfos!: ComboboxItemDto[] | undefined;
+    spotConnectorInfos!: ComboboxItemDto[] | undefined;
+
+    constructor(data?: IGetInseminationForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.insemination = data["insemination"] ? InseminationCreateOrUpdateInput.fromJS(data["insemination"]) : <any>undefined;
+            if (Array.isArray(data["speciesInfos"])) {
+                this.speciesInfos = [] as any;
+                for (let item of data["speciesInfos"])
+                    this.speciesInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["sexInfos"])) {
+                this.sexInfos = [] as any;
+                for (let item of data["sexInfos"])
+                    this.sexInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["herds"])) {
+                this.herds = [] as any;
+                for (let item of data["herds"])
+                    this.herds!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["activityInfos"])) {
+                this.activityInfos = [] as any;
+                for (let item of data["activityInfos"])
+                    this.activityInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["breedInfos"])) {
+                this.breedInfos = [] as any;
+                for (let item of data["breedInfos"])
+                    this.breedInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["birthTypeInfos"])) {
+                this.birthTypeInfos = [] as any;
+                for (let item of data["birthTypeInfos"])
+                    this.birthTypeInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["anomalyInfos"])) {
+                this.anomalyInfos = [] as any;
+                for (let item of data["anomalyInfos"])
+                    this.anomalyInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["membershipInfos"])) {
+                this.membershipInfos = [] as any;
+                for (let item of data["membershipInfos"])
+                    this.membershipInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["bodyColorInfos"])) {
+                this.bodyColorInfos = [] as any;
+                for (let item of data["bodyColorInfos"])
+                    this.bodyColorInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+            if (Array.isArray(data["spotConnectorInfos"])) {
+                this.spotConnectorInfos = [] as any;
+                for (let item of data["spotConnectorInfos"])
+                    this.spotConnectorInfos!.push(ComboboxItemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetInseminationForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetInseminationForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["insemination"] = this.insemination ? this.insemination.toJSON() : <any>undefined;
+        if (Array.isArray(this.speciesInfos)) {
+            data["speciesInfos"] = [];
+            for (let item of this.speciesInfos)
+                data["speciesInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.sexInfos)) {
+            data["sexInfos"] = [];
+            for (let item of this.sexInfos)
+                data["sexInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.herds)) {
+            data["herds"] = [];
+            for (let item of this.herds)
+                data["herds"].push(item.toJSON());
+        }
+        if (Array.isArray(this.activityInfos)) {
+            data["activityInfos"] = [];
+            for (let item of this.activityInfos)
+                data["activityInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.breedInfos)) {
+            data["breedInfos"] = [];
+            for (let item of this.breedInfos)
+                data["breedInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.birthTypeInfos)) {
+            data["birthTypeInfos"] = [];
+            for (let item of this.birthTypeInfos)
+                data["birthTypeInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.anomalyInfos)) {
+            data["anomalyInfos"] = [];
+            for (let item of this.anomalyInfos)
+                data["anomalyInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.membershipInfos)) {
+            data["membershipInfos"] = [];
+            for (let item of this.membershipInfos)
+                data["membershipInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.bodyColorInfos)) {
+            data["bodyColorInfos"] = [];
+            for (let item of this.bodyColorInfos)
+                data["bodyColorInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.spotConnectorInfos)) {
+            data["spotConnectorInfos"] = [];
+            for (let item of this.spotConnectorInfos)
+                data["spotConnectorInfos"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetInseminationForEditOutput {
+    insemination: InseminationCreateOrUpdateInput;
+    speciesInfos: ComboboxItemDto[] | undefined;
+    sexInfos: ComboboxItemDto[] | undefined;
+    herds: ComboboxItemDto[] | undefined;
+    activityInfos: ComboboxItemDto[] | undefined;
+    breedInfos: ComboboxItemDto[] | undefined;
+    birthTypeInfos: ComboboxItemDto[] | undefined;
+    anomalyInfos: ComboboxItemDto[] | undefined;
+    membershipInfos: ComboboxItemDto[] | undefined;
+    bodyColorInfos: ComboboxItemDto[] | undefined;
+    spotConnectorInfos: ComboboxItemDto[] | undefined;
+}
+
 export class InstallDto implements IInstallDto {
     connectionString!: string | undefined;
     adminPassword!: string | undefined;
@@ -27235,6 +30040,142 @@ export interface IManufacturerCreateOrUpdateInput {
     name: string | undefined;
     code: string | undefined;
     isImporter: boolean;
+}
+
+export class MembershipInfoListDto implements IMembershipInfoListDto {
+    name!: string | undefined;
+    code!: string | undefined;
+    id!: number;
+
+    constructor(data?: IMembershipInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.code = data["code"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): MembershipInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MembershipInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["code"] = this.code;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IMembershipInfoListDto {
+    name: string | undefined;
+    code: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfMembershipInfoListDto implements IPagedResultDtoOfMembershipInfoListDto {
+    totalCount!: number;
+    items!: MembershipInfoListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfMembershipInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(MembershipInfoListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMembershipInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMembershipInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfMembershipInfoListDto {
+    totalCount: number;
+    items: MembershipInfoListDto[] | undefined;
+}
+
+export class MembershipInfoCreateOrUpdateInput implements IMembershipInfoCreateOrUpdateInput {
+    id!: number | undefined;
+    name!: string | undefined;
+    code!: string | undefined;
+
+    constructor(data?: IMembershipInfoCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.code = data["code"];
+        }
+    }
+
+    static fromJS(data: any): MembershipInfoCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new MembershipInfoCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["code"] = this.code;
+        return data; 
+    }
+}
+
+export interface IMembershipInfoCreateOrUpdateInput {
+    id: number | undefined;
+    name: string | undefined;
+    code: string | undefined;
 }
 
 export enum NoticeType {
@@ -33134,6 +36075,142 @@ export class SpeciesInfoCreateOrUpdateInput implements ISpeciesInfoCreateOrUpdat
 }
 
 export interface ISpeciesInfoCreateOrUpdateInput {
+    id: number | undefined;
+    name: string | undefined;
+    code: string | undefined;
+}
+
+export class SpotConnectorInfoListDto implements ISpotConnectorInfoListDto {
+    name!: string | undefined;
+    code!: string | undefined;
+    id!: number;
+
+    constructor(data?: ISpotConnectorInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.code = data["code"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): SpotConnectorInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SpotConnectorInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["code"] = this.code;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ISpotConnectorInfoListDto {
+    name: string | undefined;
+    code: string | undefined;
+    id: number;
+}
+
+export class PagedResultDtoOfSpotConnectorInfoListDto implements IPagedResultDtoOfSpotConnectorInfoListDto {
+    totalCount!: number;
+    items!: SpotConnectorInfoListDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfSpotConnectorInfoListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(SpotConnectorInfoListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfSpotConnectorInfoListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfSpotConnectorInfoListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfSpotConnectorInfoListDto {
+    totalCount: number;
+    items: SpotConnectorInfoListDto[] | undefined;
+}
+
+export class SpotConnectorInfoCreateOrUpdateInput implements ISpotConnectorInfoCreateOrUpdateInput {
+    id!: number | undefined;
+    name!: string | undefined;
+    code!: string | undefined;
+
+    constructor(data?: ISpotConnectorInfoCreateOrUpdateInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.code = data["code"];
+        }
+    }
+
+    static fromJS(data: any): SpotConnectorInfoCreateOrUpdateInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new SpotConnectorInfoCreateOrUpdateInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["code"] = this.code;
+        return data; 
+    }
+}
+
+export interface ISpotConnectorInfoCreateOrUpdateInput {
     id: number | undefined;
     name: string | undefined;
     code: string | undefined;

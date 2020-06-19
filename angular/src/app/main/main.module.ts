@@ -25,6 +25,18 @@ import { SpeciesInfoComponent } from "./speciesInfo/speciesInfo.component";
 import { CreateOrEditSpeciesInfoModalComponent } from "./speciesInfo/create-or-edit-speciesInfo-modal.component";
 import { AcademicDegreeComponent } from "./academicDegree/academicDegree.component";
 import { CreateOrEditAcademicDegreeModalComponent } from "./academicDegree/create-or-edit-academicDegree-modal.component";
+import { BreedInfoComponent } from "./breedInfo/breedInfo.component";
+import { CreateOrEditBreedInfoModalComponent } from "./breedInfo/create-or-edit-breedInfo-modal.component";
+import { BirthTypeInfoComponent } from "./birthTypeInfo/birthTypeInfo.component";
+import { CreateOrEditBirthTypeInfoModalComponent } from "./birthTypeInfo/create-or-edit-birthTypeInfo-modal.component";
+import { AnomalyInfoComponent } from "./anomalyInfo/anomalyInfo.component";
+import { CreateOrEditAnomalyInfoModalComponent } from "./anomalyInfo/create-or-edit-anomalyInfo-modal.component";
+import { MembershipInfoComponent } from "./membershipInfo/membershipInfo.component";
+import { CreateOrEditMembershipInfoModalComponent } from "./membershipInfo/create-or-edit-membershipInfo-modal.component";
+import { BodyColorInfoComponent } from "./bodyColorInfo/bodyColorInfo.component";
+import { CreateOrEditBodyColorInfoModalComponent } from "./bodyColorInfo/create-or-edit-bodyColorInfo-modal.component";
+import { SpotConnectorInfoComponent } from "./spotConnectorInfo/spotConnectorInfo.component";
+import { CreateOrEditSpotConnectorInfoModalComponent } from "./spotConnectorInfo/create-or-edit-spotConnectorInfo-modal.component";
 import { ManufacturerComponent } from "./manufacturer/manufacturer.component";
 import { CreateOrEditManufacturerModalComponent } from "./manufacturer/create-or-edit-manufacturer-modal.component";
 import { NoticeComponent } from "./notice/notice.component";
@@ -63,6 +75,8 @@ import { HerdCertificateComponent } from "./herdCertificate/herdCertificate.comp
 import { HerdCertificateReportComponent } from "./herdCertificate/herdCertificateReport.component";
 import { HerdLivestockComponent } from "./herdLivestock/herdLivestock.component";
 import { ReportHerdLivestockModalComponent } from './herdLivestock/report-herdLivestock-modal.component';
+import { InseminationComponent } from "./insemination/insemination.component";
+import { CreateOrEditInseminationModalComponent } from './insemination/create-or-edit-insemination-modal.component';
 import { HerdGeoLogComponent } from "./herdGeoLog/herdGeoLog.component";
 import { CreateOrEditHerdGeoLogModalComponent } from "./herdGeoLog/create-or-edit-herdGeoLog-modal.component";
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -176,7 +190,21 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         ReportHerdLivestockModalComponent,
         HerdCertificateReportComponent,
         HerdGeoLogComponent,
-        CreateOrEditHerdGeoLogModalComponent
+        CreateOrEditHerdGeoLogModalComponent,
+        BreedInfoComponent,
+        CreateOrEditBreedInfoModalComponent,
+        BirthTypeInfoComponent,
+        CreateOrEditBirthTypeInfoModalComponent,
+        AnomalyInfoComponent,
+        CreateOrEditAnomalyInfoModalComponent,
+        MembershipInfoComponent,
+        CreateOrEditMembershipInfoModalComponent,
+        BodyColorInfoComponent,
+        CreateOrEditBodyColorInfoModalComponent,
+        SpotConnectorInfoComponent,
+        CreateOrEditSpotConnectorInfoModalComponent,
+        InseminationComponent,
+        CreateOrEditInseminationModalComponent
     
     ],
     providers: [

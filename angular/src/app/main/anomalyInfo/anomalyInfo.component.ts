@@ -1,0 +1,84 @@
+import { Component, Injector, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { AppComponentBase } from '@shared/common/app-component-base';
+import { appModuleAnimation } from '@shared/animations/routerTransition';
+import { AnomalyInfoServiceProxy, AnomalyInfoListDto } from '@shared/service-proxies/service-proxies';
+import { Paginator } from 'primeng/components/paginator/paginator';
+import { Table } from 'primeng/components/table/table';
+import { ActivatedRoute } from '@angular/router';
+import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
+import { finalize } from 'rxjs/operators';
+import { CreateOrEditAnomalyInfoModalComponent } from './create-or-edit-anomalyInfo-modal.component';
+
+@Component({
+    templateUrl: './anomalyInfo.component.html',
+    encapsulation: ViewEncapsulation.None,
+    animations: [appModuleAnimation()],
+    styleUrls: ['./anomalyInfo.component.less']
+})
+export class AnomalyInfoComponent extends AppComponentBase implements AfterViewInit {
+
+    @ViewChild('createOrEditAnomalyInfoModal', { static: true }) createOrEditAnomalyInfoModal: CreateOrEditAnomalyInfoModalComponent;
+    @ViewChild('dataTable', { static: true }) dataTable: Table;
+    @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+    anomalyInfos: AnomalyInfoListDto[] = [];
+    filterText : string = '';
+
+    constructor(
+        injector: Injector,
+        private _anomalyInfoService: AnomalyInfoServiceProxy,
+        private _activatedRoute: ActivatedRoute
+    ) {
+        super(injector);
+        this.filterText = this._activatedRoute.snapshot.queryParams['filterText'] || '';
+    }
+    
+    ngAfterViewInit(): void {
+        this.primengTableHelper.adjustScroll(this.dataTable);
+    }
+
+    getAnomalyInfo(event?: LazyLoadEvent) {
+        if (this.primengTableHelper.shouldResetPaging(event)) {
+            this.paginator.changePage(0);
+
+            return;
+        }
+
+        this.primengTableHelper.showLoadingIndicator();
+
+        this._anomalyInfoService.getAnomalyInfo(
+            this.filterText,
+            this.primengTableHelper.getSorting(this.dataTable),
+            this.primengTableHelper.getMaxResultCount(this.paginator, event),
+            this.primengTableHelper.getSkipCount(this.paginator, event)
+        ).pipe(finalize(() => this.primengTableHelper.hideLoadingIndicator())).subscribe(result => {
+            this.primengTableHelper.totalRecordsCount = result.totalCount;
+            this.primengTableHelper.records = result.items;
+            this.primengTableHelper.hideLoadingIndicator();
+        });
+    }
+
+    reloadPage(): void {
+        this.paginator.changePage(this.paginator.getPage());
+    }
+
+    createAnomalyInfo(): void {
+        this.createOrEditAnomalyInfoModal.show();
+    }
+
+    deleteAnomalyInfo(anomalyInfo: AnomalyInfoListDto): void {
+        this.message.confirm(
+            this.l('AreYouSureToDeleteTheAnomalyInfo', anomalyInfo.name),            
+            this.l('AreYouSure'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this._anomalyInfoService.deleteAnomalyInfo(anomalyInfo.id).subscribe(() => {
+                        this.reloadPage();
+                        this.notify.info(this.l('SuccessfullyDeleted'));
+                    });
+                }
+            }
+        );
+    } 
+  
+}

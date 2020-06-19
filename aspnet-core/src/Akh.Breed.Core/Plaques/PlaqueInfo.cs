@@ -6,6 +6,7 @@ using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
 using Akh.Breed.BaseInfo;
+using Akh.Breed.Inseminating;
 using Akh.Breed.Livestocks;
 using Akh.Breed.Officers;
 
@@ -37,6 +38,10 @@ namespace Akh.Breed.Plaques
         [ForeignKey("LivestockId")]
         public virtual Livestock Livestock { get; set; }
         public int? LivestockId { get; set; }
+        
+        [ForeignKey("InseminationId")]
+        public virtual Insemination Insemination { get; set; }
+        public int? InseminationId { get; set; }
         
         public int? TenantId { get; set; }
 
