@@ -1410,6 +1410,19 @@
     
     <text name="UnionInfoLable">اطلاعات اتحادیه</text>
     <text name="UnionEmployeeLable">اطلاعات کارکنان</text>
+
+    <text name="NationalCodeFather">کد ملی پدر</text>
+    <text name="BreedInfoFather">نژاد پدر</text>
+    <text name="NationalCodeMother">کد ملی مادر</text>
+    <text name="BreedInfoMother">نژاد مادر</text>
+    <text name="EarNumber">شماره گوش</text>
+    <text name="BodyNumber">شماره بدن</text>
+    <text name="ForeignRegistrationNumber">شماره ثبت خارجی</text>
+    <text name="IdIssueDate">تاریخ صدور شناسنامه</text>
+    <text name="BloodShare">سهم خونی</text>
+    <text name="BreedShare">سهم نژادی</text>
+    <text name="SpotColorInfo">رنگ لکه</text>
+    <text name="BreedName">نام دام</text>
   </texts>
 </localizationDictionary>
 
