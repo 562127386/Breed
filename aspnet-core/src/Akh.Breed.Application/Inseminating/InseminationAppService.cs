@@ -255,8 +255,8 @@ namespace Akh.Breed.Inseminating
             {
                 var herd = _herdRepository.FirstOrDefault(x => x.Id == insemination.HerdId);
                 var officer = _officerRepository.FirstOrDefault(x => x.UserId == AbpSession.UserId);
-                var message = "تلقیح برای کد "+ insemination.NationalCode +" در سامانه دامیار توسط "+ officer?.Name + " " + officer?.Family +" ثبت شد.";
-                await _sms98Sender.SendAsync(herd.Mobile.Replace("-",""), message);
+                var message = "تلقیح برای کد عملیات تلقیح در تاریخ "+insemination.CreationTime.GetShamsiStr("yyyy/MM/dd hh:mm")+" انجام شد.";
+                await _sms98Sender.SendAsync("09123372805", message);
             }
         }
         
