@@ -150,7 +150,7 @@ namespace Akh.Breed.Plaques
         
         private async Task CheckValidation(PlaqueStoreCreateOrUpdateInput input)
         {
-            if (input.FromCode >= input.ToCode)
+            if (input.FromCode > input.ToCode)
             {
                 throw new UserFriendlyException(L("ThisCodeRangeHasOverlap"));
             }
