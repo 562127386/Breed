@@ -204,8 +204,32 @@ namespace Akh.Breed.Plaques
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer_Delete)]
         public async Task DeletePlaqueToOfficer(EntityDto input)
         {
-            throw new UserFriendlyException(L("AreYouSureToDeleteThePlaqueState"));
-            //await _plaqueToOfficerRepository.DeleteAsync(input.Id);
+            var plaqueOfficer = _plaqueToOfficerRepository.FirstOrDefault(input.Id);
+            var plaqueContractor = _plaqueToContractorRepository.FirstOrDefault(plaqueOfficer.PlaqueToContractorId.Value);
+            var plaqeInfos = _plaqueInfoRepository
+                .GetAll().FirstOrDefault(x => x.Code >= plaqueOfficer.FromCode && x.Code <= plaqueOfficer.ToCode);
+            if (plaqueContractor.LastCode != plaqueOfficer.ToCode || plaqeInfos != null)
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
+            try
+            {
+                var LastCode = plaqueOfficer.FromCode - 1;
+                await _plaqueToOfficerRepository.DeleteAsync(input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+
+                if (plaqueContractor.FromCode > LastCode)
+                {
+                    LastCode = 0;
+                }
+                plaqueContractor.LastCode = LastCode;
+                await _plaqueToContractorRepository.UpdateAsync(plaqueContractor);
+
+            }
+            catch
+            {
+                throw new UserFriendlyException(L("YouCanNotDeleteThisRecord"));
+            }
         }
 
         [AbpAuthorize(AppPermissions.Pages_IdentityInfo_PlaqueToOfficer_Edit)]
