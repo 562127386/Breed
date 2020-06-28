@@ -55,6 +55,8 @@ namespace Akh.Breed.Officers.Dto
 
         public string ContractorName { get; set; }
 
+        public string CreationTimeStr { get; set; }
+
         public int ContractorId { get; set; }
     }
 }

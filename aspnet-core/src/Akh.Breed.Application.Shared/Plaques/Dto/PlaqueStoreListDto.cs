@@ -41,6 +41,8 @@ namespace Akh.Breed.Plaques.Dto
         
         public string LastCode { get; set; }
         
+        public string CreationTimeStr { get; set; }
+        
         public DateTime? LastDate { get; set; }
     }
 }

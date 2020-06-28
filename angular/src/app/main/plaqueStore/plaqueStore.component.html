@@ -62,7 +62,7 @@
                                                 {{'SpeciesName' | localize}}
                                                 <p-sortIcon field="speciesName"></p-sortIcon>
                                             </th>                                        
-                                            <th style="width: 100px" pSortableColumn="manufacturer">
+                                            <th style="width: 140px" pSortableColumn="manufacturer">
                                                 {{'Manufacturer' | localize}}
                                                 <p-sortIcon field="manufacturer"></p-sortIcon>
                                             </th>
@@ -70,11 +70,11 @@
                                                 {{'SetTime' | localize}}
                                                 <p-sortIcon field="setTime"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" pSortableColumn="fromCode">
+                                            <th style="width: 130px" pSortableColumn="fromCode">
                                                 {{'FromCode' | localize}}
                                                 <p-sortIcon field="fromCode"></p-sortIcon>
                                             </th>
-                                            <th style="width: 100px" pSortableColumn="toCode">
+                                            <th style="width: 130px" pSortableColumn="toCode">
                                                 {{'ToCode' | localize}}
                                                 <p-sortIcon field="toCode"></p-sortIcon>
                                             </th>
@@ -92,6 +92,10 @@
                                                 {{'PlaqueAllocated' | localize}}
                                                 <p-sortIcon field="plaqueAllocated"></p-sortIcon>
                                             </th>
+                                            <th style="width: 90px" pSortableColumn="creationTime">
+                                                {{'CreationTime' | localize}}
+                                                <p-sortIcon field="creationTime"></p-sortIcon>
+                                            </th>
                                             <th style="width: 130px">
                                                     {{'Actions' | localize}}
                                             </th>                                                                             
@@ -103,7 +107,7 @@
                                                 <span class="ui-column-title"> {{'SpeciesName' | localize}}</span>
                                                 {{record.speciesName}}
                                             </td>                                        
-                                            <td style="width: 100px">
+                                            <td style="width: 140px">
                                                 <span class="ui-column-title"> {{'Manufacturer' | localize}}</span>
                                                 {{record.manufacturerName}}
                                             </td>
@@ -111,11 +115,11 @@
                                                 <span class="ui-column-title"> {{'SetTime' | localize}}</span>
                                                 {{record.setTime | momentFormat:'YYYY/MM/DD'}}
                                             </td>
-                                            <td style="width: 100px">
+                                            <td style="width: 130px">
                                                 <span class="ui-column-title"> {{'FromCode' | localize}}</span>
                                                 {{record.fromCode}}
                                             </td>
-                                            <td style="width: 100px">
+                                            <td style="width: 130px">
                                                 <span class="ui-column-title"> {{'toCode' | localize}}</span>
                                                 {{record.toCode}}
                                             </td>
@@ -141,6 +145,10 @@
                                             <td style="width: 100px">
                                                 <span class="ui-column-title"> {{'PlaqueAllocated' | localize}}</span>
                                                 {{record.plaqueAllocated}}
+                                            </td>
+                                            <td style="width: 90px">
+                                                <span class="ui-column-title"> {{'CreationTime' | localize}}</span>
+                                                {{record.creationTimeStr}}
                                             </td>
                                             <td style="width: 130px">
                                                 <div class="kt-section__content kt-section__content--solid">

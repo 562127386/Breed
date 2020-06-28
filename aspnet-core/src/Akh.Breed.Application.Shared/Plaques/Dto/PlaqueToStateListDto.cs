@@ -40,5 +40,7 @@ namespace Akh.Breed.Plaques.Dto
         
         public string SpeciesName { get; set; }
         
+        public string CreationTimeStr { get; set; }
+        
     }
 }

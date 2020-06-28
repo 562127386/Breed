@@ -35,8 +35,9 @@ namespace Akh.Breed.Unions.Dto
         public string Phone { get; set; }
 
         public string Address { get; set; }
+        
+        public string CreationTimeStr { get; set; }
 
-        public string PostalCode { get; set; }
 
         public int StateInfoId { get; set; }
         

@@ -44,6 +44,8 @@ namespace Akh.Breed.Herds.Dto
         public string ActivityInfoName { get; set; }
 
         public string ContractorName { get; set; }
+
+        public string CreationTimeStr { get; set; }
         
         public bool IsCertificated { get; set; }
     }

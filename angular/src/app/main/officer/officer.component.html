@@ -57,34 +57,38 @@
                                 [responsive]="primengTableHelper.isResponsive"
                                 [resizableColumns]="primengTableHelper.resizableColumns">
                                 <ng-template pTemplate="header">
-                                    <tr>   
+                                    <tr>  
+                                        <th style="width: 90px" pSortableColumn="stateInfoName">
+                                            {{'StateInfoName' | localize}}
+                                            <p-sortIcon field="stateInfoName"></p-sortIcon>
+                                        </th> 
                                         <!-- <th style="width: 90px" pSortableColumn="code">
                                             {{'UniqueCodeOfficer' | localize}}
                                             <p-sortIcon field="code"></p-sortIcon>
-                                        </th>                                             -->
-                                        <th style="width: 90px" pSortableColumn="nationalCode">
-                                            {{'NationalCode' | localize}}
-                                            <p-sortIcon field="nationalCode"></p-sortIcon>
-                                        </th>                                          
-                                        <th style="width: 90px" pSortableColumn="name">
+                                        </th>                                             -->                                                                                 
+                                        <!-- <th style="width: 90px" pSortableColumn="name">
                                             {{'Name' | localize}}
                                             <p-sortIcon field="name"></p-sortIcon>
-                                        </th>
+                                        </th> -->
                                         <th style="width: 90px" pSortableColumn="family">
                                             {{'Family' | localize}}
                                             <p-sortIcon field="family"></p-sortIcon>
                                         </th>
-                                        <th style="width: 90px" pSortableColumn="mobileNumber">
+                                        <!-- <th style="width: 90px" pSortableColumn="mobileNumber">
                                             {{'MobileNumber' | localize}}
                                             <p-sortIcon field="mobileNumber"></p-sortIcon>
-                                        </th>
-                                        <th style="width: 90px" pSortableColumn="contractorName">
+                                        </th> -->
+                                        <th style="width: 250px" pSortableColumn="contractorName">
                                             {{'ContractorName' | localize}}
                                             <p-sortIcon field="contractorName"></p-sortIcon>
-                                        </th>   
-										<th style="width: 90px" pSortableColumn="stateInfoName">
-                                            {{'StateInfoName' | localize}}
-                                            <p-sortIcon field="stateInfoName"></p-sortIcon>
+                                        </th>   										
+                                        <th style="width: 90px" pSortableColumn="nationalCode">
+                                            {{'NationalCode' | localize}}
+                                            <p-sortIcon field="nationalCode"></p-sortIcon>
+                                        </th> 
+                                        <th style="width: 90px" pSortableColumn="creationTime">
+                                            {{'CreationTime' | localize}}
+                                            <p-sortIcon field="creationTime"></p-sortIcon>
                                         </th>
                                         <th style="width: 130px">
                                             {{'Actions' | localize}}
@@ -92,34 +96,38 @@
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record="$implicit">
-                                    <tr>
+                                    <tr> 
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'StateInfoName' | localize}}</span>
+                                            {{record.stateInfoName}}
+                                        </td>
                                         <!-- <td style="width: 90px">
                                             <span class="ui-column-title"> {{'UniqueCodeOfficer' | localize}}</span>
                                             {{record.code}}
-                                        </td>                                           -->
-                                        <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
-                                            {{record.nationalCode}}
-                                        </td>      
-                                        <td style="width: 90px">
+                                        </td>                                           -->                                             
+                                        <!-- <td style="width: 90px">
                                             <span class="ui-column-title"> {{'Name' | localize}}</span>
                                             {{record.name}}
-                                        </td>
+                                        </td> -->
                                         <td style="width: 90px">
                                             <span class="ui-column-title"> {{'Family' | localize}}</span>
                                             {{record.family}}
                                         </td>
-                                        <td style="width: 90px">
+                                        <!-- <td style="width: 90px">
                                             <span class="ui-column-title"> {{'MobileNumber' | localize}}</span>
                                             {{record.mobileNumber}}
-                                        </td>
-                                        <td style="width: 90px">
+                                        </td> -->
+                                        <td style="width: 250px">
                                             <span class="ui-column-title"> {{'ContractorName' | localize}}</span>
                                             {{record.contractorName}}
+                                        </td>
+                                        <td style="width: 90px">
+                                            <span class="ui-column-title"> {{'NationalCode' | localize}}</span>
+                                            {{record.nationalCode}}
                                         </td> 
                                         <td style="width: 90px">
-                                            <span class="ui-column-title"> {{'StateInfoName' | localize}}</span>
-                                            {{record.stateInfoName}}
+                                            <span class="ui-column-title"> {{'CreationTime' | localize}}</span>
+                                            {{record.creationTimeStr}}
                                         </td>
                                         <td style="width: 130px">
                                             <div class="kt-section__content kt-section__content--solid">

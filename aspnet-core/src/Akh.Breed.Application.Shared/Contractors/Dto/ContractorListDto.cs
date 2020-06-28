@@ -15,7 +15,7 @@ namespace Akh.Breed.Contractors.Dto
             {
                 Sorting = "CreationTime DESC";
             }
-
+            Sorting = Sorting.Replace("stateInfoName", "StateInfo.Name");
             Filter = Filter?.Trim();
         }
     }
@@ -64,5 +64,9 @@ namespace Akh.Breed.Contractors.Dto
         public int FirmTypeId { get; set; }
         
         public string FirmTypeName { get; set; }
+        
+        public string StateInfoName { get; set; }
+        
+        public string CreationTimeStr { get; set; }
     }
 }

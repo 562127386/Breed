@@ -24107,6 +24107,8 @@ export class ContractorListDto implements IContractorListDto {
     partialTimeStaffBachelorAndUpper!: number;
     firmTypeId!: number;
     firmTypeName!: string | undefined;
+    stateInfoName!: string | undefined;
+    creationTimeStr!: string | undefined;
     id!: number;
 
     constructor(data?: IContractorListDto) {
@@ -24142,6 +24144,8 @@ export class ContractorListDto implements IContractorListDto {
             this.partialTimeStaffBachelorAndUpper = data["partialTimeStaffBachelorAndUpper"];
             this.firmTypeId = data["firmTypeId"];
             this.firmTypeName = data["firmTypeName"];
+            this.stateInfoName = data["stateInfoName"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.id = data["id"];
         }
     }
@@ -24177,6 +24181,8 @@ export class ContractorListDto implements IContractorListDto {
         data["partialTimeStaffBachelorAndUpper"] = this.partialTimeStaffBachelorAndUpper;
         data["firmTypeId"] = this.firmTypeId;
         data["firmTypeName"] = this.firmTypeName;
+        data["stateInfoName"] = this.stateInfoName;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["id"] = this.id;
         return data; 
     }
@@ -24205,6 +24211,8 @@ export interface IContractorListDto {
     partialTimeStaffBachelorAndUpper: number;
     firmTypeId: number;
     firmTypeName: string | undefined;
+    stateInfoName: string | undefined;
+    creationTimeStr: string | undefined;
     id: number;
 }
 
@@ -26330,6 +26338,7 @@ export class HerdListDto implements IHerdListDto {
     mobile!: string | undefined;
     activityInfoName!: string | undefined;
     contractorName!: string | undefined;
+    creationTimeStr!: string | undefined;
     isCertificated!: boolean;
     id!: number;
 
@@ -26355,6 +26364,7 @@ export class HerdListDto implements IHerdListDto {
             this.mobile = data["mobile"];
             this.activityInfoName = data["activityInfoName"];
             this.contractorName = data["contractorName"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.isCertificated = data["isCertificated"];
             this.id = data["id"];
         }
@@ -26380,6 +26390,7 @@ export class HerdListDto implements IHerdListDto {
         data["mobile"] = this.mobile;
         data["activityInfoName"] = this.activityInfoName;
         data["contractorName"] = this.contractorName;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["isCertificated"] = this.isCertificated;
         data["id"] = this.id;
         return data; 
@@ -26398,6 +26409,7 @@ export interface IHerdListDto {
     mobile: string | undefined;
     activityInfoName: string | undefined;
     contractorName: string | undefined;
+    creationTimeStr: string | undefined;
     isCertificated: boolean;
     id: number;
 }
@@ -30813,6 +30825,7 @@ export class OfficerListDto implements IOfficerListDto {
     stateInfoName!: string | undefined;
     stateInfoId!: number;
     contractorName!: string | undefined;
+    creationTimeStr!: string | undefined;
     contractorId!: number;
     id!: number;
 
@@ -30843,6 +30856,7 @@ export class OfficerListDto implements IOfficerListDto {
             this.stateInfoName = data["stateInfoName"];
             this.stateInfoId = data["stateInfoId"];
             this.contractorName = data["contractorName"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.contractorId = data["contractorId"];
             this.id = data["id"];
         }
@@ -30873,6 +30887,7 @@ export class OfficerListDto implements IOfficerListDto {
         data["stateInfoName"] = this.stateInfoName;
         data["stateInfoId"] = this.stateInfoId;
         data["contractorName"] = this.contractorName;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["contractorId"] = this.contractorId;
         data["id"] = this.id;
         return data; 
@@ -30896,6 +30911,7 @@ export interface IOfficerListDto {
     stateInfoName: string | undefined;
     stateInfoId: number;
     contractorName: string | undefined;
+    creationTimeStr: string | undefined;
     contractorId: number;
     id: number;
 }
@@ -32816,6 +32832,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
     speciesName!: string | undefined;
     manufacturerName!: string | undefined;
     lastCode!: string | undefined;
+    creationTimeStr!: string | undefined;
     lastDate!: moment.Moment | undefined;
     id!: number;
 
@@ -32838,6 +32855,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
             this.speciesName = data["speciesName"];
             this.manufacturerName = data["manufacturerName"];
             this.lastCode = data["lastCode"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.lastDate = data["lastDate"] ? moment(data["lastDate"].toString()) : <any>undefined;
             this.id = data["id"];
         }
@@ -32860,6 +32878,7 @@ export class PlaqueStoreListDto implements IPlaqueStoreListDto {
         data["speciesName"] = this.speciesName;
         data["manufacturerName"] = this.manufacturerName;
         data["lastCode"] = this.lastCode;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["lastDate"] = this.lastDate ? this.lastDate.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
@@ -32875,6 +32894,7 @@ export interface IPlaqueStoreListDto {
     speciesName: string | undefined;
     manufacturerName: string | undefined;
     lastCode: string | undefined;
+    creationTimeStr: string | undefined;
     lastDate: moment.Moment | undefined;
     id: number;
 }
@@ -33058,6 +33078,7 @@ export class PlaqueToContractorListDto implements IPlaqueToContractorListDto {
     cityName!: string | undefined;
     contractorName!: string | undefined;
     speciesName!: string | undefined;
+    creationTimeStr!: string | undefined;
     id!: number;
 
     constructor(data?: IPlaqueToContractorListDto) {
@@ -33081,6 +33102,7 @@ export class PlaqueToContractorListDto implements IPlaqueToContractorListDto {
             this.cityName = data["cityName"];
             this.contractorName = data["contractorName"];
             this.speciesName = data["speciesName"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.id = data["id"];
         }
     }
@@ -33104,6 +33126,7 @@ export class PlaqueToContractorListDto implements IPlaqueToContractorListDto {
         data["cityName"] = this.cityName;
         data["contractorName"] = this.contractorName;
         data["speciesName"] = this.speciesName;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["id"] = this.id;
         return data; 
     }
@@ -33120,6 +33143,7 @@ export interface IPlaqueToContractorListDto {
     cityName: string | undefined;
     contractorName: string | undefined;
     speciesName: string | undefined;
+    creationTimeStr: string | undefined;
     id: number;
 }
 
@@ -33547,6 +33571,7 @@ export class PlaqueToOfficerListDto implements IPlaqueToOfficerListDto {
     officerFamily!: string | undefined;
     officerCode!: string | undefined;
     speciesName!: string | undefined;
+    creationTimeStr!: string | undefined;
     id!: number;
 
     constructor(data?: IPlaqueToOfficerListDto) {
@@ -33571,6 +33596,7 @@ export class PlaqueToOfficerListDto implements IPlaqueToOfficerListDto {
             this.officerFamily = data["officerFamily"];
             this.officerCode = data["officerCode"];
             this.speciesName = data["speciesName"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.id = data["id"];
         }
     }
@@ -33595,6 +33621,7 @@ export class PlaqueToOfficerListDto implements IPlaqueToOfficerListDto {
         data["officerFamily"] = this.officerFamily;
         data["officerCode"] = this.officerCode;
         data["speciesName"] = this.speciesName;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["id"] = this.id;
         return data; 
     }
@@ -33612,6 +33639,7 @@ export interface IPlaqueToOfficerListDto {
     officerFamily: string | undefined;
     officerCode: string | undefined;
     speciesName: string | undefined;
+    creationTimeStr: string | undefined;
     id: number;
 }
 
@@ -33832,6 +33860,7 @@ export class PlaqueToStateListDto implements IPlaqueToStateListDto {
     setTime!: moment.Moment;
     stateName!: string | undefined;
     speciesName!: string | undefined;
+    creationTimeStr!: string | undefined;
     id!: number;
 
     constructor(data?: IPlaqueToStateListDto) {
@@ -33853,6 +33882,7 @@ export class PlaqueToStateListDto implements IPlaqueToStateListDto {
             this.setTime = data["setTime"] ? moment(data["setTime"].toString()) : <any>undefined;
             this.stateName = data["stateName"];
             this.speciesName = data["speciesName"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.id = data["id"];
         }
     }
@@ -33874,6 +33904,7 @@ export class PlaqueToStateListDto implements IPlaqueToStateListDto {
         data["setTime"] = this.setTime ? this.setTime.toISOString() : <any>undefined;
         data["stateName"] = this.stateName;
         data["speciesName"] = this.speciesName;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["id"] = this.id;
         return data; 
     }
@@ -33888,6 +33919,7 @@ export interface IPlaqueToStateListDto {
     setTime: moment.Moment;
     stateName: string | undefined;
     speciesName: string | undefined;
+    creationTimeStr: string | undefined;
     id: number;
 }
 
@@ -39171,7 +39203,7 @@ export class UnionInfoListDto implements IUnionInfoListDto {
     family!: string | undefined;
     phone!: string | undefined;
     address!: string | undefined;
-    postalCode!: string | undefined;
+    creationTimeStr!: string | undefined;
     stateInfoId!: number;
     stateInfoName!: string | undefined;
     id!: number;
@@ -39194,7 +39226,7 @@ export class UnionInfoListDto implements IUnionInfoListDto {
             this.family = data["family"];
             this.phone = data["phone"];
             this.address = data["address"];
-            this.postalCode = data["postalCode"];
+            this.creationTimeStr = data["creationTimeStr"];
             this.stateInfoId = data["stateInfoId"];
             this.stateInfoName = data["stateInfoName"];
             this.id = data["id"];
@@ -39217,7 +39249,7 @@ export class UnionInfoListDto implements IUnionInfoListDto {
         data["family"] = this.family;
         data["phone"] = this.phone;
         data["address"] = this.address;
-        data["postalCode"] = this.postalCode;
+        data["creationTimeStr"] = this.creationTimeStr;
         data["stateInfoId"] = this.stateInfoId;
         data["stateInfoName"] = this.stateInfoName;
         data["id"] = this.id;
@@ -39233,7 +39265,7 @@ export interface IUnionInfoListDto {
     family: string | undefined;
     phone: string | undefined;
     address: string | undefined;
-    postalCode: string | undefined;
+    creationTimeStr: string | undefined;
     stateInfoId: number;
     stateInfoName: string | undefined;
     id: number;

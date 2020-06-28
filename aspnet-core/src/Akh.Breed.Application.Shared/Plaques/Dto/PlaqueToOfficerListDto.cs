@@ -47,6 +47,8 @@ namespace Akh.Breed.Plaques.Dto
         public string OfficerCode { get; set; }
 
         public string SpeciesName { get; set; }
+
+        public string CreationTimeStr { get; set; }
         
     }
 }

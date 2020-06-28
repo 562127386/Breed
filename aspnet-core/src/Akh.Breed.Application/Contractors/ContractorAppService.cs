@@ -53,7 +53,9 @@ namespace Akh.Breed.Contractors
         [AbpAuthorize(AppPermissions.Pages_BaseIntro_Contractor)]
         public async Task<PagedResultDto<ContractorListDto>> GetContractor(GetContractorInput input)
         {
-            var query = GetFilteredQuery(input);
+            var query = GetFilteredQuery(input)
+                .Include(x => x.UnionInfo)
+                .ThenInclude(x => x.StateInfo).AsQueryable();
             var user = await UserManager.GetUserByIdAsync(AbpSession.GetUserId());
             var isAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.Admin);
             var isSysAdmin = await UserManager.IsInRoleAsync(user,StaticRoleNames.Host.SysAdmin);
